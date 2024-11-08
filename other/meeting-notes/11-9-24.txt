@@ -1,0 +1,12 @@
+Meeting notes - 11/27/24
+
+Discuss:
+- Github usage
+- 2d/3d
+
+To do:
+- Setup art workflow
+- Ensure everyone added to repo
+- Register team
+
+Use remaining time to familiarize with godot + install on machines
