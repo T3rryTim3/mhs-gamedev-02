@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2bpwrcwd6g54"]
+
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_v50iy"]
+[ext_resource type="Texture2D" uid="uid://ccddg37au8kte" path="res://assets/Flappy Bird Assets/Player/StyleBird2/Bird2-1.png" id="2_uairk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ab8p3"]
+radius = 19.2354
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ifk58"]
+radius = 36.0139
+
+[sub_resource type="Animation" id="Animation_a1bkc"]
+resource_name = "fly"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_1fldo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pe6q6"]
+_data = {
+"RESET": SubResource("Animation_1fldo"),
+"fly": SubResource("Animation_a1bkc")
+}
+
+[node name="character" type="CharacterBody2D"]
+script = ExtResource("1_v50iy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ab8p3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(6, 6)
+texture = ExtResource("2_uairk")
+hframes = 4
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_ifk58")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-50, -50, 100, 100)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pe6q6")
+}
+speed_scale = 5.0
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

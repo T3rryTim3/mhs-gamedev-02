@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://dcmvmxfypwtjl"]
+
+[ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_8wpei"]
+[ext_resource type="Texture2D" uid="uid://c2racbdw7c5as" path="res://assets/Ranger cat - spritesheets/Idle/row-1-column-1.png" id="2_cjvy2"]
+[ext_resource type="Texture2D" uid="uid://bg7vjipjm4h8c" path="res://assets/Ranger cat - spritesheets/Idle/row-1-column-2.png" id="3_7ih5w"]
+[ext_resource type="Texture2D" uid="uid://dnxn0al06v0x3" path="res://assets/Ranger cat - spritesheets/Idle/row-1-column-3.png" id="4_eekbx"]
+[ext_resource type="Texture2D" uid="uid://dnvwicg5hujpx" path="res://assets/Ranger cat - spritesheets/Idle/row-1-column-4.png" id="5_x7jug"]
+[ext_resource type="Texture2D" uid="uid://5eycab1uyu1u" path="res://assets/Ranger cat - spritesheets/Run/row-1-column-5.png" id="6_nf7of"]
+[ext_resource type="Texture2D" uid="uid://ck8a6amofwdnx" path="res://assets/Ranger cat - spritesheets/Run/row-1-column-6.png" id="7_h5t34"]
+[ext_resource type="Texture2D" uid="uid://bprfgfyp5qqxj" path="res://assets/Ranger cat - spritesheets/Run/row-1-column-7.png" id="8_unocx"]
+[ext_resource type="Texture2D" uid="uid://icujb30sbv7d" path="res://assets/Ranger cat - spritesheets/Run/row-1-column-8.png" id="9_vquxx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t3kq"]
+size = Vector2(31, 61.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jh5wu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cjvy2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ih5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_eekbx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x7jug")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_nf7of")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_h5t34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_unocx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vquxx")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 15.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_sxd6f"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eoibd"]
+gradient = SubResource("Gradient_sxd6f")
+fill = 1
+fill_from = Vector2(0.541284, 0.46789)
+fill_to = Vector2(0.885321, 0.123853)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_8wpei")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -31.25)
+shape = SubResource("RectangleShape2D_7t3kq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.25, 1.25)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -48)
+sprite_frames = SubResource("SpriteFrames_jh5wu")
+animation = &"Run"
+frame_progress = 0.268832
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Dash" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Dashing" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(3, 3)
+energy = 0.6
+texture = SubResource("GradientTexture2D_eoibd")
+
+[connection signal="timeout" from="Timers/Dashing" to="." method="_on_dashing_timeout"]

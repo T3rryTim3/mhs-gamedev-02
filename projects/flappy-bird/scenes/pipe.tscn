@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfeeq25ib5ck5"]
+
+[ext_resource type="Script" path="res://scripts/pipe.gd" id="1_xul4n"]
+[ext_resource type="Texture2D" uid="uid://dgssnyoj1uft2" path="res://assets/Flappy Bird Assets/Tiles/Style 1/SimpleStyle1.png" id="2_a4170"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m15ac"]
+size = Vector2(83, 84)
+
+[node name="Pipe" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_xul4n")
+
+[node name="Template" type="Sprite2D" parent="."]
+position = Vector2(0, -42)
+scale = Vector2(3, 3)
+texture = ExtResource("2_a4170")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -42)
+shape = SubResource("RectangleShape2D_m15ac")
+
+[node name="Model" type="Node2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(52, -40)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

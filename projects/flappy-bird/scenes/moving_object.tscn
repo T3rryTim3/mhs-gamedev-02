@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv1ltiro4n7ob"]
+
+[ext_resource type="Script" path="res://moveable_object.gd" id="1_6baun"]
+[ext_resource type="Texture2D" uid="uid://dxtwdgwdwllrq" path="res://icon.svg" id="2_mbxyl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nntk8"]
+
+[node name="MovingObject" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_6baun")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4.8, 4.8)
+shape = SubResource("RectangleShape2D_nntk8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_mbxyl")
