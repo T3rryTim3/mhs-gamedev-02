@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://n4y1a4gy16cn"]
+
+[ext_resource type="Texture2D" uid="uid://bbdn7x76xwk1c" path="res://images/placeholder/Tax evader-1.png" id="1_j0ppa"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_j0ppa")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+visible = false
+layout_direction = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.13
+anchor_bottom = 0.87
+offset_top = -0.240005
+offset_right = 598.0
+offset_bottom = 0.239929
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_j0ppa")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="TextureRect4" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("1_j0ppa")
+stretch_mode = 2

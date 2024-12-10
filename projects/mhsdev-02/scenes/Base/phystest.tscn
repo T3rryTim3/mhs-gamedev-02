@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1g832odaaalg"]
+
+[ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="1_0f7r7"]
+[ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="2_c6tnk"]
+[ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_80cdg"]
+
+[node name="phystest" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Item" parent="." instance=ExtResource("2_c6tnk")]
+position = Vector2(207, 24)
+health_bar_scale = 2.0
+
+[node name="Entity" parent="." instance=ExtResource("1_0f7r7")]
+
+[node name="Collector" parent="." instance=ExtResource("3_80cdg")]
+position = Vector2(154, 44)
+
+[node name="Item2" parent="." instance=ExtResource("2_c6tnk")]
+position = Vector2(52, 72)
+health_bar_scale = 2.0

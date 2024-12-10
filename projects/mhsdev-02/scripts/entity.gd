@@ -1,0 +1,108 @@
+extends CharacterBody2D
+class_name Entity
+## Base entity class for all objects in the game.
+## Includes characters, items etc.
+##
+## Can be influenced by other entities with the coefficient of 'move_influence'
+
+## Sprite of the entity.
+@export var sprite:Sprite2D
+
+## Health of the object. calls '_death' upon hitting zero.
+@export var health:float = 10
+
+## Coefficient of any movement force applied on the object.
+@export var move_influence:float = 0.0
+
+## Healthbar scale relative to sprite width
+@export var health_bar_scale:float = 1
+
+## Healthbar placement offset (Starting from bottom-center of the sprite)
+@export var health_bar_offset:Vector2 = Vector2.ZERO
+
+## Health bar
+var health_bar:StatBar
+
+## Healthbar scene to be instantiated
+var stat_bar = preload("res://scenes/Base/health_bar.tscn")
+
+## Current force applied on the object. 'z' corresponds to the visual height of the entity.
+var force:Vector3 = Vector3.ZERO
+
+## Height off of the ground - Only affects sprite visual
+var height:float = 0
+
+## Current velocity of height
+var height_vel:float = 0
+
+## Speed of force reduction (per second)
+var drag:float = 500
+
+## Max health - auto set to 'health' start value
+var max_health:float
+
+## Force / Gravity constants
+const GRAVITY:int = 30
+const MAX_VEL:Vector3 = Vector3(100,100,100)
+
+func _update_health(new:float) -> void: ## Update health while keeping within limits.
+	health = clamp(new, 0, max_health)
+	if health <= 0:
+		_death()
+
+func _ready():
+	# Set max health to current value
+	max_health = health
+
+	# Instantiate health bar
+	health_bar = stat_bar.instantiate()
+	health_bar.texture_width = sprite.texture.get_width() * sprite.scale.x
+	health_bar.texture_height = sprite.texture.get_height() * sprite.scale.y
+
+	health_bar.thickness = 0.15
+
+	health_bar.position.y = (sprite.texture.get_height()/2.0)*sprite.scale.y
+	health_bar.position += health_bar_offset
+
+	health_bar.size_scale = health_bar_scale
+
+	add_child(health_bar)
+
+func _death() -> void: ## Calls upon health hitting zero. Will queue free by default.
+	queue_free()
+
+func _update_force(delta) -> void: ## Updates the velocity of the entity (According to move_influence)
+
+	# Apply force
+	if abs(force.z) > 0:
+		height_vel = force.z
+	else:
+		height_vel -= GRAVITY * delta
+
+	if height <= 0 and height_vel <= 0:
+		height_vel = 0
+
+	height = max(0, height + height_vel)
+	velocity += Vector2(force.x,force.y)
+
+	sprite.position.y = -height # Update relative sprite position
+
+	force = force.move_toward(Vector3.ZERO, drag * delta)
+	force.z = 0
+
+func _physics_process(delta: float) -> void:
+	velocity = Vector2.ZERO
+
+	if Input.is_action_just_pressed("ui_accept"):
+		force += Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,10)
+
+	health_bar.current = health/max_health
+
+	_update_force(delta)
+	move_and_slide()
+
+func damage(_amount:float, _kb:Vector3=Vector3.ZERO) -> void: # Deal damage to the entity
+	pass
+
+func apply_force(applied:Vector3): ## Apply force to the entity
+	force += applied

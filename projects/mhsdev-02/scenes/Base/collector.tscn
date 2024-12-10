@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://pysan0unkcxq"]
+
+[ext_resource type="Script" path="res://scenes/Base/collector.gd" id="1_11qfk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwpsp"]
+radius = 108.116
+
+[node name="Collector" type="Node2D" node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+script = ExtResource("1_11qfk")
+pickup_area = NodePath("PickupRange")
+pickup_pos_node = NodePath("PickupPos")
+drop_pos_node = NodePath("DropPos")
+
+[node name="PickupRange" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupRange"]
+shape = SubResource("CircleShape2D_iwpsp")
+
+[node name="PickupPos" type="Node2D" parent="."]
+
+[node name="DropPos" type="Node2D" parent="."]
+position = Vector2(146, -1)
