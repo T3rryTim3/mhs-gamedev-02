@@ -6,7 +6,7 @@ class_name Entity
 ## Can be influenced by other entities with the coefficient of 'move_influence'
 
 ## Sprite of the entity.
-@export var sprite:Sprite2D
+@export var sprite:Node2D
 
 ## Health of the object. calls '_death' upon hitting zero.
 @export var health:float = 10
@@ -45,6 +45,14 @@ var max_health:float
 const GRAVITY:int = 30
 const MAX_VEL:Vector3 = Vector3(100,100,100)
 
+func _get_sprite_texture() -> Texture2D:
+	if sprite is Sprite2D:
+		return sprite.texture
+	if sprite is AnimatedSprite2D:
+		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
+	print("ERROR: INVALID SRPITE SET")
+	return Texture2D.new()
+
 func _update_health(new:float) -> void: ## Update health while keeping within limits.
 	health = clamp(new, 0, max_health)
 	if health <= 0:
@@ -54,14 +62,16 @@ func _ready():
 	# Set max health to current value
 	max_health = health
 
+	var sprite_texture = _get_sprite_texture()
+
 	# Instantiate health bar
 	health_bar = stat_bar.instantiate()
-	health_bar.texture_width = sprite.texture.get_width() * sprite.scale.x
-	health_bar.texture_height = sprite.texture.get_height() * sprite.scale.y
+	health_bar.texture_width = sprite_texture.get_width() * sprite.scale.x
+	health_bar.texture_height = sprite_texture.get_height() * sprite.scale.y
 
 	health_bar.thickness = 0.15
 
-	health_bar.position.y = (sprite.texture.get_height()/2.0)*sprite.scale.y
+	health_bar.position.y = (sprite_texture.get_height()/2.0)*sprite.scale.y
 	health_bar.position += health_bar_offset
 
 	health_bar.size_scale = health_bar_scale
@@ -90,6 +100,9 @@ func _update_force(delta) -> void: ## Updates the velocity of the entity (Accord
 	force = force.move_toward(Vector3.ZERO, drag * delta)
 	force.z = 0
 
+func _movement(_delta) -> void: ## Used in subclasses for movement
+	pass
+
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 
@@ -98,6 +111,7 @@ func _physics_process(delta: float) -> void:
 
 	health_bar.current = health/max_health
 
+	_movement(delta)
 	_update_force(delta)
 	move_and_slide()
 
