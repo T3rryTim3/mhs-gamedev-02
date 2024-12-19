@@ -12,7 +12,7 @@ class_name Entity
 @export var health:float = 10
 
 ## Coefficient of any movement force applied on the object.
-@export var move_influence:float = 0.0
+@export var move_influence:float = 1.0
 
 ## Healthbar scale relative to sprite width
 @export var health_bar_scale:float = 1
@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 
 	if Input.is_action_just_pressed("ui_accept"):
-		force += Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,10)
+		apply_force(Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,randf_range(0,1)*600))
 
 	health_bar.current = health/max_health
 
@@ -119,4 +119,8 @@ func damage(_amount:float, _kb:Vector3=Vector3.ZERO) -> void: # Deal damage to t
 	pass
 
 func apply_force(applied:Vector3): ## Apply force to the entity
+	applied *= move_influence
+	print(move_influence)
+	print(applied)
+	applied.z = (abs(applied.y) + abs(applied.x)) / 80
 	force += applied

@@ -256,6 +256,7 @@ radius = 17.58
 motion_mode = 1
 script = ExtResource("1_1ohs8")
 sprite = NodePath("AnimatedSprite2D")
+move_influence = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11.5)

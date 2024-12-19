@@ -9,6 +9,9 @@ class_name Collector
 ## The vertical distance between items in the stack.
 @export var stack_distance:int = 48
 
+## The random offset of dropping items
+@export var drop_offset:int = 5
+
 ## The coefficient applied to the decay rate of collected items; makes items last longer/shorter
 @export var decay_coef:float = 0.5
 
@@ -16,7 +19,7 @@ class_name Collector
 @export_range(0,2) var pickup_time:float = 0.5
 
 ## How high up the item is lifted when being collected - animation only
-@export_range(0,192) var pickup_height:float = 96
+@export_range(0,192) var pickup_height:float = 48
 
 ## Area2D Node for detecting items to pick up.
 @export var pickup_area:Area2D
@@ -87,6 +90,10 @@ func add_nearest_item():
 
 func add_item(item:Item) -> void: ## Add an item to the top of the stack.
 	# Reparent item
+	
+	if len(current_resources) >= stack_limit:
+		return
+	
 	var global_pos = item.global_position
 	item.get_parent().remove_child(item)
 	add_child(item)
@@ -121,7 +128,7 @@ func drop_item() -> void: ## Drop the topmost item.
 
 	_reset_item_stats(item)
 
-	item.position = drop_pos_node.position
+	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
 	var glob_pos:Vector2 = item.global_position
 
 	# Reparent item to root

@@ -18,6 +18,7 @@ func _movement(delta) -> void:
 		collector_pos_dir.y = 0
 	
 	collector.position = collector_pos_dir * (collector_collider.shape.get_rect().size.x/4)
+	collector.drop_pos_node.position = collector.position
 	if collector_pos_dir.y <= 0:
 		collector.z_index = -2
 	else:
@@ -29,6 +30,11 @@ func _process(delta) -> void:
 
 func _input(event) -> void:
 	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_E:
-			collector.add_nearest_item()
+		if event.pressed:
+			match event.keycode:
+				KEY_E:
+					collector.add_nearest_item()
+				KEY_Q:
+					collector.drop_item()
+
 	holding_item = len(collector.current_resources) > 0

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=7 format=3 uid="uid://c1g832odaaalg"]
 
 [ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="1_0f7r7"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="2_c6tnk"]
 [ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_80cdg"]
 [ext_resource type="PackedScene" uid="uid://csm7lx0v5ercn" path="res://scenes/Base/humanoid.tscn" id="4_fk64c"]
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="5_5cbv7"]
+[ext_resource type="PackedScene" uid="uid://nsrj6j5h6ctv" path="res://scenes/Base/station.tscn" id="6_xm8c2"]
 
 [node name="phystest" type="Node2D"]
 
@@ -26,3 +27,10 @@ position = Vector2(-41, 35)
 
 [node name="Humanoid2" parent="." instance=ExtResource("5_5cbv7")]
 position = Vector2(-112, 27)
+
+[node name="Station" parent="." instance=ExtResource("6_xm8c2")]
+position = Vector2(-221, 11)
+health = 60.0
+move_influence = 0.2
+
+[node name="Camera2D" type="Camera2D" parent="."]
