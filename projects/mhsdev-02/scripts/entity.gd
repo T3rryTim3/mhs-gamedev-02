@@ -51,7 +51,7 @@ func _get_sprite_texture() -> Texture2D:
 	if sprite is AnimatedSprite2D:
 		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
 	print("ERROR: INVALID SRPITE SET")
-	return Texture2D.new()
+	return Texture.new()
 
 func _update_health(new:float) -> void: ## Update health while keeping within limits.
 	health = clamp(new, 0, max_health)
@@ -102,6 +102,9 @@ func _update_force(delta) -> void: ## Updates the velocity of the entity (Accord
 
 func _movement(_delta) -> void: ## Used in subclasses for movement
 	pass
+
+func _process(_delta):
+	return
 
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO

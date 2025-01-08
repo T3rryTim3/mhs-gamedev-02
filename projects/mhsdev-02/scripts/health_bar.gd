@@ -28,7 +28,7 @@ class_name StatBar
 @onready var y_offset = position.y
 
 ## Lerp per frame (accounting for delta)
-var lerp_val:float = 0.04
+var lerp_val:float = 0.2
 
 ## Current progress (0-1)
 var current:float = 1

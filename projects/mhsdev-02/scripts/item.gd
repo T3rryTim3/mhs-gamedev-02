@@ -42,10 +42,10 @@ func _ready() -> void:
 			img_path = "res://images/items/wheat.png"
 		1: # Wheat
 			health = 3
-			decay_rate = 0.6
+			decay_rate = 0.2
 		2: # Bread
 			health = 6
-			decay_rate = 0.8
+			decay_rate = 0.2
 	var image = load(img_path)
 	$Sprite2D.texture = image
 	super()
