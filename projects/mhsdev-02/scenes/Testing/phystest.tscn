@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1g832odaaalg"]
+
+[ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
+[ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="2_p0ww8"]
+[ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_stxc0"]
+[ext_resource type="PackedScene" uid="uid://csm7lx0v5ercn" path="res://scenes/Base/humanoid.tscn" id="4_chua8"]
+[ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="5_e3raw"]
+[ext_resource type="PackedScene" uid="uid://nsrj6j5h6ctv" path="res://scenes/Base/station.tscn" id="6_a5nhr"]
+[ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
+
+[node name="phystest" type="Node2D"]
+
+[node name="Item" parent="." instance=ExtResource("1_ql2ok")]
+position = Vector2(21, 79)
+
+[node name="Entity" parent="." instance=ExtResource("2_p0ww8")]
+
+[node name="Collector" parent="." instance=ExtResource("3_stxc0")]
+position = Vector2(334, 43)
+
+[node name="Item2" parent="." instance=ExtResource("1_ql2ok")]
+position = Vector2(52, 72)
+
+[node name="Humanoid" parent="." instance=ExtResource("4_chua8")]
+position = Vector2(-41, 35)
+
+[node name="Humanoid2" parent="." instance=ExtResource("5_e3raw")]
+position = Vector2(-113, 28)
+
+[node name="Station" parent="." instance=ExtResource("6_a5nhr")]
+position = Vector2(-221, 11)
+health = 60.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Station2" parent="." instance=ExtResource("7_s0786")]
+position = Vector2(-221, 135)
+move_influence = 0.1
+
+[node name="Item3" parent="." instance=ExtResource("1_ql2ok")]
+position = Vector2(-13, 78)

@@ -33,7 +33,8 @@ func _input(event) -> void:
 		if event.pressed:
 			match event.keycode:
 				KEY_E:
-					collector.add_nearest_item()
+					if not collector.add_nearest_item():
+						collector.drop_item()
 				KEY_Q:
 					collector.drop_item()
 

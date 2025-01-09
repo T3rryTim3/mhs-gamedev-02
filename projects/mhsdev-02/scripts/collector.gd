@@ -81,18 +81,19 @@ func _get_nearest_item() -> Item: ## Get the nearest Item node not currently in 
 
 	return nearest_obj
 
-func add_nearest_item():
+func add_nearest_item() -> bool:
 	var nearest_item = _get_nearest_item()
 	if not nearest_item:
 		print("No item found.")
-		return
-	add_item(nearest_item)
+		return false
 
-func add_item(item:Item) -> void: ## Add an item to the top of the stack.
+	return add_item(nearest_item)
+
+func add_item(item:Item) -> bool: ## Add an item to the top of the stack.
 	# Reparent item
 	
 	if len(current_resources) >= stack_limit:
-		return
+		return false
 	
 	var global_pos = item.global_position
 	item.get_parent().remove_child(item)
@@ -111,6 +112,8 @@ func add_item(item:Item) -> void: ## Add an item to the top of the stack.
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
 	print(item.get_parent().get_class())
 	print("Added item to collector!")
+	
+	return true
 
 func _reset_item_stats(item:Item) -> void: ## Reset connections and other variables of an item.
 	_remove_item(item.collection_id)
