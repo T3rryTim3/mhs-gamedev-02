@@ -123,7 +123,5 @@ func damage(_amount:float, _kb:Vector3=Vector3.ZERO) -> void: # Deal damage to t
 
 func apply_force(applied:Vector3): ## Apply force to the entity
 	applied *= move_influence
-	print(move_influence)
-	print(applied)
 	applied.z = (abs(applied.y) + abs(applied.x)) / 80
 	force += applied

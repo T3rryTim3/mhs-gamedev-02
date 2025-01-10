@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=9 format=3 uid="uid://c1g832odaaalg"]
 
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
 [ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="2_p0ww8"]
@@ -7,11 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="5_e3raw"]
 [ext_resource type="PackedScene" uid="uid://nsrj6j5h6ctv" path="res://scenes/Base/station.tscn" id="6_a5nhr"]
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
+[ext_resource type="PackedScene" uid="uid://i0xmlk7yt0wk" path="res://scenes/Stations/oven.tscn" id="8_bnbq1"]
 
 [node name="phystest" type="Node2D"]
 
 [node name="Item" parent="." instance=ExtResource("1_ql2ok")]
-position = Vector2(21, 79)
+position = Vector2(7, 77)
+id = 1
 
 [node name="Entity" parent="." instance=ExtResource("2_p0ww8")]
 
@@ -19,7 +21,7 @@ position = Vector2(21, 79)
 position = Vector2(334, 43)
 
 [node name="Item2" parent="." instance=ExtResource("1_ql2ok")]
-position = Vector2(52, 72)
+position = Vector2(41, 77)
 
 [node name="Humanoid" parent="." instance=ExtResource("4_chua8")]
 position = Vector2(-41, 35)
@@ -34,8 +36,23 @@ health = 60.0
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Station2" parent="." instance=ExtResource("7_s0786")]
-position = Vector2(-221, 135)
+position = Vector2(-219, 109)
 move_influence = 0.1
 
 [node name="Item3" parent="." instance=ExtResource("1_ql2ok")]
-position = Vector2(-13, 78)
+position = Vector2(-25, 78)
+id = 0
+
+[node name="Item4" parent="." instance=ExtResource("1_ql2ok")]
+position = Vector2(7, 105)
+id = 4
+
+[node name="Item5" parent="." instance=ExtResource("1_ql2ok")]
+position = Vector2(56, -7)
+
+[node name="Item6" parent="." instance=ExtResource("1_ql2ok")]
+position = Vector2(-25, 106)
+id = 3
+
+[node name="Oven" parent="." instance=ExtResource("8_bnbq1")]
+position = Vector2(-6, 119)
