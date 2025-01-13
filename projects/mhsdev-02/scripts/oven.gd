@@ -1,11 +1,5 @@
 extends Station
 
-## Preload dropped resource
-var drop = preload("res://scenes/Base/item.tscn")
-
-## Changes the item "fling" value when dropped
-@export var fling_coef:float=1
-
 @onready var collector_wheat = $Collector
 @onready var collector_wood = $Collector2
 
@@ -35,4 +29,4 @@ func produce():
 		new_drop.position = $DropPos.position
 		new_drop.apply_force(Vector3(randi_range(-60,-60),randi_range(60,130),0))
 		
-		add_child(new_drop)
+		get_parent().add_child.call_deferred(new_drop)

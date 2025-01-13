@@ -77,18 +77,26 @@ func _physics_process(delta: float) -> void:
 			# Account for stack height
 			item.position.y -= (item.collect_progress * (i*stack_distance)) / 2
 
-func _get_nearest_item() -> Item: ## Get the nearest Item node not currently in a collector.
+func _get_nearest_item(reset:bool = true) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
 	var nearest_obj:PhysicsBody2D
 
 	# Loop through items within range
 	for body in pickup_area.get_overlapping_bodies(): # Assumed items due to collision groups
 		var distance = pickup_pos_node.global_position.distance_to(body.global_position)
-		if distance < nearest_distance and not (body.get_parent() is Collector):
-			if (body.id != limit_type) and (limit_type_enable): # Prevent other items if limit
+		if distance < nearest_distance and not (body.get_parent() is Collector and not body.get_parent().can_steal):
+	
+			# Prevent other items if limit
+			if (body.id != limit_type) and (limit_type_enable):
 				continue
+	
 			nearest_distance = distance
 			nearest_obj = body
+
+	# Reset stats if in collector
+	if nearest_obj and nearest_obj.get_parent() is Collector and reset:
+		if nearest_obj.get_parent() != self:
+			nearest_obj.get_parent().reset_item_stats(nearest_obj)
 
 	return nearest_obj
 
@@ -123,7 +131,7 @@ func add_item(item:Item) -> bool: ## Add an item to the top of the stack.
 	
 	return true
 
-func _reset_item_stats(item:Item) -> void: ## Reset connections and other variables of an item.
+func reset_item_stats(item:Item) -> void: ## Reset connections and other variables of an item.
 	_remove_item(item.collection_id)
 	item.collect_progress = 0
 	item.collector_decay_coef = 1
@@ -134,7 +142,7 @@ func destroy_item() -> void:
 		return
 
 	var item:Item = current_resources[-1] # Get topmost item
-	_reset_item_stats(item)
+	reset_item_stats(item)
 	
 	item.queue_free()
 
@@ -145,7 +153,7 @@ func drop_item() -> void: ## Drop the topmost item.
 
 	var item:Item = current_resources[-1] # Get topmost item
 
-	_reset_item_stats(item)
+	reset_item_stats(item)
 
 	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
 	var glob_pos:Vector2 = item.global_position
