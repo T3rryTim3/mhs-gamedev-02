@@ -5,7 +5,9 @@ enum ItemTypes
 {
 	WOOD,
 	WHEAT,
-	BREAD
+	BREAD,
+	WATER,
+	ROCK
 }
 
 ## Item ID
@@ -39,13 +41,24 @@ func _ready() -> void:
 		0: # Wood
 			health = 8
 			decay_rate = 0
-			img_path = "res://images/items/wheat.png"
+			img_path = "res://images/items/wood.png"
 		1: # Wheat
 			health = 3
 			decay_rate = 0.2
+			img_path = "res://images/items/wheat.png"
 		2: # Bread
 			health = 6
 			decay_rate = 0.2
+			img_path = "res://images/items/bread.png"
+		3: # Water
+			health = 1
+			decay_rate = 0.01
+			img_path = "res://images/items/water.png"
+		4: # Rock
+			health = 15
+			decay_rate = 0
+			img_path = "res://images/items/rock.png"
+			
 	var image = load(img_path)
 	$Sprite2D.texture = image
 	super()

@@ -1,8 +1,27 @@
 extends Entity
 class_name Station
 
+## Default texture
+var DEFAULT_PROGRESS_TEXTURE = preload("res://scenes/Base/station_default_progress.tres")
+
+## Default fling for item spawning
+var DEFAULT_FLING_VAL:int = 160
+
+## Preload dropped resource
+var drop = preload("res://scenes/Base/item.tscn")
+
+enum LayerBehaviour
+{
+	ADAPTIVE,
+	BELOW,
+	ABOVE
+}
+
 ## Progress bar offset relative to healthbar
 @export var progress_bar_offset:float = 10
+
+## Behavoir for display in relation to the player
+@export var layer_behavior:LayerBehaviour = LayerBehaviour.ADAPTIVE
 
 ## Time to fully process
 @export var produce_time:float = 5
@@ -19,11 +38,25 @@ class_name Station
 ## Timer object
 @onready var progress_timer:Timer = Timer.new()
 
+## Force multi to dropped resources
+@export var fling_coef:float = 1
+
 ## (Animation) Current stretch value
 var stretch_val:float = 0
 
 ## (Animation) Animation length
 var stretch_time:float = 0.15
+
+func create_item(id:Item.ItemTypes, item_force:Vector2=Vector2.ZERO):
+	var new_drop:Item = drop.instantiate()
+	new_drop.id = id
+	new_drop.global_position = $DropPos.global_position
+	
+	item_force = item_force.normalized()
+	
+	new_drop.apply_force(Vector3(item_force.x * DEFAULT_FLING_VAL, item_force.y * DEFAULT_FLING_VAL, 0) * fling_coef)
+	
+	get_parent().add_child(new_drop)
 
 func produce_anim(delta): ## Production animation
 	stretch_val += delta
@@ -61,8 +94,24 @@ func _process(delta):
 	progress_bar.current = (progress_timer.time_left / progress_timer.wait_time)
 	produce_anim(delta)
 	
+	match layer_behavior:
+		0:
+			# Check if the player is above the station based on camera pos
+			if get_viewport().get_camera_2d().global_position.y + 24 < global_position.y + _get_sprite_texture().get_height()/2.0:
+				z_index = 2
+			else:
+				z_index = -1
+		1:
+			z_index = -1
+		2: 
+			z_index = 2
+	
 
 func _ready():
+	
+	if not progress_bar_texture:
+		progress_bar_texture = DEFAULT_PROGRESS_TEXTURE
+	
 	super()
 	_init_progress_bar()
 	
