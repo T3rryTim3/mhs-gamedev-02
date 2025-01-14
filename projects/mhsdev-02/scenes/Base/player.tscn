@@ -44,7 +44,7 @@
 [ext_resource type="Script" path="res://scripts/collector.gd" id="42_nclik"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
-size = Vector2(20, 23)
+size = Vector2(13, 19)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1g787"]
 animations = [{
@@ -259,7 +259,7 @@ sprite = NodePath("AnimatedSprite2D")
 move_influence = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11.5)
+position = Vector2(0.5, 13.5)
 shape = SubResource("RectangleShape2D_xebjq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

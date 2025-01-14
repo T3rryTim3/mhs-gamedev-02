@@ -17,6 +17,9 @@ enum LayerBehaviour
 	ABOVE
 }
 
+## Station data
+@export var station_data:StationData.Stations
+
 ## Progress bar offset relative to healthbar
 @export var progress_bar_offset:float = 10
 

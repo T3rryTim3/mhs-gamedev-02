@@ -12,6 +12,7 @@ script = ExtResource("1_xou8e")
 layer_behavior = 1
 produce_time = 20.0
 sprite = NodePath("Sprite2D")
+move_influence = 0.01
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_cat8v")
