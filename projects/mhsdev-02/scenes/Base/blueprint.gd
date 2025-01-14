@@ -28,5 +28,6 @@ func _ready():
 		var item = cost_item.instantiate()
 		$VBoxContainer.add_child(item)
 		
-		item.label.text = "0 /" + str(cost[k])
+		item.label.text = "0 / " + str(cost[k])
+		item.texture_rect.texture = load(ItemData.get_item_data(k)["img_path"])
 		

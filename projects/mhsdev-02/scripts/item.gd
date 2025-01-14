@@ -1,17 +1,8 @@
 extends Entity
 class_name Item
 
-enum ItemTypes
-{
-	WOOD,
-	WHEAT,
-	BREAD,
-	WATER,
-	ROCK
-}
-
 ## Item ID
-@export var id:ItemTypes
+@export var id:ItemData.ItemTypes
 
 ## Speed which health diminishes over time (per second)
 var decay_rate:float
@@ -36,28 +27,10 @@ var collection_id:int = 0
 
 func _ready() -> void:
 	# Assign base stats based on resource
-	img_path = "res://images/items/wheat.png" # Default texture
-	match id:
-		0: # Wood
-			health = 8
-			decay_rate = 0
-			img_path = "res://images/items/wood.png"
-		1: # Wheat
-			health = 3
-			decay_rate = 0.2
-			img_path = "res://images/items/wheat.png"
-		2: # Bread
-			health = 6
-			decay_rate = 0.2
-			img_path = "res://images/items/bread.png"
-		3: # Water
-			health = 1
-			decay_rate = 0.01
-			img_path = "res://images/items/water.png"
-		4: # Rock
-			health = 15
-			decay_rate = 0
-			img_path = "res://images/items/rock.png"
+	var data = ItemData.get_item_data(id)
+	health = data["health"]
+	decay_rate = data["decay_rate"]
+	img_path = data["img_path"]
 			
 	var image = load(img_path)
 	$Sprite2D.texture = image

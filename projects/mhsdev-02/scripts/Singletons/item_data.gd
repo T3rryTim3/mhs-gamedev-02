@@ -9,7 +9,7 @@ enum ItemTypes
 	ROCK
 }
 
-func get_item_data(id:ItemTypes):
+func get_item_data(id:ItemTypes) -> Dictionary:
 	
 	var img_path = "res://images/items/wheat.png" # Default texture
 	var decay_rate = 0.05
@@ -36,3 +36,9 @@ func get_item_data(id:ItemTypes):
 			health = 15
 			decay_rate = 0
 			img_path = "res://images/items/rock.png"
+	return {
+		"health": health,
+		"decay_rate": decay_rate,
+		"img_path": img_path,
+		"id":id
+	}

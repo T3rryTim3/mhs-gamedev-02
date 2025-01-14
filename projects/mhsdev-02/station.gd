@@ -50,7 +50,7 @@ var stretch_val:float = 0
 ## (Animation) Animation length
 var stretch_time:float = 0.15
 
-func create_item(id:Item.ItemTypes, item_force:Vector2=Vector2.ZERO):
+func create_item(id:ItemData.ItemTypes, item_force:Vector2=Vector2.ZERO):
 	var new_drop:Item = drop.instantiate()
 	new_drop.id = id
 	new_drop.global_position = $DropPos.global_position

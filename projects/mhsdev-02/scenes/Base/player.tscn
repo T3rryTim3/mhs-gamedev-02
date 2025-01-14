@@ -270,6 +270,7 @@ frame_progress = 0.779783
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = -2
 script = ExtResource("42_nclik")
+stack_limit = 3
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
