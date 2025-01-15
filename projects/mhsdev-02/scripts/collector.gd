@@ -4,6 +4,7 @@ class_name Collector
 ## Used to add "Inventory" slots to other nodes.
 
 signal item_collected
+signal item_reset
 
 ## How many items at a time that the collector can hold.
 @export var stack_limit:int = 1
@@ -21,10 +22,10 @@ signal item_collected
 @export var decay_coef:float = 0.5
 
 ## The time from the item being collected to it being held
-@export_range(0,2) var pickup_time:float = 0.5
+@export_range(0,2) var pickup_time:float = 0.25
 
 ## How high up the item is lifted when being collected - animation only
-@export_range(0,192) var pickup_height:float = 48
+@export_range(0,192) var pickup_height:float = 24
 
 ## Area2D Node for detecting items to pick up.
 @export var pickup_area:Area2D
@@ -77,21 +78,34 @@ func _physics_process(delta: float) -> void:
 			# Use sin for arc shape
 			item.position.y = -pickup_height * (sin((1/pickup_time)*PI*(item.collect_progress)))
 			# Account for stack height
-			item.position.y -= (item.collect_progress * (i*stack_distance)) / 2
+			item.position.y -= (item.collect_progress * ((i)*stack_distance)) / 2
 
-func _get_nearest_item(reset:bool = true) -> Item: ## Get the nearest Item node not currently in a collector.
+func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
 	var nearest_obj:PhysicsBody2D
 
 	# Loop through items within range
-	for body in pickup_area.get_overlapping_bodies(): # Assumed items due to collision groups
+	for body in pickup_area.get_overlapping_bodies():
+		if not (body is Item):
+			continue
 		var distance = pickup_pos_node.global_position.distance_to(body.global_position)
-		if distance < nearest_distance and not (body.get_parent() is Collector and not body.get_parent().can_steal):
-	
+		if distance < nearest_distance:
+
+			# Prevent collector stealing unless enabled
+			if (body.get_parent() is Collector and not body.get_parent().can_steal):
+				continue
+
+			if body.get_parent() == self:
+				continue
+
 			# Prevent other items if limit
 			if (body.id != limit_type) and (limit_type_enable):
 				continue
-	
+
+			# Prevent from forced type
+			if (force_type >= 0 and body.id != force_type):
+				continue
+
 			nearest_distance = distance
 			nearest_obj = body
 
@@ -102,19 +116,21 @@ func _get_nearest_item(reset:bool = true) -> Item: ## Get the nearest Item node 
 
 	return nearest_obj
 
-func add_nearest_item() -> bool:
-	var nearest_item = _get_nearest_item()
+func add_nearest_item(force_type = -1) -> bool:
+	var nearest_item = _get_nearest_item(true, force_type)
 	if not nearest_item:
 		return false
-
 	return add_item(nearest_item)
 
-func add_item(item:Item) -> bool: ## Add an item to the top of the stack.
+func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to the top of the stack.
 	# Reparent item
 	
 	if len(current_resources) >= stack_limit:
 		return false
-	
+
+	#if item.global_position == pickup_pos_node.global_position:
+		#skip_animation = true
+
 	var global_pos = item.global_position
 	item.get_parent().remove_child(item)
 	add_child(item)
@@ -131,8 +147,14 @@ func add_item(item:Item) -> bool: ## Add an item to the top of the stack.
 	current_resources.append(item)
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
 	
+	if skip_animation:
+		item.collect_progress = pickup_time
+
 	item_collected.emit()
 	
+	if decay_coef == 0:
+		item.show_health = false
+
 	return true
 
 func reset_item_stats(item:Item) -> void: ## Reset connections and other variables of an item.
@@ -140,6 +162,8 @@ func reset_item_stats(item:Item) -> void: ## Reset connections and other variabl
 	item.collect_progress = 0
 	item.collector_decay_coef = 1
 	item.tree_exiting.disconnect(_remove_item)
+	item.show_health = true
+	item_reset.emit()
 
 func destroy_item() -> void:
 	if len(current_resources) == 0:
@@ -155,6 +179,14 @@ func drop_item() -> void: ## Drop the topmost item.
 	if len(current_resources) == 0:
 		return
 
+	var near_collector
+	for area in $PickupRange.get_overlapping_areas():
+		if not (area is Area2D):
+			continue
+		if not (area.get_parent() is Collector):
+			continue
+		near_collector = area
+
 	var item:Item = current_resources[-1] # Get topmost item
 
 	reset_item_stats(item)
@@ -168,3 +200,7 @@ func drop_item() -> void: ## Drop the topmost item.
 
 	# Reset position back
 	item.global_position = glob_pos
+	
+	# ...Unless there's a collector
+	if near_collector:
+		item.global_position = near_collector.get_parent().pickup_pos_node.global_position

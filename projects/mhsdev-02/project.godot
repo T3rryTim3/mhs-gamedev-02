@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MHSDEV02 - First project"
-run/main_scene="res://scenes/Testing/phystest.tscn"
+run/main_scene="res://scenes/Structure/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.107535, 0.113264, 0.293981, 1)
 config/icon="res://icon.svg"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cec63m3q1fajg"]
+
+[ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
+[ext_resource type="PackedScene" uid="uid://c1g832odaaalg" path="res://scenes/Testing/phystest.tscn" id="1_yr86s"]
+
+[node name="Main" type="Node2D"]
+
+[node name="DevConsole" parent="." instance=ExtResource("1_vl0ib")]
+visible = false
+
+[node name="phystest" parent="." instance=ExtResource("1_yr86s")]

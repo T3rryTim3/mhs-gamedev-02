@@ -10,6 +10,7 @@ size = Vector2(66.5, 13.5)
 motion_mode = 1
 script = ExtResource("1_daxd7")
 layer_behavior = 1
+produce_time = 10.0
 sprite = NodePath("Sprite2D")
 move_influence = 0.01
 

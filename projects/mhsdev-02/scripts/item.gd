@@ -37,4 +37,5 @@ func _ready() -> void:
 	super()
 
 func _process(delta: float) -> void:
+	super(delta)
 	_update_health(health - (decay_rate * collector_decay_coef) * delta)

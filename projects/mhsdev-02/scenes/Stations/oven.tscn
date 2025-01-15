@@ -28,6 +28,7 @@ shape = SubResource("RectangleShape2D_astqw")
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = -2
 script = ExtResource("4_fcgx6")
+stack_limit = 5
 can_steal = true
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
@@ -36,6 +37,7 @@ limit_type_enable = true
 limit_type = 1
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
+collision_layer = 6
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
@@ -51,13 +53,16 @@ position = Vector2(-50, 49)
 [node name="Collector2" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = -2
 script = ExtResource("4_fcgx6")
+stack_limit = 5
 can_steal = true
+decay_coef = 0.0
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 
 [node name="PickupRange" type="Area2D" parent="Collector2"]
+collision_layer = 6
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collector2/PickupRange"]

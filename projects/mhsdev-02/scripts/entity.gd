@@ -45,6 +45,9 @@ var max_health:float
 const GRAVITY:int = 30
 const MAX_VEL:Vector3 = Vector3(100,100,100)
 
+## Hide the healthbar - Used when items are collected
+var show_health:bool = true
+
 func _get_sprite_texture() -> Texture2D:
 	if sprite is Sprite2D:
 		return sprite.texture
@@ -104,13 +107,14 @@ func _movement(_delta) -> void: ## Used in subclasses for movement
 	pass
 
 func _process(_delta):
+	health_bar.visible = show_health
 	return
 
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 
-	if Input.is_action_just_pressed("ui_accept"):
-		apply_force(Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,randf_range(0,1)*600))
+	#if Input.is_action_just_pressed("ui_accept"):
+		#apply_force(Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,randf_range(0,1)*600))
 
 	health_bar.current = health/max_health
 

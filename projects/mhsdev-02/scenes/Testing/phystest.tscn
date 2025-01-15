@@ -446,6 +446,18 @@ position = Vector2(-390, 323)
 position = Vector2(41, 77)
 
 [node name="Item3" parent="Items" instance=ExtResource("1_ql2ok")]
+position = Vector2(31, 180)
+id = 4
+
+[node name="Item8" parent="Items" instance=ExtResource("1_ql2ok")]
+position = Vector2(62, 177)
+id = 4
+
+[node name="Item9" parent="Items" instance=ExtResource("1_ql2ok")]
+position = Vector2(100, 174)
+id = 0
+
+[node name="Item7" parent="Items" instance=ExtResource("1_ql2ok")]
 position = Vector2(-25, 78)
 id = 0
 

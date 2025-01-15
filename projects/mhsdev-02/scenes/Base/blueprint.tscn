@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0j0sjf62c3tn"]
+[gd_scene load_steps=8 format=3 uid="uid://d0j0sjf62c3tn"]
 
 [ext_resource type="Shader" path="res://Shaders/blueprint.gdshader" id="1_4vuwh"]
 [ext_resource type="Script" path="res://scenes/Base/blueprint.gd" id="1_kkihv"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_gqyux"]
+[ext_resource type="Script" path="res://scripts/collector.gd" id="4_3wxl6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jcjq1"]
 shader = ExtResource("1_4vuwh")
@@ -13,10 +14,14 @@ Label/font_sizes/font_size = 12
 Label/fonts/font = null
 VBoxContainer/constants/separation = 0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3gnng"]
+radius = 17.58
+
 [node name="Blueprint" type="Node2D"]
 script = ExtResource("1_kkihv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
 material = SubResource("ShaderMaterial_jcjq1")
 texture = ExtResource("2_gqyux")
 
@@ -26,3 +31,28 @@ offset_top = 48.0
 offset_right = 48.0
 offset_bottom = 144.0
 theme = SubResource("Theme_42iqc")
+
+[node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+z_index = -2
+script = ExtResource("4_3wxl6")
+can_steal = true
+pickup_area = NodePath("PickupRange")
+pickup_pos_node = NodePath("PickupPos")
+drop_pos_node = NodePath("DropPos")
+
+[node name="PickupRange" type="Area2D" parent="Collector"]
+collision_layer = 4
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
+position = Vector2(52, 9)
+shape = SubResource("CircleShape2D_3gnng")
+
+[node name="PickupPos" type="Node2D" parent="Collector"]
+position = Vector2(52, 8)
+
+[node name="DropPos" type="Node2D" parent="Collector"]
+position = Vector2(52, 48)
+
+[connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]
+[connection signal="item_reset" from="Collector" to="." method="_on_collector_item_reset"]

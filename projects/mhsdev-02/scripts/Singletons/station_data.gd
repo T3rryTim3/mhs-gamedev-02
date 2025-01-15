@@ -38,28 +38,28 @@ func get_station_cost(station:Stations):
 	match station:
 		0: # Well
 			return {
-				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 1
+				ItemData.ItemTypes.ROCK: 3,
+				ItemData.ItemTypes.WOOD: 2,
 			}
 		1: # Crop
 			return {
 				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 1
+				ItemData.ItemTypes.WOOD: 3,
 			}
 		2: # Quarry
 			return {
-				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 1
+				ItemData.ItemTypes.ROCK: 5,
+				ItemData.ItemTypes.WOOD: 2
 			}
 		3: # Forest
 			return {
 				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 1
+				ItemData.ItemTypes.WOOD: 5
 			}
 		4: # Oven
 			return {
-				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 1
+				ItemData.ItemTypes.ROCK: 3,
+				ItemData.ItemTypes.WOOD: 3
 			}
 		_: # Else
 			return {

@@ -25,7 +25,7 @@ func produce():
 		collector_wood.destroy_item()
 	
 		var new_drop:Item = drop.instantiate()
-		new_drop.id = new_drop.ItemTypes.BREAD
+		new_drop.id = ItemData.ItemTypes.BREAD
 		new_drop.position = $DropPos.position
 		new_drop.apply_force(Vector3(randi_range(-60,-60),randi_range(60,130),0))
 		
