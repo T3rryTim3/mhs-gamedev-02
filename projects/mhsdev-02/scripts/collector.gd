@@ -3,6 +3,8 @@ class_name Collector
 ## Holds resources in a stack on top of eachother.
 ## Used to add "Inventory" slots to other nodes.
 
+signal item_collected
+
 ## How many items at a time that the collector can hold.
 @export var stack_limit:int = 1
 
@@ -37,7 +39,7 @@ class_name Collector
 @export var limit_type_enable:bool = false
 
 ## Limit items picked up
-@export var limit_type:Item.ItemTypes
+@export var limit_type:ItemData.ItemTypes
 
 ## Tracker used to identify / separate items
 var current_item_id:int = 0
@@ -128,6 +130,8 @@ func add_item(item:Item) -> bool: ## Add an item to the top of the stack.
 
 	current_resources.append(item)
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
+	
+	item_collected.emit()
 	
 	return true
 

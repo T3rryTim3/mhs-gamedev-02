@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by3gkt2w2oww5"
-path="res://.godot/imported/forest crop.png-dbd43a73c214edd772dfdffab81c5611.ctex"
+uid="uid://bliae3yxm0qkf"
+path="res://.godot/imported/crop.png-2637e2b71a792011b0786ea60f46fb8e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/stations/forest crop.png"
-dest_files=["res://.godot/imported/forest crop.png-dbd43a73c214edd772dfdffab81c5611.ctex"]
+source_file="res://images/stations/crop.png"
+dest_files=["res://.godot/imported/crop.png-2637e2b71a792011b0786ea60f46fb8e.ctex"]
 
 [params]
 

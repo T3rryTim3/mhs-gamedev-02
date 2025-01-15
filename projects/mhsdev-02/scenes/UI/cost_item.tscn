@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg23b2b272g0a"]
+
+[ext_resource type="Script" path="res://scripts/UI/cost_item.gd" id="1_7bo3e"]
+[ext_resource type="Texture2D" uid="uid://b0tkosq4yj17f" path="res://images/items/bread.png" id="1_8g6ga"]
+
+[node name="CostItem" type="HSplitContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("1_7bo3e")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_8g6ga")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+text = "0/3"

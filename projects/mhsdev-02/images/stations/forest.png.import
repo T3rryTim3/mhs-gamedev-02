@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bliae3yxm0qkf"
-path="res://.godot/imported/wheat field.png-926416e6524e7583f2820386463d12b5.ctex"
+uid="uid://by3gkt2w2oww5"
+path="res://.godot/imported/forest.png-7a837a9459fc0cf2c91200c0e76ecae3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/stations/wheat field.png"
-dest_files=["res://.godot/imported/wheat field.png-926416e6524e7583f2820386463d12b5.ctex"]
+source_file="res://images/stations/forest.png"
+dest_files=["res://.godot/imported/forest.png-7a837a9459fc0cf2c91200c0e76ecae3.ctex"]
 
 [params]
 
