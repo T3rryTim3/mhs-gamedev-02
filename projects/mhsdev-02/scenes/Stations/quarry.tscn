@@ -22,4 +22,4 @@ position = Vector2(0.75, 12.25)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(38, 24)
+position = Vector2(-3, 60)

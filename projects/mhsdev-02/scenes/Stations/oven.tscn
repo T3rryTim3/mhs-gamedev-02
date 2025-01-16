@@ -36,6 +36,7 @@ pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 limit_type = 1
+auto_collect = true
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_layer = 6
@@ -61,6 +62,7 @@ pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
+auto_collect = true
 
 [node name="PickupRange" type="Area2D" parent="Collector2"]
 collision_layer = 6

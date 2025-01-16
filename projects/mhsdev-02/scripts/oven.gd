@@ -5,18 +5,6 @@ extends Station
 
 var pickup_timer:Timer
 
-func _ready():
-	super()
-	pickup_timer = Timer.new()
-	pickup_timer.wait_time = 0.5
-	pickup_timer.one_shot = false
-	
-	add_child(pickup_timer)
-	
-	pickup_timer.connect("timeout", collector_wheat.add_nearest_item)
-	pickup_timer.connect("timeout", collector_wood.add_nearest_item)
-	pickup_timer.start()
-
 func produce():
 	super()
 	
@@ -24,9 +12,4 @@ func produce():
 		collector_wheat.destroy_item()
 		collector_wood.destroy_item()
 	
-		var new_drop:Item = drop.instantiate()
-		new_drop.id = ItemData.ItemTypes.BREAD
-		new_drop.position = $DropPos.position
-		new_drop.apply_force(Vector3(randi_range(-60,-60),randi_range(60,130),0))
-		
-		get_parent().add_child.call_deferred(new_drop)
+		create_item(ItemData.ItemTypes.BREAD, Vector2(randf_range(-1,1), 1))

@@ -48,6 +48,9 @@ signal item_reset
 ## Auto collect cooldown
 @export var auto_collect_cooldown:float = 1.0
 
+## Current progress for auto collecting
+var auto_collect_progress:float = 0
+
 ## Tracker used to identify / separate items
 var current_item_id:int = 0
 
@@ -64,13 +67,6 @@ func _remove_item(item_id:int) -> void: ## Remove an item from current_resources
 			return
 
 func _physics_process(delta: float) -> void:
-	# Test: pickup nearest item
-	if Input.is_action_just_pressed("ui_down"):
-		print("--\ngrabin'")
-		add_nearest_item()
-	if Input.is_action_just_pressed("ui_up"):
-		drop_item()
-
 	# Update collected item positions
 	for i in current_resources.size():
 		var item:Item = current_resources[i]
@@ -85,6 +81,13 @@ func _physics_process(delta: float) -> void:
 			item.position.y = -pickup_height * (sin((1/pickup_time)*PI*(item.collect_progress)))
 			# Account for stack height
 			item.position.y -= (item.collect_progress * ((i)*stack_distance)) / 2
+
+func _process(delta:float) -> void:
+	if auto_collect:
+		auto_collect_progress += delta
+		if auto_collect_progress >= auto_collect_cooldown:
+			add_nearest_item()
+			auto_collect_progress = 0
 
 func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
@@ -127,6 +130,9 @@ func add_nearest_item(force_type = -1) -> bool:
 	if not nearest_item:
 		return false
 	return add_item(nearest_item)
+
+func item_count() -> int:
+	return len(current_resources)
 
 func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to the top of the stack.
 	# Reparent item

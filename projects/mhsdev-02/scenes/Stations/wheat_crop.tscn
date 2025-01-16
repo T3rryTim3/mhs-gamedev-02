@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://csace8iqaxmcx"]
+[gd_scene load_steps=6 format=3 uid="uid://csace8iqaxmcx"]
 
-[ext_resource type="Script" path="res://scripts/oven.gd" id="1_58sj8"]
-[ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://scenes/Base/station_default_progress.tres" id="2_c0sb2"]
+[ext_resource type="Script" path="res://scenes/Stations/wheat_crop.gd" id="1_n77je"]
 [ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="3_06phv"]
 [ext_resource type="Script" path="res://scripts/collector.gd" id="4_hwtpo"]
 
@@ -11,10 +10,9 @@ size = Vector2(66.5, 13.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
 radius = 17.58
 
-[node name="Oven" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[node name="Wheat Crop" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 motion_mode = 1
-script = ExtResource("1_58sj8")
-progress_bar_texture = ExtResource("2_c0sb2")
+script = ExtResource("1_n77je")
 sprite = NodePath("Sprite2D")
 move_influence = 0.01
 
@@ -27,48 +25,28 @@ shape = SubResource("RectangleShape2D_astqw")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = -2
+position = Vector2(0, -2)
 script = ExtResource("4_hwtpo")
 can_steal = true
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
-limit_type = 1
+limit_type = 3
+auto_collect = true
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
-position = Vector2(-49, 10)
+position = Vector2(68, 16)
 shape = SubResource("CircleShape2D_j4lag")
 
 [node name="PickupPos" type="Node2D" parent="Collector"]
-position = Vector2(-49, 9)
+position = Vector2(68, 16)
 
 [node name="DropPos" type="Node2D" parent="Collector"]
-position = Vector2(-50, 49)
-
-[node name="Collector2" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
-z_index = -2
-script = ExtResource("4_hwtpo")
-can_steal = true
-pickup_area = NodePath("PickupRange")
-pickup_pos_node = NodePath("PickupPos")
-drop_pos_node = NodePath("DropPos")
-limit_type_enable = true
-
-[node name="PickupRange" type="Area2D" parent="Collector2"]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector2/PickupRange"]
-position = Vector2(52, 9)
-shape = SubResource("CircleShape2D_j4lag")
-
-[node name="PickupPos" type="Node2D" parent="Collector2"]
-position = Vector2(53, 9)
-
-[node name="DropPos" type="Node2D" parent="Collector2"]
-position = Vector2(52, 48)
+position = Vector2(-70, 19)
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(0, 54)
+position = Vector2(0, 59)

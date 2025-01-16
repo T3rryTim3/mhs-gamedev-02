@@ -125,6 +125,9 @@ func _physics_process(delta: float) -> void:
 func damage(_amount:float, _kb:Vector3=Vector3.ZERO) -> void: # Deal damage to the entity
 	pass
 
+func heal(amount:float) -> void:
+	health = clampf(health + amount, 0, max_health)
+
 func apply_force(applied:Vector3): ## Apply force to the entity
 	applied *= move_influence
 	applied.z = (abs(applied.y) + abs(applied.x)) / 80
