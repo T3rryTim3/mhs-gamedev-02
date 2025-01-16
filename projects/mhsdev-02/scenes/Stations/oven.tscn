@@ -14,6 +14,7 @@ radius = 17.58
 [node name="Oven" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 motion_mode = 1
 script = ExtResource("1_onh8p")
+station_data = 4
 progress_bar_texture = ExtResource("2_tqr35")
 sprite = NodePath("Sprite2D")
 move_influence = 0.01

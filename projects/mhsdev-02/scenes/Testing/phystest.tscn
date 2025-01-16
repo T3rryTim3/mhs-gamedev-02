@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=4 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=22 format=4 uid="uid://c1g832odaaalg"]
 
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
 [ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="2_p0ww8"]
 [ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_stxc0"]
@@ -13,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://dr8hujnthfhc6" path="res://scenes/Stations/forest.tscn" id="11_kicql"]
 [ext_resource type="Texture2D" uid="uid://bqnqdfgmkb7vc" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
 [ext_resource type="PackedScene" uid="uid://d0j0sjf62c3tn" path="res://scenes/Base/blueprint.tscn" id="13_n1juf"]
+[ext_resource type="PackedScene" uid="uid://fvsdt81wdmnb" path="res://scenes/Stations/strength_totem.tscn" id="15_0j7fl"]
+[ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="16_2fpxk"]
+[ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="17_h4i0y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o60uk"]
 texture = ExtResource("12_lf2jf")
@@ -414,12 +418,21 @@ texture_region_size = Vector2i(24, 24)
 tile_size = Vector2i(24, 24)
 sources/0 = SubResource("TileSetAtlasSource_o60uk")
 
-[node name="phystest" type="Node2D"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2v4q8"]
+load_path = "res://.godot/imported/wood.png-45699af6c9fef5150f3fa6b533746997.ctex"
 
-[node name="Player" parent="." instance=ExtResource("5_e3raw")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cqmg"]
+size = Vector2(1633, 873)
+
+[node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player")]
+script = ExtResource("1_mkj7t")
+items = NodePath("Items")
+stations = NodePath("Stations")
+player = NodePath("Player")
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
-
-[node name="Camera2D" type="Camera2D" parent="."]
+camera_limit = NodePath("../CameraLimit")
 
 [node name="Stations" type="Node" parent="."]
 
@@ -436,9 +449,14 @@ position = Vector2(-391, 121)
 
 [node name="Oven2" parent="Stations" instance=ExtResource("5_viceh")]
 position = Vector2(-392, 241)
+station_data = 1
 
 [node name="Well" parent="Stations" instance=ExtResource("6_2arof")]
 position = Vector2(-390, 323)
+station_data = 2
+
+[node name="StrengthTotem" parent="Stations" groups=["station"] instance=ExtResource("15_0j7fl")]
+position = Vector2(-216, 233)
 
 [node name="Items" type="Node" parent="."]
 
@@ -484,6 +502,7 @@ id = 1
 position = Vector2(334, 43)
 
 [node name="Humanoid" parent="Other" instance=ExtResource("4_chua8")]
+z_index = -1
 position = Vector2(-41, 35)
 
 [node name="Forest" parent="." instance=ExtResource("11_kicql")]
@@ -502,3 +521,26 @@ tile_set = SubResource("TileSet_5awlb")
 [node name="Blueprint" parent="." instance=ExtResource("13_n1juf")]
 position = Vector2(-71, 177)
 target_station = 2
+
+[node name="Blueprint2" parent="." instance=ExtResource("13_n1juf")]
+position = Vector2(-72, 268)
+target_station = 3
+
+[node name="Wood" type="Sprite2D" parent="."]
+position = Vector2(807, 144)
+texture = SubResource("CompressedTexture2D_2v4q8")
+
+[node name="Front" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(782, 155)
+texture = ExtResource("17_h4i0y")
+
+[node name="Wood2" type="Sprite2D" parent="."]
+position = Vector2(807, 165)
+texture = ExtResource("16_2fpxk")
+
+[node name="CameraLimit" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-191.5, 71.5)
+shape = SubResource("RectangleShape2D_5cqmg")
+debug_color = Color(0, 0.61, 0.61, 0.243137)

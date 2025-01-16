@@ -42,6 +42,12 @@ signal item_reset
 ## Limit items picked up
 @export var limit_type:ItemData.ItemTypes
 
+## Toggle auto collect
+@export var auto_collect:bool = false
+
+## Auto collect cooldown
+@export var auto_collect_cooldown:float = 1.0
+
 ## Tracker used to identify / separate items
 var current_item_id:int = 0
 

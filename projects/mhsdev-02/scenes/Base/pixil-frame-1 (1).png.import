@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eakxcbropecy"
-path="res://.godot/imported/wood.png-45699af6c9fef5150f3fa6b533746997.ctex"
+uid="uid://1gqvyl2kl3uo"
+path="res://.godot/imported/pixil-frame-1 (1).png-e19dfc2b28190d45d2bc9470a588b73c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/items/wood.png"
-dest_files=["res://.godot/imported/wood.png-45699af6c9fef5150f3fa6b533746997.ctex"]
+source_file="res://scenes/Base/pixil-frame-1 (1).png"
+dest_files=["res://.godot/imported/pixil-frame-1 (1).png-e19dfc2b28190d45d2bc9470a588b73c.ctex"]
 
 [params]
 

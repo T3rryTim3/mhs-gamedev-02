@@ -1,0 +1,2 @@
+extends Station
+class_name StrengthTotem

@@ -18,6 +18,7 @@ VBoxContainer/constants/separation = 0
 radius = 17.58
 
 [node name="Blueprint" type="Node2D"]
+z_index = -2
 script = ExtResource("1_kkihv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

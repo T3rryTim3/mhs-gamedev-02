@@ -6,6 +6,7 @@ enum Stations {
 	QUARRY,
 	FOREST,
 	OVEN,
+	STRENGTH_TOTEM
 }
 
 func get_station_scene(station:Stations):
@@ -20,6 +21,8 @@ func get_station_scene(station:Stations):
 			return "res://scenes/Stations/forest.tscn"
 		4: # Oven
 			return "res://scenes/Stations/oven.tscn"
+		5: # Strength totem
+			return "res://scenes/Stations/strength_totem.tscn"
 
 func get_station_texture(station:Stations):
 	match station:
@@ -32,6 +35,8 @@ func get_station_texture(station:Stations):
 		3: # Forest
 			return "res://images/stations/forest.png"
 		4: # Oven
+			return "res://images/stations/well.png"
+		5: # Strength totem
 			return "res://images/stations/well.png"
 
 func get_station_cost(station:Stations):
@@ -58,8 +63,13 @@ func get_station_cost(station:Stations):
 			}
 		4: # Oven
 			return {
-				ItemData.ItemTypes.ROCK: 3,
+				ItemData.ItemasTypes.ROCK: 3,
 				ItemData.ItemTypes.WOOD: 3
+			}
+		5: # Strength Totem
+			return {
+				ItemData.ItemasTypes.WHEAT: 1,
+				ItemData.ItemTypes.WOOD: 1
 			}
 		_: # Else
 			return {

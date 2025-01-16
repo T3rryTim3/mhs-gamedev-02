@@ -44,6 +44,9 @@ enum LayerBehaviour
 ## Force multi to dropped resources
 @export var fling_coef:float = 1
 
+## Can be refrenced for station counting in the level (Used for effect stations)
+var active:bool = true
+
 ## (Animation) Current stretch value
 var stretch_val:float = 0
 
@@ -111,6 +114,8 @@ func _process(delta):
 	
 
 func _ready():
+	
+	add_to_group("station")
 	
 	if not progress_bar_texture:
 		progress_bar_texture = DEFAULT_PROGRESS_TEXTURE

@@ -21,6 +21,14 @@ config/icon="res://icon.svg"
 StationData="*res://scripts/Singletons/station_data.gd"
 ItemData="*res://scripts/Singletons/item_data.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
+[global_group]
+
+station=""
+
 [input]
 
 move_up={
