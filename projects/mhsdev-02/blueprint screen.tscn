@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://w30lg3bdrwq5"]
+
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_3bgvi"]
+
+[sub_resource type="Theme" id="Theme_csanp"]
+Button/colors/font_color = Color(1, 0, 0.427451, 1)
+Button/fonts/font = ExtResource("1_3bgvi")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpwd1"]
+bg_color = Color(0.945866, 0.612038, 0.418023, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.445274, 0.049426, 0.0831571, 1)
+corner_radius_top_left = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obywm"]
+bg_color = Color(0.945098, 0.611765, 0.419608, 0.615686)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.447059, 0.0509804, 0.0823529, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_left = 20
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_csanp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tpwd1")
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 15.0
+offset_right = 57.0
+offset_bottom = 46.0
+text = "Build"
+flat = true
+language = "jrb"
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_obywm")
