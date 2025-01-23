@@ -110,6 +110,9 @@ func _process(_delta):
 	health_bar.visible = show_health
 	return
 
+func _round_vector(vec:Vector2, n:int) -> Vector2: ## Rounds each value of vec to n
+	return Vector2(int(vec.x/n)*n, int(vec.y/n)*n)
+
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 

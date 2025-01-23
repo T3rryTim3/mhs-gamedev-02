@@ -1,15 +1,12 @@
 shader_type canvas_item;
 
-uniform float alpha = 0.17;
-uniform float red = 0;
-uniform float green = 0;
-uniform float blue = 0;
+uniform bool active = true;
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	float brightness = (COLOR.r+COLOR.g+COLOR.b)/3.0;
-	COLOR = vec4(brightness+red/brightness,brightness+green/brightness,brightness+blue/brightness,COLOR.a*alpha);	
-
+	if (active && COLOR.a < 0.1) {
+		COLOR = vec4(COLOR.r+0.5, COLOR.g+0.5, COLOR.b+0.5, COLOR.a + 0.2);
+	}
 }
 
 //void light() {

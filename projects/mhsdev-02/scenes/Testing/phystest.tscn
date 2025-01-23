@@ -456,7 +456,7 @@ position = Vector2(-498, 240)
 station_data = 2
 
 [node name="StrengthTotem" parent="Stations" groups=["station"] instance=ExtResource("15_0j7fl")]
-position = Vector2(-216, 233)
+position = Vector2(-389, 337)
 
 [node name="Items" type="Node" parent="."]
 

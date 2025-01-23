@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://nsrj6j5h6ctv"]
+[gd_scene load_steps=6 format=3 uid="uid://nsrj6j5h6ctv"]
 
 [ext_resource type="Script" path="res://station.gd" id="1_g7ken"]
 [ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://scenes/Base/station_default_progress.tres" id="2_0l7mi"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_m2phn"]
+[ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="3_pb7u5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
 size = Vector2(66.5, 13.5)
 
 [node name="Station" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 8
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_g7ken")
 progress_bar_texture = ExtResource("2_0l7mi")
@@ -15,6 +18,7 @@ sprite = NodePath("Sprite2D")
 move_influence = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("3_pb7u5")
 texture = ExtResource("2_m2phn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
