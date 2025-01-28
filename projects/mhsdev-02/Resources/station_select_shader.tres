@@ -4,4 +4,4 @@
 
 [resource]
 shader = ExtResource("1_xnknp")
-shader_parameter/active = true
+shader_parameter/active = false

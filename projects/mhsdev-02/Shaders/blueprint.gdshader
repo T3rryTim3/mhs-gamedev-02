@@ -8,7 +8,7 @@ uniform float blue = 0;
 void fragment() {
 	// Called for every pixel the material is visible on.
 	float brightness = (COLOR.r+COLOR.g+COLOR.b)/3.0;
-	COLOR = vec4(brightness+red/brightness,brightness+green/brightness,brightness+blue/brightness,COLOR.a*alpha);	
+	COLOR = vec4(brightness+red/brightness,brightness+green/brightness,brightness+blue/brightness,COLOR.a*alpha);
 
 }
 

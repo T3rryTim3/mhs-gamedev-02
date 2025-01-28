@@ -74,6 +74,8 @@ func _input(event) -> void:
 						stop_blueprint()
 					else:
 						begin_blueprint(StationData.Stations.WELL)
+				KEY_K:
+					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent())
 
 	elif event is InputEventMouseButton:
 		if current_blueprint:

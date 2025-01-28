@@ -63,7 +63,7 @@ func create_item(id:ItemData.ItemTypes, item_force:Vector2=Vector2.ZERO):
 	
 	item_force = item_force.normalized()
 	
-	new_drop.apply_force(Vector3(item_force.x * DEFAULT_FLING_VAL, item_force.y * DEFAULT_FLING_VAL, 0) * fling_coef)
+	new_drop.apply_force(Vector2(item_force.x * DEFAULT_FLING_VAL, item_force.y * DEFAULT_FLING_VAL) * fling_coef)
 	
 	get_parent().add_child(new_drop)
 

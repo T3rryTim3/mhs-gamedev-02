@@ -5,6 +5,9 @@ class_name Entity
 ##
 ## Can be influenced by other entities with the coefficient of 'move_influence'
 
+## Called when force is applied to the entity
+signal force_applied
+
 ## Sprite of the entity.
 @export var sprite:Node2D
 
@@ -47,6 +50,14 @@ const MAX_VEL:Vector3 = Vector3(100,100,100)
 
 ## Hide the healthbar - Used when items are collected
 var show_health:bool = true
+
+func _get_level(): 
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
 
 func _get_sprite_texture() -> Texture2D:
 	if sprite is Sprite2D:
@@ -131,7 +142,11 @@ func damage(_amount:float, _kb:Vector3=Vector3.ZERO) -> void: # Deal damage to t
 func heal(amount:float) -> void:
 	health = clampf(health + amount, 0, max_health)
 
-func apply_force(applied:Vector3): ## Apply force to the entity
-	applied *= move_influence
-	applied.z = (abs(applied.y) + abs(applied.x)) / 80
-	force += applied
+func apply_force(applied:Vector2): ## Apply force to the entity
+	var new_applied:Vector3 = Vector3(applied.x, applied.y, 0)
+	new_applied *= move_influence
+	new_applied.z = (abs(applied.y) + abs(applied.x)) / 80
+	force += new_applied
+	
+	if applied.length() > 0:
+		force_applied.emit()
