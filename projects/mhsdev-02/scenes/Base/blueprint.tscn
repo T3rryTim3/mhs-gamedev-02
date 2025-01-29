@@ -1,13 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0j0sjf62c3tn"]
+[gd_scene load_steps=9 format=3 uid="uid://d0j0sjf62c3tn"]
 
-[ext_resource type="Shader" path="res://Shaders/blueprint.gdshader" id="1_4vuwh"]
 [ext_resource type="Script" path="res://scenes/Base/blueprint.gd" id="1_kkihv"]
+[ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://scenes/Base/blueprint.tres" id="2_12j11"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_gqyux"]
 [ext_resource type="Script" path="res://scripts/collector.gd" id="4_3wxl6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcjq1"]
-shader = ExtResource("1_4vuwh")
-shader_parameter/alpha = 0.45
+[ext_resource type="PackedScene" uid="uid://b2vmtpdbykxl1" path="res://scenes/Structure/blueprint_collider.tscn" id="5_tdijv"]
+[ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="6_2einr"]
 
 [sub_resource type="Theme" id="Theme_42iqc"]
 Label/font_sizes/font_size = 12
@@ -20,10 +18,11 @@ radius = 17.58
 [node name="Blueprint" type="Node2D"]
 z_index = -2
 script = ExtResource("1_kkihv")
+metadata/_edit_horizontal_guides_ = [-150.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -2
-material = SubResource("ShaderMaterial_jcjq1")
+material = ExtResource("2_12j11")
 texture = ExtResource("2_gqyux")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -54,6 +53,17 @@ position = Vector2(52, 8)
 
 [node name="DropPos" type="Node2D" parent="Collector"]
 position = Vector2(52, 48)
+
+[node name="BlueprintCollider" parent="." instance=ExtResource("5_tdijv")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+material = ExtResource("6_2einr")
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+color = Color(1, 1, 1, 0)
 
 [connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]
 [connection signal="item_reset" from="Collector" to="." method="_on_collector_item_reset"]

@@ -10,6 +10,9 @@ var DEFAULT_FLING_VAL:int = 160
 ## Preload dropped resource
 var drop = preload("res://scenes/Base/item.tscn")
 
+## Preload blueprint collider
+var blueprint_collider = preload("res://scenes/Structure/blueprint_collider.tscn")
+
 enum LayerBehaviour
 {
 	ADAPTIVE,
@@ -60,7 +63,7 @@ func create_item(id:ItemData.ItemTypes, item_force:Vector2=Vector2.ZERO):
 	
 	item_force = item_force.normalized()
 	
-	new_drop.apply_force(Vector3(item_force.x * DEFAULT_FLING_VAL, item_force.y * DEFAULT_FLING_VAL, 0) * fling_coef)
+	new_drop.apply_force(Vector2(item_force.x * DEFAULT_FLING_VAL, item_force.y * DEFAULT_FLING_VAL) * fling_coef)
 	
 	get_parent().add_child(new_drop)
 
@@ -130,5 +133,13 @@ func _ready():
 	add_child(progress_timer)
 	
 	progress_timer.start()
+	
+	add_child(blueprint_collider.instantiate())
+	
+	# Align station to grid
+	global_position = _round_vector(global_position, 24)
+	
+	# Add shader for selection
+	sprite.material = load("res://Resources/station_select_shader.tres")
 
 	

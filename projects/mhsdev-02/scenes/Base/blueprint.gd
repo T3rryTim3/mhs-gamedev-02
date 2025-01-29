@@ -32,6 +32,8 @@ func _ready():
 	# Get station texture
 	sprite.texture = load(StationData.get_station_texture(target_station))
 	
+	sprite.material.set_shader_parameter("blue", 1)
+	
 	collector.stack_limit = 0
 	
 	# Ready resource display

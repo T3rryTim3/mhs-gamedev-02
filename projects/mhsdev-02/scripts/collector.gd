@@ -48,6 +48,9 @@ signal item_reset
 ## Auto collect cooldown
 @export var auto_collect_cooldown:float = 1.0
 
+## Loses grip after force is applied to item
+@export var loose_grip:bool = true
+
 ## Current progress for auto collecting
 var auto_collect_progress:float = 0
 
@@ -158,6 +161,7 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 
 	current_resources.append(item)
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
+	item.force_applied.connect(_reparent_item.bind(item))
 	
 	if skip_animation:
 		item.collect_progress = pickup_time
@@ -174,6 +178,7 @@ func reset_item_stats(item:Item) -> void: ## Reset connections and other variabl
 	item.collect_progress = 0
 	item.collector_decay_coef = 1
 	item.tree_exiting.disconnect(_remove_item)
+	item.force_applied.disconnect(_reparent_item.bind(item))
 	item.show_health = true
 	item_reset.emit()
 
@@ -185,6 +190,19 @@ func destroy_item() -> void:
 	reset_item_stats(item)
 	
 	item.queue_free()
+
+func _reparent_item(item:Item):
+	reset_item_stats(item)
+
+	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
+	var glob_pos:Vector2 = item.global_position
+
+	# Reparent item to root
+	remove_child(item)
+	get_tree().get_root().call_deferred("add_child", item)
+
+	# Reset position back
+	item.global_position = glob_pos
 
 func drop_item() -> void: ## Drop the topmost item.
 	# Validate request
@@ -201,17 +219,7 @@ func drop_item() -> void: ## Drop the topmost item.
 
 	var item:Item = current_resources[-1] # Get topmost item
 
-	reset_item_stats(item)
-
-	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
-	var glob_pos:Vector2 = item.global_position
-
-	# Reparent item to root
-	remove_child(item)
-	get_tree().get_root().add_child(item)
-
-	# Reset position back
-	item.global_position = glob_pos
+	_reparent_item(item)
 	
 	# ...Unless there's a collector
 	if near_collector:

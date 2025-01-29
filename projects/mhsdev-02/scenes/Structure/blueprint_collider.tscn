@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2vmtpdbykxl1"]
+
+[ext_resource type="Shape2D" uid="uid://blema3k2j0ody" path="res://Resources/new_rectangle_shape_2d.tres" id="1_gd63r"]
+
+[node name="BlueprintCollider" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("1_gd63r")

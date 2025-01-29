@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://6rt37s7rt8yn"]
+
+[ext_resource type="Script" path="res://scripts/Events/tornado.gd" id="1_hquia"]
+[ext_resource type="Texture2D" uid="uid://d2brelvh11mbq" path="res://images/event/pixil-frame-0.png" id="2_u72bs"]
+[ext_resource type="Texture2D" uid="uid://3apexvksy8uk" path="res://images/event/pixil-frame-1.png" id="3_u0dys"]
+[ext_resource type="Texture2D" uid="uid://5kjpxua8ib07" path="res://images/event/pixil-frame-2.png" id="4_7hdht"]
+[ext_resource type="Texture2D" uid="uid://c4jy4rsfs0khp" path="res://images/event/pixil-frame-3.png" id="5_wc17b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3jra"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t771c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u72bs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u0dys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7hdht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wc17b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rs25x"]
+radius = 19.4165
+
+[node name="Tornado" type="Node"]
+script = ExtResource("1_hquia")
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_o3jra")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
+sprite_frames = SubResource("SpriteFrames_t771c")
+frame_progress = 0.317505
+offset = Vector2(0, -48)
+
+[node name="Collision" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+shape = SubResource("CircleShape2D_rs25x")
