@@ -1,6 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://w30lg3bdrwq5"]
+[gd_scene load_steps=10 format=3 uid="uid://w30lg3bdrwq5"]
 
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_3bgvi"]
+[ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="2_mt08q"]
+[ext_resource type="Script" path="res://blueprint_screen.gd" id="2_un5u0"]
+[ext_resource type="Texture2D" uid="uid://by3gkt2w2oww5" path="res://images/stations/forest.png" id="3_pf03n"]
+[ext_resource type="Texture2D" uid="uid://dgsmem6qotb3f" path="res://images/stations/quarry.png" id="4_i4n5i"]
+[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="5_6v021"]
 
 [sub_resource type="Theme" id="Theme_csanp"]
 Button/colors/font_color = Color(1, 0, 0.427451, 1)
@@ -24,7 +29,7 @@ border_color = Color(0.447059, 0.0509804, 0.0823529, 1)
 corner_radius_top_left = 20
 corner_radius_bottom_left = 20
 
-[node name="PanelContainer" type="PanelContainer"]
+[node name="Sidebar" type="PanelContainer"]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -33,6 +38,7 @@ offset_left = -60.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_csanp")
+script = ExtResource("2_un5u0")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -65,3 +71,34 @@ language = "jrb"
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_obywm")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 211.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 15
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_mt08q")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("3_pf03n")
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("4_i4n5i")
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("5_6v021")
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/Button" to="." method="_on_button_pressed"]
