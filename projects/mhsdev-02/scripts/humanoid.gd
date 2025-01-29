@@ -46,7 +46,8 @@ func _animate(): ## Animate the sprite
 	
 	sprite.play(anim_name)
 	
-func _process(_delta) -> void:
+func _process(delta) -> void:
+	super(delta)
 	_animate()
 
 func _movement(delta):

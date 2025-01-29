@@ -14,6 +14,15 @@ var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
 var current_blueprint:BlueprintHover
 
+## Player stats
+var hunger:float = 100
+var thirst:float = 100
+var temp:float = 50 # Temp range 0-100
+
+func _update_stats(delta): # Updates the player's stats with respect to time
+	hunger -= 1 * delta
+	thirst -= 1 * delta
+
 func _ready():
 	super()
 	if camera_limit: # Prevent camera from going beyond area
@@ -21,6 +30,8 @@ func _ready():
 		$Camera2D.limit_top = camera_limit.global_position.y - camera_limit.shape.get_rect().size.y/2
 		$Camera2D.limit_left = camera_limit.global_position.x - camera_limit.shape.get_rect().size.x/2
 		$Camera2D.limit_right = camera_limit.global_position.x + camera_limit.shape.get_rect().size.x/2
+	_add_effect(EffectData.EffectTypes.WEATHER_COLD, 5, 1)
+	print(effects)
 
 func _movement(delta) -> void:
 	super(delta)
@@ -34,16 +45,15 @@ func _movement(delta) -> void:
 	var collector_pos_dir:Vector2 = last_move_dir
 	if collector_pos_dir.x != 0:
 		collector_pos_dir.y = 0
-	
+
 	collector.position = collector_pos_dir * (collector_collider.shape.get_rect().size.x/4)
 	collector.drop_pos_node.position = collector.position
-	
+
 	# Account for animation bounce
 	collector.position.y += sprite.frame % 2
 	if velocity == Vector2.ZERO:
 		collector.position.y += 1
-	
-	
+
 	if collector_pos_dir.y <= 0:
 		collector.z_index = -2
 	else:
@@ -57,8 +67,6 @@ func _process(delta) -> void:
 	if current_blueprint:
 		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
 		current_blueprint.update()
-	
-	pass
 
 func _input(event) -> void:
 	if event is InputEventKey:
@@ -75,7 +83,15 @@ func _input(event) -> void:
 					else:
 						begin_blueprint(StationData.Stations.WELL)
 				KEY_K:
-					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent())
+					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+				KEY_N:
+					print("--- Player Stats ---")
+					print("Thirst:")
+					print(thirst)
+					print("Hunger:")
+					print(hunger)
+					print("Temp:")
+					print(temp)
 
 	elif event is InputEventMouseButton:
 		if current_blueprint:

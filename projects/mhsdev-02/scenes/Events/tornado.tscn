@@ -34,21 +34,25 @@ radius = 19.4165
 [node name="Tornado" type="Node"]
 script = ExtResource("1_hquia")
 
-[node name="Body" type="StaticBody2D" parent="."]
-collision_layer = 32
-collision_mask = 32
+[node name="Tornado" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+[node name="Body" type="CharacterBody2D" parent="Tornado"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tornado/Body"]
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_o3jra")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Tornado/Body"]
 sprite_frames = SubResource("SpriteFrames_t771c")
-frame_progress = 0.317505
+frame_progress = 0.874333
 offset = Vector2(0, -48)
 
-[node name="Collision" type="Area2D" parent="."]
+[node name="Collision" type="Area2D" parent="Tornado/Body"]
 collision_layer = 0
 collision_mask = 11
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tornado/Body/Collision"]
+position = Vector2(0, -19)
 shape = SubResource("CircleShape2D_rs25x")

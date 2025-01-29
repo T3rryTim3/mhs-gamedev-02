@@ -44,6 +44,9 @@ var drag:float = 500
 ## Max health - auto set to 'health' start value
 var max_health:float
 
+## Array of currently applied effects
+var effects:Array = []
+
 ## Force / Gravity constants
 const GRAVITY:int = 30
 const MAX_VEL:Vector3 = Vector3(100,100,100)
@@ -51,7 +54,23 @@ const MAX_VEL:Vector3 = Vector3(100,100,100)
 ## Hide the healthbar - Used when items are collected
 var show_health:bool = true
 
-func _get_level(): 
+func _add_effect(effect:EffectData.EffectTypes, duration:float, strength:float): ## Add an effect to the entity
+	effects.append(EffectData.Effect.new(effect, duration, strength, self))
+
+func _apply_effects(delta:float): ## Calls 'apply' for each effect. Also remove expired effects
+	for x in range(len(effects)):
+		var effect = effects[x]
+
+		# Apply and update effect
+		# Note: 'Apply' means to apply the effect's effect. It does NOT mean to *add* the effect.
+		effect.apply(delta)
+		effect.duration -= delta
+
+		# Remove if expired
+		if effect.duration <= 0:
+			effects.remove_at(x)
+
+func _get_level(): ## Finds the first Level ancestor
 	var parent = get_parent() 
 	while parent != null:
 		if parent is Level:
@@ -117,9 +136,9 @@ func _update_force(delta) -> void: ## Updates the velocity of the entity (Accord
 func _movement(_delta) -> void: ## Used in subclasses for movement
 	pass
 
-func _process(_delta):
+func _process(delta) -> void:
 	health_bar.visible = show_health
-	return
+	_apply_effects(delta)
 
 func _round_vector(vec:Vector2, n:int) -> Vector2: ## Rounds each value of vec to n
 	return Vector2(int(vec.x/n)*n, int(vec.y/n)*n)
@@ -136,8 +155,8 @@ func _physics_process(delta: float) -> void:
 	_update_force(delta)
 	move_and_slide()
 
-func damage(_amount:float, _kb:Vector3=Vector3.ZERO) -> void: # Deal damage to the entity
-	pass
+func damage(amount:float) -> void: # Deal damage to the entity
+	_update_health(health - amount)
 
 func heal(amount:float) -> void:
 	health = clampf(health + amount, 0, max_health)

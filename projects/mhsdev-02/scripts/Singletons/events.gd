@@ -19,11 +19,11 @@ class EventData:
 	var duration : int
 	var strength : float
 
-	func _init(nm:String, pth:String, dur:int, str:float):
+	func _init(nm:String, pth:String, dur:int, stren:float):
 		self.event_name = nm
 		self.scene_path = pth
 		self.duration = dur
-		self.strength = str
+		self.strength = stren
 
 func get_event_data(event:Events, strength:float = 1) -> EventData:
 	strength = max(0, strength)

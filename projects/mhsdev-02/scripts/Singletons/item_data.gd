@@ -42,3 +42,16 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 		"img_path": img_path,
 		"id":id
 	}
+
+func use_item(item:Item, player:Player):
+	match item.id:
+		0: # Wood
+			pass
+		1: # Wheat
+			pass
+		2: # Bread
+			pass
+		3: # Water
+			pass
+		4: # Rock
+			pass
