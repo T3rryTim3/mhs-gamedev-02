@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://brj2vmu5150lt"]
+
+[sub_resource type="Gradient" id="Gradient_62jfc"]
+offsets = PackedFloat32Array(0, 0.909836, 1)
+colors = PackedColorArray(0.93, 0.0465, 0.0465, 1, 0.98, 0.60809, 0.00979999, 0.356863, 1, 0.366667, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mdhke"]
+gradient = SubResource("Gradient_62jfc")
+
+[sub_resource type="Curve" id="Curve_t5lo4"]
+_data = [Vector2(0, 0), 0.0, 2.24359, 0, 0, Vector2(0.16, 0.857143), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_l23mf"]
+curve = SubResource("Curve_t5lo4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_56560"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 10)
+angle_min = 1.07288e-05
+angle_max = 304.2
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, -4, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 0.999998
+scale_min = 2.8
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_l23mf")
+color_ramp = SubResource("GradientTexture1D_mdhke")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="burning" type="GPUParticles2D"]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_56560")

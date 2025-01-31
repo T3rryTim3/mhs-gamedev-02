@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=23 format=4 uid="uid://c1g832odaaalg"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://fvsdt81wdmnb" path="res://scenes/Stations/strength_totem.tscn" id="15_0j7fl"]
 [ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="16_2fpxk"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="17_h4i0y"]
+[ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="18_bmu16"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o60uk"]
 texture = ExtResource("12_lf2jf")
@@ -544,3 +545,8 @@ visible = false
 position = Vector2(-190.5, 71)
 shape = SubResource("RectangleShape2D_5cqmg")
 debug_color = Color(0, 0.61, 0.61, 0.243137)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("18_bmu16")]
+player = NodePath("../../Player")

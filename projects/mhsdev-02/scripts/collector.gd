@@ -182,7 +182,7 @@ func reset_item_stats(item:Item) -> void: ## Reset connections and other variabl
 	item.show_health = true
 	item_reset.emit()
 
-func destroy_item() -> void:
+func destroy_item() -> void: ## Destroy the top item
 	if len(current_resources) == 0:
 		return
 
@@ -191,7 +191,7 @@ func destroy_item() -> void:
 	
 	item.queue_free()
 
-func _reparent_item(item:Item):
+func _reparent_item(item:Item): ## Reparent item to the scene root
 	reset_item_stats(item)
 
 	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
@@ -203,6 +203,11 @@ func _reparent_item(item:Item):
 
 	# Reset position back
 	item.global_position = glob_pos
+
+func get_topmost_item() -> Item: ## Returns the topmost item.
+	if len(current_resources) == 0:
+		return null
+	return current_resources[-1]
 
 func drop_item() -> void: ## Drop the topmost item.
 	# Validate request

@@ -79,7 +79,7 @@ func produce(): ## Produce logic; default nothing
 
 func _init_progress_bar(): ## Reset the progress bar
 	
-	var sprite_texture = _get_sprite_texture()
+	var sprite_texture = get_sprite_texture()
 
 	# Instantiate health bar
 	progress_bar = stat_bar.instantiate()
@@ -106,7 +106,7 @@ func _process(delta):
 	match layer_behavior:
 		0:
 			# Check if the player is above the station based on camera pos
-			if get_viewport().get_camera_2d().global_position.y + 24 <global_position.y + _get_sprite_texture().get_height()/2.0:
+			if get_viewport().get_camera_2d().global_position.y + 24 <global_position.y + get_sprite_texture().get_height()/2.0:
 				z_index = 2
 			else:
 				z_index = -1

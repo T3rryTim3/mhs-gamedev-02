@@ -47,6 +47,9 @@ var max_health:float
 ## Array of currently applied effects
 var effects:Array = []
 
+## List of entity 'stats' (players have hunger, thirst, etc.) - Used for effects
+var state:Dictionary = {}
+
 ## Force / Gravity constants
 const GRAVITY:int = 30
 const MAX_VEL:Vector3 = Vector3(100,100,100)
@@ -54,21 +57,26 @@ const MAX_VEL:Vector3 = Vector3(100,100,100)
 ## Hide the healthbar - Used when items are collected
 var show_health:bool = true
 
-func _add_effect(effect:EffectData.EffectTypes, duration:float, strength:float): ## Add an effect to the entity
-	effects.append(EffectData.Effect.new(effect, duration, strength, self))
+func add_effect(effect:EffectData.EffectTypes, duration:float, strength:float): ## Add an effect to the entity
+	var new = EffectData.Effect.new(effect, duration, strength, self)
+	effects.append(new)
+	new.connect("removed", effects.erase.bind(new))
+	return new
+	
+func remove_effect(effect:EffectData.Effect):
+	effect.remove()
 
 func _apply_effects(delta:float): ## Calls 'apply' for each effect. Also remove expired effects
-	for x in range(len(effects)):
-		var effect = effects[x]
-
+	for effect in effects:
 		# Apply and update effect
 		# Note: 'Apply' means to apply the effect's effect. It does NOT mean to *add* the effect.
 		effect.apply(delta)
 		effect.duration -= delta
 
+	for x in effects: # Separate loop to prevent OOB error
 		# Remove if expired
-		if effect.duration <= 0:
-			effects.remove_at(x)
+		if x.duration <= 0:
+			x.remove()
 
 func _get_level(): ## Finds the first Level ancestor
 	var parent = get_parent() 
@@ -78,14 +86,13 @@ func _get_level(): ## Finds the first Level ancestor
 		parent = parent.get_parent()
 	return null
 
-func _get_sprite_texture() -> Texture2D:
+func get_sprite_texture() -> Texture2D:
 	if sprite is Sprite2D:
 		return sprite.texture
 	if sprite is AnimatedSprite2D:
 		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
 	print("ERROR: INVALID SRPITE SET")
-	return Texture.new()
-
+	return null
 func _update_health(new:float) -> void: ## Update health while keeping within limits.
 	health = clamp(new, 0, max_health)
 	if health <= 0:
@@ -95,7 +102,7 @@ func _ready():
 	# Set max health to current value
 	max_health = health
 
-	var sprite_texture = _get_sprite_texture()
+	var sprite_texture = get_sprite_texture()
 
 	# Instantiate health bar
 	health_bar = stat_bar.instantiate()
@@ -110,6 +117,8 @@ func _ready():
 	health_bar.size_scale = health_bar_scale
 
 	add_child(health_bar)
+	
+	add_effect(EffectData.EffectTypes.BURNING, 10, 1)
 
 func _death() -> void: ## Calls upon health hitting zero. Will queue free by default.
 	queue_free()

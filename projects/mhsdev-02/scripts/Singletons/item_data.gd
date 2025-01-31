@@ -16,23 +16,23 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 	var health = 1
 	
 	match id:
-		0: # Wood
+		ItemTypes.WOOD:
 			health = 8
 			decay_rate = 0
 			img_path = "res://images/items/wood.png"
-		1: # Wheat
+		ItemTypes.WHEAT:
 			health = 3
 			decay_rate = 0.2
 			img_path = "res://images/items/wheat.png"
-		2: # Bread
+		ItemTypes.BREAD:
 			health = 6
 			decay_rate = 0.2
 			img_path = "res://images/items/bread.png"
-		3: # Water
+		ItemTypes.WATER:
 			health = 1
 			decay_rate = 0.01
 			img_path = "res://images/items/water.png"
-		4: # Rock
+		ItemTypes.ROCK:
 			health = 15
 			decay_rate = 0
 			img_path = "res://images/items/rock.png"
@@ -40,18 +40,20 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 		"health": health,
 		"decay_rate": decay_rate,
 		"img_path": img_path,
-		"id":id
+		"id": id
 	}
 
 func use_item(item:Item, player:Player):
 	match item.id:
-		0: # Wood
+		ItemTypes.WOOD:
 			pass
-		1: # Wheat
+		ItemTypes.WHEAT:
 			pass
-		2: # Bread
-			pass
-		3: # Water
-			pass
-		4: # Rock
+		ItemTypes.BREAD:
+			player.state.hunger.val += 20
+			item.queue_free()
+		ItemTypes.WATER:
+			player.state.thirst.val += 20
+			item.queue_free()
+		ItemTypes.ROCK:
 			pass

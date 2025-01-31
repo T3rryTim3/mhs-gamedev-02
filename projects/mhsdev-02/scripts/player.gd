@@ -14,14 +14,9 @@ var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
 var current_blueprint:BlueprintHover
 
-## Player stats
-var hunger:float = 100
-var thirst:float = 100
-var temp:float = 50 # Temp range 0-100
-
-func _update_stats(delta): # Updates the player's stats with respect to time
-	hunger -= 1 * delta
-	thirst -= 1 * delta
+func _update_stats(delta:float): # Updates the player's stats with respect to time
+	state["hunger"].val -= 1 * delta
+	state["thirst"].val -= 1 * delta
 
 func _ready():
 	super()
@@ -30,8 +25,27 @@ func _ready():
 		$Camera2D.limit_top = camera_limit.global_position.y - camera_limit.shape.get_rect().size.y/2
 		$Camera2D.limit_left = camera_limit.global_position.x - camera_limit.shape.get_rect().size.x/2
 		$Camera2D.limit_right = camera_limit.global_position.x + camera_limit.shape.get_rect().size.x/2
-	_add_effect(EffectData.EffectTypes.WEATHER_COLD, 5, 1)
-	print(effects)
+	
+	state["hunger"] = {
+		'val': 100,
+		'min': 0,
+		'max': 100
+	}
+	state["thirst"] = {
+		'val': 100,
+		'min': 0,
+		'max': 100
+	}
+	state["temp"] = {
+		'val': 50,
+		'min': 0,
+		'max': 100
+	}
+	
+	add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
+
+func _death():
+	pass
 
 func _movement(delta) -> void:
 	super(delta)
@@ -67,6 +81,14 @@ func _process(delta) -> void:
 	if current_blueprint:
 		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
 		current_blueprint.update()
+	
+	_update_stats(delta)
+
+func _use(): # Use the topmost held item
+	var item = collector.get_topmost_item()
+	if not item:
+		return
+	ItemData.use_item(item, self)
 
 func _input(event) -> void:
 	if event is InputEventKey:
@@ -87,11 +109,13 @@ func _input(event) -> void:
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")
-					print(thirst)
+					print(state.thirst.val)
 					print("Hunger:")
-					print(hunger)
+					print(state["hunger"].val)
 					print("Temp:")
-					print(temp)
+					print(state["temp"].val)
+				KEY_F:
+					_use()
 
 	elif event is InputEventMouseButton:
 		if current_blueprint:

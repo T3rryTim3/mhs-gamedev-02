@@ -1,5 +1,7 @@
 extends Node
 
+# TODO Call kill() on expired events
+
 enum Events {
 	TORNADO
 }
@@ -28,7 +30,7 @@ class EventData:
 func get_event_data(event:Events, strength:float = 1) -> EventData:
 	strength = max(0, strength)
 	match event:
-		0: # Tornado
+		Events.TORNADO:
 			return EventData.new(
 				"tornado",
 				"res://scenes/Events/tornado.tscn",
@@ -40,14 +42,14 @@ func get_event_data(event:Events, strength:float = 1) -> EventData:
 func spawn_event(event:Events, parent:Node, strength:float = 1):
 	print("Event spawned.")
 	var data:EventData = get_event_data(event, strength)
-	
+
 	if not data:
 		print("EVENT NOT FOUND")
 		return
-	
+
 	var event_scn:Event = load(data.scene_path).instantiate()
-	
+
 	event_scn.data = data
-	
+
 	parent.add_child(event_scn)
 	event_scn.spawn()
