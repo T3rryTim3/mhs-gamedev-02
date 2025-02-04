@@ -15,8 +15,9 @@ var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 var current_blueprint:BlueprintHover
 
 func _update_stats(delta:float): # Updates the player's stats with respect to time
-	state["hunger"].val -= 1 * delta
-	state["thirst"].val -= 1 * delta
+	_get_level().player_stat_update(self, delta) # Apply level effects
+	state["hunger"].val -= 0.6 * delta # Default hunger drain
+	state["thirst"].val -= 1 * delta # Default thirst drain
 
 func _ready():
 	super()
@@ -25,7 +26,7 @@ func _ready():
 		$Camera2D.limit_top = camera_limit.global_position.y - camera_limit.shape.get_rect().size.y/2
 		$Camera2D.limit_left = camera_limit.global_position.x - camera_limit.shape.get_rect().size.x/2
 		$Camera2D.limit_right = camera_limit.global_position.x + camera_limit.shape.get_rect().size.x/2
-	
+
 	state["hunger"] = {
 		'val': 100,
 		'min': 0,
@@ -41,8 +42,8 @@ func _ready():
 		'min': 0,
 		'max': 100
 	}
-	
-	add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
+
+	#add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
 
 func _death():
 	pass
@@ -69,19 +70,19 @@ func _movement(delta) -> void:
 		collector.position.y += 1
 
 	if collector_pos_dir.y <= 0:
-		collector.z_index = -2
+		collector.z_index = -1
 	else:
 		collector.z_index = 1
 		collector.position.y -= 8
 
 func _process(delta) -> void:
 	super(delta)
-	
+
 	# Update blueprint
 	if current_blueprint:
 		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
 		current_blueprint.update()
-	
+
 	_update_stats(delta)
 
 func _use(): # Use the topmost held item
@@ -134,10 +135,10 @@ func begin_blueprint(station:StationData.Stations):
 
 	current_blueprint = blueprint_hover.instantiate()
 	current_blueprint.station = station
-	
+
 	add_child(current_blueprint)
 	current_blueprint.sprite.texture = load(StationData.get_station_texture(station))
-	
+
 	# Set station shaders to visualize selection
 	station_shader.set_shader_parameter("active", true)
 

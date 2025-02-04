@@ -10,4 +10,5 @@ func produce():
 		active = true
 	else:
 		active = false
+	_get_level().update_station_stats()
 	

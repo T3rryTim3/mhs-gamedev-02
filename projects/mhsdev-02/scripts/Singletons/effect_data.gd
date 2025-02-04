@@ -31,7 +31,6 @@ class Effect:
 		self.visual_init()
 
 	func apply(delta):
-		var is_player = self.target is Player
 		match self.type:
 			EffectTypes.WEATHER_COLD:
 				if "temp" in self.target.state:
@@ -39,10 +38,6 @@ class Effect:
 
 			EffectTypes.BURNING:
 				self.target.damage(self.strength * delta)
-
-		# Clamp stats
-		for k in self.target.state.keys():
-			self.target.state[k].val = clampf(target.state[k].val, target.state[k].min, target.state[k].max)
 
 	func visual_init(): ## TODO Apply visual effect on entity
 		if not self.particle_obj:

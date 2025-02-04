@@ -118,7 +118,7 @@ func _ready():
 
 	add_child(health_bar)
 	
-	add_effect(EffectData.EffectTypes.BURNING, 10, 1)
+	#add_effect(EffectData.EffectTypes.BURNING, 10, 1)
 
 func _death() -> void: ## Calls upon health hitting zero. Will queue free by default.
 	queue_free()
@@ -148,6 +148,8 @@ func _movement(_delta) -> void: ## Used in subclasses for movement
 func _process(delta) -> void:
 	health_bar.visible = show_health
 	_apply_effects(delta)
+	for k in state.keys(): # Clamp stats
+		state[k].val = clampf(state[k].val, state[k].min, state[k].max)
 
 func _round_vector(vec:Vector2, n:int) -> Vector2: ## Rounds each value of vec to n
 	return Vector2(int(vec.x/n)*n, int(vec.y/n)*n)

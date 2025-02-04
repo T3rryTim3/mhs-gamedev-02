@@ -6,6 +6,9 @@ class_name Collector
 signal item_collected
 signal item_reset
 
+## Collector visual preload
+@onready var display_scn = preload("res://scenes/Base/collector_display.tscn")
+
 ## How many items at a time that the collector can hold.
 @export var stack_limit:int = 1
 
@@ -51,6 +54,9 @@ signal item_reset
 ## Loses grip after force is applied to item
 @export var loose_grip:bool = true
 
+## Show a crate with the limit_type item, if set
+@export var show_crate:bool = true
+
 ## Current progress for auto collecting
 var auto_collect_progress:float = 0
 
@@ -60,8 +66,31 @@ var current_item_id:int = 0
 ## Current resources in the stack. (FILO)
 var current_resources:Array = []
 
+## Crate object
+var display:Sprite2D
+
 func _ready() -> void:
-	pass
+	if show_crate:
+		# Add crate
+		display = display_scn.instantiate()
+		add_child(display)
+		display.position = pickup_pos_node.position + Vector2(0, 8) # Pixel offset
+
+		if limit_type_enable:
+			# Add crate display
+			var data = ItemData.get_item_data(limit_type)
+			var image = load(data["img_path"])
+			display.inner.texture = image
+		else:
+			display.inner.visible = false
+
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
 
 func _remove_item(item_id:int) -> void: ## Remove an item from current_resources by identifier
 	for i in current_resources.size():
@@ -91,6 +120,8 @@ func _process(delta:float) -> void:
 		if auto_collect_progress >= auto_collect_cooldown:
 			add_nearest_item()
 			auto_collect_progress = 0
+	for x in current_resources:
+		x.z_index = z_index
 
 func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
@@ -143,8 +174,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 	if len(current_resources) >= stack_limit:
 		return false
 
-	#if item.global_position == pickup_pos_node.global_position:
-		#skip_animation = true
+	# if item.global_position == pickup_pos_node.global_position:
+		# skip_animation = true
 
 	var global_pos = item.global_position
 	item.get_parent().remove_child(item)
@@ -163,6 +194,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
 	item.force_applied.connect(_reparent_item.bind(item))
 	
+	item.z_index = z_index
+	
 	if skip_animation:
 		item.collect_progress = pickup_time
 
@@ -180,6 +213,7 @@ func reset_item_stats(item:Item) -> void: ## Reset connections and other variabl
 	item.tree_exiting.disconnect(_remove_item)
 	item.force_applied.disconnect(_reparent_item.bind(item))
 	item.show_health = true
+	item.z_index = -1
 	item_reset.emit()
 
 func destroy_item() -> void: ## Destroy the top item
@@ -191,7 +225,7 @@ func destroy_item() -> void: ## Destroy the top item
 	
 	item.queue_free()
 
-func _reparent_item(item:Item): ## Reparent item to the scene root
+func _reparent_item(item:Item): ## Reparent item to the level
 	reset_item_stats(item)
 
 	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
@@ -199,7 +233,7 @@ func _reparent_item(item:Item): ## Reparent item to the scene root
 
 	# Reparent item to root
 	remove_child(item)
-	get_tree().get_root().call_deferred("add_child", item)
+	_get_level().add_child(item)
 
 	# Reset position back
 	item.global_position = glob_pos
@@ -208,6 +242,10 @@ func get_topmost_item() -> Item: ## Returns the topmost item.
 	if len(current_resources) == 0:
 		return null
 	return current_resources[-1]
+
+func item_entered(item:Item): ## Called by other collectors when an item is dropped nearby
+	if auto_collect:
+		add_nearest_item()
 
 func drop_item() -> void: ## Drop the topmost item.
 	# Validate request
@@ -229,3 +267,4 @@ func drop_item() -> void: ## Drop the topmost item.
 	# ...Unless there's a collector
 	if near_collector:
 		item.global_position = near_collector.get_parent().pickup_pos_node.global_position
+		near_collector.get_parent().item_entered(item)
