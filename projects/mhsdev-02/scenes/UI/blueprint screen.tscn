@@ -91,11 +91,6 @@ layout_mode = 2
 texture = ExtResource("3_3b3b5")
 script = ExtResource("4_7avtt")
 
-[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer/TextureRect"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
 layout_mode = 2
 texture = ExtResource("4_taybg")
