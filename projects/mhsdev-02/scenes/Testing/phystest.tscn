@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://nsrj6j5h6ctv" path="res://scenes/Base/station.tscn" id="6_a5nhr"]
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
 [ext_resource type="PackedScene" uid="uid://i0xmlk7yt0wk" path="res://scenes/Stations/oven.tscn" id="8_bnbq1"]
-[ext_resource type="Texture2D" uid="uid://bxvsmyxsitujf" path="res://images/items/dirty_water.png" id="9_x1r1a"]
 [ext_resource type="PackedScene" uid="uid://dr8hujnthfhc6" path="res://scenes/Stations/forest.tscn" id="11_kicql"]
 [ext_resource type="Texture2D" uid="uid://bqnqdfgmkb7vc" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
 [ext_resource type="PackedScene" uid="uid://d0j0sjf62c3tn" path="res://scenes/Base/blueprint.tscn" id="13_n1juf"]
@@ -426,6 +425,20 @@ load_path = "res://.godot/imported/wood.png-45699af6c9fef5150f3fa6b533746997.cte
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cqmg"]
 size = Vector2(1609, 854)
 
+[sub_resource type="Environment" id="Environment_nmvk3"]
+background_mode = 3
+ambient_light_source = 3
+ambient_light_color = Color(0.956111, 0.951019, 0, 1)
+ambient_light_sky_contribution = 0.25
+ssao_radius = 1.5
+ssao_detail = 1.5
+glow_enabled = true
+glow_intensity = 1.81
+glow_bloom = 0.06
+glow_hdr_threshold = 0.19
+adjustment_enabled = true
+adjustment_saturation = 1.2
+
 [node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player")]
 script = ExtResource("1_mkj7t")
 items = NodePath("Items")
@@ -435,11 +448,6 @@ player = NodePath("Player")
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
 camera_limit = NodePath("../CameraLimit")
-
-[node name="DirtyWater" type="Sprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(-155, 38)
-texture = ExtResource("9_x1r1a")
 
 [node name="Stations" type="Node" parent="."]
 
@@ -532,7 +540,7 @@ position = Vector2(-71, 177)
 target_station = 2
 
 [node name="Blueprint2" parent="." instance=ExtResource("13_n1juf")]
-position = Vector2(-72, 268)
+position = Vector2(-72, 274)
 target_station = 3
 
 [node name="Wood" type="Sprite2D" parent="."]
@@ -558,3 +566,16 @@ debug_color = Color(0, 0.61, 0.61, 0.243137)
 
 [node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("18_bmu16")]
 player = NodePath("../../Player")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nmvk3")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.91664, 0.91664, 0.91664, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
+rotation = 0.760964
+energy = 0.28
+shadow_enabled = true
+shadow_filter = 1

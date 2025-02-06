@@ -28,4 +28,4 @@ func update_station_stats(): ## Updates variables dependent on stations
 		player.update_collector_stack_lim(strength)
 
 func player_stat_update(player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
-	player.state.temp.val -= 1 * delta
+	player.state.temp.val -= 0.4 * delta

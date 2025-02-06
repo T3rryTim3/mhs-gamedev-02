@@ -50,6 +50,9 @@ var effects:Array = []
 ## List of entity 'stats' (players have hunger, thirst, etc.) - Used for effects
 var state:Dictionary = {}
 
+## Used for damage taken effect
+var damage_mod_coef:float = 0
+
 ## Force / Gravity constants
 const GRAVITY:int = 30
 const MAX_VEL:Vector3 = Vector3(100,100,100)
@@ -93,6 +96,7 @@ func get_sprite_texture() -> Texture2D:
 		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
 	print("ERROR: INVALID SRPITE SET")
 	return null
+
 func _update_health(new:float) -> void: ## Update health while keeping within limits.
 	health = clamp(new, 0, max_health)
 	if health <= 0:
@@ -161,12 +165,18 @@ func _physics_process(delta: float) -> void:
 		#apply_force(Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,randf_range(0,1)*600))
 
 	health_bar.current = health/max_health
+	
+	damage_mod_coef -= delta * 4
+	damage_mod_coef = clampf(damage_mod_coef, 0, 1)
+	
+	sprite.self_modulate = Color(1,1 - damage_mod_coef,1 - damage_mod_coef)
 
 	_movement(delta)
 	_update_force(delta)
 	move_and_slide()
 
 func damage(amount:float) -> void: # Deal damage to the entity
+	damage_mod_coef = 1
 	_update_health(health - amount)
 
 func heal(amount:float) -> void:

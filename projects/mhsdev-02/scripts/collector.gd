@@ -3,7 +3,10 @@ class_name Collector
 ## Holds resources in a stack on top of eachother.
 ## Used to add "Inventory" slots to other nodes.
 
+## Fires when an item is successfully added to the collector
 signal item_collected
+
+## Fires when an item's stats are wiped / when an item is removed
 signal item_reset
 
 ## Collector visual preload
@@ -178,7 +181,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 		# skip_animation = true
 
 	var global_pos = item.global_position
-	item.get_parent().remove_child(item)
+	if item.get_parent():
+		item.get_parent().remove_child(item)
 	add_child(item)
 
 	# Update position
@@ -193,9 +197,9 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 	current_resources.append(item)
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
 	item.force_applied.connect(_reparent_item.bind(item))
-	
+
 	item.z_index = z_index
-	
+
 	if skip_animation:
 		item.collect_progress = pickup_time
 
@@ -243,7 +247,7 @@ func get_topmost_item() -> Item: ## Returns the topmost item.
 		return null
 	return current_resources[-1]
 
-func item_entered(item:Item): ## Called by other collectors when an item is dropped nearby
+func item_entered(_item:Item): ## Called by other collectors when an item is dropped nearby
 	if auto_collect:
 		add_nearest_item()
 

@@ -9,15 +9,54 @@ var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 ## Area2D that the camera is restricted to
 @export var camera_limit:CollisionShape2D
 
+## Cooldown before sprinting starts to recover
+@export var sprint_cooldown:float = 2
+
+## Sprint speed (Multiplier)
+@export var sprint_speed:float = 1.5
+
+## Stamina per second drained while sprining
+@export var stamina_drain:float = 30
+
+## Stamina per second gained after sprint ended
+@export var stamina_gain:float = 30
+
 ## Station shader for selection
 @onready var station_shader = load("res://Resources/station_select_shader.tres")
 
+## Stamina bar
+var stamina_bar:StatBar
+
+## Current cooldown for hiding/showing stamina bar
+var stamina_show_cooldown:float = 0
+
+## Change per second of stamina bar alpha
+var stamina_show_delta:float = 0
+
+## Current blueprint hover object
 var current_blueprint:BlueprintHover
+
+## Currently sprinting
+var sprinting:bool = false
+
+## Current sprint cooldown value (Before stamina recovery)
+var current_sprint_cooldown:float = 0
 
 func _update_stats(delta:float): # Updates the player's stats with respect to time
 	_get_level().player_stat_update(self, delta) # Apply level effects
-	state["hunger"].val -= 0.6 * delta # Default hunger drain
-	state["thirst"].val -= 1 * delta # Default thirst drain
+	
+	state["hunger"].val -= (0.6 + int(sprinting) * 0.5) * delta # Default hunger drain
+	state["thirst"].val -= (1 + int(sprinting) * 0.5) * delta # Default thirst drain
+	state.temp.val += int(sprinting) * 0.5 * delta # Heat if sprinting
+
+	if sprinting: # Begin cooldown if not started
+		current_sprint_cooldown = sprint_cooldown
+		state.stamina.val -= stamina_drain * delta
+
+	if current_sprint_cooldown <= 0:
+			state.stamina.val += stamina_gain * delta
+	else:
+		current_sprint_cooldown -= delta
 
 func _ready():
 	super()
@@ -26,6 +65,24 @@ func _ready():
 		$Camera2D.limit_top = camera_limit.global_position.y - camera_limit.shape.get_rect().size.y/2
 		$Camera2D.limit_left = camera_limit.global_position.x - camera_limit.shape.get_rect().size.x/2
 		$Camera2D.limit_right = camera_limit.global_position.x + camera_limit.shape.get_rect().size.x/2
+
+		var sprite_texture = get_sprite_texture()
+
+		# Instantiate stamina bar
+		stamina_bar = stat_bar.instantiate()
+		stamina_bar.texture_width = sprite_texture.get_width() * sprite.scale.x
+		stamina_bar.texture_height = sprite_texture.get_height() * sprite.scale.y * 0.6
+
+		stamina_bar.thickness = 0.1
+
+		stamina_bar.position.y = (sprite_texture.get_height()/2.0)*sprite.scale.y + stamina_bar.thickness + 4
+		stamina_bar.position += health_bar_offset
+
+		stamina_bar.size_scale = health_bar_scale * 0.8
+		
+		stamina_bar.texture_progress = load("res://scenes/Base/stamina_progress.tres")
+
+		add_child(stamina_bar)
 
 	state["hunger"] = {
 		'val': 100,
@@ -42,6 +99,11 @@ func _ready():
 		'min': 0,
 		'max': 100
 	}
+	state["stamina"] = {
+		'val': 100,
+		'min': 0,
+		'max': 100
+	}
 
 	#add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
 
@@ -52,10 +114,21 @@ func _movement(delta) -> void:
 	super(delta)
 	move_dir = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
 
+	# Check for sprinting input
+	if Input.is_action_pressed("sprint") and state.stamina.val > 0:
+		sprinting = true
+	else:
+		sprinting = false
+
 	if move_dir != Vector2.ZERO:
 		last_move_dir = move_dir
 
-	velocity += move_speed * move_dir.normalized()
+	# Account for sprint
+	var speed = move_speed
+	if sprinting:
+		speed *= sprint_speed
+
+	velocity += speed * move_dir.normalized()
 	
 	var collector_pos_dir:Vector2 = last_move_dir
 	if collector_pos_dir.x != 0:
@@ -82,6 +155,20 @@ func _process(delta) -> void:
 	if current_blueprint:
 		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
 		current_blueprint.update()
+
+	stamina_bar.current = state.stamina.val/state.stamina.max
+	stamina_bar.modulate.a = clampf(stamina_bar.modulate.a + stamina_show_delta, 0, 1)
+	
+	# Handle stamina bar visibility
+	if current_sprint_cooldown <= 0:
+		if stamina_bar.modulate.a >= 1:
+			if stamina_show_cooldown <= 0:
+				stamina_show_cooldown = 1
+		stamina_show_cooldown -= delta
+		if stamina_show_cooldown <= 0:
+			stamina_show_delta = -0.1
+	else:
+		stamina_show_delta = 0.1
 
 	_update_stats(delta)
 

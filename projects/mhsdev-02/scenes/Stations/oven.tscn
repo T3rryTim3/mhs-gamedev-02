@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://i0xmlk7yt0wk"]
+[gd_scene load_steps=9 format=3 uid="uid://i0xmlk7yt0wk"]
 
 [ext_resource type="Script" path="res://scripts/oven.gd" id="1_onh8p"]
 [ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://scenes/Base/station_default_progress.tres" id="2_tqr35"]
@@ -10,6 +10,17 @@ size = Vector2(66.5, 13.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
 radius = 17.58
+
+[sub_resource type="Gradient" id="Gradient_misnq"]
+offsets = PackedFloat32Array(0, 0.87013)
+colors = PackedColorArray(1, 0.256333, 0.03, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xklao"]
+gradient = SubResource("Gradient_misnq")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.490826, 0.458716)
 
 [node name="Oven" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 z_as_relative = false
@@ -87,4 +98,8 @@ position = Vector2(53, 9)
 position = Vector2(52, 48)
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(0, 54)
+position = Vector2(0, 38)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+enabled = false
+texture = SubResource("GradientTexture2D_xklao")

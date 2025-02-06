@@ -16,13 +16,18 @@ func _update_sprite():
 		sprite.texture = sprite_on
 		if progress_timer.is_stopped():
 			progress_timer.start()
+			$PointLight2D.enabled = true
 	else:
 		sprite.texture = sprite_off
+		progress_timer.stop()
+		$PointLight2D.enabled = false
 
 func _ready():
 	super()
 	collector_wheat.connect("item_collected", _update_sprite)
 	collector_wood.connect("item_collected", _update_sprite)
+	collector_wheat.connect("item_reset", _update_sprite)
+	collector_wood.connect("item_reset", _update_sprite)
 	progress_timer.stop()
 	progress_timer.one_shot = true
 
