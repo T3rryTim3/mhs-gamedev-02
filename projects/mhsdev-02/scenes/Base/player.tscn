@@ -253,6 +253,8 @@ animations = [{
 radius = 17.58
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["player"]]
+z_index = 3
+y_sort_enabled = true
 collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_1ohs8")
@@ -263,18 +265,19 @@ position = Vector2(0.5, 13.5)
 shape = SubResource("RectangleShape2D_xebjq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_1g787")
 animation = &"move_down_holding"
 frame_progress = 0.779783
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
-z_index = -2
 script = ExtResource("42_nclik")
 stack_limit = 3
 decay_coef = 0.0
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
+show_crate = false
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_layer = 4

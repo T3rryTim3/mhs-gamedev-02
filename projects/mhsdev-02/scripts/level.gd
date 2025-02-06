@@ -26,5 +26,6 @@ func update_station_stats(): ## Updates variables dependent on stations
 	if player:
 		var strength = 1 + _get_station_count(StationData.Stations.STRENGTH_TOTEM)
 		player.update_collector_stack_lim(strength)
-	
-	
+
+func player_stat_update(player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
+	player.state.temp.val -= 1 * delta

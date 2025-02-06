@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=24 format=4 uid="uid://c1g832odaaalg"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://nsrj6j5h6ctv" path="res://scenes/Base/station.tscn" id="6_a5nhr"]
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
 [ext_resource type="PackedScene" uid="uid://i0xmlk7yt0wk" path="res://scenes/Stations/oven.tscn" id="8_bnbq1"]
+[ext_resource type="Texture2D" uid="uid://bxvsmyxsitujf" path="res://images/items/dirty_water.png" id="9_x1r1a"]
 [ext_resource type="PackedScene" uid="uid://dr8hujnthfhc6" path="res://scenes/Stations/forest.tscn" id="11_kicql"]
 [ext_resource type="Texture2D" uid="uid://bqnqdfgmkb7vc" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
 [ext_resource type="PackedScene" uid="uid://d0j0sjf62c3tn" path="res://scenes/Base/blueprint.tscn" id="13_n1juf"]
@@ -435,6 +436,11 @@ player = NodePath("Player")
 position = Vector2(-113, 28)
 camera_limit = NodePath("../CameraLimit")
 
+[node name="DirtyWater" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-155, 38)
+texture = ExtResource("9_x1r1a")
+
 [node name="Stations" type="Node" parent="."]
 
 [node name="Station" parent="Stations" instance=ExtResource("6_a5nhr")]
@@ -449,6 +455,8 @@ move_influence = 0.1
 position = Vector2(-391, 121)
 
 [node name="Oven2" parent="Stations" instance=ExtResource("5_viceh")]
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(-392, 241)
 station_data = 1
 
