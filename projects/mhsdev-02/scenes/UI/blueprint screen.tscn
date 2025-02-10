@@ -1,12 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://w30lg3bdrwq5"]
+[gd_scene load_steps=7 format=3 uid="uid://w30lg3bdrwq5"]
 
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_kfhyo"]
 [ext_resource type="Script" path="res://blueprint_screen.gd" id="2_v43m3"]
-[ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="3_3b3b5"]
-[ext_resource type="Script" path="res://scenes/UI/Hweet.gd" id="4_7avtt"]
-[ext_resource type="Texture2D" uid="uid://by3gkt2w2oww5" path="res://images/stations/forest.png" id="4_taybg"]
-[ext_resource type="Texture2D" uid="uid://dgsmem6qotb3f" path="res://images/stations/quarry.png" id="5_r0iof"]
-[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="6_44afo"]
+[ext_resource type="PackedScene" uid="uid://bdqexil7x13m1" path="res://slot.tscn" id="3_n7xux"]
 
 [sub_resource type="Theme" id="Theme_csanp"]
 Button/colors/font_color = Color(1, 0, 0.427451, 1)
@@ -86,21 +82,31 @@ theme_override_constants/margin_top = 15
 layout_mode = 2
 columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+[node name="Slot" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
 layout_mode = 2
-texture = ExtResource("3_3b3b5")
-script = ExtResource("4_7avtt")
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+[node name="Slot2" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
 layout_mode = 2
-texture = ExtResource("4_taybg")
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+[node name="Slot3" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
 layout_mode = 2
-texture = ExtResource("5_r0iof")
 
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer"]
+[node name="Slot4" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
 layout_mode = 2
-texture = ExtResource("6_44afo")
+
+[node name="Slot5" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
+layout_mode = 2
+
+[node name="Slot6" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
+layout_mode = 2
+
+[node name="Slot7" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
+layout_mode = 2
+
+[node name="Slot8" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
+layout_mode = 2
+
+[node name="Slot9" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/GridContainer" instance=ExtResource("3_n7xux")]
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt77dmq47nbcy"]
+
+[ext_resource type="PackedScene" uid="uid://bdqexil7x13m1" path="res://slot.tscn" id="1_jq0q4"]
+
+[node name="AHHHHHH" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Action Bar" type="HBoxContainer" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -40.0
+offset_right = 152.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Slot" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
+
+[node name="Slot2" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
+
+[node name="Slot4" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
+
+[node name="Slot5" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
+
+[node name="Slot6" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
+
+[node name="Slot7" parent="UI/Action Bar" instance=ExtResource("1_jq0q4")]
+layout_mode = 2
