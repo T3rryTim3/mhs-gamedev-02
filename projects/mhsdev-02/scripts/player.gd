@@ -13,6 +13,7 @@ enum ThirstLevel {
 	HIGH
 }
 
+#region Exports
 ## Area2D that the camera is restricted to
 @export var camera_limit:CollisionShape2D
 
@@ -30,7 +31,9 @@ enum ThirstLevel {
 
 ## Station shader for selection
 @onready var station_shader = load("res://Resources/station_select_shader.tres")
+#endregion
 
+#region Other Vars
 ## Stamina bar
 var stamina_bar:StatBar
 
@@ -56,7 +59,9 @@ var hunger_tick:float = 1.5
 var hunger_damage:float = 1
 
 var hunger_tick_max:float
+#endregion
 
+#region Stats
 func _get_thirst_level() -> ThirstLevel:
 	var perc = state.thirst.val / state.thirst.max
 	if perc <= 0.5:
@@ -84,6 +89,68 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 		current_sprint_cooldown -= delta
 	
 	# Set 
+#endregion
+
+#region Blueprints
+func begin_blueprint(station:StationData.Stations):
+	if current_blueprint:
+		current_blueprint.queue_free()
+
+	current_blueprint = blueprint_hover.instantiate()
+	current_blueprint.station = station
+
+	add_child(current_blueprint)
+	current_blueprint.sprite.texture = load(StationData.get_station_texture(station))
+
+	# Set station shaders to visualize selection
+	station_shader.set_shader_parameter("active", true)
+
+func stop_blueprint():
+	current_blueprint.queue_free()
+	current_blueprint = null
+	station_shader.set_shader_parameter("active", false)
+#endregion
+
+#region Items
+func _use(): # Use the topmost held item
+	var item = collector.get_topmost_item()
+	if not item:
+		return
+	ItemData.use_item(item, self)
+
+func update_collector_stack_lim(limit:int):
+	collector.stack_limit = limit
+
+func highlight_nearest(): ## Highlight the nearest item
+	var nearest:Item
+	var nearest_distance:float = INF
+
+	# Loop through items
+	for x in collector.pickup_area.get_overlapping_bodies():
+		var distance = global_position.distance_to(x.global_position)
+
+		if x is Item and distance < nearest_distance:
+
+			# Update if its the closest
+			if not (x.get_parent() is Collector):
+				if nearest:
+					nearest.disable_outline()
+				nearest = x
+				nearest_distance = distance
+
+		elif x is Item:
+			x.disable_outline()
+
+	if nearest:
+		if len(collector.current_resources) < collector.stack_limit:
+			nearest.enable_outline()
+		else:
+			nearest.disable_outline()
+
+func _on_pickup_range_body_exited(body: Node2D) -> void:
+	if body is Item:
+		body.disable_outline()
+#endregion
 
 func _ready():
 	super()
@@ -116,7 +183,11 @@ func _ready():
 	state["hunger"] = {
 		'val': 100,
 		'min': 0,
-		'max': 100
+		'max': 100,
+		'drain': 0,
+		'drain_coefs': {
+			'base': 1
+		}
 	}
 	state["thirst"] = {
 		'val': 100,
@@ -135,6 +206,77 @@ func _ready():
 	}
 
 	#add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
+
+func _process(delta) -> void:
+	super(delta)
+
+	# Update blueprint
+	if current_blueprint:
+		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
+		current_blueprint.update()
+
+	stamina_bar.current = state.stamina.val/state.stamina.max
+	stamina_bar.modulate.a = clampf(stamina_bar.modulate.a + stamina_show_delta, 0, 1)
+
+	# Handle stamina bar visibility
+	if current_sprint_cooldown <= 0:
+		if stamina_bar.modulate.a >= 1:
+			if stamina_show_cooldown <= 0:
+				stamina_show_cooldown = 1
+		stamina_show_cooldown -= delta
+		if stamina_show_cooldown <= 0:
+			stamina_show_delta = -0.1
+	else:
+		stamina_show_delta = 0.1
+	
+	if self.state.hunger.val <= 0:
+		if hunger_tick <= 0:
+			damage(hunger_damage)
+			hunger_tick = hunger_tick_max
+		hunger_tick -= delta
+
+	# Item hover
+	highlight_nearest()
+	
+	# Input
+	if Input.is_action_just_pressed("pickup"):
+		if not collector.add_nearest_item():
+			collector.drop_item()
+	
+	elif Input.is_action_just_pressed("drop"):
+		collector.drop_item()
+
+	_update_stats(delta)
+
+func _input(event) -> void:
+	if event is InputEventKey:
+		if event.pressed:
+			match event.keycode:
+				KEY_B:
+					if current_blueprint:
+						stop_blueprint()
+					else:
+						begin_blueprint(StationData.Stations.WELL)
+				KEY_K:
+					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+				KEY_N:
+					print("--- Player Stats ---")
+					print("Thirst:")
+					print(state.thirst.val)
+					print("Hunger:")
+					print(state["hunger"].val)
+					print("Temp:")
+					print(state["temp"].val)
+				KEY_F:
+					_use()
+
+	elif event is InputEventMouseButton:
+		if current_blueprint:
+			if current_blueprint.valid:
+				current_blueprint.place(get_parent())
+				stop_blueprint()
+
+	holding_item = len(collector.current_resources) > 0
 
 func _death():
 	pass
@@ -182,131 +324,3 @@ func _movement(delta) -> void:
 		$GPUParticles2D.emitting = true
 	else:
 		$GPUParticles2D.emitting = false
-
-func _process(delta) -> void:
-	super(delta)
-
-	# Update blueprint
-	if current_blueprint:
-		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
-		current_blueprint.update()
-
-	stamina_bar.current = state.stamina.val/state.stamina.max
-	stamina_bar.modulate.a = clampf(stamina_bar.modulate.a + stamina_show_delta, 0, 1)
-
-	# Handle stamina bar visibility
-	if current_sprint_cooldown <= 0:
-		if stamina_bar.modulate.a >= 1:
-			if stamina_show_cooldown <= 0:
-				stamina_show_cooldown = 1
-		stamina_show_cooldown -= delta
-		if stamina_show_cooldown <= 0:
-			stamina_show_delta = -0.1
-	else:
-		stamina_show_delta = 0.1
-	
-	if self.state.hunger.val <= 0:
-		if hunger_tick <= 0:
-			damage(hunger_damage)
-			hunger_tick = hunger_tick_max
-		hunger_tick -= delta
-
-	# Item hover
-	highlight_nearest()
-	
-	# Input
-	if Input.is_action_just_pressed("pickup"):
-		if not collector.add_nearest_item():
-			collector.drop_item()
-	
-	elif Input.is_action_just_pressed("drop"):
-		collector.drop_item()
-
-	_update_stats(delta)
-
-func _use(): # Use the topmost held item
-	var item = collector.get_topmost_item()
-	if not item:
-		return
-	ItemData.use_item(item, self)
-
-func _input(event) -> void:
-	if event is InputEventKey:
-		if event.pressed:
-			match event.keycode:
-				KEY_B:
-					if current_blueprint:
-						stop_blueprint()
-					else:
-						begin_blueprint(StationData.Stations.WELL)
-				KEY_K:
-					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
-				KEY_N:
-					print("--- Player Stats ---")
-					print("Thirst:")
-					print(state.thirst.val)
-					print("Hunger:")
-					print(state["hunger"].val)
-					print("Temp:")
-					print(state["temp"].val)
-				KEY_F:
-					_use()
-
-	elif event is InputEventMouseButton:
-		if current_blueprint:
-			if current_blueprint.valid:
-				current_blueprint.place(get_parent())
-				stop_blueprint()
-
-	holding_item = len(collector.current_resources) > 0
-
-func update_collector_stack_lim(limit:int):
-	collector.stack_limit = limit
-
-func begin_blueprint(station:StationData.Stations):
-	if current_blueprint:
-		current_blueprint.queue_free()
-
-	current_blueprint = blueprint_hover.instantiate()
-	current_blueprint.station = station
-
-	add_child(current_blueprint)
-	current_blueprint.sprite.texture = load(StationData.get_station_texture(station))
-
-	# Set station shaders to visualize selection
-	station_shader.set_shader_parameter("active", true)
-
-func stop_blueprint():
-	current_blueprint.queue_free()
-	current_blueprint = null
-	station_shader.set_shader_parameter("active", false)
-
-func highlight_nearest(): ## Highlight the nearest item
-	var nearest:Item
-	var nearest_distance:float = INF
-
-	# Loop through items
-	for x in collector.pickup_area.get_overlapping_bodies():
-		var distance = global_position.distance_to(x.global_position)
-
-		if x is Item and distance < nearest_distance:
-
-			# Update if its the closest
-			if not (x.get_parent() is Collector):
-				if nearest:
-					nearest.disable_outline()
-				nearest = x
-				nearest_distance = distance
-
-		elif x is Item:
-			x.disable_outline()
-
-	if nearest:
-		if len(collector.current_resources) < collector.stack_limit:
-			nearest.enable_outline()
-		else:
-			nearest.disable_outline()
-
-func _on_pickup_range_body_exited(body: Node2D) -> void:
-	if body is Item:
-		body.disable_outline()

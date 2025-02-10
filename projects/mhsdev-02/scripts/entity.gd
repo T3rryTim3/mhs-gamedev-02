@@ -8,6 +8,7 @@ class_name Entity
 ## Called when force is applied to the entity
 signal force_applied
 
+#region Exports
 ## Sprite of the entity.
 @export var sprite:Node2D
 
@@ -22,7 +23,9 @@ signal force_applied
 
 ## Healthbar placement offset (Starting from bottom-center of the sprite)
 @export var health_bar_offset:Vector2 = Vector2.ZERO
+#endregion
 
+#region Other vars
 ## Health bar
 var health_bar:StatBar
 
@@ -59,7 +62,60 @@ const MAX_VEL:Vector3 = Vector3(100,100,100)
 
 ## Hide the healthbar - Used when items are collected
 var show_health:bool = true
+#endregion
 
+#region State Objects
+
+enum DrainFactorTypes {
+	MUL,
+	ADD
+}
+
+class DrainFactor: ## An individual factor affecting a state item's drain
+	var num:float
+	var type:DrainFactorTypes
+	var enabled:bool
+	
+	func _init(drain_num:float, drain_type:DrainFactorTypes, enabled:bool=false):
+		self.num = drain_num
+		self.type = drain_type
+		self.enabled = enabled
+	
+	func apply(input:float) -> float: ## Apply the factor
+		if not enabled:
+			return input
+
+		# Apply factor
+		match self.type:
+			DrainFactorTypes.MUL:
+				return input * self.num
+			DrainFactorTypes.ADD:
+				return input + self.num
+		return input
+
+class StateItem: ## Data for a property of the entity (thirst, temp, etc.)
+	var val:float
+	var min:float
+	var max:float
+	var drain:float
+	var drain_factors:Array
+	
+	func _init(i_val:float, i_min:float, i_max:float, i_drain:float, i_drain_factors:Array) -> void:
+		self.val = i_val
+		self.min = i_min
+		self.max = i_max
+		self.drain = i_drain
+		self.drain_factors = i_drain_factors
+	
+	func _update(delta:float): ## Apply all drain factors and drain the item's value
+		var total_drain:float = self.drain
+		for i in self.drain_factors:
+			i.apply(total_drain)
+		total_drain *= delta # Account for time
+		self.val = clampf(self.val - self.drain,self.min, self.max)
+#endregion
+
+#region Effects
 func add_effect(effect:EffectData.EffectTypes, duration:float, strength:float): ## Add an effect to the entity
 	var new = EffectData.Effect.new(effect, duration, strength, self)
 	effects.append(new)
@@ -80,52 +136,9 @@ func _apply_effects(delta:float): ## Calls 'apply' for each effect. Also remove 
 		# Remove if expired
 		if x.duration <= 0:
 			x.remove()
+#endregion
 
-func _get_level(): ## Finds the first Level ancestor
-	var parent = get_parent() 
-	while parent != null:
-		if parent is Level:
-			return parent
-		parent = parent.get_parent()
-	return null
-
-func get_sprite_texture() -> Texture2D:
-	if sprite is Sprite2D:
-		return sprite.texture
-	if sprite is AnimatedSprite2D:
-		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
-	print("ERROR: INVALID SRPITE SET")
-	return null
-
-func _update_health(new:float) -> void: ## Update health while keeping within limits.
-	health = clamp(new, 0, max_health)
-	if health <= 0:
-		_death()
-
-func _ready():
-	# Set max health to current value
-	max_health = health
-
-	var sprite_texture = get_sprite_texture()
-
-	# Instantiate health bar
-	health_bar = stat_bar.instantiate()
-	health_bar.texture_width = sprite_texture.get_width() * sprite.scale.x
-	health_bar.texture_height = sprite_texture.get_height() * sprite.scale.y
-
-	health_bar.thickness = 0.15
-
-	health_bar.position.y = (sprite_texture.get_height()/2.0)*sprite.scale.y
-	health_bar.position += health_bar_offset
-
-	health_bar.size_scale = health_bar_scale
-
-	add_child(health_bar)
-	
-	#add_effect(EffectData.EffectTypes.BURNING, 10, 1)
-
-func _death() -> void: ## Calls upon health hitting zero. Will queue free by default.
-	queue_free()
+#region Physics
 
 func _update_force(delta) -> void: ## Updates the velocity of the entity (According to move_influence)
 
@@ -175,13 +188,6 @@ func _physics_process(delta: float) -> void:
 	_update_force(delta)
 	move_and_slide()
 
-func damage(amount:float) -> void: # Deal damage to the entity
-	damage_mod_coef = 1
-	_update_health(health - amount)
-
-func heal(amount:float) -> void:
-	health = clampf(health + amount, 0, max_health)
-
 func apply_force(applied:Vector2): ## Apply force to the entity
 	var new_applied:Vector3 = Vector3(applied.x, applied.y, 0)
 	new_applied *= move_influence
@@ -190,3 +196,59 @@ func apply_force(applied:Vector2): ## Apply force to the entity
 	
 	if applied.length() > 0:
 		force_applied.emit()
+#endregion
+
+#region Health
+func _death() -> void: ## Calls upon health hitting zero. Will queue free by default.
+	queue_free()
+
+func damage(amount:float) -> void: # Deal damage to the entity
+	damage_mod_coef = 1
+	_update_health(health - amount)
+
+func heal(amount:float) -> void:
+	health = clampf(health + amount, 0, max_health)
+#endregion
+
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
+
+func get_sprite_texture() -> Texture2D:
+	if sprite is Sprite2D:
+		return sprite.texture
+	if sprite is AnimatedSprite2D:
+		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
+	print("ERROR: INVALID SRPITE SET")
+	return null
+
+func _update_health(new:float) -> void: ## Update health while keeping within limits.
+	health = clamp(new, 0, max_health)
+	if health <= 0:
+		_death()
+
+func _ready():
+	# Set max health to current value
+	max_health = health
+
+	var sprite_texture = get_sprite_texture()
+
+	# Instantiate health bar
+	health_bar = stat_bar.instantiate()
+	health_bar.texture_width = sprite_texture.get_width() * sprite.scale.x
+	health_bar.texture_height = sprite_texture.get_height() * sprite.scale.y
+
+	health_bar.thickness = 0.15
+
+	health_bar.position.y = (sprite_texture.get_height()/2.0)*sprite.scale.y
+	health_bar.position += health_bar_offset
+
+	health_bar.size_scale = health_bar_scale
+
+	add_child(health_bar)
+	
+	#add_effect(EffectData.EffectTypes.BURNING, 10, 1)
