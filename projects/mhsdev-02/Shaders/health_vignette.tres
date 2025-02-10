@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dmsb6rpprfsss"]
+
+[ext_resource type="Shader" path="res://Shaders/main.gdshader" id="1_4yydu"]
+
+[resource]
+shader = ExtResource("1_4yydu")
+shader_parameter/outerRadius = 1.0
+shader_parameter/MainAlpha = 1.0

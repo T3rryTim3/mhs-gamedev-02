@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=4 format=3 uid="uid://cec63m3q1fajg"]
 
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
 [ext_resource type="PackedScene" uid="uid://c1g832odaaalg" path="res://scenes/Testing/phystest.tscn" id="1_yr86s"]
-[ext_resource type="Shader" path="res://Shaders/main.gdshader" id="2_bl8pg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rybio"]
-shader = ExtResource("2_bl8pg")
-shader_parameter/outerRadius = 5.0
-shader_parameter/MainAlpha = 0.629
+[ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
 
 [node name="Main" type="Node2D"]
 
@@ -15,7 +10,7 @@ shader_parameter/MainAlpha = 0.629
 visible = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = SubResource("ShaderMaterial_rybio")
+material = ExtResource("2_t81tu")
 offset_right = 40.0
 offset_bottom = 40.0
 

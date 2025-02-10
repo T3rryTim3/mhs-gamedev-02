@@ -9,6 +9,9 @@ signal item_collected
 ## Fires when an item's stats are wiped / when an item is removed
 signal item_reset
 
+## Fires when a collector drops an item into this one.
+signal item_given
+
 ## Collector visual preload
 @onready var display_scn = preload("res://scenes/Base/collector_display.tscn")
 
@@ -237,7 +240,7 @@ func _reparent_item(item:Item): ## Reparent item to the level
 
 	# Reparent item to root
 	remove_child(item)
-	_get_level().add_child(item)
+	_get_level().call_deferred("add_child", item)
 
 	# Reset position back
 	item.global_position = glob_pos
@@ -247,9 +250,16 @@ func get_topmost_item() -> Item: ## Returns the topmost item.
 		return null
 	return current_resources[-1]
 
-func item_entered(_item:Item): ## Called by other collectors when an item is dropped nearby
+func item_entered(item:Item): ## Called by other collectors when an item is dropped nearby
+	
+	# Fire signal for custom pickup functionality
+	item_given.emit(item)
+	
+	# Auto collect
 	if auto_collect:
-		add_nearest_item()
+		if item.get_parent() is Collector:
+			item.get_parent().reset_item_stats(item)
+		add_item(item)
 
 func drop_item() -> void: ## Drop the topmost item.
 	# Validate request
@@ -266,9 +276,12 @@ func drop_item() -> void: ## Drop the topmost item.
 
 	var item:Item = current_resources[-1] # Get topmost item
 
-	_reparent_item(item)
-	
-	# ...Unless there's a collector
+	# Drop item or give it to an overlapping collector
 	if near_collector:
 		item.global_position = near_collector.get_parent().pickup_pos_node.global_position
 		near_collector.get_parent().item_entered(item)
+		if item.get_parent() == self: # If the collector did not accept the item
+			_reparent_item(item)
+	else:
+		_reparent_item(item)
+	

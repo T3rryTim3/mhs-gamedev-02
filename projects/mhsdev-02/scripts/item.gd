@@ -36,6 +36,12 @@ func _ready() -> void:
 	$Sprite2D.texture = image
 	super()
 
+func enable_outline() -> void:
+	sprite.material.set("shader_parameter/thickness", 0.7)
+
+func disable_outline() -> void:
+	sprite.material.set("shader_parameter/thickness", 0)
+
 func _process(delta: float) -> void:
 	super(delta)
 	_update_health(health - (decay_rate * collector_decay_coef) * delta)

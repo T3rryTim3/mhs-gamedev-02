@@ -6,6 +6,13 @@ class_name Player
 
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
+enum ThirstLevel {
+	NONE,
+	LOW,
+	MEDIUM,
+	HIGH
+}
+
 ## Area2D that the camera is restricted to
 @export var camera_limit:CollisionShape2D
 
@@ -40,7 +47,25 @@ var current_blueprint:BlueprintHover
 var sprinting:bool = false
 
 ## Current sprint cooldown value (Before stamina recovery)
-var current_sprint_cooldown:float = 0
+var current_sprint_cooldown:float = 0.0
+
+## Time until next hunger damage tick
+var hunger_tick:float = 1.5
+
+## Damage per hunger tick
+var hunger_damage:float = 1
+
+var hunger_tick_max:float
+
+func _get_thirst_level() -> ThirstLevel:
+	var perc = state.thirst.val / state.thirst.max
+	if perc <= 0.5:
+		return ThirstLevel.NONE
+	elif perc <= 0.3:
+		return ThirstLevel.LOW
+	elif perc <= 0.1:
+		return ThirstLevel.MEDIUM
+	return ThirstLevel.HIGH
 
 func _update_stats(delta:float): # Updates the player's stats with respect to time
 	_get_level().player_stat_update(self, delta) # Apply level effects
@@ -57,6 +82,8 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 			state.stamina.val += stamina_gain * delta
 	else:
 		current_sprint_cooldown -= delta
+	
+	# Set 
 
 func _ready():
 	super()
@@ -81,6 +108,8 @@ func _ready():
 		stamina_bar.size_scale = health_bar_scale * 0.8
 		
 		stamina_bar.texture_progress = load("res://scenes/Base/stamina_progress.tres")
+		
+		hunger_tick_max = hunger_tick
 
 		add_child(stamina_bar)
 
@@ -113,7 +142,7 @@ func _death():
 func _movement(delta) -> void:
 	super(delta)
 	move_dir = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
-
+	
 	# Check for sprinting input
 	if Input.is_action_pressed("sprint") and state.stamina.val > 0:
 		sprinting = true
@@ -148,6 +177,12 @@ func _movement(delta) -> void:
 		collector.z_index = 1
 		collector.position.y -= 8
 
+	# Footsteps
+	if velocity != Vector2.ZERO:
+		$GPUParticles2D.emitting = true
+	else:
+		$GPUParticles2D.emitting = false
+
 func _process(delta) -> void:
 	super(delta)
 
@@ -158,7 +193,7 @@ func _process(delta) -> void:
 
 	stamina_bar.current = state.stamina.val/state.stamina.max
 	stamina_bar.modulate.a = clampf(stamina_bar.modulate.a + stamina_show_delta, 0, 1)
-	
+
 	# Handle stamina bar visibility
 	if current_sprint_cooldown <= 0:
 		if stamina_bar.modulate.a >= 1:
@@ -169,6 +204,23 @@ func _process(delta) -> void:
 			stamina_show_delta = -0.1
 	else:
 		stamina_show_delta = 0.1
+	
+	if self.state.hunger.val <= 0:
+		if hunger_tick <= 0:
+			damage(hunger_damage)
+			hunger_tick = hunger_tick_max
+		hunger_tick -= delta
+
+	# Item hover
+	highlight_nearest()
+	
+	# Input
+	if Input.is_action_just_pressed("pickup"):
+		if not collector.add_nearest_item():
+			collector.drop_item()
+	
+	elif Input.is_action_just_pressed("drop"):
+		collector.drop_item()
 
 	_update_stats(delta)
 
@@ -182,11 +234,6 @@ func _input(event) -> void:
 	if event is InputEventKey:
 		if event.pressed:
 			match event.keycode:
-				KEY_E:
-					if not collector.add_nearest_item():
-						collector.drop_item()
-				KEY_Q:
-					collector.drop_item()
 				KEY_B:
 					if current_blueprint:
 						stop_blueprint()
@@ -233,3 +280,33 @@ func stop_blueprint():
 	current_blueprint.queue_free()
 	current_blueprint = null
 	station_shader.set_shader_parameter("active", false)
+
+func highlight_nearest(): ## Highlight the nearest item
+	var nearest:Item
+	var nearest_distance:float = INF
+
+	# Loop through items
+	for x in collector.pickup_area.get_overlapping_bodies():
+		var distance = global_position.distance_to(x.global_position)
+
+		if x is Item and distance < nearest_distance:
+
+			# Update if its the closest
+			if not (x.get_parent() is Collector):
+				if nearest:
+					nearest.disable_outline()
+				nearest = x
+				nearest_distance = distance
+
+		elif x is Item:
+			x.disable_outline()
+
+	if nearest:
+		if len(collector.current_resources) < collector.stack_limit:
+			nearest.enable_outline()
+		else:
+			nearest.disable_outline()
+
+func _on_pickup_range_body_exited(body: Node2D) -> void:
+	if body is Item:
+		body.disable_outline()

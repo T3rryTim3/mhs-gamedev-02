@@ -78,11 +78,12 @@ func _process(delta: float) -> void:
 	if not completing:
 		cooldown_timer += delta
 		if cooldown_timer > cooldown_limit:
-			_collect()
+			#_collect()
 			cooldown_timer = 0
 
 func _collect():
 	# Collect and filter nearby items
+	print("Called")
 	for k in cost:
 		if spent_resources[k] >= cost[k]:
 			continue
@@ -100,3 +101,11 @@ func _collect():
 func _on_collector_item_reset() -> void:
 	_update_label()
 	_check_completion()
+
+func _on_collector_item_given(item) -> void:
+	print("Fired")
+	for k in cost:
+		if item.id == k and cost[k] - spent_resources[k] > 0:
+			collector.add_item(item)
+			spent_resources[k.id] += 1
+			

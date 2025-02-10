@@ -16,7 +16,6 @@ VBoxContainer/constants/separation = 0
 radius = 17.58
 
 [node name="Blueprint" type="Node2D"]
-z_index = -2
 script = ExtResource("1_kkihv")
 metadata/_edit_horizontal_guides_ = [-150.0]
 
@@ -33,7 +32,6 @@ offset_bottom = 144.0
 theme = SubResource("Theme_42iqc")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
-z_index = -2
 script = ExtResource("4_3wxl6")
 can_steal = true
 pickup_area = NodePath("PickupRange")
@@ -66,4 +64,5 @@ offset_bottom = 48.0
 color = Color(1, 1, 1, 0)
 
 [connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]
+[connection signal="item_given" from="Collector" to="." method="_on_collector_item_given"]
 [connection signal="item_reset" from="Collector" to="." method="_on_collector_item_reset"]
