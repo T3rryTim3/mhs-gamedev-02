@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdqexil7x13m1"]
+
+[ext_resource type="Script" path="res://broad.gd" id="1_tr2l0"]
+[ext_resource type="Texture2D" uid="uid://xvtxeuvbp12u" path="res://images/stations/oven(off).png" id="2_ak00h"]
+
+[node name="Slot" type="PanelContainer"]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("1_tr2l0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_ak00h")
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

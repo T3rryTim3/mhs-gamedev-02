@@ -22,6 +22,7 @@ StationData="*res://scripts/Singletons/station_data.gd"
 ItemData="*res://scripts/Singletons/item_data.gd"
 EventMan="*res://scripts/Singletons/events.gd"
 EffectData="*res://scripts/Singletons/effect_data.gd"
+Popuppanel="*res://scenes/UI/popuppanel.tscn"
 
 [display]
 
