@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0j0sjf62c3tn"]
 
-[ext_resource type="Script" path="res://scenes/Base/blueprint.gd" id="1_kkihv"]
-[ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://scenes/Base/blueprint.tres" id="2_12j11"]
+[ext_resource type="Script" path="res://scripts/blueprint.gd" id="1_kkihv"]
+[ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://Resources/blueprint.tres" id="2_12j11"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_gqyux"]
 [ext_resource type="Script" path="res://scripts/collector.gd" id="4_3wxl6"]
 [ext_resource type="PackedScene" uid="uid://b2vmtpdbykxl1" path="res://scenes/Structure/blueprint_collider.tscn" id="5_tdijv"]
@@ -32,8 +32,8 @@ offset_bottom = 144.0
 theme = SubResource("Theme_42iqc")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+position = Vector2(16, 13)
 script = ExtResource("4_3wxl6")
-can_steal = true
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")

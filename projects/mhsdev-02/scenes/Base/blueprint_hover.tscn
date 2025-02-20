@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://ule6umnm4nur"]
 
-[ext_resource type="Script" path="res://scenes/Base/blueprint_hover.gd" id="1_0vulk"]
+[ext_resource type="Script" path="res://scripts/blueprint_hover.gd" id="1_0vulk"]
 [ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="1_nsuxl"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="2_oiyln"]
-[ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://scenes/Base/blueprint.tres" id="2_t2fm4"]
+[ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://Resources/blueprint.tres" id="2_t2fm4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p30d1"]
 size = Vector2(80, 80)

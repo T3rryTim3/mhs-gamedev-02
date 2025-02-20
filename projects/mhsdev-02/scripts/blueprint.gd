@@ -1,6 +1,16 @@
 extends Node2D
 class_name Blueprint
 
+enum LayerBehaviour
+{
+	ADAPTIVE,
+	BELOW,
+	ABOVE
+}
+
+## Behavoir for display in relation to the player
+@export var layer_behavior:LayerBehaviour = LayerBehaviour.ADAPTIVE
+
 ## Station texture of blueprint
 @onready var sprite = $Sprite2D
 
@@ -28,6 +38,14 @@ var cooldown_limit:float = 1.0
 ## Stops certain functions
 var completing = false
 
+func get_sprite_texture() -> Texture2D:
+	if sprite is Sprite2D:
+		return sprite.texture
+	if sprite is AnimatedSprite2D:
+		return sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
+	print("ERROR: INVALID SRPITE SET")
+	return null
+
 func _ready():
 	# Get station texture
 	sprite.texture = load(StationData.get_station_texture(target_station))
@@ -52,7 +70,7 @@ func _ready():
 func _complete():
 	completing = true
 	
-	# Remove all labels
+	# Remove all labels## Behavoir for display in relation to the player
 	for child in $VBoxContainer.get_children():
 		child.queue_free()
 	
@@ -80,10 +98,20 @@ func _process(delta: float) -> void:
 		if cooldown_timer > cooldown_limit:
 			#_collect()
 			cooldown_timer = 0
+	match layer_behavior:
+		0:
+			# Check if the player is above the station based on camera pos
+			if get_viewport().get_camera_2d().global_position.y + 24 <global_position.y + get_sprite_texture().get_height()/2.0:
+				z_index = 5
+			else:
+				z_index = -1
+		1:
+			z_index = -1
+		2: 
+			z_index = 5
 
 func _collect():
 	# Collect and filter nearby items
-	print("Called")
 	for k in cost:
 		if spent_resources[k] >= cost[k]:
 			continue
@@ -103,9 +131,10 @@ func _on_collector_item_reset() -> void:
 	_check_completion()
 
 func _on_collector_item_given(item) -> void:
-	print("Fired")
 	for k in cost:
 		if item.id == k and cost[k] - spent_resources[k] > 0:
 			collector.add_item(item)
-			spent_resources[k.id] += 1
+			spent_resources[k] += 1
+	_update_label()
+	_check_completion()
 			

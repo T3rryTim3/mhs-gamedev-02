@@ -72,11 +72,13 @@ enum DrainFactorTypes {
 }
 
 class DrainFactor: ## An individual factor affecting a state item's drain
+	var id:String
 	var num:float
 	var type:DrainFactorTypes
 	var enabled:bool
 	
-	func _init(drain_num:float, drain_type:DrainFactorTypes, enabled:bool=false):
+	func _init(drain_id:String, drain_num:float, drain_type:DrainFactorTypes, enabled:bool=false):
+		self.id = drain_id
 		self.num = drain_num
 		self.type = drain_type
 		self.enabled = enabled
@@ -95,24 +97,32 @@ class DrainFactor: ## An individual factor affecting a state item's drain
 
 class StateItem: ## Data for a property of the entity (thirst, temp, etc.)
 	var val:float
-	var min:float
-	var max:float
+	var val_min:float
+	var val_max:float
 	var drain:float
 	var drain_factors:Array
 	
 	func _init(i_val:float, i_min:float, i_max:float, i_drain:float, i_drain_factors:Array) -> void:
 		self.val = i_val
-		self.min = i_min
-		self.max = i_max
+		self.val_min = i_min
+		self.val_max = i_max
 		self.drain = i_drain
 		self.drain_factors = i_drain_factors
 	
-	func _update(delta:float): ## Apply all drain factors and drain the item's value
+	func update(delta:float): ## Apply all drain factors and drain the item's value
 		var total_drain:float = self.drain
 		for i in self.drain_factors:
-			i.apply(total_drain)
+			total_drain = i.apply(total_drain)
 		total_drain *= delta # Account for time
-		self.val = clampf(self.val - self.drain,self.min, self.max)
+		self.val = clampf(self.val - total_drain,self.val_min, self.val_max)
+	
+	func set_drain_factor(id:String,value:bool): ## Set the enabled value of a drain factor to value
+		for i in self.drain_factors:
+			if i.id == id:
+				i.enabled = value
+				return
+		print("Drain factor not found! " + id)
+	
 #endregion
 
 #region Effects
@@ -166,7 +176,11 @@ func _process(delta) -> void:
 	health_bar.visible = show_health
 	_apply_effects(delta)
 	for k in state.keys(): # Clamp stats
-		state[k].val = clampf(state[k].val, state[k].min, state[k].max)
+		if state[k] is StateItem:
+			state[k].update(delta)
+			state[k].val = clampf(state[k].val, state[k].val_min, state[k].val_max)
+		else:
+			state[k].val = clampf(state[k].val, state[k].min, state[k].max)
 
 func _round_vector(vec:Vector2, n:int) -> Vector2: ## Rounds each value of vec to n
 	return Vector2(int(vec.x/n)*n, int(vec.y/n)*n)
@@ -178,10 +192,10 @@ func _physics_process(delta: float) -> void:
 		#apply_force(Vector3(randf_range(-1,1)*600,randf_range(-1,1)*600,randf_range(0,1)*600))
 
 	health_bar.current = health/max_health
-	
+
 	damage_mod_coef -= delta * 4
 	damage_mod_coef = clampf(damage_mod_coef, 0, 1)
-	
+
 	sprite.self_modulate = Color(1,1 - damage_mod_coef,1 - damage_mod_coef)
 
 	_movement(delta)

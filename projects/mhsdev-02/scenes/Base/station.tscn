@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://nsrj6j5h6ctv"]
 
-[ext_resource type="Script" path="res://station.gd" id="1_g7ken"]
-[ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://scenes/Base/station_default_progress.tres" id="2_0l7mi"]
+[ext_resource type="Script" path="res://scripts/station.gd" id="1_g7ken"]
+[ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_0l7mi"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_m2phn"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="3_pb7u5"]
 

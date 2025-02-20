@@ -2,7 +2,7 @@ extends Entity
 class_name Station
 
 ## Default texture
-var DEFAULT_PROGRESS_TEXTURE = preload("res://scenes/Base/station_default_progress.tres")
+var DEFAULT_PROGRESS_TEXTURE = load("res://Resources/station_default_progress.tres")
 
 ## Default fling for item spawning
 var DEFAULT_FLING_VAL:int = 160

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=26 format=4 uid="uid://c1g832odaaalg"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
@@ -18,6 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="16_2fpxk"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="17_h4i0y"]
 [ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="18_bmu16"]
+[ext_resource type="PackedScene" uid="uid://cipvdry64d3m" path="res://scenes/Stations/campfire.tscn" id="19_hg4jv"]
+
+[sub_resource type="Curve" id="Curve_d0i73"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.457895, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o60uk"]
 texture = ExtResource("12_lf2jf")
@@ -444,6 +449,7 @@ script = ExtResource("1_mkj7t")
 items = NodePath("Items")
 stations = NodePath("Stations")
 player = NodePath("Player")
+health_vignette_curve = SubResource("Curve_d0i73")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
@@ -474,6 +480,9 @@ station_data = 2
 
 [node name="StrengthTotem" parent="Stations" groups=["station"] instance=ExtResource("15_0j7fl")]
 position = Vector2(-389, 337)
+
+[node name="StrengthTotem2" parent="Stations" instance=ExtResource("19_hg4jv")]
+position = Vector2(-507, 80)
 
 [node name="Items" type="Node" parent="."]
 
@@ -569,9 +578,6 @@ player = NodePath("../../Player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nmvk3")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.91664, 0.91664, 0.91664, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 visible = false

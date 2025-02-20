@@ -25,12 +25,18 @@ var collect_start_pos:Vector2 = Vector2.ZERO
 ## Used to identify item when collected
 var collection_id:int = 0
 
+# Variables for item usage progress
+var item_usage_progress:float = 0
+var item_usage_max:float
+var using:bool = false
+
 func _ready() -> void:
 	# Assign base stats based on resource
 	var data = ItemData.get_item_data(id)
 	health = data["health"]
 	decay_rate = data["decay_rate"]
 	img_path = data["img_path"]
+	item_usage_max = data["use_time"]
 			
 	var image = load(img_path)
 	$Sprite2D.texture = image

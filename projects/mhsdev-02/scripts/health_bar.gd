@@ -45,6 +45,8 @@ func _process(_delta: float) -> void:
 	value = int(true_value)
 
 func refresh() -> void: ## Refresh the bar's size and position. Does not affect progress
+	if not texture_progress:
+		return
 	scale.x = (1.0/texture_progress.get_width()) * texture_width * size_scale
 	scale.y = y_to_x_ratio * scale.x
 	position.x = -(texture_width * size_scale)/2 + x_offset

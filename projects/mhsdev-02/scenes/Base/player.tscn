@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=50 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="2_8og45"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://buua53piwlkx4" path="res://images/Humanoid/Player/BackWalk(Holding)/BackWalk(Holding)03.png" id="40_vasfm"]
 [ext_resource type="Texture2D" uid="uid://ca2ciih6lavpa" path="res://images/Humanoid/Player/BackWalk(Holding)/BackWalk(Holding)04.png" id="41_0s1nj"]
 [ext_resource type="Script" path="res://scripts/collector.gd" id="42_nclik"]
+[ext_resource type="Texture2D" uid="uid://6pumuile4k83" path="res://Resources/use_progress.tres" id="43_d0e5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
 size = Vector2(13, 19)
@@ -272,6 +273,7 @@ width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.490826, 0.458716)
+fill_to = Vector2(0.917431, 0.0917431)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["player"]]
 z_index = 3
@@ -326,6 +328,14 @@ process_material = SubResource("ParticleProcessMaterial_2qmqs")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.1
 texture = SubResource("GradientTexture2D_jr42c")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -28.0
+offset_right = 24.0
+offset_bottom = -26.0
+value = 100.0
+texture_progress = ExtResource("43_d0e5a")
 
 [connection signal="body_entered" from="Collector/PickupRange" to="." method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="Collector/PickupRange" to="." method="_on_pickup_range_body_exited"]

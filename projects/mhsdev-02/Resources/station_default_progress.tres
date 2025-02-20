@@ -6,3 +6,4 @@ colors = PackedColorArray(0.351193, 0.7854, 0.447601, 1)
 
 [resource]
 gradient = SubResource("Gradient_pgvw6")
+height = 48

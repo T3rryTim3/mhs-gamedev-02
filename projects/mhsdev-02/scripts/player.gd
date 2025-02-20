@@ -3,6 +3,7 @@ class_name Player
 
 @onready var collector:Collector = $Collector
 @onready var collector_collider:CollisionShape2D = $Collector/PickupRange/CollisionShape2D
+@onready var use_bar = $TextureProgressBar
 
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
@@ -18,13 +19,13 @@ enum ThirstLevel {
 @export var camera_limit:CollisionShape2D
 
 ## Cooldown before sprinting starts to recover
-@export var sprint_cooldown:float = 2
+@export var sprint_cooldown:float = 1.3
 
 ## Sprint speed (Multiplier)
 @export var sprint_speed:float = 1.5
 
 ## Stamina per second drained while sprining
-@export var stamina_drain:float = 30
+@export var stamina_drain:float = 20
 
 ## Stamina per second gained after sprint ended
 @export var stamina_gain:float = 30
@@ -72,22 +73,30 @@ func _get_thirst_level() -> ThirstLevel:
 		return ThirstLevel.MEDIUM
 	return ThirstLevel.HIGH
 
+func _is_exhausted() -> bool: ## Returns true if temp is above a certain threshold
+	return state.temp.val / state.temp.val_max > 0.9
+	
 func _update_stats(delta:float): # Updates the player's stats with respect to time
 	_get_level().player_stat_update(self, delta) # Apply level effects
+
+	#state["hunger"].val -= (0.6 + int(sprinting) * 0.5) * delta # Default hunger drain
+	#state["thirst"].val -= (1 + int(sprinting) * 0.5) * delta # Default thirst drain
+	#state.temp.val += int(sprinting) * 0.5 * delta # Heat if sprinting
+
+	state.hunger.set_drain_factor('sprint', sprinting)
+	state.thirst.set_drain_factor('sprint', sprinting)
+	state.temp.set_drain_factor('sprint', sprinting)
 	
-	state["hunger"].val -= (0.6 + int(sprinting) * 0.5) * delta # Default hunger drain
-	state["thirst"].val -= (1 + int(sprinting) * 0.5) * delta # Default thirst drain
-	state.temp.val += int(sprinting) * 0.5 * delta # Heat if sprinting
+	state.thirst.set_drain_factor('high_temp', _is_exhausted())
 
 	if sprinting: # Begin cooldown if not started
 		current_sprint_cooldown = sprint_cooldown
-		state.stamina.val -= stamina_drain * delta
-
+		state.stamina.val -= stamina_drain * delta * (int(_is_exhausted()) + 1)
 	if current_sprint_cooldown <= 0:
 			state.stamina.val += stamina_gain * delta
 	else:
 		current_sprint_cooldown -= delta
-	
+
 	# Set 
 #endregion
 
@@ -112,17 +121,23 @@ func stop_blueprint():
 #endregion
 
 #region Items
-func _use(): # Use the topmost held item
+func _use(delta): # Use the topmost held item
 	var item = collector.get_topmost_item()
 	if not item:
 		return
-	ItemData.use_item(item, self)
+	ItemData.use_item(item, self, delta)
+
+func _used_item() -> Item: # Gets the currently being used item, if any
+	var item = collector.get_topmost_item()
+	if item and item.using:
+		return item
+	return null
 
 func update_collector_stack_lim(limit:int):
 	collector.stack_limit = limit
 
 func highlight_nearest(): ## Highlight the nearest item
-	var nearest:Item
+	var nearest:Item = null
 	var nearest_distance:float = INF
 
 	# Loop through items
@@ -174,36 +189,37 @@ func _ready():
 
 		stamina_bar.size_scale = health_bar_scale * 0.8
 		
-		stamina_bar.texture_progress = load("res://scenes/Base/stamina_progress.tres")
+		stamina_bar.texture_progress = load("res://Resources/stamina_progress.tres")
 		
 		hunger_tick_max = hunger_tick
 
 		add_child(stamina_bar)
+		
+		use_bar.visible = false
 
-	state["hunger"] = {
-		'val': 100,
-		'min': 0,
-		'max': 100,
-		'drain': 0,
-		'drain_coefs': {
-			'base': 1
-		}
-	}
-	state["thirst"] = {
-		'val': 100,
-		'min': 0,
-		'max': 100
-	}
-	state["temp"] = {
-		'val': 50,
-		'min': 0,
-		'max': 100
-	}
-	state["stamina"] = {
-		'val': 100,
-		'min': 0,
-		'max': 100
-	}
+	# Create stats
+	state["hunger"] = StateItem.new(100, 0, 100, 0.6,
+		[
+			DrainFactor.new("sprint", 0.5, DrainFactorTypes.ADD, false),
+		]
+	)
+	state["thirst"] = StateItem.new(100, 0, 100, 0.8,
+		[
+			DrainFactor.new("sprint", 0.5, DrainFactorTypes.ADD, false),
+			DrainFactor.new("high_temp", 1, DrainFactorTypes.ADD)
+		]
+	)
+	state["temp"] = StateItem.new(50, 0, 100, 0, # Manually drained through level
+		[
+			DrainFactor.new("sprint", -0.5, DrainFactorTypes.ADD, false),
+			DrainFactor.new("campfire", -2, DrainFactorTypes.ADD, false)
+		]
+	)
+	state["stamina"] = StateItem.new(100, 0, 100, 0, 
+		[
+			DrainFactor.new("high_temp", 1, DrainFactorTypes.ADD)
+		]
+	)
 
 	#add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
 
@@ -215,7 +231,7 @@ func _process(delta) -> void:
 		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
 		current_blueprint.update()
 
-	stamina_bar.current = state.stamina.val/state.stamina.max
+	stamina_bar.current = state.stamina.val/state.stamina.val_max
 	stamina_bar.modulate.a = clampf(stamina_bar.modulate.a + stamina_show_delta, 0, 1)
 
 	# Handle stamina bar visibility
@@ -246,6 +262,19 @@ func _process(delta) -> void:
 	elif Input.is_action_just_pressed("drop"):
 		collector.drop_item()
 
+	# Update item progress
+	var item = _used_item()
+	if Input.is_action_pressed("use_item"):
+		_use(delta)
+	elif item:
+		item.using = false
+
+	if item and item.using:
+		use_bar.show()
+		use_bar.value = (item.item_usage_progress / item.item_usage_max) * use_bar.max_value
+	else:
+		use_bar.hide()
+
 	_update_stats(delta)
 
 func _input(event) -> void:
@@ -267,8 +296,8 @@ func _input(event) -> void:
 					print(state["hunger"].val)
 					print("Temp:")
 					print(state["temp"].val)
-				KEY_F:
-					_use()
+				KEY_R:
+					collector.cycle_items()
 
 	elif event is InputEventMouseButton:
 		if current_blueprint:

@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq7o0v1c7hlqw"
-valid=false
+uid="uid://cnlp2l3cxg2q1"
+path="res://.godot/imported/Tornado Frame 3.png-8712ddbc6f7b634bd05cc9eeec0f3684.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Untitled457_20241205174958.png"
+source_file="res://images/event/Tornado/Tornado Frame 3.png"
+dest_files=["res://.godot/imported/Tornado Frame 3.png-8712ddbc6f7b634bd05cc9eeec0f3684.ctex"]
 
 [params]
 

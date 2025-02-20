@@ -10,6 +10,9 @@ class_name Level
 ## Current player
 @export var player:Player
 
+## Curve for health vignette
+@export var health_vignette_curve:Curve
+
 ## Health vignette
 @onready var vignette_shader = load("res://Shaders/health_vignette.tres")
 
@@ -17,13 +20,11 @@ func _ready():
 	stations.child_order_changed.connect(update_station_stats)
 
 func _process(_delta) -> void:
-	var health_perc = player.health / player.max_health
-	if health_perc < 0.4:
-		vignette_shader.set_shader_parameter("MainAlpha", 1-(health_perc+0.6))
-		vignette_shader.set_shader_parameter("OuterRadius", (5-(health_perc+0.6)*5)/2 + 0.01)
-	else:
-		vignette_shader.set_shader_parameter("MainAlpha", 0)
-		vignette_shader.set_shader_parameter("OuterRadius", 5)
+	# Update the health vignette
+	var health_perc = 1 - player.health / player.max_health
+	health_perc = health_vignette_curve.sample(health_perc)
+	vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
+	vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
 
 
 func _get_station_count(type:StationData.Stations) -> int: ## Gets the number of 'type' stations

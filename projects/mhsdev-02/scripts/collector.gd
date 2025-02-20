@@ -15,6 +15,7 @@ signal item_given
 ## Collector visual preload
 @onready var display_scn = preload("res://scenes/Base/collector_display.tscn")
 
+#region Exports
 ## How many items at a time that the collector can hold.
 @export var stack_limit:int = 1
 
@@ -62,7 +63,9 @@ signal item_given
 
 ## Show a crate with the limit_type item, if set
 @export var show_crate:bool = true
+#endregion
 
+#region Variables
 ## Current progress for auto collecting
 var auto_collect_progress:float = 0
 
@@ -74,7 +77,9 @@ var current_resources:Array = []
 
 ## Crate object
 var display:Sprite2D
+#endregion
 
+#region Built in
 func _ready() -> void:
 	if show_crate:
 		# Add crate
@@ -90,19 +95,14 @@ func _ready() -> void:
 		else:
 			display.inner.visible = false
 
-func _get_level(): ## Finds the first Level ancestor
-	var parent = get_parent() 
-	while parent != null:
-		if parent is Level:
-			return parent
-		parent = parent.get_parent()
-	return null
-
-func _remove_item(item_id:int) -> void: ## Remove an item from current_resources by identifier
-	for i in current_resources.size():
-		if current_resources[i].collection_id == item_id:
-			current_resources.remove_at(i)
-			return
+func _process(delta:float) -> void:
+	if auto_collect:
+		auto_collect_progress += delta
+		if auto_collect_progress >= auto_collect_cooldown:
+			add_nearest_item()
+			auto_collect_progress = 0
+	for x in current_resources:
+		x.z_index = z_index
 
 func _physics_process(delta: float) -> void:
 	# Update collected item positions
@@ -119,15 +119,31 @@ func _physics_process(delta: float) -> void:
 			item.position.y = -pickup_height * (sin((1/pickup_time)*PI*(item.collect_progress)))
 			# Account for stack height
 			item.position.y -= (item.collect_progress * ((i)*stack_distance)) / 2
+#endregion
 
-func _process(delta:float) -> void:
-	if auto_collect:
-		auto_collect_progress += delta
-		if auto_collect_progress >= auto_collect_cooldown:
-			add_nearest_item()
-			auto_collect_progress = 0
-	for x in current_resources:
-		x.z_index = z_index
+#region Utility
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
+#endregion
+
+#region Item Management
+
+func cycle_items() -> void: ## Rotates the items around in ordering
+	if current_resources.is_empty():
+			return
+	var last_item = current_resources.pop_back()
+	current_resources.insert(0, last_item)
+
+func _remove_item(item_id:int) -> void: ## Remove an item from current_resources by identifier
+	for i in current_resources.size():
+		if current_resources[i].collection_id == item_id:
+			current_resources.remove_at(i)
+			return
 
 func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
@@ -259,7 +275,7 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 	if auto_collect:
 		if item.get_parent() is Collector:
 			item.get_parent().reset_item_stats(item)
-		add_item(item)
+		add_item(item, true)
 
 func drop_item() -> void: ## Drop the topmost item.
 	# Validate request
@@ -284,4 +300,5 @@ func drop_item() -> void: ## Drop the topmost item.
 			_reparent_item(item)
 	else:
 		_reparent_item(item)
+#endregion
 	
