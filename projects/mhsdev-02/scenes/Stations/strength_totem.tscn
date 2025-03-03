@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://fvsdt81wdmnb"]
 
 [ext_resource type="Script" path="res://scripts/strength_totem.gd" id="1_eby4e"]
+[ext_resource type="Texture2D" uid="uid://d2csvd7uu6gyx" path="res://images/stations/Strength Totem (Regular).png" id="2_jjcne"]
 [ext_resource type="Script" path="res://scripts/collector.gd" id="3_dejrn"]
-[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="3_fv7pt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 5)
+size = Vector2(17, 5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7j6g2"]
 radius = 17.58
@@ -20,10 +20,10 @@ produce_time = 30.0
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_fv7pt")
+texture = ExtResource("2_jjcne")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 33.5)
+position = Vector2(0.5, 18)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]
@@ -31,6 +31,7 @@ position = Vector2(38, 24)
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = -2
+position = Vector2(0, -37)
 script = ExtResource("3_dejrn")
 stack_limit = 5
 can_steal = true

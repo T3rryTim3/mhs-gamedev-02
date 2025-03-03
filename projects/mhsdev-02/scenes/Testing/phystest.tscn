@@ -444,12 +444,13 @@ glow_hdr_threshold = 0.19
 adjustment_enabled = true
 adjustment_saturation = 1.2
 
-[node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player")]
+[node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player", "ui_layer")]
 script = ExtResource("1_mkj7t")
 items = NodePath("Items")
 stations = NodePath("Stations")
 player = NodePath("Player")
 health_vignette_curve = SubResource("Curve_d0i73")
+ui_layer = NodePath("CanvasLayer")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
@@ -472,7 +473,6 @@ position = Vector2(-391, 121)
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-392, 241)
-station_data = 1
 
 [node name="Well" parent="Stations" instance=ExtResource("6_2arof")]
 position = Vector2(-498, 240)

@@ -101,8 +101,8 @@ func _process(delta:float) -> void:
 		if auto_collect_progress >= auto_collect_cooldown:
 			add_nearest_item()
 			auto_collect_progress = 0
-	for x in current_resources:
-		x.z_index = z_index
+	for x in range(len(current_resources)):
+		current_resources[x].z_index = z_index + x
 
 func _physics_process(delta: float) -> void:
 	# Update collected item positions
@@ -215,7 +215,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 
 	current_resources.append(item)
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
-	item.force_applied.connect(_reparent_item.bind(item))
+	if loose_grip:
+		item.force_applied.connect(_reparent_item.bind(item))
 
 	item.z_index = z_index
 
@@ -272,7 +273,7 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 	item_given.emit(item)
 	
 	# Auto collect
-	if auto_collect:
+	if auto_collect and item.id == limit_type:
 		if item.get_parent() is Collector:
 			item.get_parent().reset_item_stats(item)
 		add_item(item, true)

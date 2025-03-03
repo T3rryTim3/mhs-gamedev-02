@@ -23,8 +23,15 @@ texture = ExtResource("1_nsuxl")
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
 material = ExtResource("2_oiyln")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -48.0
 offset_top = -48.0
 offset_right = 48.0
 offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(1, 1, 1, 0)

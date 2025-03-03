@@ -29,6 +29,9 @@ enum LayerBehaviour
 ## Resources currently spent to build
 var spent_resources:Dictionary = {}
 
+## Used for animation
+var scale_val:float = 0
+
 ## Cooldown timer
 var cooldown_timer:float = 0.0
 
@@ -49,11 +52,13 @@ func get_sprite_texture() -> Texture2D:
 func _ready():
 	# Get station texture
 	sprite.texture = load(StationData.get_station_texture(target_station))
-	
+	$BlueprintCollider.collision_shape.shape.size = sprite.texture.get_size()
+	$ColorRect.size = sprite.texture.get_size()
+
 	sprite.material.set_shader_parameter("blue", 1)
-	
+
 	collector.stack_limit = 0
-	
+
 	# Ready resource display
 	for k in cost:
 		spent_resources[k] = 0
@@ -93,6 +98,8 @@ func _update_label():
 		k.label.text = str(spent_resources[k.id]) + "/" + str(cost[k.id])
 
 func _process(delta: float) -> void:
+	scale_val = clampf(scale_val - 8 * delta, 0, 1)
+	sprite.scale.y = 1 + (0.2 * sin(PI * scale_val))
 	if not completing:
 		cooldown_timer += delta
 		if cooldown_timer > cooldown_limit:
@@ -135,6 +142,7 @@ func _on_collector_item_given(item) -> void:
 		if item.id == k and cost[k] - spent_resources[k] > 0:
 			collector.add_item(item)
 			spent_resources[k] += 1
+			scale_val = 1
 	_update_label()
 	_check_completion()
 			

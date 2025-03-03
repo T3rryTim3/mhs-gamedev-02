@@ -6,70 +6,82 @@ enum Stations {
 	QUARRY,
 	FOREST,
 	OVEN,
-	STRENGTH_TOTEM
+	STRENGTH_TOTEM,
+	CAMPFIRE
 }
 
 func get_station_scene(station:Stations):
 	match station:
-		0: # Well
+		Stations.WELL: # Well
 			return "res://scenes/Stations/well.tscn"
-		1: # Crop
+		Stations.CROP: # Crop
 			return "res://scenes/Stations/wheat_crop.tscn"
-		2: # Quarry
+		Stations.QUARRY: # Quarry
 			return "res://scenes/Stations/quarry.tscn"
-		3: # Forest
+		Stations.FOREST: # Forest
 			return "res://scenes/Stations/forest.tscn"
-		4: # Oven
+		Stations.OVEN: # Oven
 			return "res://scenes/Stations/oven.tscn"
-		5: # Strength totem
+		Stations.STRENGTH_TOTEM: # Strength totem
 			return "res://scenes/Stations/strength_totem.tscn"
+		Stations.CAMPFIRE: # Strength totem
+			return "res://scenes/Stations/campfire.tscn"
 
 func get_station_texture(station:Stations):
 	match station:
-		0: # Well
+		Stations.WELL: # Well
 			return "res://images/stations/well.png"
-		1: # Crop
+		Stations.CROP:  # Crop
 			return "res://images/stations/crop.png"
-		2: # Quarry
+		Stations.QUARRY: # Quarry
 			return "res://images/stations/quarry.png"
-		3: # Forest
+		Stations.FOREST: # Forest
 			return "res://images/stations/forest.png"
-		4: # Oven
+		Stations.OVEN: # Oven
+			return "res://images/stations/oven(off).png"
+		Stations.STRENGTH_TOTEM: # Strength totem
+			return "res://images/stations/Strength Totem (Regular).png"
+		Stations.CAMPFIRE:
+			return "res://images/stations/campfire(on).png"
+		_:
+			print("MISSING TEXTURE")
 			return "res://images/stations/well.png"
-		5: # Strength totem
-			return "res://images/stations/well.png"
+			
 
 func get_station_cost(station:Stations):
 	match station:
-		0: # Well
+		Stations.WELL: # Well
 			return {
 				ItemData.ItemTypes.ROCK: 3,
 				ItemData.ItemTypes.WOOD: 2,
 			}
-		1: # Crop
+		Stations.CROP:  # Crop
 			return {
 				ItemData.ItemTypes.ROCK: 2,
 				ItemData.ItemTypes.WOOD: 3,
 			}
-		2: # Quarry
+		Stations.QUARRY: # Quarry
 			return {
 				ItemData.ItemTypes.ROCK: 5,
 				ItemData.ItemTypes.WOOD: 2
 			}
-		3: # Forest
+		Stations.FOREST: # Forest
 			return {
 				ItemData.ItemTypes.ROCK: 2,
 				ItemData.ItemTypes.WOOD: 5
 			}
-		4: # Oven
+		Stations.OVEN: # Oven
 			return {
-				ItemData.ItemasTypes.ROCK: 3,
-				ItemData.ItemTypes.WOOD: 3
+				ItemData.ItemTypes.ROCK: 4,
 			}
-		5: # Strength Totem
+		Stations.STRENGTH_TOTEM: # Strength Totem
 			return {
-				ItemData.ItemasTypes.WHEAT: 1,
+				ItemData.ItemTypes.WHEAT: 1,
 				ItemData.ItemTypes.WOOD: 1
+			}
+		Stations.CAMPFIRE:
+			return {
+				ItemData.ItemTypes.WOOD: 4
 			}
 		_: # Else
 			return {

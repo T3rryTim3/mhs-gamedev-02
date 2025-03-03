@@ -120,6 +120,9 @@ func _ready():
 	
 	add_to_group("station")
 	
+	if not sprite:
+		sprite = $Sprite2D
+	
 	if not progress_bar_texture:
 		progress_bar_texture = DEFAULT_PROGRESS_TEXTURE
 	
@@ -129,16 +132,19 @@ func _ready():
 	progress_timer.one_shot = false
 	progress_timer.wait_time = produce_time
 	progress_timer.connect("timeout", produce)
-	
+
 	add_child(progress_timer)
-	
+
 	progress_timer.start()
-	
-	add_child(blueprint_collider.instantiate())
-	
+
+	var collider = blueprint_collider.instantiate()
+	add_child(collider)
+	collider.collision_shape.shape.size = get_sprite_texture().get_size()
+
+
 	# Align station to grid
 	global_position = _round_vector(global_position, 24)
-	
+
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")
 

@@ -13,6 +13,8 @@ class_name Level
 ## Curve for health vignette
 @export var health_vignette_curve:Curve
 
+@export var ui_layer:CanvasLayer
+
 ## Health vignette
 @onready var vignette_shader = load("res://Shaders/health_vignette.tres")
 
@@ -25,7 +27,6 @@ func _process(_delta) -> void:
 	health_perc = health_vignette_curve.sample(health_perc)
 	vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
 	vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
-
 
 func _get_station_count(type:StationData.Stations) -> int: ## Gets the number of 'type' stations
 	var count:int = 0

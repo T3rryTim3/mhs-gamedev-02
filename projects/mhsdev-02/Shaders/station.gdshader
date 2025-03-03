@@ -5,7 +5,7 @@ uniform bool active = true;
 void fragment() {
 	// Called for every pixel the material is visible on.
 	if (active && COLOR.a < 0.1) {
-		COLOR = vec4(COLOR.r+0.5, COLOR.g+0.5, COLOR.b+0.5, COLOR.a + 0.2);
+		COLOR = vec4(1, 1, 1, COLOR.a + 0.2);
 	}
 }
 

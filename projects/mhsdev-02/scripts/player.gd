@@ -38,6 +38,9 @@ enum ThirstLevel {
 ## Stamina bar
 var stamina_bar:StatBar
 
+## Blueprint overlay
+var blueprint_overlay:Control
+
 ## Current cooldown for hiding/showing stamina bar
 var stamina_show_cooldown:float = 0
 
@@ -86,7 +89,7 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 	state.hunger.set_drain_factor('sprint', sprinting)
 	state.thirst.set_drain_factor('sprint', sprinting)
 	state.temp.set_drain_factor('sprint', sprinting)
-	
+
 	state.thirst.set_drain_factor('high_temp', _is_exhausted())
 
 	if sprinting: # Begin cooldown if not started
@@ -96,8 +99,7 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 			state.stamina.val += stamina_gain * delta
 	else:
 		current_sprint_cooldown -= delta
-
-	# Set 
+ 
 #endregion
 
 #region Blueprints
@@ -114,10 +116,15 @@ func begin_blueprint(station:StationData.Stations):
 	# Set station shaders to visualize selection
 	station_shader.set_shader_parameter("active", true)
 
+	_update_blueprint_sprite(blueprint_overlay.stations[blueprint_overlay.current_index])
+
+	blueprint_overlay.visible = true
+
 func stop_blueprint():
 	current_blueprint.queue_free()
 	current_blueprint = null
 	station_shader.set_shader_parameter("active", false)
+	blueprint_overlay.visible = false
 #endregion
 
 #region Items
@@ -165,6 +172,10 @@ func highlight_nearest(): ## Highlight the nearest item
 func _on_pickup_range_body_exited(body: Node2D) -> void:
 	if body is Item:
 		body.disable_outline()
+
+func _update_blueprint_sprite(new):
+	if current_blueprint:
+		current_blueprint.station = new
 #endregion
 
 func _ready():
@@ -194,8 +205,14 @@ func _ready():
 		hunger_tick_max = hunger_tick
 
 		add_child(stamina_bar)
-		
+
 		use_bar.visible = false
+
+	# Blueprint overlay
+	blueprint_overlay = load("res://scenes/UI/side_blueprint_overlay.tscn").instantiate()
+	_get_level().ui_layer.add_child.call_deferred(blueprint_overlay)
+	blueprint_overlay.visible = false
+	blueprint_overlay.new_station.connect(_update_blueprint_sprite)
 
 	# Create stats
 	state["hunger"] = StateItem.new(100, 0, 100, 0.6,
@@ -300,7 +317,7 @@ func _input(event) -> void:
 					collector.cycle_items()
 
 	elif event is InputEventMouseButton:
-		if current_blueprint:
+		if event.button_index == MOUSE_BUTTON_LEFT and current_blueprint:
 			if current_blueprint.valid:
 				current_blueprint.place(get_parent())
 				stop_blueprint()

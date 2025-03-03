@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cipvdry64d3m"]
+[gd_scene load_steps=8 format=3 uid="uid://cipvdry64d3m"]
 
 [ext_resource type="Script" path="res://scripts/campfire.gd" id="1_ywkvs"]
-[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_kgui2"]
+[ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_7woxb"]
+[ext_resource type="Texture2D" uid="uid://cqnwb40lganm6" path="res://images/stations/campfire(on).png" id="2_b1r6p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
 size = Vector2(66.5, 5)
@@ -23,10 +24,11 @@ collision_layer = 8
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_ywkvs")
+progress_bar_texture = ExtResource("2_7woxb")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_kgui2")
+texture = ExtResource("2_b1r6p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.75, 33.5)
