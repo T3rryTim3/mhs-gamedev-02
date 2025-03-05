@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=27 format=4 uid="uid://c1g832odaaalg"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
@@ -19,9 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="17_h4i0y"]
 [ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="18_bmu16"]
 [ext_resource type="PackedScene" uid="uid://cipvdry64d3m" path="res://scenes/Stations/campfire.tscn" id="19_hg4jv"]
+[ext_resource type="PackedScene" uid="uid://c6fd0yx525wjw" path="res://scenes/Stations/speed_totem.tscn" id="20_gngxi"]
 
 [sub_resource type="Curve" id="Curve_d0i73"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.457895, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0684211, 1), -1.16327, -1.16327, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o60uk"]
@@ -585,3 +586,6 @@ rotation = 0.760964
 energy = 0.28
 shadow_enabled = true
 shadow_filter = 1
+
+[node name="SpeedTotem" parent="." instance=ExtResource("20_gngxi")]
+position = Vector2(-451, 345)

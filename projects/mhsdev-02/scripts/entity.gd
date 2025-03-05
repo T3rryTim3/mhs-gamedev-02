@@ -173,7 +173,7 @@ func _movement(_delta) -> void: ## Used in subclasses for movement
 	pass
 
 func _process(delta) -> void:
-	health_bar.visible = show_health
+	health_bar.visible = show_health and health < max_health
 	_apply_effects(delta)
 	for k in state.keys(): # Clamp stats
 		if state[k] is StateItem:

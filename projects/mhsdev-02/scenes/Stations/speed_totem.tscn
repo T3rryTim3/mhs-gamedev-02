@@ -1,14 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://fvsdt81wdmnb"]
+[gd_scene load_steps=8 format=3 uid="uid://c6fd0yx525wjw"]
 
-[ext_resource type="Script" path="res://scripts/strength_totem.gd" id="1_eby4e"]
-[ext_resource type="Texture2D" uid="uid://d2csvd7uu6gyx" path="res://images/stations/Strength Totem (Regular).png" id="2_jjcne"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="3_dejrn"]
+[ext_resource type="Script" path="res://scripts/speed_totem.gd" id="1_meh6f"]
+[ext_resource type="Texture2D" uid="uid://d2csvd7uu6gyx" path="res://images/stations/Strength Totem (Regular).png" id="2_x8v7i"]
+[ext_resource type="Script" path="res://scripts/collector.gd" id="3_y6xk5"]
 
-[sub_resource type="Gradient" id="Gradient_kcctp"]
-colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)
+[sub_resource type="Gradient" id="Gradient_fvtmh"]
+colors = PackedColorArray(0.452769, 0.447689, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mkc14"]
-gradient = SubResource("Gradient_kcctp")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kg8sf"]
+gradient = SubResource("Gradient_fvtmh")
 fill = 1
 fill_from = Vector2(0.527523, 0.522936)
 fill_to = Vector2(0.527523, 1)
@@ -19,21 +19,22 @@ size = Vector2(17, 5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_b0obj"]
 radius = 17.58
 
-[node name="StrengthTotem" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[node name="SpeedTotem" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8
 collision_mask = 0
 motion_mode = 1
-script = ExtResource("1_eby4e")
-station_data = 5
+script = ExtResource("1_meh6f")
+station_data = 6
 produce_time = 30.0
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_jjcne")
+texture = ExtResource("2_x8v7i")
 
 [node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
 position = Vector2(0, -9)
-texture = SubResource("GradientTexture2D_mkc14")
+energy = 0.4
+texture = SubResource("GradientTexture2D_kg8sf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 18)
@@ -45,7 +46,7 @@ position = Vector2(38, 24)
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = 1
 position = Vector2(49, 28)
-script = ExtResource("3_dejrn")
+script = ExtResource("3_y6xk5")
 stack_limit = 5
 can_steal = true
 decay_coef = 0.0

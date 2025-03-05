@@ -141,7 +141,6 @@ func _ready():
 	add_child(collider)
 	collider.collision_shape.shape.size = get_sprite_texture().get_size()
 
-
 	# Align station to grid
 	global_position = _round_vector(global_position, 24)
 

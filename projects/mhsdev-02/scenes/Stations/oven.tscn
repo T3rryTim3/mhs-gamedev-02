@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/collector.gd" id="4_fcgx6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 13.5)
+size = Vector2(66.5, 7)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
 radius = 17.58
@@ -39,7 +39,7 @@ move_influence = 0.01
 texture = ExtResource("3_oom4y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 37.75)
+position = Vector2(0.75, 34.5)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]

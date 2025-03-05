@@ -1,5 +1,5 @@
 extends Station
-class_name StrengthTotem
+class_name SpeedTotem
 
 @onready var collector:Collector = $Collector
 
@@ -7,7 +7,7 @@ var pos:float = 0
 
 func _ready() -> void:
 	super()
-	sprite.texture = load("res://images/stations/Strength Totem (Glowing eyes).png")
+	sprite.texture = load("res://images/stations/Speed Totem (on).png")
 
 func produce():
 	super()
@@ -15,12 +15,12 @@ func produce():
 		collector.destroy_item()
 		active = true
 		$Sprite2D/PointLight2D.enabled = true
-		sprite.texture = load("res://images/stations/Strength Totem (Glowing eyes).png")
+		sprite.texture = load("res://images/stations/Speed Totem (on).png")
 	else:
 		active = false
-		$Sprite2D/PointLight2D.enabled = false
 		sprite.position.y = 0
-		sprite.texture = load("res://images/stations/Strength Totem (Regular).png")
+		$Sprite2D/PointLight2D.enabled = false
+		sprite.texture = load("res://images/stations/Speed Totem (off).png")
 	_get_level().update_station_stats()
 
 func _on_collector_item_collected() -> void:
@@ -34,4 +34,3 @@ func _process(delta: float) -> void:
 	if active:
 		pos = fposmod(pos+delta, 2*PI)
 		sprite.position.y = 2*sin(pos)
-		

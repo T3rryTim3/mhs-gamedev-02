@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://6rt37s7rt8yn"]
+[gd_scene load_steps=12 format=3 uid="uid://6rt37s7rt8yn"]
 
 [ext_resource type="Script" path="res://scripts/Events/tornado.gd" id="1_hquia"]
 [ext_resource type="Texture2D" uid="uid://d2brelvh11mbq" path="res://images/event/pixil-frame-0.png" id="2_u72bs"]
@@ -31,6 +31,36 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_rs25x"]
 radius = 19.4165
 
+[sub_resource type="Curve" id="Curve_3b33r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_teb4o"]
+curve = SubResource("Curve_3b33r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vdndu"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 0, 1)
+direction = Vector3(0, -10, 100)
+spread = 67.247
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+orbit_velocity_min = -0.0999999
+orbit_velocity_max = 0.1
+gravity = Vector3(0, 200, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+attractor_interaction_enabled = false
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_teb4o")
+color = Color(0.75, 0.75, 0.75, 1)
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+
 [node name="Tornado" type="Node"]
 script = ExtResource("1_hquia")
 
@@ -57,4 +87,7 @@ collision_mask = 11
 position = Vector2(0, -19)
 shape = SubResource("CircleShape2D_rs25x")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Tornado"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Tornado/Body"]
+scale = Vector2(1.118, 1.63837)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_vdndu")

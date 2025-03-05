@@ -7,8 +7,30 @@ enum Stations {
 	FOREST,
 	OVEN,
 	STRENGTH_TOTEM,
+	SPEED_TOTEM,
 	CAMPFIRE
 }
+
+func get_station_name(station:Stations) -> String:
+	match station:
+		Stations.WELL:
+			return "Well"
+		Stations.CROP:
+			return "Crop"
+		Stations.QUARRY:
+			return "Quarry"
+		Stations.FOREST:
+			return "Forest"
+		Stations.OVEN:
+			return "Oven"
+		Stations.STRENGTH_TOTEM:
+			return "Strength Totem"
+		Stations.SPEED_TOTEM:
+			return "Speed Totem"
+		Stations.CAMPFIRE:
+			return "Campfire"
+		_:
+			return "NAME ERROR"
 
 func get_station_scene(station:Stations):
 	match station:

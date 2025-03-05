@@ -256,7 +256,8 @@ func _reparent_item(item:Item): ## Reparent item to the level
 	var glob_pos:Vector2 = item.global_position
 
 	# Reparent item to root
-	remove_child(item)
+	if item.get_parent() == self:
+		remove_child(item)
 	_get_level().call_deferred("add_child", item)
 
 	# Reset position back

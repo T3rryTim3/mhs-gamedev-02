@@ -52,8 +52,15 @@ func get_sprite_texture() -> Texture2D:
 func _ready():
 	# Get station texture
 	sprite.texture = load(StationData.get_station_texture(target_station))
-	$BlueprintCollider.collision_shape.shape.size = sprite.texture.get_size()
-	$ColorRect.size = sprite.texture.get_size()
+	
+	var size = sprite.texture.get_size()
+	
+	$BlueprintCollider.collision_shape.shape.size = size
+	$ColorRect.size = size
+	$ColorRect.global_position = sprite.global_position - size/2
+	$ShowRange/CollisionShape2D.shape.radius = size.x / 1.25
+	$VBoxContainer.position.y -= 48 - size.y/2
+	$VBoxContainer.hide()
 
 	sprite.material.set_shader_parameter("blue", 1)
 
@@ -146,3 +153,11 @@ func _on_collector_item_given(item) -> void:
 	_update_label()
 	_check_completion()
 			
+
+func _on_show_range_body_entered(body: Node2D) -> void:
+	if body is Player:
+		$VBoxContainer.show()
+
+func _on_show_range_body_exited(body: Node2D) -> void:
+	if body is Player:
+		$VBoxContainer.hide()

@@ -4,6 +4,7 @@ class_name Player
 @onready var collector:Collector = $Collector
 @onready var collector_collider:CollisionShape2D = $Collector/PickupRange/CollisionShape2D
 @onready var use_bar = $TextureProgressBar
+@onready var high_temp_particles:GPUParticles2D = $HighTempParticles
 
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
@@ -32,6 +33,9 @@ enum ThirstLevel {
 
 ## Station shader for selection
 @onready var station_shader = load("res://Resources/station_select_shader.tres")
+
+## Color gradient based on player temp
+@onready var temp_color = load("res://Resources/player_temp_color.tres")
 #endregion
 
 #region Other Vars
@@ -77,8 +81,11 @@ func _get_thirst_level() -> ThirstLevel:
 	return ThirstLevel.HIGH
 
 func _is_exhausted() -> bool: ## Returns true if temp is above a certain threshold
-	return state.temp.val / state.temp.val_max > 0.9
-	
+	return state.temp.val / state.temp.val_max > Config.HIGH_TEMP_THRESHOLD
+
+func _is_freezing() -> bool:
+	return state.temp.val / state.temp.val_max < Config.LOW_TEMP_THRESHOLD
+
 func _update_stats(delta:float): # Updates the player's stats with respect to time
 	_get_level().player_stat_update(self, delta) # Apply level effects
 
@@ -91,8 +98,22 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 	state.temp.set_drain_factor('sprint', sprinting)
 
 	state.thirst.set_drain_factor('high_temp', _is_exhausted())
+	state.stamina.set_drain_factor('high_temp', _is_exhausted())
+	high_temp_particles.emitting = _is_exhausted()
+	
+	sprite.self_modulate *= temp_color.gradient.sample(state.temp.val / state.temp.val_max)
+	
+	# Movement speed
+	var speed_totem_count = _get_level().get_station_count(StationData.Stations.SPEED_TOTEM)
+	var speed_increase = Config.SPEED_TOTEM_INCREASE * speed_totem_count
+	move_speed = Config.PLAYER_BASE_MOVE_SPEED + speed_increase
+	if _is_exhausted():
+		move_speed -= Config.HIGH_TEMP_SPEED_FACTOR
+	elif _is_freezing():
+		move_speed -= Config.LOW_TEMP_SPEED_FACTOR
 
-	if sprinting: # Begin cooldown if not started
+	# Begin cooldown if not started
+	if sprinting:
 		current_sprint_cooldown = sprint_cooldown
 		state.stamina.val -= stamina_drain * delta * (int(_is_exhausted()) + 1)
 	if current_sprint_cooldown <= 0:
@@ -234,7 +255,7 @@ func _ready():
 	)
 	state["stamina"] = StateItem.new(100, 0, 100, 0, 
 		[
-			DrainFactor.new("high_temp", 1, DrainFactorTypes.ADD)
+			DrainFactor.new("high_temp", 5, DrainFactorTypes.ADD, false)
 		]
 	)
 
@@ -273,6 +294,7 @@ func _process(delta) -> void:
 	
 	# Input
 	if Input.is_action_just_pressed("pickup"):
+		update_collector_stack_lim(_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+1)
 		if not collector.add_nearest_item():
 			collector.drop_item()
 	
