@@ -46,6 +46,8 @@ func get_station_scene(station:Stations):
 			return "res://scenes/Stations/oven.tscn"
 		Stations.STRENGTH_TOTEM: # Strength totem
 			return "res://scenes/Stations/strength_totem.tscn"
+		Stations.SPEED_TOTEM:
+			return "res://scenes/Stations/speed_totem.tscn"
 		Stations.CAMPFIRE: # Strength totem
 			return "res://scenes/Stations/campfire.tscn"
 
@@ -63,6 +65,8 @@ func get_station_texture(station:Stations):
 			return "res://images/stations/oven(off).png"
 		Stations.STRENGTH_TOTEM: # Strength totem
 			return "res://images/stations/Strength Totem (Regular).png"
+		Stations.SPEED_TOTEM:
+			return "res://images/stations/Speed Totem (off).png"
 		Stations.CAMPFIRE:
 			return "res://images/stations/campfire(on).png"
 		_:
@@ -97,6 +101,11 @@ func get_station_cost(station:Stations):
 				ItemData.ItemTypes.ROCK: 4,
 			}
 		Stations.STRENGTH_TOTEM: # Strength Totem
+			return {
+				ItemData.ItemTypes.WHEAT: 1,
+				ItemData.ItemTypes.WOOD: 1
+			}
+		Stations.SPEED_TOTEM:
 			return {
 				ItemData.ItemTypes.WHEAT: 1,
 				ItemData.ItemTypes.WOOD: 1

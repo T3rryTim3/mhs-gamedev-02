@@ -234,8 +234,10 @@ func reset_item_stats(item:Item) -> void: ## Reset connections and other variabl
 	_remove_item(item.collection_id)
 	item.collect_progress = 0
 	item.collector_decay_coef = 1
-	item.tree_exiting.disconnect(_remove_item)
-	item.force_applied.disconnect(_reparent_item.bind(item))
+	if item.tree_exiting.is_connected(_remove_item):
+		item.tree_exiting.disconnect(_remove_item)
+	if item.force_applied.is_connected(_reparent_item):
+		item.force_applied.disconnect(_reparent_item.bind(item))
 	item.show_health = true
 	item.z_index = -1
 	item_reset.emit()

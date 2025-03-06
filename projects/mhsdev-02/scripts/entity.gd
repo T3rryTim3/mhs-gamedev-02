@@ -82,7 +82,7 @@ class DrainFactor: ## An individual factor affecting a state item's drain
 		self.num = drain_num
 		self.type = drain_type
 		self.enabled = enabled
-	
+
 	func apply(input:float) -> float: ## Apply the factor
 		if not enabled:
 			return input

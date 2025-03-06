@@ -13,7 +13,16 @@ class_name Level
 ## Curve for health vignette
 @export var health_vignette_curve:Curve
 
+## Canvaslayer with ui elements
 @export var ui_layer:CanvasLayer
+
+## Spawn cooldown for items
+@export var spawn_cooldown:float = 1
+
+var spawn_items:Dictionary = {
+	ItemData.ItemTypes.WHEAT: 10,
+	
+}
 
 ## Health vignette
 @onready var vignette_shader = load("res://Shaders/health_vignette.tres")
@@ -27,6 +36,22 @@ func _process(_delta) -> void:
 	health_perc = health_vignette_curve.sample(health_perc)
 	vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
 	vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
+
+# Gets a random value from a weighted dictionary (value: weight pairs)
+func weighted_random_choice(weighted_dict: Dictionary) -> Variant:
+	var total_weight = 0
+	for weight in weighted_dict.values():
+		total_weight += weight
+	
+	var random_pick = randf() * total_weight
+	var cumulative_weight = 0
+	
+	for key in weighted_dict.keys():
+		cumulative_weight += weighted_dict[key]
+		if random_pick < cumulative_weight:
+			return key
+	
+	return null  # This should never be reached if weights are valid
 
 func get_station_count(type:StationData.Stations) -> int: ## Gets the number of 'type' stations
 	var count:int = 0
