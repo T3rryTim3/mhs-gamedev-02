@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://comi75hqjce57"]
 
-[ext_resource type="Script" path="res://testing_menu_2.gd" id="1_ilk6n"]
+[ext_resource type="Script" uid="uid://deecftbps1bsy" path="res://testing_menu_2.gd" id="1_ilk6n"]
 [ext_resource type="Texture2D" uid="uid://xvtxeuvbp12u" path="res://images/stations/oven(off).png" id="2_npdhj"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="3_bmm2s"]
 

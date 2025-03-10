@@ -201,6 +201,9 @@ func _update_blueprint_sprite(new):
 
 func _ready():
 	super()
+
+	await _get_level().ready # Ensures UI is fully loaded
+
 	if camera_limit: # Prevent camera from going beyond area
 		$Camera2D.limit_bottom = camera_limit.global_position.y + camera_limit.shape.get_rect().size.y/2
 		$Camera2D.limit_top = camera_limit.global_position.y - camera_limit.shape.get_rect().size.y/2

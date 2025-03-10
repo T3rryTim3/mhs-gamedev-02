@@ -1,34 +1,91 @@
 extends Node2D
 class_name Level
 
-## Location to store items
-@export var items:Node
+## Scene for creating new items
+@onready var item_scn = preload("res://scenes/Base/item.tscn")
 
-## Location to store stations
-@export var stations:Node
-
-## Current player
-@export var player:Player
+## Scene for creating UI
+@onready var ui_layer_scn = preload("res://scenes/UI/game_ui.tscn")
 
 ## Curve for health vignette
 @export var health_vignette_curve:Curve
 
-## Canvaslayer with ui elements
-@export var ui_layer:CanvasLayer
+## Limit for the map (just a collisionshape2d)
+@export var map_limit:CollisionShape2D
 
 ## Spawn cooldown for items
-@export var spawn_cooldown:float = 1
+@export var spawn_cooldown:float = 3
 
-var spawn_items:Dictionary = {
+@export var spawn_items:Dictionary[ItemData.ItemTypes, int] = {
 	ItemData.ItemTypes.WHEAT: 10,
-	
 }
+
+# Cooldown for next item spawn
+var current_spawn_cooldown:float = 0
+
+# All spawnable tiles (used for spawning items)
+var spawnable_tiles:Array
+
+## Location to store items
+var items:Node
+
+## Location to store stations
+var stations:Node
+
+## Its the player.. what else?
+var player:Player
+
+## Canvaslayer with ui elements
+var ui_layer:CanvasLayer
 
 ## Health vignette
 @onready var vignette_shader = load("res://Shaders/health_vignette.tres")
 
 func _ready():
+	# Ensure parent nodes are present, and if not, create them.
+	if find_child("Stations") and $Stations is Node:
+		stations = $Stations
+	else:
+		stations = Node.new()
+		add_child(stations)
+
+	if find_child("Items") and $Items is Node:
+		items = $Items
+	else:
+		items = Node.new()
+		add_child(items)
+
+	player = get_tree().get_first_node_in_group("player")
+	if not player:
+		print("WARNING: PLAYER NOT FOUND")
+	
+	# Create ui
+	ui_layer = ui_layer_scn.instantiate()
+	add_child(ui_layer)
+
+	# Connect updates for station effects
 	stations.child_order_changed.connect(update_station_stats)
+
+func _get_spawnable_tiles(): ## Updates 'spawnable_tiles'
+	pass
+
+func _spawn_item():
+	var new_item:Item = item_scn.instantiate()
+	new_item.id = weighted_random_choice(spawn_items)
+	if (not new_item) or not map_limit:
+		return
+	items.add_child(new_item)
+	var size = map_limit.shape.get_rect().size
+	new_item.global_position = Vector2(
+		randi_range(map_limit.global_position.x - size.x/2, map_limit.global_position.x + size.x/2),
+		randi_range(map_limit.global_position.y - size.y/2, map_limit.global_position.y + size.y/2)
+	)
+
+func _physics_process(delta: float) -> void:
+	current_spawn_cooldown += delta
+	if current_spawn_cooldown > spawn_cooldown:
+		_spawn_item()
+		current_spawn_cooldown = 0
 
 func _process(_delta) -> void:
 	# Update the health vignette
@@ -37,20 +94,20 @@ func _process(_delta) -> void:
 	vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
 	vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
 
-# Gets a random value from a weighted dictionary (value: weight pairs)
+## Gets a random value from a weighted dictionary (value: weight pairs)
 func weighted_random_choice(weighted_dict: Dictionary) -> Variant:
 	var total_weight = 0
 	for weight in weighted_dict.values():
 		total_weight += weight
-	
+
 	var random_pick = randf() * total_weight
 	var cumulative_weight = 0
-	
+
 	for key in weighted_dict.keys():
 		cumulative_weight += weighted_dict[key]
 		if random_pick < cumulative_weight:
 			return key
-	
+
 	return null  # This should never be reached if weights are valid
 
 func get_station_count(type:StationData.Stations) -> int: ## Gets the number of 'type' stations

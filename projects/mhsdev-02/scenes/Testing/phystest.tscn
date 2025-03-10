@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=4 uid="uid://c1g832odaaalg"]
+[gd_scene load_steps=26 format=4 uid="uid://c1g832odaaalg"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
+[ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
 [ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="2_p0ww8"]
 [ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_stxc0"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://fvsdt81wdmnb" path="res://scenes/Stations/strength_totem.tscn" id="15_0j7fl"]
 [ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="16_2fpxk"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="17_h4i0y"]
-[ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="18_bmu16"]
 [ext_resource type="PackedScene" uid="uid://cipvdry64d3m" path="res://scenes/Stations/campfire.tscn" id="19_hg4jv"]
 [ext_resource type="PackedScene" uid="uid://c6fd0yx525wjw" path="res://scenes/Stations/speed_totem.tscn" id="20_gngxi"]
 
@@ -445,13 +444,9 @@ glow_hdr_threshold = 0.19
 adjustment_enabled = true
 adjustment_saturation = 1.2
 
-[node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player", "ui_layer")]
+[node name="phystest" type="Node2D"]
 script = ExtResource("1_mkj7t")
-items = NodePath("Items")
-stations = NodePath("Stations")
-player = NodePath("Player")
 health_vignette_curve = SubResource("Curve_d0i73")
-ui_layer = NodePath("CanvasLayer")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
@@ -571,11 +566,6 @@ visible = false
 position = Vector2(-190.5, 71)
 shape = SubResource("RectangleShape2D_5cqmg")
 debug_color = Color(0, 0.61, 0.61, 0.243137)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("18_bmu16")]
-player = NodePath("../../Player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nmvk3")

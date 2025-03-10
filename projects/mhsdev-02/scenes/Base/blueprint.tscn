@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://d0j0sjf62c3tn"]
 
-[ext_resource type="Script" path="res://scripts/blueprint.gd" id="1_kkihv"]
+[ext_resource type="Script" uid="uid://ct14l0ki484nt" path="res://scripts/blueprint.gd" id="1_kkihv"]
 [ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://Resources/blueprint.tres" id="2_12j11"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_gqyux"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="4_3wxl6"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_3wxl6"]
 [ext_resource type="PackedScene" uid="uid://b2vmtpdbykxl1" path="res://scenes/Structure/blueprint_collider.tscn" id="5_tdijv"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="6_2einr"]
 

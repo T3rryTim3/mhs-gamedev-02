@@ -1,12 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://05yvts8fokno"]
+[gd_scene load_steps=14 format=4 uid="uid://05yvts8fokno"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
+[ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_stxc0"]
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="5_e3raw"]
 [ext_resource type="PackedScene" uid="uid://csace8iqaxmcx" path="res://scenes/Stations/wheat_crop.tscn" id="5_viceh"]
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
 [ext_resource type="Texture2D" uid="uid://bqnqdfgmkb7vc" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
-[ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="18_bmu16"]
 
 [sub_resource type="Curve" id="Curve_d0i73"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0684211, 1), -1.16327, -1.16327, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -22,7 +21,6 @@ ambient_light_color = Color(0.956111, 0.951019, 0, 1)
 ambient_light_sky_contribution = 0.25
 ssao_radius = 1.5
 ssao_detail = 1.5
-glow_enabled = true
 glow_intensity = 1.81
 glow_bloom = 0.06
 glow_hdr_threshold = 0.19
@@ -799,21 +797,19 @@ tile_size = Vector2i(24, 24)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jalmg")
 
-[node name="field" type="Node2D" node_paths=PackedStringArray("items", "stations", "player", "ui_layer")]
+[node name="field" type="Node2D" node_paths=PackedStringArray("map_limit")]
 script = ExtResource("1_mkj7t")
-items = NodePath("Items")
-stations = NodePath("Stations")
-player = NodePath("Player")
 health_vignette_curve = SubResource("Curve_d0i73")
-ui_layer = NodePath("CanvasLayer")
+map_limit = NodePath("CameraLimit")
+spawn_items = Dictionary[int, int]({
+0: 10,
+1: 10,
+4: 10
+})
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
 camera_limit = NodePath("../CameraLimit")
-
-[node name="Stations" type="Node" parent="."]
-
-[node name="Items" type="Node" parent="."]
 
 [node name="Other" type="Node" parent="."]
 
@@ -824,11 +820,6 @@ position = Vector2(334, 43)
 position = Vector2(-120, 46)
 shape = SubResource("RectangleShape2D_5cqmg")
 debug_color = Color(0, 0.61, 0.61, 0.243137)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("18_bmu16")]
-player = NodePath("../../Player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nmvk3")

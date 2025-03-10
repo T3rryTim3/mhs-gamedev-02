@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://6rt37s7rt8yn"]
 
-[ext_resource type="Script" path="res://scripts/Events/tornado.gd" id="1_hquia"]
+[ext_resource type="Script" uid="uid://dsh22e3hlmtpx" path="res://scripts/Events/tornado.gd" id="1_hquia"]
 [ext_resource type="Texture2D" uid="uid://d2brelvh11mbq" path="res://images/event/pixil-frame-0.png" id="2_u72bs"]
 [ext_resource type="Texture2D" uid="uid://3apexvksy8uk" path="res://images/event/pixil-frame-1.png" id="3_u0dys"]
 [ext_resource type="Texture2D" uid="uid://5kjpxua8ib07" path="res://images/event/pixil-frame-2.png" id="4_7hdht"]

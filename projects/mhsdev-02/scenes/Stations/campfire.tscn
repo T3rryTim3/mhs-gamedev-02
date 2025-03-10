@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cipvdry64d3m"]
 
-[ext_resource type="Script" path="res://scripts/campfire.gd" id="1_ywkvs"]
+[ext_resource type="Script" uid="uid://dilhy6iymw8wr" path="res://scripts/campfire.gd" id="1_ywkvs"]
 [ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_7woxb"]
 [ext_resource type="Texture2D" uid="uid://cqnwb40lganm6" path="res://images/stations/campfire(on).png" id="2_b1r6p"]
 

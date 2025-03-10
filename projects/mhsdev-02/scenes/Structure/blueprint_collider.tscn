@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2vmtpdbykxl1"]
 
 [ext_resource type="Shape2D" uid="uid://blema3k2j0ody" path="res://Resources/new_rectangle_shape_2d.tres" id="1_gd63r"]
-[ext_resource type="Script" path="res://scenes/Structure/blueprint_collider.gd" id="1_i35al"]
+[ext_resource type="Script" uid="uid://ohufsram42es" path="res://scenes/Structure/blueprint_collider.gd" id="1_i35al"]
 
 [node name="BlueprintCollider" type="StaticBody2D"]
 collision_layer = 16

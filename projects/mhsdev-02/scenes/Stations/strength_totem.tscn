@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://fvsdt81wdmnb"]
 
-[ext_resource type="Script" path="res://scripts/strength_totem.gd" id="1_eby4e"]
+[ext_resource type="Script" uid="uid://chuoknq6gfl1f" path="res://scripts/strength_totem.gd" id="1_eby4e"]
 [ext_resource type="Texture2D" uid="uid://d2csvd7uu6gyx" path="res://images/stations/Strength Totem (Regular).png" id="2_jjcne"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="3_dejrn"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="3_dejrn"]
 
 [sub_resource type="Gradient" id="Gradient_kcctp"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)

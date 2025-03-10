@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dl7r51dy6jv3n"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_6sjk5"]
+[ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_8lowj"]
 
 [sub_resource type="Theme" id="Theme_w33oh"]

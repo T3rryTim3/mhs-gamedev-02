@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://csace8iqaxmcx"]
 
-[ext_resource type="Script" path="res://scripts/wheat_crop.gd" id="1_n77je"]
+[ext_resource type="Script" uid="uid://bx0u5borueoa2" path="res://scripts/wheat_crop.gd" id="1_n77je"]
 [ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="3_06phv"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="4_hwtpo"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_hwtpo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
 size = Vector2(66.5, 13.5)

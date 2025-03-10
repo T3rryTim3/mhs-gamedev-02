@@ -1,6 +1,6 @@
 [gd_scene load_steps=57 format=3 uid="uid://mjb3tm0mtc3r"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_1ohs8"]
+[ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="2_8og45"]
 [ext_resource type="Texture2D" uid="uid://dpa3towsv1ott" path="res://images/Humanoid/Player/Front(Holding).png" id="3_dtcmw"]
 [ext_resource type="Texture2D" uid="uid://cwik73dujqb48" path="res://images/Humanoid/Player/Left.png" id="4_c83oj"]
@@ -41,7 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://dapq2tlbs3y0f" path="res://images/Humanoid/Player/BackWalk(Holding)/BackWalk(Holding)02.png" id="39_a6ejc"]
 [ext_resource type="Texture2D" uid="uid://buua53piwlkx4" path="res://images/Humanoid/Player/BackWalk(Holding)/BackWalk(Holding)03.png" id="40_vasfm"]
 [ext_resource type="Texture2D" uid="uid://ca2ciih6lavpa" path="res://images/Humanoid/Player/BackWalk(Holding)/BackWalk(Holding)04.png" id="41_0s1nj"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="42_nclik"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="42_nclik"]
 [ext_resource type="Texture2D" uid="uid://6pumuile4k83" path="res://Resources/use_progress.tres" id="43_d0e5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
@@ -286,7 +286,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.10989), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_qe7j5"]
-max_value = 2.0
+_limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
 point_count = 2
 

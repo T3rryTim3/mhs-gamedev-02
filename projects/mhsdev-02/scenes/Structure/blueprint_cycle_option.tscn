@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8f6u00vr5nks"]
 
-[ext_resource type="Shader" path="res://Shaders/blueprint.gdshader" id="1_clf25"]
+[ext_resource type="Shader" uid="uid://clmfgdcsh1tp" path="res://Shaders/blueprint.gdshader" id="1_clf25"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="1_nsp00"]
-[ext_resource type="Script" path="res://scripts/blueprint_cycle_option.gd" id="2_fj8vl"]
+[ext_resource type="Script" uid="uid://crgiamxuyl085" path="res://scripts/blueprint_cycle_option.gd" id="2_fj8vl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ve5ne"]
 shader = ExtResource("1_clf25")
