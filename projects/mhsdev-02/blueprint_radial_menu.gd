@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		cycle_progress = clampf(cycle_progress + delta, 0, cycle_time)
 
 	if cycle_dir == -1:
-		pass
+		center.position
 
 func cycle_left() -> void:
 	if cycling:

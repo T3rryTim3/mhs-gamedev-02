@@ -3,6 +3,7 @@ extends Control
 
 @onready var menu = $Settings
 
+
 func _ready() -> void:
 	menu.visible = false
 

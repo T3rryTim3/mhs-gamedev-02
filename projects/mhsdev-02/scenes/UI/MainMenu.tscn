@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://bdoih6i4e544o"]
 
-[ext_resource type="FontFile" uid="uid://bxvl6pkyvvyvd" path="res://ui/fonts/PixelFont7-G02A.ttf" id="1_j3771"]
-[ext_resource type="Texture2D" uid="uid://dqfp6h08jthj8" path="res://new images/Untitled146_20241128133911.png" id="1_pwmwk"]
-[ext_resource type="Script" path="res://main_menu.gd" id="1_tsx0n"]
-[ext_resource type="Texture2D" uid="uid://bhf0hsvrnheuv" path="res://new images/Quit Button.png" id="1_uhdlp"]
-[ext_resource type="Texture2D" uid="uid://b2xcaj0ihf35a" path="res://new images/Settings Button.png" id="2_bhomi"]
-[ext_resource type="Texture2D" uid="uid://cmroxt6tvodr4" path="res://new images/Start Button.png" id="3_04mn6"]
-[ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://settings.tscn" id="7_uhk7s"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_j3771"]
+[ext_resource type="Texture2D" uid="uid://beuycd5o4nrj7" path="res://images/UI/Untitled146_20241128133911.png" id="1_pwmwk"]
+[ext_resource type="Script" path="res://scripts/UI/main_menu.gd" id="1_tsx0n"]
+[ext_resource type="Texture2D" uid="uid://dhao8dfdkahn1" path="res://images/UI/Quit Button.png" id="1_uhdlp"]
+[ext_resource type="Texture2D" uid="uid://djjyvup20gwdy" path="res://images/UI/Settings Button.png" id="2_bhomi"]
+[ext_resource type="Texture2D" uid="uid://0ug226hayure" path="res://images/UI/Start Button.png" id="3_04mn6"]
+[ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="7_uhk7s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7g6h"]
 
