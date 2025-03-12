@@ -14,8 +14,5 @@ func _get_level(): ## Finds the first Level ancestor
 
 func _ready() -> void:
 	level = _get_level()
-	print("LEVEL")
 	await level.ready
-	print("LEVEL DONE")
-	print(level.player)
 	player = level.player

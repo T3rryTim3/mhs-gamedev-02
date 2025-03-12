@@ -44,7 +44,7 @@ position = Vector2(38, 24)
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = 1
-position = Vector2(49, 28)
+position = Vector2(49, 37)
 script = ExtResource("3_dejrn")
 stack_limit = 5
 can_steal = true
@@ -55,6 +55,7 @@ drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 limit_type = 1
 auto_collect = true
+crate_type = 2
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_layer = 6

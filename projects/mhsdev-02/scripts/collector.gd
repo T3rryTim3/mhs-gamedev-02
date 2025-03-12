@@ -12,6 +12,13 @@ signal item_reset
 ## Fires when a collector drops an item into this one.
 signal item_given
 
+## Different types of crate visuals
+enum CrateVisuals {
+	NONE,
+	ITEM_CRATE,
+	PENTAGRAM
+}
+
 ## Collector visual preload
 @onready var display_scn = preload("res://scenes/Base/collector_display.tscn")
 
@@ -62,7 +69,7 @@ signal item_given
 @export var loose_grip:bool = true
 
 ## Show a crate with the limit_type item, if set
-@export var show_crate:bool = true
+@export var crate_type:CrateVisuals
 #endregion
 
 #region Variables
@@ -81,7 +88,7 @@ var display:Sprite2D
 
 #region Built in
 func _ready() -> void:
-	if show_crate:
+	if crate_type == CrateVisuals.ITEM_CRATE:
 		# Add crate
 		display = display_scn.instantiate()
 		add_child(display)
@@ -92,6 +99,33 @@ func _ready() -> void:
 			var data = ItemData.get_item_data(limit_type)
 			var image = load(data["img_path"])
 			display.inner.texture = image
+		else:
+			display.inner.visible = false
+
+	elif crate_type == CrateVisuals.PENTAGRAM:
+		display = display_scn.instantiate()
+		add_child(display)
+		display.position = pickup_pos_node.position + Vector2(0, -8)
+		display.texture = load("res://images/stations/Pentagram.png")
+		
+		if limit_type_enable:
+			# Add display
+			var data = ItemData.get_item_data(limit_type)
+			var image = load(data["img_path"])
+			
+			# Make inner transparent and raised
+			display.inner.texture = image
+			display.inner.material = null # Disable crate texture
+			display.inner.self_modulate = Color(1,1,1, 0.5)
+			display.inner.position += Vector2(0,-8)
+			
+			item_collected.connect(display.inner.hide)
+			item_reset.connect(
+				func ():
+					if len(current_resources) == 0:
+						display.inner.show()
+			)
+			
 		else:
 			display.inner.visible = false
 

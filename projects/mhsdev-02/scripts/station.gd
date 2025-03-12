@@ -97,6 +97,16 @@ func _init_progress_bar(): ## Reset the progress bar
 
 	add_child(progress_bar)
 
+func _death():
+	# Create blueprint when destroyed
+	var new_station = load("res://scenes/Base/blueprint.tscn").instantiate()
+	new_station.target_station = station_data
+	get_parent().call_deferred("add_child", new_station)
+	new_station.global_position = global_position
+
+	# Delete self
+	queue_free()
+
 func _process(delta):
 	super(delta)
 	# Update progress bar
