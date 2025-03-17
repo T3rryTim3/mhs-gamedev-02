@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2rc1pex43fmx"]
+[gd_scene load_steps=3 format=3 uid="uid://c2rc1pex43fmx"]
 
 [ext_resource type="Script" path="res://scripts/UI/settings.gd" id="1_nld73"]
+[ext_resource type="PackedScene" uid="uid://c40i5hc8ws7b6" path="res://keybinds.tscn" id="2_usoba"]
 
 [node name="Settings" type="MarginContainer"]
 anchors_preset = 15
@@ -16,7 +17,7 @@ script = ExtResource("1_nld73")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-current_tab = 1
+current_tab = 2
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
 visible = false
@@ -66,6 +67,7 @@ text = "SFX"
 layout_mode = 2
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -85,13 +87,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Glow" type="CheckButton" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Glow"
-
 [node name="Bloom" type="CheckButton" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Bloom Effects"
+
+[node name="Glow" type="CheckButton" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Glow"
 
 [node name="HBV" type="CheckButton" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -99,6 +101,13 @@ text = "Healthbar Vignette"
 
 [node name="HSlider" type="HSlider" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="Keybinds" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Keybinds" parent="TabContainer/Keybinds" instance=ExtResource("2_usoba")]
+layout_mode = 1
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 2
