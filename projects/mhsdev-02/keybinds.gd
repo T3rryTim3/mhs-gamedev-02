@@ -8,7 +8,9 @@ var is_remapping = false
 var action_to_remap = null
 var remapping_button = null
 
-
+var input_actions = {
+	
+}
 
 func _ready():
 	_create_action_list()
