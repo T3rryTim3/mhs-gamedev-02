@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6nsxw5plh35q"
-path="res://.godot/imported/Tile_Set.png-1677d393a33b723fa7ee466c87231ca3.ctex"
+uid="uid://dsvdfn3b2fgac"
+path="res://.godot/imported/Volcona.png-7ca17df48a1ae5e4f3f3316493eaea58.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Tilesets/Tile_Set.png"
-dest_files=["res://.godot/imported/Tile_Set.png-1677d393a33b723fa7ee466c87231ca3.ctex"]
+source_file="res://images/event/Volcano/Volcona.png"
+dest_files=["res://.godot/imported/Volcona.png-7ca17df48a1ae5e4f3f3316493eaea58.ctex"]
 
 [params]
 

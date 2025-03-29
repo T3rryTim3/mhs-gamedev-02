@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7ppigu1w76a2"
-path="res://.godot/imported/Dirty Bucket _(.png-de60c0b27f1359bae65e459e67114f98.ctex"
+uid="uid://cmpf0ehrbflbo"
+path="res://.godot/imported/machine.png-5c216e9ef72ebc57e7b5c3db892949e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/items/Dirty Bucket _(.png"
-dest_files=["res://.godot/imported/Dirty Bucket _(.png-de60c0b27f1359bae65e459e67114f98.ctex"]
+source_file="res://images/stations/machine.png"
+dest_files=["res://.godot/imported/machine.png-5c216e9ef72ebc57e7b5c3db892949e4.ctex"]
 
 [params]
 

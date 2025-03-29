@@ -6,6 +6,7 @@ enum ItemTypes
 	WHEAT,
 	BREAD,
 	WATER,
+	WATER_CLEAN,
 	ROCK
 }
 
@@ -31,6 +32,11 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			use_time = 1
 			img_path = "res://images/items/bread.png"
 		ItemTypes.WATER:
+			health = 1
+			decay_rate = 0.01
+			use_time = 1
+			img_path = "res://images/items/dirty_water.png"
+		ItemTypes.WATER_CLEAN:
 			health = 1
 			decay_rate = 0.01
 			use_time = 1
@@ -65,6 +71,9 @@ func use_item(item:Item, player:Player, delta:float):
 				player.state.hunger.val += 20
 				item.queue_free()
 			ItemTypes.WATER:
+				player.state.thirst.val += 10
+				item.queue_free()
+			ItemTypes.WATER_CLEAN:
 				player.state.thirst.val += 20
 				item.queue_free()
 			ItemTypes.ROCK:

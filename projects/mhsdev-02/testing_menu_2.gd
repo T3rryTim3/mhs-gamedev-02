@@ -8,6 +8,7 @@ var stations:Array = [
 	StationData.Stations.OVEN,
 	StationData.Stations.STRENGTH_TOTEM,
 	StationData.Stations.SPEED_TOTEM,
+	StationData.Stations.WATER_PURIFIER,
 	StationData.Stations.QUARRY,
 	StationData.Stations.FOREST,
 	StationData.Stations.CROP

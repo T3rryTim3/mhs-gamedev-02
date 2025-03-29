@@ -77,11 +77,11 @@ class DrainFactor: ## An individual factor affecting a state item's drain
 	var type:DrainFactorTypes
 	var enabled:bool
 	
-	func _init(drain_id:String, drain_num:float, drain_type:DrainFactorTypes, enabled:bool=false):
+	func _init(drain_id:String, drain_num:float, drain_type:DrainFactorTypes, on:bool=false):
 		self.id = drain_id
 		self.num = drain_num
 		self.type = drain_type
-		self.enabled = enabled
+		self.enabled = on
 
 	func apply(input:float) -> float: ## Apply the factor
 		if not enabled:

@@ -437,16 +437,17 @@ ambient_light_color = Color(0.956111, 0.951019, 0, 1)
 ambient_light_sky_contribution = 0.25
 ssao_radius = 1.5
 ssao_detail = 1.5
-glow_enabled = true
 glow_intensity = 1.81
 glow_bloom = 0.06
 glow_hdr_threshold = 0.19
 adjustment_enabled = true
 adjustment_saturation = 1.2
 
-[node name="phystest" type="Node2D"]
+[node name="phystest" type="Node2D" node_paths=PackedStringArray("map_limit")]
 script = ExtResource("1_mkj7t")
 health_vignette_curve = SubResource("Curve_d0i73")
+map_limit = NodePath("CameraLimit")
+events = Array[int]([0])
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)

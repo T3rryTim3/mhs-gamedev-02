@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6nsxw5plh35q"
-path="res://.godot/imported/Tile_Set.png-1677d393a33b723fa7ee466c87231ca3.ctex"
+uid="uid://d3waqwoyaypqh"
+path="res://.godot/imported/purifier_off.png-e610449d33625adfa74fd34ca0856036.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Tilesets/Tile_Set.png"
-dest_files=["res://.godot/imported/Tile_Set.png-1677d393a33b723fa7ee466c87231ca3.ctex"]
+source_file="res://images/stations/purifier_off.png"
+dest_files=["res://.godot/imported/purifier_off.png-e610449d33625adfa74fd34ca0856036.ctex"]
 
 [params]
 

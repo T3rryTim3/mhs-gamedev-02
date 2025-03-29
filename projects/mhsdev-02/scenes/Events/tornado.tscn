@@ -68,7 +68,7 @@ script = ExtResource("1_hquia")
 
 [node name="Body" type="CharacterBody2D" parent="Tornado"]
 collision_layer = 32
-collision_mask = 0
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tornado/Body"]
 position = Vector2(0, -10)

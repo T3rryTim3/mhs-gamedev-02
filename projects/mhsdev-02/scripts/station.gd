@@ -13,6 +13,9 @@ var drop = preload("res://scenes/Base/item.tscn")
 ## Preload blueprint collider
 var blueprint_collider = preload("res://scenes/Structure/blueprint_collider.tscn")
 
+## Preload remove collider
+var remove_collider = preload("res://scenes/Structure/station_remove_collider.tscn")
+
 enum LayerBehaviour
 {
 	ADAPTIVE,
@@ -125,6 +128,11 @@ func _process(delta):
 		2: 
 			z_index = 5
 	
+	#if self in get_world_2d().direct_space_state.intersect_point(PhysicsPointQueryParameters2D.new()):
+		#print("on")
+		#self_modulate = Color(1,0,0)
+	#else:
+		#self_modulate = Color(0,0,0)
 
 func _ready():
 	
@@ -157,4 +165,16 @@ func _ready():
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")
 
-	
+	# Add collider for station deletion
+	var remove_collider:Area2D = remove_collider.instantiate()
+	add_child(remove_collider)
+	remove_collider.collision_shape.size = get_sprite_texture().get_size()
+	remove_collider.mouse_entered.connect(_update_remove_color.bind(true))
+	remove_collider.mouse_exited.connect(_update_remove_color.bind(false))
+
+func _update_remove_color(on:bool):
+	print(on)
+	if on:
+		sprite.self_modulate = Color(1,0,0)
+	else:
+		sprite.self_modulate = Color(0,0,0)

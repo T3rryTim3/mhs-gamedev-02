@@ -269,7 +269,10 @@ func _process(delta) -> void:
 
 	# Update blueprint
 	if current_blueprint:
-		current_blueprint.global_position = _round_vector(get_global_mouse_position(), 24)
+		if Input.is_action_pressed("unsnap_blueprint"):
+			current_blueprint.global_position = get_global_mouse_position()
+		else:
+			current_blueprint.global_position = _round_vector(get_global_mouse_position(), 12)
 		current_blueprint.update()
 
 	stamina_bar.current = state.stamina.val/state.stamina.val_max

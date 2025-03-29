@@ -8,7 +8,8 @@ enum Stations {
 	OVEN,
 	STRENGTH_TOTEM,
 	SPEED_TOTEM,
-	CAMPFIRE
+	CAMPFIRE,
+	WATER_PURIFIER
 }
 
 func get_station_name(station:Stations) -> String:
@@ -29,6 +30,8 @@ func get_station_name(station:Stations) -> String:
 			return "Speed Totem"
 		Stations.CAMPFIRE:
 			return "Campfire"
+		Stations.WATER_PURIFIER:
+			return "Water Purifier"
 		_:
 			return "NAME ERROR"
 
@@ -50,6 +53,8 @@ func get_station_scene(station:Stations):
 			return "res://scenes/Stations/speed_totem.tscn"
 		Stations.CAMPFIRE: # Strength totem
 			return "res://scenes/Stations/campfire.tscn"
+		Stations.WATER_PURIFIER:
+			return "res://scenes/Stations/purifier.tscn"
 
 func get_station_texture(station:Stations):
 	match station:
@@ -69,6 +74,8 @@ func get_station_texture(station:Stations):
 			return "res://images/stations/Speed Totem (off).png"
 		Stations.CAMPFIRE:
 			return "res://images/stations/campfire(on).png"
+		Stations.WATER_PURIFIER:
+			return "res://images/stations/purifier_off.png"
 		_:
 			print("MISSING TEXTURE")
 			return "res://images/stations/well.png"
@@ -109,6 +116,11 @@ func get_station_cost(station:Stations):
 			return {
 				ItemData.ItemTypes.WHEAT: 1,
 				ItemData.ItemTypes.WOOD: 1
+			}
+		Stations.WATER_PURIFIER:
+			return {
+				ItemData.ItemTypes.ROCK: 1,
+				ItemData.ItemTypes.WOOD: 2
 			}
 		Stations.CAMPFIRE:
 			return {

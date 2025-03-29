@@ -35,6 +35,7 @@ func _select_target():
 	target_dir = _get_random_direction()
 
 func _process(delta):
+	super(delta)
 	current_cooldown += delta
 	if current_cooldown >= move_cooldown + cooldown_delay:
 		_select_target()

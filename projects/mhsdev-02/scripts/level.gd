@@ -14,17 +14,22 @@ class_name Level
 @export var map_limit:CollisionShape2D
 
 ## Spawn cooldown for items
-@export var spawn_cooldown:float = 3
+@export_range(0,10) var spawn_cooldown:float = 3
+
+## Stress increase per minute.
+@export var strength_increase:float = 1
 
 @export var spawn_items:Dictionary[ItemData.ItemTypes, int] = {
 	ItemData.ItemTypes.WHEAT: 10,
 }
 
+@export var events:Array[EventMan.Events]
+
+# Seconds between each event
+@export var event_spawn_cooldown:float = 10
+
 # Cooldown for next item spawn
 var current_spawn_cooldown:float = 0
-
-# All spawnable tiles (used for spawning items)
-var spawnable_tiles:Array
 
 ## Location to store items
 var items:Node
@@ -37,6 +42,12 @@ var player:Player
 
 ## Canvaslayer with ui elements
 var ui_layer:CanvasLayer
+
+## Strength of spawned weather events.
+var strength:float = 0.0
+
+## Current cooldown before event spawning
+var current_event_cooldown:float = 0
 
 ## Health vignette
 @onready var vignette_shader = load("res://Shaders/health_vignette.tres")
@@ -66,15 +77,17 @@ func _ready():
 	# Connect updates for station effects
 	stations.child_order_changed.connect(update_station_stats)
 
-func _get_spawnable_tiles(): ## Updates 'spawnable_tiles'
-	pass
-
 func _spawn_item():
+	# Create and set item
 	var new_item:Item = item_scn.instantiate()
 	new_item.id = weighted_random_choice(spawn_items)
+
+	# Ensure item exists
 	if (not new_item) or not map_limit:
 		return
+
 	items.add_child(new_item)
+
 	var size = map_limit.shape.get_rect().size
 	new_item.global_position = Vector2(
 		randi_range(map_limit.global_position.x - size.x/2, map_limit.global_position.x + size.x/2),
@@ -87,12 +100,20 @@ func _physics_process(delta: float) -> void:
 		_spawn_item()
 		current_spawn_cooldown = 0
 
-func _process(_delta) -> void:
+func _process(delta) -> void:
 	# Update the health vignette
 	var health_perc = 1 - player.health / player.max_health
 	health_perc = health_vignette_curve.sample(health_perc)
 	vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
 	vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
+	
+	# Update stress and weather events
+	strength += strength_increase / 60 * delta
+	current_event_cooldown += delta
+	
+	if current_event_cooldown > event_spawn_cooldown:
+		current_event_cooldown = 0
+		EventMan.spawn_event(events.pick_random(), self, max(1, strength))
 
 ## Gets a random value from a weighted dictionary (value: weight pairs)
 func weighted_random_choice(weighted_dict: Dictionary) -> Variant:
@@ -121,8 +142,8 @@ func get_station_count(type:StationData.Stations) -> int: ## Gets the number of 
 
 func update_station_stats(): ## Updates variables dependent on stations
 	if player:
-		var strength = 1 + get_station_count(StationData.Stations.STRENGTH_TOTEM)
-		player.update_collector_stack_lim(strength)
+		var player_strength = 1 + get_station_count(StationData.Stations.STRENGTH_TOTEM)
+		player.update_collector_stack_lim(player_strength)
 
 func player_stat_update(_player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
 	player.state.temp.val -= 0.4 * delta
