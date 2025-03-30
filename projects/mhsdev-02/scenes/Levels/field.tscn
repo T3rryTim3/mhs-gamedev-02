@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="8_4sovy"]
 [ext_resource type="PackedScene" uid="uid://dedve84sqmfh0" path="res://scenes/Stations/purifier.tscn" id="10_tx5fc"]
-[ext_resource type="Texture2D" uid="uid://cmpf0ehrbflbo" path="res://images/stations/machine.png" id="11_2ntn0"]
+[ext_resource type="PackedScene" uid="uid://widdd1xl7ari" path="res://scenes/Stations/the_machine.tscn" id="12_2xnvh"]
 [ext_resource type="PackedScene" uid="uid://dr8hujnthfhc6" path="res://scenes/Stations/forest.tscn" id="12_5xgm6"]
 [ext_resource type="Texture2D" uid="uid://bqnqdfgmkb7vc" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
 
@@ -898,9 +898,8 @@ position = Vector2(-105, -123)
 position = Vector2(-120, -15)
 id = 3
 
-[node name="Machine" type="Sprite2D" parent="."]
-position = Vector2(-198, 56)
-texture = ExtResource("11_2ntn0")
-
 [node name="Forest" parent="." instance=ExtResource("12_5xgm6")]
 position = Vector2(-111, 89)
+
+[node name="The Machine" parent="." instance=ExtResource("12_2xnvh")]
+position = Vector2(-213, 75)

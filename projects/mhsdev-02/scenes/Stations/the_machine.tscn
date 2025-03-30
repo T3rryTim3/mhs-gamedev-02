@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://widdd1xl7ari"]
+
+[ext_resource type="Script" uid="uid://bx0rn6bwkphi8" path="res://scripts/the_machine.gd" id="1_etu33"]
+[ext_resource type="Texture2D" uid="uid://cmpf0ehrbflbo" path="res://images/stations/machine.png" id="1_ojkw5"]
+
+[sub_resource type="Theme" id="Theme_etu33"]
+Label/font_sizes/font_size = 12
+Label/fonts/font = null
+VBoxContainer/constants/separation = 0
+
+[sub_resource type="Gradient" id="Gradient_gfevg"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yy08b"]
+gradient = SubResource("Gradient_gfevg")
+fill = 1
+fill_from = Vector2(0.518349, 0.472477)
+fill_to = Vector2(0.866973, 0.174312)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_etu33"]
+size = Vector2(68, 20)
+
+[node name="The Machine" type="StaticBody2D"]
+script = ExtResource("1_etu33")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ojkw5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = -48.0
+offset_top = 48.0
+offset_right = 48.0
+offset_bottom = 144.0
+theme = SubResource("Theme_etu33")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(3, 3)
+energy = 0.24
+texture = SubResource("GradientTexture2D_yy08b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 34)
+shape = SubResource("RectangleShape2D_etu33")
