@@ -3,7 +3,6 @@ extends MarginContainer
 @onready var exit_button = $ExitButton
 
 func close_menu():
-	
 	visible = false
 
 func _ready():
