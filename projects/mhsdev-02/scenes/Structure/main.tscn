@@ -1,23 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=7 format=3 uid="uid://cec63m3q1fajg"]
 
+[ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_21ivj"]
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
-[ext_resource type="PackedScene" uid="uid://c1g832odaaalg" path="res://scenes/Testing/phystest.tscn" id="1_yr86s"]
+[ext_resource type="PackedScene" uid="uid://cpvuemyt56v57" path="res://scenes/UI/PauseMenu.tscn" id="2_8g21u"]
 [ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
+[ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="3_f5ioo"]
+[ext_resource type="PackedScene" uid="uid://bdoih6i4e544o" path="res://scenes/UI/MainMenu.tscn" id="3_rsrxi"]
 
 [node name="Main" type="Node2D"]
 
-[node name="DevConsole" parent="." instance=ExtResource("1_vl0ib")]
-visible = false
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_21ivj")
+
+[node name="Titlescreen" parent="CanvasLayer/UI" instance=ExtResource("3_rsrxi")]
+layout_mode = 1
+
+[node name="Pause" parent="CanvasLayer/UI" instance=ExtResource("2_8g21u")]
+layout_mode = 1
+
+[node name="Settings" parent="CanvasLayer/UI" instance=ExtResource("3_f5ioo")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="LevelViewport" type="SubViewportContainer" parent="."]
 material = ExtResource("2_t81tu")
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="LevelViewport"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="phystest" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_yr86s")]
+[node name="DevConsole" parent="." instance=ExtResource("1_vl0ib")]
+visible = false

@@ -1,19 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdoih6i4e544o"]
+[gd_scene load_steps=6 format=3 uid="uid://bdoih6i4e544o"]
 
-[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_j3771"]
 [ext_resource type="Texture2D" uid="uid://beuycd5o4nrj7" path="res://images/UI/Untitled146_20241128133911.png" id="1_pwmwk"]
 [ext_resource type="Script" path="res://scripts/UI/main_menu.gd" id="1_tsx0n"]
 [ext_resource type="Texture2D" uid="uid://dhao8dfdkahn1" path="res://images/UI/Quit Button.png" id="1_uhdlp"]
 [ext_resource type="Texture2D" uid="uid://djjyvup20gwdy" path="res://images/UI/Settings Button.png" id="2_bhomi"]
 [ext_resource type="Texture2D" uid="uid://0ug226hayure" path="res://images/UI/Start Button.png" id="3_04mn6"]
-[ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="7_uhk7s"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7g6h"]
-
-[sub_resource type="Theme" id="Theme_idf58"]
-default_font = ExtResource("1_j3771")
-default_font_size = 27
-Button/styles/focus = SubResource("StyleBoxEmpty_w7g6h")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -22,7 +13,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_idf58")
 script = ExtResource("1_tsx0n")
 
 [node name="Label" type="Label" parent="."]
@@ -89,8 +79,16 @@ size_flags_stretch_ratio = 2.94
 icon = ExtResource("1_uhdlp")
 flat = true
 
-[node name="Settings" parent="." instance=ExtResource("7_uhk7s")]
-layout_mode = 1
+[node name="Credits" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.94
+text = "Credits"
+flat = true
 
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/settings" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/quit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Credits" to="." method="_on_button_2_pressed"]
