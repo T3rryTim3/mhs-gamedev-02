@@ -60,7 +60,7 @@ text = "Sara Sedivy - Art (Stations, Character)"
 
 [node name="Label5" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Mizuki Wong - Art (Items)"
+text = "Mizuki Wong - Art (Items, UI)"
 
 [node name="Label6" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

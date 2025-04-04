@@ -39,6 +39,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 1
 text = "Paused"
 
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Resume

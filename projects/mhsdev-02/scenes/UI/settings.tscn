@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2rc1pex43fmx"]
+[gd_scene load_steps=5 format=3 uid="uid://c2rc1pex43fmx"]
 
 [ext_resource type="Script" path="res://scripts/UI/settings.gd" id="1_nld73"]
 [ext_resource type="PackedScene" uid="uid://btfdso5wfimvn" path="res://scenes/UI/graphics.tscn" id="2_15h7n"]
 [ext_resource type="PackedScene" uid="uid://c40i5hc8ws7b6" path="res://keybinds.tscn" id="2_usoba"]
+[ext_resource type="PackedScene" uid="uid://ck3g3g1v3fxem" path="res://miscgame.tscn" id="3_7cxr6"]
 
 [node name="Settings" type="MarginContainer"]
 anchors_preset = 15
@@ -18,7 +19,7 @@ script = ExtResource("1_nld73")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-current_tab = 1
+current_tab = 2
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
 visible = false
@@ -68,6 +69,7 @@ text = "SFX"
 layout_mode = 2
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -75,13 +77,41 @@ metadata/_tab_index = 1
 layout_mode = 1
 offset_left = 13.0
 
-[node name="Keybinds" type="TabBar" parent="TabContainer"]
-visible = false
+[node name="Game" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Keybinds" parent="TabContainer/Keybinds" instance=ExtResource("2_usoba")]
+[node name="control" parent="TabContainer/Game" instance=ExtResource("3_7cxr6")]
 layout_mode = 1
+
+[node name="Keybinds" parent="TabContainer/Game" instance=ExtResource("2_usoba")]
+layout_mode = 1
+
+[node name="Buttons" type="MarginContainer" parent="TabContainer/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 225
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Game/Buttons"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Game/Buttons/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="Gamemode button" type="Button" parent="TabContainer/Game/Buttons/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mode"
+
+[node name="keybinds button" type="Button" parent="TabContainer/Game/Buttons/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keybinds"
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 2
@@ -92,3 +122,5 @@ text = "Exit"
 [connection signal="value_changed" from="TabContainer/Sound/MarginContainer/VBoxContainer/Master" to="." method="_on_master_value_changed"]
 [connection signal="value_changed" from="TabContainer/Sound/MarginContainer/VBoxContainer/Music" to="." method="_on_music_value_changed"]
 [connection signal="value_changed" from="TabContainer/Sound/MarginContainer/VBoxContainer/SFX" to="." method="_on_sfx_value_changed"]
+[connection signal="pressed" from="TabContainer/Game/Buttons/ScrollContainer/VBoxContainer/Gamemode button" to="." method="_on_gamemode_button_pressed"]
+[connection signal="pressed" from="TabContainer/Game/Buttons/ScrollContainer/VBoxContainer/keybinds button" to="." method="_on_keybinds_button_pressed"]
