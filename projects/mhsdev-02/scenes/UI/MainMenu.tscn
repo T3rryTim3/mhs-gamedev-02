@@ -18,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tsx0n")
 
-[node name="Samuell" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,18 +36,6 @@ offset_right = 579.0
 offset_bottom = 688.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_y0vty")
-
-[node name="Credits" type="Button" parent="."]
-layout_mode = 2
-offset_left = 2.0
-offset_top = 596.0
-offset_right = 65.0
-offset_bottom = 627.0
-size_flags_horizontal = 0
-size_flags_vertical = 6
-size_flags_stretch_ratio = 2.94
-text = "Credits"
-flat = true
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -75,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.67, 0.67)
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Samuel" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_pwmwk")
 
@@ -117,6 +105,19 @@ size_flags_stretch_ratio = 2.94
 icon = ExtResource("1_uhdlp")
 flat = true
 
+[node name="Credits" type="Button" parent="."]
+layout_mode = 2
+offset_left = 2.0
+offset_top = 593.0
+offset_right = 65.0
+offset_bottom = 624.0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.94
+mouse_filter = 1
+text = "Credits"
+flat = true
+
 [node name="Credits_scene" parent="." instance=ExtResource("6_tnlov")]
 visible = false
 layout_mode = 1
@@ -126,7 +127,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/settings" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/quit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
