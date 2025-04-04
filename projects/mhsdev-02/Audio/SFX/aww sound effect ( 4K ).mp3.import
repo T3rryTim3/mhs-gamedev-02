@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bvrgpot2ekqks"
+path="res://.godot/imported/aww sound effect ( 4K ).mp3-7ebe3cd653ae3755667fdd2edbc160d5.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/aww sound effect ( 4K ).mp3"
+dest_files=["res://.godot/imported/aww sound effect ( 4K ).mp3-7ebe3cd653ae3755667fdd2edbc160d5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
