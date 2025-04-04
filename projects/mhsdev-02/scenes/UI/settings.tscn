@@ -49,6 +49,7 @@ text = "Master Volume"
 [node name="Master" type="HSlider" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
 layout_mode = 2
 max_value = 1000.0
+value = 1000.0
 
 [node name="MusicLabel" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -58,6 +59,8 @@ text = "Music"
 
 [node name="Music" type="HSlider" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
 layout_mode = 2
+max_value = 1000.0
+value = 1000.0
 
 [node name="SFXLabel" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -67,6 +70,8 @@ text = "SFX"
 
 [node name="SFX" type="HSlider" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
 layout_mode = 2
+max_value = 1000.0
+value = 1000.0
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
 visible = false
