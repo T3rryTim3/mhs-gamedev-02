@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c40i5hc8ws7b6"]
 
-[ext_resource type="Script" path="res://keybinds.gd" id="1_hf8op"]
+[ext_resource type="Script" uid="uid://vds8ig7xvjfa" path="res://keybinds.gd" id="1_hf8op"]
 [ext_resource type="PackedScene" uid="uid://ueghexow7ev4" path="res://input_button.tscn" id="2_iyn53"]
 
 [node name="Keybinds" type="Control"]
