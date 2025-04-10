@@ -2,7 +2,7 @@ extends Control
 
 
 @onready var menu = %Settings
-@onready var start = $ScrollContainer/VBoxContainer/start
+@onready var start = $VBoxContainer/start
 @onready var creds = $Credits_scene
 
 func _ready() -> void:
