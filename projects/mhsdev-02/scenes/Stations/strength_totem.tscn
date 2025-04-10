@@ -1,13 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://fvsdt81wdmnb"]
+[gd_scene load_steps=8 format=3 uid="uid://fvsdt81wdmnb"]
 
-[ext_resource type="Script" path="res://scripts/strength_totem.gd" id="1_eby4e"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="3_dejrn"]
-[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="3_fv7pt"]
+[ext_resource type="Script" uid="uid://chuoknq6gfl1f" path="res://scripts/strength_totem.gd" id="1_eby4e"]
+[ext_resource type="Texture2D" uid="uid://d2csvd7uu6gyx" path="res://images/stations/Strength Totem (Regular).png" id="2_jjcne"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="3_dejrn"]
+
+[sub_resource type="Gradient" id="Gradient_kcctp"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mkc14"]
+gradient = SubResource("Gradient_kcctp")
+fill = 1
+fill_from = Vector2(0.527523, 0.522936)
+fill_to = Vector2(0.527523, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 5)
+size = Vector2(17, 5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7j6g2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0obj"]
 radius = 17.58
 
 [node name="StrengthTotem" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
@@ -20,37 +29,47 @@ produce_time = 30.0
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_fv7pt")
+texture = ExtResource("2_jjcne")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+position = Vector2(0, -9)
+texture = SubResource("GradientTexture2D_mkc14")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 33.5)
+position = Vector2(0.5, 18)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]
 position = Vector2(38, 24)
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
-z_index = -2
+z_index = 1
+position = Vector2(49, 37)
 script = ExtResource("3_dejrn")
 stack_limit = 5
 can_steal = true
+decay_coef = 0.0
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 limit_type = 1
 auto_collect = true
+crate_type = 2
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_layer = 6
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
-position = Vector2(0, 65)
-shape = SubResource("CircleShape2D_7j6g2")
+position = Vector2(-49, 10)
+shape = SubResource("CircleShape2D_b0obj")
 
 [node name="PickupPos" type="Node2D" parent="Collector"]
-position = Vector2(0, 65)
+position = Vector2(-49, 9)
 
 [node name="DropPos" type="Node2D" parent="Collector"]
-position = Vector2(64, 18)
+position = Vector2(-50, 49)
+
+[connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]
+[connection signal="item_given" from="Collector" to="." method="_on_collector_item_given"]

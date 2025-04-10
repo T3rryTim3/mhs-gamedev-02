@@ -13,6 +13,9 @@ var drop = preload("res://scenes/Base/item.tscn")
 ## Preload blueprint collider
 var blueprint_collider = preload("res://scenes/Structure/blueprint_collider.tscn")
 
+## Preload remove collider
+var remove_collider = preload("res://scenes/Structure/station_remove_collider.tscn")
+
 enum LayerBehaviour
 {
 	ADAPTIVE,
@@ -49,6 +52,9 @@ enum LayerBehaviour
 
 ## Can be refrenced for station counting in the level (Used for effect stations)
 var active:bool = true
+
+## If the station can currently be removed (If the mouse is hovering over and player is in delete mode)
+var can_delete:bool = false
 
 ## (Animation) Current stretch value
 var stretch_val:float = 0
@@ -97,6 +103,16 @@ func _init_progress_bar(): ## Reset the progress bar
 
 	add_child(progress_bar)
 
+func _death():
+	# Create blueprint when destroyed
+	var new_station = load("res://scenes/Base/blueprint.tscn").instantiate()
+	new_station.target_station = station_data
+	get_parent().call_deferred("add_child", new_station)
+	new_station.global_position = global_position
+
+	# Delete self
+	queue_free()
+
 func _process(delta):
 	super(delta)
 	# Update progress bar
@@ -114,11 +130,20 @@ func _process(delta):
 			z_index = -1
 		2: 
 			z_index = 5
-	
+
+	_check_delete()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if can_delete:
+			queue_free()
 
 func _ready():
 	
 	add_to_group("station")
+	
+	if not sprite:
+		sprite = $Sprite2D
 	
 	if not progress_bar_texture:
 		progress_bar_texture = DEFAULT_PROGRESS_TEXTURE
@@ -129,17 +154,36 @@ func _ready():
 	progress_timer.one_shot = false
 	progress_timer.wait_time = produce_time
 	progress_timer.connect("timeout", produce)
-	
+
 	add_child(progress_timer)
-	
+
 	progress_timer.start()
-	
-	add_child(blueprint_collider.instantiate())
-	
+
+	var collider = blueprint_collider.instantiate()
+	add_child(collider)
+	collider.get_child(0).shape.size = get_sprite_texture().get_size()
+
 	# Align station to grid
 	global_position = _round_vector(global_position, 24)
-	
+
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")
 
+func _check_delete():
+	var glob_mouse = get_global_mouse_position()
+	var sizex = get_sprite_texture().get_size().x
+	var sizey = get_sprite_texture().get_size().y
 	
+	can_delete = false
+	if (glob_mouse.x > global_position.x - sizex/2) and (glob_mouse.x < global_position.x + sizex/2):
+		if (glob_mouse.y > global_position.y - sizey/2) and (glob_mouse.y < global_position.y + sizey/2):
+			if _get_level().player.delete_mode:
+				can_delete = true
+
+	_update_remove_color(can_delete)
+
+func _update_remove_color(on:bool):
+	if on:
+		sprite.self_modulate = Color(40,1,1)
+	else:
+		sprite.self_modulate = Color(1,1,1)

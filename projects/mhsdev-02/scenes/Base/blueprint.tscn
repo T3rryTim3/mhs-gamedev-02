@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0j0sjf62c3tn"]
+[gd_scene load_steps=10 format=3 uid="uid://d0j0sjf62c3tn"]
 
-[ext_resource type="Script" path="res://scripts/blueprint.gd" id="1_kkihv"]
+[ext_resource type="Script" uid="uid://ct14l0ki484nt" path="res://scripts/blueprint.gd" id="1_kkihv"]
 [ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://Resources/blueprint.tres" id="2_12j11"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_gqyux"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="4_3wxl6"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_3wxl6"]
 [ext_resource type="PackedScene" uid="uid://b2vmtpdbykxl1" path="res://scenes/Structure/blueprint_collider.tscn" id="5_tdijv"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="6_2einr"]
 
@@ -14,6 +14,9 @@ VBoxContainer/constants/separation = 0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3gnng"]
 radius = 17.58
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t3x2f"]
+radius = 49.163
 
 [node name="Blueprint" type="Node2D"]
 script = ExtResource("1_kkihv")
@@ -31,14 +34,34 @@ offset_right = 48.0
 offset_bottom = 144.0
 theme = SubResource("Theme_42iqc")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+material = ExtResource("6_2einr")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
-position = Vector2(16, 13)
+visible = false
+position = Vector2(-53, -7)
 script = ExtResource("4_3wxl6")
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
+loose_grip = false
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
+position = Vector2(-103, -18)
+scale = Vector2(3, 3)
 collision_layer = 4
 collision_mask = 6
 
@@ -54,15 +77,13 @@ position = Vector2(52, 48)
 
 [node name="BlueprintCollider" parent="." instance=ExtResource("5_tdijv")]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
-material = ExtResource("6_2einr")
-offset_left = -48.0
-offset_top = -48.0
-offset_right = 48.0
-offset_bottom = 48.0
-color = Color(1, 1, 1, 0)
+[node name="ShowRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShowRange"]
+shape = SubResource("CircleShape2D_t3x2f")
 
 [connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]
 [connection signal="item_given" from="Collector" to="." method="_on_collector_item_given"]
 [connection signal="item_reset" from="Collector" to="." method="_on_collector_item_reset"]
+[connection signal="body_entered" from="ShowRange" to="." method="_on_show_range_body_entered"]
+[connection signal="body_exited" from="ShowRange" to="." method="_on_show_range_body_exited"]

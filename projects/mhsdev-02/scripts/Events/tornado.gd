@@ -19,7 +19,7 @@ var cooldown_delay:float = 1
 var target_dir:Vector2 = Vector2.ZERO
 var start_pos:Vector2 = Vector2.ZERO
 
-func fling(body:PhysicsBody2D):
+func fling(body):
 	if body is not Entity:
 		return
 	var dir = collider.global_position.direction_to(body.global_position)
@@ -35,6 +35,7 @@ func _select_target():
 	target_dir = _get_random_direction()
 
 func _process(delta):
+	super(delta)
 	current_cooldown += delta
 	if current_cooldown >= move_cooldown + cooldown_delay:
 		_select_target()

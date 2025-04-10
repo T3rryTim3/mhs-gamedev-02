@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dg23b2b272g0a"]
 
-[ext_resource type="Script" path="res://scripts/UI/cost_item.gd" id="1_7bo3e"]
+[ext_resource type="Script" uid="uid://cd50u2uabm31g" path="res://scripts/UI/cost_item.gd" id="1_7bo3e"]
 [ext_resource type="Texture2D" uid="uid://b0tkosq4yj17f" path="res://images/items/bread.png" id="1_8g6ga"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="3_asf7a"]
 
@@ -20,6 +20,8 @@ stretch_mode = 4
 z_index = -1
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("3_asf7a")
 theme_override_font_sizes/font_size = 20
 text = "0/3"

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8f6u00vr5nks"]
+
+[ext_resource type="Shader" uid="uid://clmfgdcsh1tp" path="res://Shaders/blueprint.gdshader" id="1_clf25"]
+[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="1_nsp00"]
+[ext_resource type="Script" uid="uid://crgiamxuyl085" path="res://scripts/blueprint_cycle_option.gd" id="2_fj8vl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve5ne"]
+shader = ExtResource("1_clf25")
+shader_parameter/alpha = 0.6
+shader_parameter/red = 0.0
+shader_parameter/green = 0.0
+shader_parameter/blue = 0.3
+shader_parameter/brightness_multi = 2.0
+
+[node name="TextureRect" type="TextureRect"]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_ve5ne")
+offset_right = 96.0
+offset_bottom = 96.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_nsp00")
+script = ExtResource("2_fj8vl")
