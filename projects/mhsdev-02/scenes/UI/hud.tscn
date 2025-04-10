@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl7r51dy6jv3n"]
+[gd_scene load_steps=5 format=3 uid="uid://dl7r51dy6jv3n"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_6sjk5"]
+[ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_8lowj"]
+[ext_resource type="PackedScene" uid="uid://cvqm6jurw2hl8" path="res://scenes/UI/upgrade_menu.tscn" id="3_y5tme"]
 
 [sub_resource type="Theme" id="Theme_w33oh"]
 default_font = ExtResource("1_8lowj")
@@ -38,3 +39,7 @@ layout_mode = 2
 [node name="temp" type="ProgressBar" parent="VBoxContainer"]
 modulate = Color(0.825833, 1, 0.05, 1)
 layout_mode = 2
+
+[node name="UpgradeMenu" parent="." instance=ExtResource("3_y5tme")]
+visible = false
+layout_mode = 1

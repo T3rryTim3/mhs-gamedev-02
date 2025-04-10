@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dm4xhshmdki1q"]
 
-[ext_resource type="Script" path="res://scenes/UI/popuppanel.gd" id="1_p6yp4"]
+[ext_resource type="Script" uid="uid://3d8sxyosu0bs" path="res://scenes/UI/popuppanel.gd" id="1_p6yp4"]
 [ext_resource type="PackedScene" uid="uid://dg23b2b272g0a" path="res://scenes/UI/cost_item.tscn" id="2_qjt3r"]
 
 [node name="Popups" type="Control"]

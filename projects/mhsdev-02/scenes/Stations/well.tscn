@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dgmho5h0opm76"]
 
-[ext_resource type="Script" path="res://scripts/well.gd" id="1_ld0x8"]
+[ext_resource type="Script" uid="uid://d84ikqjx6t" path="res://scripts/well.gd" id="1_ld0x8"]
 [ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_iy0j5"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_ubvcw"]
 
@@ -12,6 +12,7 @@ collision_layer = 8
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_ld0x8")
+produce_time = 15.0
 progress_bar_texture = ExtResource("2_iy0j5")
 sprite = NodePath("Sprite2D")
 move_influence = 0.01

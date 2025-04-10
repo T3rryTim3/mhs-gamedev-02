@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ule6umnm4nur"]
 
-[ext_resource type="Script" path="res://scripts/blueprint_hover.gd" id="1_0vulk"]
+[ext_resource type="Script" uid="uid://d2jip4mjhdpj7" path="res://scripts/blueprint_hover.gd" id="1_0vulk"]
 [ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="1_nsuxl"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="2_oiyln"]
 [ext_resource type="Material" uid="uid://4o2d5dp71n2g" path="res://Resources/blueprint.tres" id="2_t2fm4"]
@@ -23,8 +23,15 @@ texture = ExtResource("1_nsuxl")
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
 material = ExtResource("2_oiyln")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -48.0
 offset_top = -48.0
 offset_right = 48.0
 offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(1, 1, 1, 0)

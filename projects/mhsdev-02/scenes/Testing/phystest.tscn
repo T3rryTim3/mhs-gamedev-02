@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=4 uid="uid://c1g832odaaalg"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_mkj7t"]
+[ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="1_ql2ok"]
 [ext_resource type="PackedScene" uid="uid://b1eciwiplogl6" path="res://scenes/Base/entity.tscn" id="2_p0ww8"]
 [ext_resource type="PackedScene" uid="uid://pysan0unkcxq" path="res://scenes/Base/collector.tscn" id="3_stxc0"]
@@ -17,11 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://fvsdt81wdmnb" path="res://scenes/Stations/strength_totem.tscn" id="15_0j7fl"]
 [ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="16_2fpxk"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="17_h4i0y"]
-[ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="18_bmu16"]
 [ext_resource type="PackedScene" uid="uid://cipvdry64d3m" path="res://scenes/Stations/campfire.tscn" id="19_hg4jv"]
+[ext_resource type="PackedScene" uid="uid://c6fd0yx525wjw" path="res://scenes/Stations/speed_totem.tscn" id="20_gngxi"]
 
 [sub_resource type="Curve" id="Curve_d0i73"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.457895, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0684211, 1), -1.16327, -1.16327, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o60uk"]
@@ -439,17 +439,16 @@ ssao_radius = 1.5
 ssao_detail = 1.5
 glow_enabled = true
 glow_intensity = 1.81
-glow_bloom = 0.06
+glow_bloom = 0.45
 glow_hdr_threshold = 0.19
 adjustment_enabled = true
 adjustment_saturation = 1.2
 
-[node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player")]
+[node name="phystest" type="Node2D" node_paths=PackedStringArray("map_limit")]
 script = ExtResource("1_mkj7t")
-items = NodePath("Items")
-stations = NodePath("Stations")
-player = NodePath("Player")
 health_vignette_curve = SubResource("Curve_d0i73")
+map_limit = NodePath("CameraLimit")
+events = Array[int]([0])
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_limit") instance=ExtResource("5_e3raw")]
 position = Vector2(-113, 28)
@@ -472,7 +471,6 @@ position = Vector2(-391, 121)
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-392, 241)
-station_data = 1
 
 [node name="Well" parent="Stations" instance=ExtResource("6_2arof")]
 position = Vector2(-498, 240)
@@ -571,11 +569,6 @@ position = Vector2(-190.5, 71)
 shape = SubResource("RectangleShape2D_5cqmg")
 debug_color = Color(0, 0.61, 0.61, 0.243137)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("18_bmu16")]
-player = NodePath("../../Player")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nmvk3")
 
@@ -585,3 +578,6 @@ rotation = 0.760964
 energy = 0.28
 shadow_enabled = true
 shadow_filter = 1
+
+[node name="SpeedTotem" parent="." instance=ExtResource("20_gngxi")]
+position = Vector2(-451, 345)

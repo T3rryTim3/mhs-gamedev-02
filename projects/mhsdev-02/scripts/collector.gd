@@ -12,6 +12,13 @@ signal item_reset
 ## Fires when a collector drops an item into this one.
 signal item_given
 
+## Different types of crate visuals
+enum CrateVisuals {
+	NONE,
+	ITEM_CRATE,
+	PENTAGRAM
+}
+
 ## Collector visual preload
 @onready var display_scn = preload("res://scenes/Base/collector_display.tscn")
 
@@ -62,7 +69,7 @@ signal item_given
 @export var loose_grip:bool = true
 
 ## Show a crate with the limit_type item, if set
-@export var show_crate:bool = true
+@export var crate_type:CrateVisuals
 #endregion
 
 #region Variables
@@ -81,7 +88,7 @@ var display:Sprite2D
 
 #region Built in
 func _ready() -> void:
-	if show_crate:
+	if crate_type == CrateVisuals.ITEM_CRATE:
 		# Add crate
 		display = display_scn.instantiate()
 		add_child(display)
@@ -95,14 +102,41 @@ func _ready() -> void:
 		else:
 			display.inner.visible = false
 
+	elif crate_type == CrateVisuals.PENTAGRAM:
+		display = display_scn.instantiate()
+		add_child(display)
+		display.position = pickup_pos_node.position + Vector2(0, -8)
+		display.texture = load("res://images/stations/Pentagram.png")
+		
+		if limit_type_enable:
+			# Add display
+			var data = ItemData.get_item_data(limit_type)
+			var image = load(data["img_path"])
+			
+			# Make inner transparent and raised
+			display.inner.texture = image
+			display.inner.material = null # Disable crate texture
+			display.inner.self_modulate = Color(1,1,1, 0.5)
+			display.inner.position += Vector2(0,-8)
+			
+			item_collected.connect(display.inner.hide)
+			item_reset.connect(
+				func ():
+					if len(current_resources) == 0:
+						display.inner.show()
+			)
+			
+		else:
+			display.inner.visible = false
+
 func _process(delta:float) -> void:
 	if auto_collect:
 		auto_collect_progress += delta
 		if auto_collect_progress >= auto_collect_cooldown:
 			add_nearest_item()
 			auto_collect_progress = 0
-	for x in current_resources:
-		x.z_index = z_index
+	for x in range(len(current_resources)):
+		current_resources[x].z_index = z_index + x
 
 func _physics_process(delta: float) -> void:
 	# Update collected item positions
@@ -215,7 +249,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 
 	current_resources.append(item)
 	item.tree_exiting.connect(_remove_item.bind(item.collection_id))
-	item.force_applied.connect(_reparent_item.bind(item))
+	if loose_grip:
+		item.force_applied.connect(_reparent_item.bind(item))
 
 	item.z_index = z_index
 
@@ -233,8 +268,10 @@ func reset_item_stats(item:Item) -> void: ## Reset connections and other variabl
 	_remove_item(item.collection_id)
 	item.collect_progress = 0
 	item.collector_decay_coef = 1
-	item.tree_exiting.disconnect(_remove_item)
-	item.force_applied.disconnect(_reparent_item.bind(item))
+	if item.tree_exiting.is_connected(_remove_item):
+		item.tree_exiting.disconnect(_remove_item)
+	if item.force_applied.is_connected(_reparent_item):
+		item.force_applied.disconnect(_reparent_item.bind(item))
 	item.show_health = true
 	item.z_index = -1
 	item_reset.emit()
@@ -255,7 +292,8 @@ func _reparent_item(item:Item): ## Reparent item to the level
 	var glob_pos:Vector2 = item.global_position
 
 	# Reparent item to root
-	remove_child(item)
+	if item.get_parent() == self:
+		remove_child(item)
 	_get_level().call_deferred("add_child", item)
 
 	# Reset position back
@@ -272,7 +310,7 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 	item_given.emit(item)
 	
 	# Auto collect
-	if auto_collect:
+	if auto_collect and item.id == limit_type:
 		if item.get_parent() is Collector:
 			item.get_parent().reset_item_stats(item)
 		add_item(item, true)

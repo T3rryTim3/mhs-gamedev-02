@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://comi75hqjce57"]
+
+[ext_resource type="Script" uid="uid://deecftbps1bsy" path="res://testing_menu_2.gd" id="1_ilk6n"]
+[ext_resource type="Texture2D" uid="uid://xvtxeuvbp12u" path="res://images/stations/oven(off).png" id="2_npdhj"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="3_bmm2s"]
+
+[sub_resource type="Theme" id="Theme_gn2mt"]
+Label/font_sizes/font_size = 12
+Label/fonts/font = null
+VBoxContainer/constants/separation = 0
+
+[node name="blueprintmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ilk6n")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -93.0
+offset_right = -99.0
+offset_bottom = 3.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("2_npdhj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 1.5
+offset_right = 48.0
+offset_bottom = 97.5
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_gn2mt")
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = -25.5
+offset_right = 30.0
+offset_bottom = -2.5
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("3_bmm2s")
+theme_override_font_sizes/font_size = 20
+text = "Strength Totem"
+horizontal_alignment = 1
+autowrap_mode = 2

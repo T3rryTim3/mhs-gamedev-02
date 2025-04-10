@@ -1,8 +1,10 @@
 extends Node
 class_name Event
 
-var data: EventMan.EventData
-var level: Level
+var data:EventMan.EventData
+var level:Level
+
+var alive_dur:float = 0
 
 func _log_base(value:float, base:int): ## Takes the log base 'base' of value
 	return log(value) / log(base)
@@ -18,8 +20,13 @@ func _get_player() -> Player: ## Gets the curent player
 		return x
 	return null
 
-func spawn(): # Called after event spawning
+func _process(delta: float) -> void:
+	alive_dur += delta
+	if alive_dur >= data.duration:
+		kill()
+
+func spawn(): ## Called after event spawning
 	pass
 
-func kill(): # Called after event duration
+func kill(): ## Called after event duration
 	queue_free()
