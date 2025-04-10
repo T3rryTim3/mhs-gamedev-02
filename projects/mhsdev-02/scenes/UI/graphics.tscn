@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://btfdso5wfimvn"]
+
+[ext_resource type="Script" path="res://scenes/UI/graphics.gd" id="1_yfblm"]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -591.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_yfblm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Glow" type="CheckButton" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Glow"
+
+[node name="Bloom" type="CheckButton" parent="VBoxContainer/MarginContainer/VBoxContainer/Glow"]
+layout_mode = 2
+offset_top = 35.0
+offset_right = 561.0
+offset_bottom = 66.0
+text = "Bloom Effects"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBV" type="CheckButton" parent="VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Healthbar Vignette"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Brightness"
+
+[node name="Brightness" type="HSlider" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Blueprint Opacity"
+
+[node name="BlueprintOpacity" type="HSlider" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[connection signal="toggled" from="VBoxContainer/MarginContainer/VBoxContainer/Glow" to="." method="_on_glow_toggled"]
+[connection signal="toggled" from="VBoxContainer/MarginContainer/VBoxContainer/Glow/Bloom" to="." method="_on_bloom_toggled"]
+[connection signal="toggled" from="VBoxContainer/VBoxContainer3/HBV" to="." method="_on_hbv_toggled"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer2/Brightness" to="." method="_on_brightness_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer2/BlueprintOpacity" to="." method="_on_bpo_value_changed"]

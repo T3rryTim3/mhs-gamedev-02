@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdoih6i4e544o"]
+
+[ext_resource type="Texture2D" uid="uid://beuycd5o4nrj7" path="res://images/UI/Untitled146_20241128133911.png" id="1_pwmwk"]
+[ext_resource type="Script" path="res://scripts/UI/main_menu.gd" id="1_tsx0n"]
+[ext_resource type="Texture2D" uid="uid://dhao8dfdkahn1" path="res://images/UI/Quit Button.png" id="1_uhdlp"]
+[ext_resource type="Texture2D" uid="uid://djjyvup20gwdy" path="res://images/UI/Settings Button.png" id="2_bhomi"]
+[ext_resource type="Texture2D" uid="uid://clvd844ej4n6" path="res://images/UI/Game Dev. Titile BG.png" id="2_kgeke"]
+[ext_resource type="Texture2D" uid="uid://0ug226hayure" path="res://images/UI/Start Button.png" id="3_04mn6"]
+[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="3_y0vty"]
+[ext_resource type="PackedScene" uid="uid://xb6pyhv20ns" path="res://scenes/UI/Credits.tscn" id="6_tnlov"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tsx0n")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kgeke")
+
+[node name="Well_ well well" type="TextureRect" parent="."]
+modulate = Color(0.629675, 0.629675, 0.629675, 1)
+layout_mode = 2
+offset_left = 99.0
+offset_top = 208.0
+offset_right = 579.0
+offset_bottom = 688.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_y0vty")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -23.0
+offset_right = 655.0
+grow_vertical = 0
+text = "v0.0.0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 137.0
+offset_top = -566.0
+offset_right = 617.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.67, 0.67)
+
+[node name="Samuel" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_pwmwk")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/separation = -400
+
+[node name="start" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.94
+icon = ExtResource("3_04mn6")
+flat = true
+
+[node name="settings" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.94
+icon = ExtResource("2_bhomi")
+flat = true
+
+[node name="quit" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.94
+icon = ExtResource("1_uhdlp")
+flat = true
+
+[node name="Credits" type="Button" parent="."]
+layout_mode = 2
+offset_left = 2.0
+offset_top = 593.0
+offset_right = 65.0
+offset_bottom = 624.0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.94
+mouse_filter = 1
+text = "Credits"
+flat = true
+
+[node name="Credits_scene" parent="." instance=ExtResource("6_tnlov")]
+visible = false
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/settings" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/quit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]

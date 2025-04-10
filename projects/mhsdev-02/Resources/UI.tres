@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://csflkx7jsvvxb"]
+
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_boeld"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7g6h"]
+
+[resource]
+default_font = ExtResource("1_boeld")
+default_font_size = 27
+Button/styles/focus = SubResource("StyleBoxEmpty_w7g6h")

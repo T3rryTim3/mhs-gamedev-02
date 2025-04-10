@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://w30lg3bdrwq5"]
+[gd_scene load_steps=5 format=3 uid="uid://w30lg3bdrwq5"]
 
+[ext_resource type="Script" path="res://scenes/UI/bps.gd" id="1_3oqa0"]
 [ext_resource type="PackedScene" uid="uid://bdqexil7x13m1" path="res://slot.tscn" id="3_n7xux"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m57r7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgyks"]
 bg_color = Color(0.945866, 0.612038, 0.418023, 1)
 border_width_left = 2
 border_width_top = 2
@@ -11,7 +12,7 @@ border_color = Color(0.445274, 0.049426, 0.0831571, 1)
 corner_radius_top_left = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgket"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dyj5a"]
 bg_color = Color(0.945098, 0.611765, 0.419608, 0.615686)
 border_width_left = 2
 border_width_top = 2
@@ -22,21 +23,25 @@ corner_radius_bottom_left = 20
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 11
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -292.0
 grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 10
-size_flags_vertical = 3
+grow_vertical = 0
+script = ExtResource("1_3oqa0")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 650.0
+grow_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 4
 size_flags_stretch_ratio = 1.86
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
@@ -49,7 +54,7 @@ layout_mode = 2
 [node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m57r7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dgyks")
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel"]
 layout_mode = 0
@@ -62,9 +67,10 @@ flat = true
 language = "jrb"
 
 [node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(250, 650)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lgket")
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dyj5a")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Panel"]
 layout_mode = 1
