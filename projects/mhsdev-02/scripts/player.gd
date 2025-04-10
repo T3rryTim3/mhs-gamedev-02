@@ -39,6 +39,9 @@ enum ThirstLevel {
 #endregion
 
 #region Other Vars
+## Current upgrades
+var upgrades = {}
+
 ## Stamina bar
 var stamina_bar:StatBar
 
@@ -59,6 +62,9 @@ var sprinting:bool = false
 
 ## Current sprint cooldown value (Before stamina recovery)
 var current_sprint_cooldown:float = 0.0
+
+## If the player is currently in delete move
+var delete_mode:bool = false
 
 ## Time until next hunger damage tick
 var hunger_tick:float = 1.5
@@ -86,6 +92,20 @@ func _is_exhausted() -> bool: ## Returns true if temp is above a certain thresho
 func _is_freezing() -> bool:
 	return state.temp.val / state.temp.val_max < Config.LOW_TEMP_THRESHOLD
 
+#region upgrades
+func _add_upgrade(upgrade = Upgrades.Upgrade) -> void: ## Give the player an upgrade
+	if not (upgrade in upgrades):
+		upgrades[upgrade] = 1
+	else:
+		upgrades[upgrade] += 1
+
+func _get_upgrade(upgrade = Upgrades.Upgrades) -> int: ## Returns the upgrade count of the passed upgrade
+	if upgrade in upgrades:
+		return upgrades[upgrade]
+	else:
+		return 0
+#endregion
+
 func _update_stats(delta:float): # Updates the player's stats with respect to time
 	_get_level().player_stat_update(self, delta) # Apply level effects
 
@@ -106,6 +126,7 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 	# Movement speed
 	var speed_totem_count = _get_level().get_station_count(StationData.Stations.SPEED_TOTEM)
 	var speed_increase = Config.SPEED_TOTEM_INCREASE * speed_totem_count
+	speed_increase += Config.SPEED_UPGRADE_INCREASE * _get_upgrade(Upgrades.Upgrades.SPEED)
 	move_speed = Config.PLAYER_BASE_MOVE_SPEED + speed_increase
 	if _is_exhausted():
 		move_speed -= Config.HIGH_TEMP_SPEED_FACTOR
@@ -132,7 +153,8 @@ func begin_blueprint(station:StationData.Stations):
 	current_blueprint.station = station
 
 	add_child(current_blueprint)
-	current_blueprint.sprite.texture = load(StationData.get_station_texture(station))
+	#current_blueprint.sprite.texture = load(StationData.get_station_texture(station))
+	current_blueprint._update_sprite(station)
 
 	# Set station shaders to visualize selection
 	station_shader.set_shader_parameter("active", true)
@@ -323,6 +345,15 @@ func _process(delta) -> void:
 	_update_stats(delta)
 
 func _input(event) -> void:
+
+	if event.is_action_pressed("remove_station"):
+		if not delete_mode:
+			if current_blueprint:
+				stop_blueprint()
+			delete_mode = true
+		else:
+			delete_mode = false
+
 	if event is InputEventKey:
 		if event.pressed:
 			match event.keycode:
@@ -330,6 +361,8 @@ func _input(event) -> void:
 					if current_blueprint:
 						stop_blueprint()
 					else:
+						if delete_mode:
+							delete_mode = false
 						begin_blueprint(StationData.Stations.WELL)
 				KEY_K:
 					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)

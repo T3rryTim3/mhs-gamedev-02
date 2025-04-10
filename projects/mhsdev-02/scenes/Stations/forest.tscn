@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr8hujnthfhc6"]
 
 [ext_resource type="Script" uid="uid://b40xfu748xbdt" path="res://scripts/forest.gd" id="1_daxd7"]
-[ext_resource type="Texture2D" uid="uid://by3gkt2w2oww5" path="res://images/stations/forest.png" id="2_r7yf8"]
+[ext_resource type="Texture2D" uid="uid://c5th77juet2mm" path="res://images/stations/forest.png" id="2_r7yf8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
 size = Vector2(66.5, 13.5)
@@ -11,7 +11,6 @@ collision_layer = 8
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_daxd7")
-layer_behavior = 1
 produce_time = 10.0
 sprite = NodePath("Sprite2D")
 move_influence = 0.01

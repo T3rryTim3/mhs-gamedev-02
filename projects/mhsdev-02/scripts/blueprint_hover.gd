@@ -6,7 +6,7 @@ class_name BlueprintHover
 var station:StationData.Stations : set = _update_sprite
 var valid = false
 
-func _update_sprite(new):
+func _update_sprite(new:StationData.Stations):
 	if station != new:
 		$Sprite2D.texture = load(StationData.get_station_texture(new))
 

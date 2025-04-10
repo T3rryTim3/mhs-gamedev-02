@@ -13,6 +13,8 @@ var LOW_TEMP_SPEED_FACTOR = 30 # Movement speed decreased when too cold
 var HIGH_TEMP_THRESHOLD = 0.9 # Threshold for overheating
 var LOW_TEMP_THRESHOLD = 0.1 # Threshold for freezing
 
+var SPEED_UPGRADE_INCREASE = 20 # Movement speed gained from the speed upgrade
+
 func set_difficulty():
 	pass
 

@@ -53,6 +53,9 @@ enum LayerBehaviour
 ## Can be refrenced for station counting in the level (Used for effect stations)
 var active:bool = true
 
+## If the station can currently be removed (If the mouse is hovering over and player is in delete mode)
+var can_delete:bool = false
+
 ## (Animation) Current stretch value
 var stretch_val:float = 0
 
@@ -127,12 +130,13 @@ func _process(delta):
 			z_index = -1
 		2: 
 			z_index = 5
-	
-	#if self in get_world_2d().direct_space_state.intersect_point(PhysicsPointQueryParameters2D.new()):
-		#print("on")
-		#self_modulate = Color(1,0,0)
-	#else:
-		#self_modulate = Color(0,0,0)
+
+	_check_delete()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if can_delete:
+			queue_free()
 
 func _ready():
 	
@@ -157,7 +161,7 @@ func _ready():
 
 	var collider = blueprint_collider.instantiate()
 	add_child(collider)
-	collider.collision_shape.shape.size = get_sprite_texture().get_size()
+	collider.get_child(0).shape.size = get_sprite_texture().get_size()
 
 	# Align station to grid
 	global_position = _round_vector(global_position, 24)
@@ -165,16 +169,21 @@ func _ready():
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")
 
-	# Add collider for station deletion
-	var remove_collider:Area2D = remove_collider.instantiate()
-	add_child(remove_collider)
-	remove_collider.collision_shape.size = get_sprite_texture().get_size()
-	remove_collider.mouse_entered.connect(_update_remove_color.bind(true))
-	remove_collider.mouse_exited.connect(_update_remove_color.bind(false))
+func _check_delete():
+	var glob_mouse = get_global_mouse_position()
+	var sizex = get_sprite_texture().get_size().x
+	var sizey = get_sprite_texture().get_size().y
+	
+	can_delete = false
+	if (glob_mouse.x > global_position.x - sizex/2) and (glob_mouse.x < global_position.x + sizex/2):
+		if (glob_mouse.y > global_position.y - sizey/2) and (glob_mouse.y < global_position.y + sizey/2):
+			if _get_level().player.delete_mode:
+				can_delete = true
+
+	_update_remove_color(can_delete)
 
 func _update_remove_color(on:bool):
-	print(on)
 	if on:
-		sprite.self_modulate = Color(1,0,0)
+		sprite.self_modulate = Color(40,1,1)
 	else:
-		sprite.self_modulate = Color(0,0,0)
+		sprite.self_modulate = Color(1,1,1)

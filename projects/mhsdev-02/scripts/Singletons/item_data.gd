@@ -33,12 +33,12 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			img_path = "res://images/items/bread.png"
 		ItemTypes.WATER:
 			health = 1
-			decay_rate = 0.01
+			decay_rate = 0.0
 			use_time = 1
 			img_path = "res://images/items/dirty_water.png"
 		ItemTypes.WATER_CLEAN:
 			health = 1
-			decay_rate = 0.01
+			decay_rate = 0.0
 			use_time = 1
 			img_path = "res://images/items/water.png"
 		ItemTypes.ROCK:

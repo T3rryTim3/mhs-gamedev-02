@@ -41,6 +41,17 @@ var cooldown_limit:float = 1.0
 ## Stops certain functions
 var completing = false
 
+## If the blueprint can currently be deleted
+var can_delete:bool = false
+
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
+
 func get_sprite_texture() -> Texture2D:
 	if sprite is Sprite2D:
 		return sprite.texture
@@ -124,6 +135,8 @@ func _process(delta: float) -> void:
 		2: 
 			z_index = 5
 
+	_check_delete()
+
 func _collect():
 	# Collect and filter nearby items
 	for k in cost:
@@ -145,14 +158,13 @@ func _on_collector_item_reset() -> void:
 	_check_completion()
 
 func _on_collector_item_given(item) -> void:
-	for k in cost:
+	for k in cost.keys():
 		if item.id == k and cost[k] - spent_resources[k] > 0:
 			collector.add_item(item)
 			spent_resources[k] += 1
 			scale_val = 1
 	_update_label()
 	_check_completion()
-			
 
 func _on_show_range_body_entered(body: Node2D) -> void:
 	if body is Player:
@@ -161,3 +173,29 @@ func _on_show_range_body_entered(body: Node2D) -> void:
 func _on_show_range_body_exited(body: Node2D) -> void:
 	if body is Player:
 		$VBoxContainer.hide()
+
+#region Deletion handling
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if can_delete:
+			queue_free()
+
+func _check_delete():
+	var glob_mouse = get_global_mouse_position()
+	var sizex = get_sprite_texture().get_size().x
+	var sizey = get_sprite_texture().get_size().y
+	
+	can_delete = false
+	if (glob_mouse.x > global_position.x - sizex/2) and (glob_mouse.x < global_position.x + sizex/2):
+		if (glob_mouse.y > global_position.y - sizey/2) and (glob_mouse.y < global_position.y + sizey/2):
+			if _get_level().player.delete_mode:
+				can_delete = true
+
+	_update_remove_color(can_delete)
+
+func _update_remove_color(on:bool):
+	if on:
+		sprite.self_modulate = Color(40,1,1)
+	else:
+		sprite.self_modulate = Color(1,1,1)
+#endregion

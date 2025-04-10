@@ -147,3 +147,6 @@ func update_station_stats(): ## Updates variables dependent on stations
 
 func player_stat_update(_player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
 	player.state.temp.val -= 0.4 * delta
+
+func get_upgrades() -> Dictionary[Upgrades.Upgrades, int]: ## Returns a dictionary of the player's upgrades
+	return player.upgrades
