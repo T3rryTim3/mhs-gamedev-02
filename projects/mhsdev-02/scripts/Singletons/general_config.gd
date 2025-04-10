@@ -14,6 +14,7 @@ var HIGH_TEMP_THRESHOLD = 0.9 # Threshold for overheating
 var LOW_TEMP_THRESHOLD = 0.1 # Threshold for freezing
 
 var SPEED_UPGRADE_INCREASE = 20 # Movement speed gained from the speed upgrade
+var UPGRADE_COUNT = 3
 
 func set_difficulty():
 	pass

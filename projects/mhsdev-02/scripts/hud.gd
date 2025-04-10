@@ -13,6 +13,7 @@ func _get_level(): ## Finds the first Level ancestor
 func _ready():
 	await _get_level().ready
 	player = _get_level().player
+	player.give_upgrade.connect($UpgradeMenu.display_menu)
 
 func _process(_delta: float) -> void:
 	if not player:

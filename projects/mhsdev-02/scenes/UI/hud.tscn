@@ -41,4 +41,5 @@ modulate = Color(0.825833, 1, 0.05, 1)
 layout_mode = 2
 
 [node name="UpgradeMenu" parent="." instance=ExtResource("3_y5tme")]
+visible = false
 layout_mode = 1

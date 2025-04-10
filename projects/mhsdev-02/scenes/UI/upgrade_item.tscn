@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://boockhujqa1i1"]
+[gd_scene load_steps=4 format=3 uid="uid://boockhujqa1i1"]
 
+[ext_resource type="Script" uid="uid://dyicn254axk1m" path="res://scripts/UI/upgrade_item.gd" id="1_qnp1d"]
 [ext_resource type="Texture2D" uid="uid://bxntdodwqf565" path="res://images/items/dirty_water.png" id="2_kp6r2"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="3_nt6sg"]
 
 [node name="UpgradeItem" type="PanelContainer"]
 self_modulate = Color(1, 1, 1, 0.111)
 mouse_filter = 2
+script = ExtResource("1_qnp1d")
 
 [node name="Button" type="Button" parent="."]
 z_index = 30

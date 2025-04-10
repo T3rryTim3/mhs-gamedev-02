@@ -6,6 +6,8 @@ class_name Player
 @onready var use_bar = $TextureProgressBar
 @onready var high_temp_particles:GPUParticles2D = $HighTempParticles
 
+signal give_upgrade
+
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
 enum ThirstLevel {
@@ -376,6 +378,8 @@ func _input(event) -> void:
 					print(state["temp"].val)
 				KEY_R:
 					collector.cycle_items()
+				KEY_P:
+					give_upgrade.emit()
 
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and current_blueprint:

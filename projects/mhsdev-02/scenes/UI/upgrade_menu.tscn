@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvqm6jurw2hl8"]
+[gd_scene load_steps=7 format=3 uid="uid://cvqm6jurw2hl8"]
 
 [ext_resource type="Texture2D" uid="uid://lklx1nqkhk8t" path="res://new_gradient_texture_2d.tres" id="1_7hcfv"]
+[ext_resource type="Script" uid="uid://dp7fvy7pfyk6" path="res://scenes/UI/upgrade_menu.gd" id="1_ekuli"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="2_ekuli"]
 [ext_resource type="PackedScene" uid="uid://boockhujqa1i1" path="res://scenes/UI/upgrade_item.tscn" id="3_7hcfv"]
 
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ekuli")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -77,10 +79,6 @@ theme_override_fonts/font = ExtResource("2_ekuli")
 text = "<=======O=======>"
 
 [node name="UpgradeItem" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_7hcfv")]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="UpgradeItem4" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_7hcfv")]
 layout_mode = 2
 size_flags_horizontal = 4
 

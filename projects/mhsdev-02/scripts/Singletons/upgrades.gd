@@ -8,7 +8,16 @@ enum Upgrades {
 	HUNGER
 }
 
-func get_upgrade_data(upgrade:Upgrades):
+func get_upgrades() -> Array[Upgrades.Upgrades]: ## Returns an array of all of the upgrades
+	return [
+		Upgrades.SPEED,
+		Upgrades.STRENGTH,
+		Upgrades.STAMINA,
+		Upgrades.THIRST,
+		Upgrades.HUNGER
+	]
+
+func get_upgrade_data(upgrade:Upgrades.Upgrades):
 	
 	var data = {
 		"desc": "Unnamed",
