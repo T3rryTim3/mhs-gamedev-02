@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://t5it0okahlc3"]
+
+[ext_resource type="Texture2D" uid="uid://b0dycytmlf187" path="res://images/event/Volcano/fireball.png" id="1_5y2pe"]
+[ext_resource type="Script" uid="uid://dp1gno7l3v7f4" path="res://scripts/fireball.gd" id="1_op5oi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_op5oi"]
+size = Vector2(14, 14)
+
+[node name="Fireball" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_op5oi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5y2pe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_op5oi")
+
+[node name="Collider" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider"]
+shape = SubResource("RectangleShape2D_op5oi")
+
+[connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]

@@ -6,7 +6,9 @@
 
 [node name="UpgradeItem" type="PanelContainer"]
 self_modulate = Color(1, 1, 1, 0.111)
-mouse_filter = 2
+scale = Vector2(2, 2)
+size_flags_horizontal = 4
+mouse_filter = 1
 script = ExtResource("1_qnp1d")
 
 [node name="Button" type="Button" parent="."]
@@ -22,11 +24,15 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_kp6r2")
+expand_mode = 3
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="HBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_nt6sg")
 text = "This is a test"
 
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

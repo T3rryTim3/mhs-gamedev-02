@@ -3,7 +3,8 @@ extends Node
 # TODO Call kill() on expired events
 
 enum Events {
-	TORNADO
+	TORNADO,
+	VOLCANO
 }
 
 ## The log base used for difficulty scaling.
@@ -35,6 +36,13 @@ func get_event_data(event:Events, strength:float = 1) -> EventData:
 				"tornado",
 				"res://scenes/Events/tornado.tscn",
 				10 * scale_val(strength),
+				strength
+			)
+		Events.VOLCANO:
+			return EventData.new(
+				"volcano",
+				"res://scenes/Events/volcano.tscn",
+				15 * scale_val(strength),
 				strength
 			)
 	return null

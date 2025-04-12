@@ -22,7 +22,7 @@ func get_upgrade_data(upgrade:Upgrades.Upgrades):
 	var data = {
 		"desc": "Unnamed",
 		"icon": "res://images/items/bread.png",
-		"lim": 1
+		"lim": 100
 	}
 	
 	match upgrade:
@@ -30,5 +30,14 @@ func get_upgrade_data(upgrade:Upgrades.Upgrades):
 			data["desc"] = "Increased movement speed"
 			#data["icon"] = ""
 			data["lim"] = 100
+		Upgrades.STRENGTH:
+			data["desc"] = "+1 Item carry limit"
+			data["lim"] = 5
+		Upgrades.STAMINA:
+			data["desc"] = "Higher max stamina"
+		Upgrades.THIRST:
+			data["desc"] = "Higher max thirst"
+		Upgrades.HUNGER:
+			data["desc"] = "Higher max hunger"
 	
 	return data

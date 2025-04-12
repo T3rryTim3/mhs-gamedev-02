@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsvdfn3b2fgac"
-path="res://.godot/imported/Volcona.png-7ca17df48a1ae5e4f3f3316493eaea58.ctex"
+uid="uid://de3olbljf3vem"
+path="res://.godot/imported/You-Died_Frame 2.png-de649811ce1c33927b9e81561768fa57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/event/Volcano/Volcona.png"
-dest_files=["res://.godot/imported/Volcona.png-7ca17df48a1ae5e4f3f3316493eaea58.ctex"]
+source_file="res://images/UI/Death/You-Died_Frame 2.png"
+dest_files=["res://.godot/imported/You-Died_Frame 2.png-de649811ce1c33927b9e81561768fa57.ctex"]
 
 [params]
 

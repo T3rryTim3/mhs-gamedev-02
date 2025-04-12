@@ -16,6 +16,9 @@ var blueprint_collider = preload("res://scenes/Structure/blueprint_collider.tscn
 ## Preload remove collider
 var remove_collider = preload("res://scenes/Structure/station_remove_collider.tscn")
 
+## Used to prevent dying multiple times at once
+var dying = false
+
 enum LayerBehaviour
 {
 	ADAPTIVE,
@@ -105,6 +108,9 @@ func _init_progress_bar(): ## Reset the progress bar
 
 func _death():
 	# Create blueprint when destroyed
+	if dying:
+		return
+	dying = true
 	var new_station = load("res://scenes/Base/blueprint.tscn").instantiate()
 	new_station.target_station = station_data
 	get_parent().call_deferred("add_child", new_station)
@@ -186,4 +192,4 @@ func _update_remove_color(on:bool):
 	if on:
 		sprite.self_modulate = Color(40,1,1)
 	else:
-		sprite.self_modulate = Color(1,1,1)
+		sprite.self_modulate = Color(1,1 - damage_mod_coef,1 - damage_mod_coef)

@@ -1,29 +1,55 @@
 extends Control
 
 @onready var upgrade_item = preload("res://scenes/UI/upgrade_item.tscn")
-@onready var upgrade_list = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer
+@onready var upgrade_list = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer
+@onready var desclabel:Label = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/desclabel
+
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
+
+func choose_upgrade(upgrade):
+	
+	var level:Level = _get_level()
+	var player:Player = level.player
+	
+	if not player:
+		return
+	
+	player.add_upgrade(upgrade)
+	hide()
 
 func display_menu():
 	# Remove past items
 	for child in upgrade_list.get_children():
-		if not (child is Panel):
-			continue
-		child.queue_free()
+		if child is PanelContainer:
+			child.queue_free()
+
+	desclabel.text = ""
 
 	# Select the next upgrades
 	var upgrades:Array
 	var remaining = Upgrades.get_upgrades()
 
 	while len(remaining) > 0: # Ensure there are enough upgrades
-		upgrades.append(remaining.pick_random())
+		var choice = remaining.pick_random()
+		upgrades.append(choice)
+		remaining.erase(choice)
 		if len(upgrades) >= Config.UPGRADE_COUNT:
 			break
 
 	# Add the buttons to select the upgrades
 	for upgrade in upgrades:
-		print("Add")
 		var data = Upgrades.get_upgrade_data(upgrade)
-		var new_item = upgrade_item.instantiate()
+		var new_item:PanelContainer = upgrade_item.instantiate()
 		new_item.data = data
+		upgrade_list.add_child(new_item)
+		new_item.button.mouse_entered.connect(func():desclabel.text = data["desc"])
+		new_item.button.mouse_exited.connect(func():desclabel.text = "")
+		new_item.button.pressed.connect(choose_upgrade.bind(upgrade))
 	
 	show()

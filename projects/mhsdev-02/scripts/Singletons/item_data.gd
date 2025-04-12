@@ -16,6 +16,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 	var decay_rate = 0.05
 	var health = 1
 	var use_time = 0
+	var pickup_sound = "res://Audio/SFX/Items/Wheat.wav"
 	
 	match id:
 		ItemTypes.WOOD:
@@ -45,12 +46,14 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 15
 			decay_rate = 0
 			img_path = "res://images/items/rock.png"
+			pickup_sound = "res://Audio/SFX/rock.wav"
 	return {
 		"health": health,
 		"decay_rate": decay_rate,
 		"img_path": img_path,
 		"use_time": use_time,
-		"id": id
+		"id": id,
+		"pickup_sound": pickup_sound
 	}
 
 func use_item(item:Item, player:Player, delta:float):

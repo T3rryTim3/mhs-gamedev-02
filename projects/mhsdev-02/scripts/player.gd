@@ -7,6 +7,7 @@ class_name Player
 @onready var high_temp_particles:GPUParticles2D = $HighTempParticles
 
 signal give_upgrade
+signal mode_changed
 
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
@@ -95,12 +96,16 @@ func _is_freezing() -> bool:
 	return state.temp.val / state.temp.val_max < Config.LOW_TEMP_THRESHOLD
 
 #region upgrades
-func _add_upgrade(upgrade = Upgrades.Upgrade) -> void: ## Give the player an upgrade
+func add_upgrade(upgrade = Upgrades.Upgrade) -> void: ## Give the player an upgrade
 	if not (upgrade in upgrades):
 		upgrades[upgrade] = 1
 	else:
 		upgrades[upgrade] += 1
 
+	state.hunger.val_max = Config.MAX_HUNGER + _get_upgrade(Upgrades.Upgrades.HUNGER) * Config.HUNGER_UPGRADE_INCREASE
+	state.thirst.val_max = Config.MAX_THIRST + _get_upgrade(Upgrades.Upgrades.THIRST) * Config.THIRST_UPGRADE_INCREASE
+	state.stamina.val_max = Config.MAX_STAMINA + _get_upgrade(Upgrades.Upgrades.STAMINA) * Config.STAMINA_UPGRADE_INCREASE
+	
 func _get_upgrade(upgrade = Upgrades.Upgrades) -> int: ## Returns the upgrade count of the passed upgrade
 	if upgrade in upgrades:
 		return upgrades[upgrade]
@@ -140,7 +145,7 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 		current_sprint_cooldown = sprint_cooldown
 		state.stamina.val -= stamina_drain * delta * (int(_is_exhausted()) + 1)
 	if current_sprint_cooldown <= 0:
-			state.stamina.val += stamina_gain * delta
+		state.stamina.val += stamina_gain * delta
 	else:
 		current_sprint_cooldown -= delta
  
@@ -324,7 +329,7 @@ func _process(delta) -> void:
 	
 	# Input
 	if Input.is_action_just_pressed("pickup"):
-		update_collector_stack_lim(_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+1)
+		update_collector_stack_lim(_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+1+_get_upgrade(Upgrades.Upgrades.STRENGTH))
 		if not collector.add_nearest_item():
 			collector.drop_item()
 	
@@ -355,6 +360,7 @@ func _input(event) -> void:
 			delete_mode = true
 		else:
 			delete_mode = false
+		mode_changed.emit()
 
 	if event is InputEventKey:
 		if event.pressed:
@@ -366,8 +372,9 @@ func _input(event) -> void:
 						if delete_mode:
 							delete_mode = false
 						begin_blueprint(StationData.Stations.WELL)
+					mode_changed.emit()
 				KEY_K:
-					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")
@@ -386,6 +393,7 @@ func _input(event) -> void:
 			if current_blueprint.valid:
 				current_blueprint.place(get_parent())
 				stop_blueprint()
+				mode_changed.emit()
 
 	holding_item = len(collector.current_resources) > 0
 

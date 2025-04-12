@@ -32,6 +32,9 @@ enum CrateVisuals {
 ## The random offset of dropping items
 @export var drop_offset:int = 5
 
+## If enabled, the collector will play the sound of items picked up
+@export var pickup_sound:bool = false
+
 ## Allows other collectors to pickup from this one
 @export var can_steal:bool = false
 
@@ -112,13 +115,13 @@ func _ready() -> void:
 			# Add display
 			var data = ItemData.get_item_data(limit_type)
 			var image = load(data["img_path"])
-			
+
 			# Make inner transparent and raised
 			display.inner.texture = image
 			display.inner.material = null # Disable crate texture
 			display.inner.self_modulate = Color(1,1,1, 0.5)
 			display.inner.position += Vector2(0,-8)
-			
+
 			item_collected.connect(display.inner.hide)
 			item_reset.connect(
 				func ():
@@ -141,6 +144,11 @@ func _process(delta:float) -> void:
 func _physics_process(delta: float) -> void:
 	# Update collected item positions
 	for i in current_resources.size():
+
+		# Check if the item has not been freed previously, weakref is used as it is the only
+		# clear way to do so.
+		if (!weakref(current_resources[i].get_ref())):
+			continue
 		var item:Item = current_resources[i]
 		if item.collect_progress <= pickup_time:
 			# Update animation progress
@@ -178,6 +186,11 @@ func _remove_item(item_id:int) -> void: ## Remove an item from current_resources
 		if current_resources[i].collection_id == item_id:
 			current_resources.remove_at(i)
 			return
+
+func clear_items() -> void: ## Remove all items in the collector
+	for i in current_resources.size():
+		current_resources.remove_at(i)
+		return
 
 func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
@@ -262,6 +275,10 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 	if decay_coef == 0:
 		item.show_health = false
 
+	# Play sound
+	if pickup_sound:
+		item.play_pickup_sound()
+
 	return true
 
 func reset_item_stats(item:Item) -> void: ## Reset connections and other variables of an item.
@@ -292,9 +309,10 @@ func _reparent_item(item:Item): ## Reparent item to the level
 	var glob_pos:Vector2 = item.global_position
 
 	# Reparent item to root
-	if item.get_parent() == self:
-		remove_child(item)
-	_get_level().call_deferred("add_child", item)
+	#if item.get_parent() == self:
+		#remove_child(item)
+	item.call_deferred("reparent", _get_level())
+	#_get_level().call_deferred("add_child", item)
 
 	# Reset position back
 	item.global_position = glob_pos
@@ -315,10 +333,10 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 			item.get_parent().reset_item_stats(item)
 		add_item(item, true)
 
-func drop_item() -> void: ## Drop the topmost item.
+func drop_item() -> bool: ## Drop the topmost item.
 	# Validate request
 	if len(current_resources) == 0:
-		return
+		return false
 
 	var near_collector
 	for area in $PickupRange.get_overlapping_areas():
@@ -338,5 +356,10 @@ func drop_item() -> void: ## Drop the topmost item.
 			_reparent_item(item)
 	else:
 		_reparent_item(item)
+	
+	if pickup_sound:
+		item.play_pickup_sound()
+	
+	return true
 #endregion
 	

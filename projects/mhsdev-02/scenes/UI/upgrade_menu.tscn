@@ -75,17 +75,26 @@ text = "Select An Upgrade"
 
 [node name="Label2" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_ekuli")
-text = "<=======O=======>"
+text = "<============O============>"
 
-[node name="UpgradeItem" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_7hcfv")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="UpgradeItem2" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_7hcfv")]
+[node name="UpgradeItem" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_7hcfv")]
 layout_mode = 2
-size_flags_horizontal = 4
 
-[node name="UpgradeItem3" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_7hcfv")]
+[node name="UpgradeItem2" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_7hcfv")]
+layout_mode = 2
+
+[node name="UpgradeItem3" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_7hcfv")]
+layout_mode = 2
+
+[node name="desclabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_ekuli")
+text = "Description of the item listed"
