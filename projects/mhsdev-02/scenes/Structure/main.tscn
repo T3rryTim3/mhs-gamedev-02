@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=9 format=3 uid="uid://cec63m3q1fajg"]
 
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_21ivj"]
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
 [ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="3_f5ioo"]
 [ext_resource type="PackedScene" uid="uid://bdoih6i4e544o" path="res://scenes/UI/MainMenu.tscn" id="3_rsrxi"]
+[ext_resource type="PackedScene" uid="uid://2kfjeq21c6du" path="res://scenes/death.tscn" id="5_hpu3k"]
 [ext_resource type="AudioStream" uid="uid://bq84efkqhemuh" path="res://Audio/Music/beehive-final.wav" id="7_8538w"]
 
 [node name="Main" type="Node2D"]
@@ -23,13 +24,20 @@ theme = ExtResource("1_21ivj")
 
 [node name="Titlescreen" parent="CanvasLayer/UI" instance=ExtResource("3_rsrxi")]
 unique_name_in_owner = true
-layout_mode = 1
-
-[node name="Pause" parent="CanvasLayer/UI" instance=ExtResource("2_8g21u")]
+visible = false
 layout_mode = 1
 
 [node name="Settings" parent="CanvasLayer/UI" instance=ExtResource("3_f5ioo")]
 unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="Pause" parent="CanvasLayer/UI" instance=ExtResource("2_8g21u")]
+visible = false
+layout_mode = 1
+
+[node name="Death" parent="CanvasLayer/UI" instance=ExtResource("5_hpu3k")]
+visible = false
 layout_mode = 1
 
 [node name="LevelViewport" type="SubViewportContainer" parent="."]
