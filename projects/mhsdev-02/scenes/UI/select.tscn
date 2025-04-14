@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://l7bwpd5x4f58"]
+[gd_scene load_steps=6 format=3 uid="uid://l7bwpd5x4f58"]
 
 [ext_resource type="Script" uid="uid://chcsl85yq7660" path="res://select.gd" id="1_6528s"]
 
@@ -7,6 +7,15 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_catev"]
 gradient = SubResource("Gradient_optu4")
+width = 850
+height = 400
+
+[sub_resource type="Gradient" id="Gradient_6528s"]
+offsets = PackedFloat32Array(0.957747, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_btj52"]
+gradient = SubResource("Gradient_6528s")
 width = 850
 height = 400
 
@@ -34,6 +43,21 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("GradientTexture2D_catev")
 
+[node name="TextureButton2" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -200.0
+offset_right = 425.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("GradientTexture2D_btj52")
+
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 6
@@ -58,3 +82,6 @@ offset_right = 38.0
 offset_bottom = 15.5
 grow_vertical = 2
 text = "<----"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
