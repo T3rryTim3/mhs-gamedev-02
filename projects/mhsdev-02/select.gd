@@ -22,8 +22,6 @@ func update_button(button):
 	if tex:
 		button.texture_normal = tex
 	button.set("level_data", data)
-		
-		
 
 func _ready():
 	var levelbutton = $TextureButton
@@ -48,5 +46,17 @@ func _on_Back_pressed():
 		
 
 func _on_LevelButton_pressed(level_data):
+	var data = levels[current_level_index]
+	
 	visible = false
+	
+	
+	var parent = get_parent()
+	
+	
+	var target_level_node = parent.get_node("Level" + str(current_level_index))
+	
+	if target_level_node:
+		target_level_node.visible = true
+	
 	
