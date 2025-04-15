@@ -59,3 +59,6 @@ offset_right = 38.0
 offset_bottom = 15.5
 grow_vertical = 2
 text = "<----"
+
+[connection signal="pressed" from="Button" to="." method="_on_Forward_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Back_pressed"]
