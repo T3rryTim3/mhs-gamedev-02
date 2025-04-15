@@ -1,55 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=7 format=3 uid="uid://cec63m3q1fajg"]
 
+[ext_resource type="Script" uid="uid://bptko54whwnfa" path="res://scenes/Structure/main.gd" id="1_8w15x"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_21ivj"]
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
-[ext_resource type="PackedScene" uid="uid://cpvuemyt56v57" path="res://scenes/UI/PauseMenu.tscn" id="2_8g21u"]
 [ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
 [ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="3_f5ioo"]
-[ext_resource type="PackedScene" uid="uid://bdoih6i4e544o" path="res://scenes/UI/MainMenu.tscn" id="3_rsrxi"]
-[ext_resource type="PackedScene" uid="uid://2kfjeq21c6du" path="res://scenes/death.tscn" id="5_hpu3k"]
-[ext_resource type="PackedScene" uid="uid://cr75yhrni3tcn" path="res://scenes/UI/select.tscn" id="6_8w15x"]
 [ext_resource type="AudioStream" uid="uid://bq84efkqhemuh" path="res://Audio/Music/beehive-final.wav" id="7_8538w"]
-[ext_resource type="PackedScene" uid="uid://05yvts8fokno" path="res://scenes/Levels/field.tscn" id="7_ig0yj"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_8w15x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="UI" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Settings" parent="CanvasLayer" instance=ExtResource("3_f5ioo")]
+visible = false
 theme = ExtResource("1_21ivj")
-
-[node name="Titlescreen" parent="CanvasLayer/UI" instance=ExtResource("3_rsrxi")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-
-[node name="Settings" parent="CanvasLayer/UI" instance=ExtResource("3_f5ioo")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-
-[node name="Pause" parent="CanvasLayer/UI" instance=ExtResource("2_8g21u")]
-visible = false
-layout_mode = 1
-
-[node name="Death" parent="CanvasLayer/UI" instance=ExtResource("5_hpu3k")]
-visible = false
-layout_mode = 1
-
-[node name="Select" parent="CanvasLayer/UI" instance=ExtResource("6_8w15x")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-
-[node name="field" parent="." instance=ExtResource("7_ig0yj")]
-unique_name_in_owner = true
-visible = false
 
 [node name="LevelViewport" type="SubViewportContainer" parent="."]
 visible = false
@@ -75,3 +40,6 @@ visible = false
 stream = ExtResource("7_8538w")
 autoplay = true
 bus = &"Music"
+
+[node name="LoadedScene" type="Node" parent="."]
+unique_name_in_owner = true

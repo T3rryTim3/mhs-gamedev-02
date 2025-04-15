@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MHSDEV02 - First project"
-run/main_scene="res://scenes/Structure/main.tscn"
+run/main_scene="uid://cec63m3q1fajg"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.107535, 0.113264, 0.293981, 1)
 config/icon="res://images/icon.svg"
@@ -26,6 +26,7 @@ Popuppanel="*res://scenes/UI/popuppanel.tscn"
 GameSettings="*res://scripts/Singletons/gamesettings.gd"
 Config="*res://scripts/Singletons/general_config.gd"
 Upgrades="*res://scripts/Singletons/upgrades.gd"
+Globals="*res://scripts/Singletons/globals.gd"
 
 [display]
 

@@ -3,13 +3,13 @@ extends Control
 var levels = [
 	{
 		"name": "Field",
-		"node_path": "res://scenes/Levels/field.tscn",
-		"image_path": "res://images/items/wheat.png"
+		"scene_enum": Main.Scenes.LEVEL_FIELD,
+		"image_path": "res://images/placeholder/image.png"
 	},
 	
 	{
 		"name": "Tutorial",
-		"node_path": "res://scenes/Levels/tutorial.tscn",
+		"scene_enum": Main.Scenes.LEVEL_TUTORIAL,
 		"image_path": "res://images/items/bread.png"
 	}
 ]
@@ -45,18 +45,7 @@ func _on_Back_pressed():
 	update_button($TextureButton)
 		
 
-func _on_LevelButton_pressed(level_data):
-	var data = levels[current_level_index]
-	
-	visible = false
-	
-	
-	var parent = get_parent()
-	
-	
-	var target_level_node = parent.get_node("Level" + str(current_level_index))
-	
-	if target_level_node:
-		target_level_node.visible = true
+func _on_LevelButton_pressed():
+	Globals.main._load_scene(levels[current_level_index]["scene_enum"])
 	
 	
