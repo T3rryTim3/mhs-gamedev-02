@@ -4,7 +4,7 @@ extends Control
 @onready var title = %Titlescreen
 
 func _ready() -> void:
-	visible = true
+	visible = false
 	
 
 

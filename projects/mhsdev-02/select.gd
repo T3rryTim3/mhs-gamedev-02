@@ -3,40 +3,50 @@ extends Control
 var levels = [
 	{
 		"name": "Field",
-		"node_path": "res://scenes/Levels/field.tscn"
+		"node_path": "res://scenes/Levels/field.tscn",
+		"image_path": ""
 	},
-	#{
-		#"name": "Tutorial",
-		#"node_path": "tutorial"
-	#}
+	
+	{
+		"name": "Tutorial",
+		"node_path": "res://scenes/Levels/tutorial.tscn",
+		"image_path": ""
+	}
 ]
 
+var current_level_index = 1
+
+func update_button(button):
+	var data = levels[current_level_index]
+	var tex = load(data["image_path"])
+	if tex:
+		button.texture_normal = tex
+	button.set("level_data", data)
+		
+		
 
 func _ready():
-	var buttons = [
-		$TextureButton,
-		$TextureButton2
-	]
+	var levelbutton = $TextureButton
 	
-	for i in range(levels.size()):
-		var data = levels[i]
-		var button = buttons[i]
+	var forward = $Button
+	var back = $Button2
+	
+	update_button(levelbutton)
+	
+
+func _on_Forward_pressed():
+	current_level_index += 1
+	if current_level_index == levels.size():
+		current_level_index = 1 
+	update_button($TextureButton)
+
+func _on_Back_pressed():
+	current_level_index -= 1
+	if current_level_index < 0:
+		current_level_index = levels.size() - 1
+	update_button($TextureButton)
 		
-		var tex = load(data["node_path"])
-		if tex:
-			button.texture_normal = tex
-		
-		button.set("level_data", data)
-		
-		button.pressed.connect(_on_LevelButton_pressed.bind(data))
 
 func _on_LevelButton_pressed(level_data):
 	visible = false
 	
-
-func _on_button_pressed() -> void:
-	pass 
-	
-
-func _on_button_2_pressed() -> void:
-	pass

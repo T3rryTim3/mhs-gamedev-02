@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dyjasvahse4q7" path="res://scenes/UI/pause_menu.gd" id="1_xqpxi"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
