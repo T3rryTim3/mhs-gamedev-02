@@ -1,13 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr75yhrni3tcn"]
+[gd_scene load_steps=4 format=3 uid="uid://cr75yhrni3tcn"]
 
 [ext_resource type="Script" uid="uid://chcsl85yq7660" path="res://select.gd" id="1_catev"]
 [ext_resource type="Texture2D" uid="uid://bt7wqkl0ubvrb" path="res://images/placeholder/image.png" id="2_btj52"]
+[ext_resource type="Texture2D" uid="uid://0ug226hayure" path="res://images/UI/Start Button.png" id="3_gup8f"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 8.0
+offset_right = 13.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_catev")
@@ -19,10 +24,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -387.0
-offset_top = -248.5
-offset_right = 387.0
-offset_bottom = 248.5
+offset_left = -292.0
+offset_top = -290.0
+offset_right = 482.0
+offset_bottom = 207.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("2_btj52")
@@ -64,7 +69,119 @@ offset_right = 91.0
 offset_bottom = 56.0
 text = "Back"
 
+[node name="Button4" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017
+anchor_top = 0.441
+anchor_right = 0.017
+anchor_bottom = 0.441
+offset_left = -12.584
+offset_top = 303.232
+offset_right = 115.416
+offset_bottom = 347.232
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("3_gup8f")
+
+[node name="Difficulty" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 189.0
+offset_right = 239.0
+offset_bottom = 220.0
+item_count = 3
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+popup/item_1/text = "Hard"
+popup/item_1/id = 1
+popup/item_2/text = "Custom"
+popup/item_2/id = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 371.0
+offset_right = 261.0
+offset_bottom = 522.0
+theme_override_constants/separation = 11
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+
+[node name="HSlider2" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 0.5
+max_value = 5.0
+step = 0.5
+value = 0.5
+
+[node name="HSlider3" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+step = 0.5
+value = 1.0
+
+[node name="HSlider4" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+step = 0.5
+value = 1.0
+
+[node name="HSlider5" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.5
+value = 1.0
+
+[node name="HSlider6" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+min_value = 0.5
+max_value = 3.0
+step = 0.5
+value = 1.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 366.0
+offset_right = 124.0
+offset_bottom = 524.0
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Event Spawn"
+
+[node name="Label2" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Damage "
+
+[node name="Label3" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Thirst Multiplier"
+
+[node name="Label4" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Hunger Multiplier"
+
+[node name="Label5" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Event Strength"
+
+[node name="Label6" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Station Speed"
+
 [connection signal="pressed" from="TextureButton" to="." method="_on_LevelButton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Forward_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_Forward_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_start_pressed"]
+[connection signal="item_selected" from="Difficulty" to="." method="_on_difficulty_item_selected"]
