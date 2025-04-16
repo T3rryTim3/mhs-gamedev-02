@@ -15,6 +15,7 @@ var levels = [
 ]
 
 var current_level_index = 0
+@onready var custom_diff = $VBoxContainer
 
 func update_button(button):
 	var data = levels[current_level_index]
@@ -25,7 +26,7 @@ func update_button(button):
 
 func _ready():
 	var levelbutton = $TextureButton
-	
+	custom_diff.visible = false
 	var forward = $Button
 	var back = $Button2
 	
@@ -45,9 +46,18 @@ func _on_Back_pressed():
 	update_button($TextureButton)
 		
 
-func _on_LevelButton_pressed():
-	Globals.main._load_scene(levels[current_level_index]["scene_enum"])
-	
 
 func _on_back_pressed() -> void:
 	Globals.main._load_scene(Main.Scenes.MENU)
+
+func _on_start_pressed():
+	Globals.main._load_scene(levels[current_level_index]["scene_enum"])
+
+
+
+func _on_difficulty_item_selected(index: int) -> void:
+	print(index)
+	if index == 2:
+		custom_diff.visible = true
+	else:
+		custom_diff.visible = false
