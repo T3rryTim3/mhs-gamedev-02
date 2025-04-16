@@ -44,14 +44,14 @@ enum LayerBehaviour
 ## Progress bar gradient
 @export var progress_bar_texture:Texture2D
 
+## Whether or not to display the progress bar
+@export var show_progress:bool = true
+
 ## Progress bar object
 @onready var progress_bar:StatBar
 
 ## Timer object
 @onready var progress_timer:Timer = Timer.new()
-
-## Force multi to dropped resources
-@export var fling_coef:float = 1
 
 ## Can be refrenced for station counting in the level (Used for effect stations)
 var active:bool = true
@@ -103,6 +103,9 @@ func _init_progress_bar(): ## Reset the progress bar
 	progress_bar.size_scale = health_bar.size_scale * 0.5
 	
 	progress_bar.texture_progress = progress_bar_texture
+	
+	if !show_progress:
+		progress_bar.visible = false
 
 	add_child(progress_bar)
 

@@ -14,7 +14,7 @@ func _on_collider_body_entered(body: Node2D) -> void:
 		body.apply_force(Vector2(dir.x*push_strength,dir.y*push_strength))
 		body.damage(damage)
 		body.add_effect(EffectData.EffectTypes.BURNING, 10, 0.5)
-	
+		queue_free()
 
 func _process(delta: float) -> void:
 	time += delta

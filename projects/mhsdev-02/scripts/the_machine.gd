@@ -140,6 +140,7 @@ func _on_collector_item_given(item) -> void:
 		_get_level().player.give_upgrade.emit()
 		_next_cost()
 		_update_cost()
+		_display_cost()
 
 func _update_cost():
 	for k in cost_container.get_children():

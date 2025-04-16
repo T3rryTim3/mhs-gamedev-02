@@ -47,6 +47,10 @@ func _process(delta):
 		tornado_body.velocity = target_dir * 100 * EventMan.scale_val(data.strength)
 		tornado_body.move_and_slide()
 
+	# Fade out when ending
+	if data.duration - alive_dur < 1:
+		$Tornado.modulate.a = (data.duration - alive_dur)
+
 func _ready() -> void:
 	# Set default stats and connections
 	collider.connect("body_entered", fling)

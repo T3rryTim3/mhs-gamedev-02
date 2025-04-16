@@ -16,12 +16,12 @@ func _fire():
 	var rand_val:float = randf()*PI*2
 	var dir = Vector2(cos(rand_val),sin(rand_val))
 	ball.rotation = rand_val
-	ball.velocity = dir * EventMan.scale_val(data.strength) * 100
+	ball.velocity = dir * EventMan.scale_val(data.strength) * 200
 	ball.global_position = $StaticBody2D/pos.global_position
 	ball.scale = _double_vec2(2 + EventMan.scale_val(data.strength)/2)
 	ball.damage = 0.1 * EventMan.scale_val(data.strength)
 	ball.push_strength = EventMan.scale_val(data.strength/2) * 100
-	get_parent().add_child(ball)
+	_get_level().map.add_child(ball)
 
 func _ready():
 	data.strength = 1

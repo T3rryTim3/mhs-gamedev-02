@@ -12,6 +12,7 @@ var HIGH_TEMP_SPEED_FACTOR = 0 # Movement speed decreased when overheating
 var LOW_TEMP_SPEED_FACTOR = 30 # Movement speed decreased when too cold
 var HIGH_TEMP_THRESHOLD = 0.9 # Threshold for overheating
 var LOW_TEMP_THRESHOLD = 0.1 # Threshold for freezing
+var THIRST_STAMINA_THRESHHOLD = 1 # Minimum thirst to gain stamina
 
 # Stat increases for the upgrades
 var SPEED_UPGRADE_INCREASE = 20

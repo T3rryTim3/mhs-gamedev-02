@@ -9,7 +9,8 @@ enum Stations {
 	STRENGTH_TOTEM,
 	SPEED_TOTEM,
 	CAMPFIRE,
-	WATER_PURIFIER
+	WATER_PURIFIER,
+	BARRICADE
 }
 
 func get_station_name(station:Stations) -> String:
@@ -32,6 +33,8 @@ func get_station_name(station:Stations) -> String:
 			return "Campfire"
 		Stations.WATER_PURIFIER:
 			return "Water Purifier"
+		Stations.BARRICADE:
+			return "Barricade"
 		_:
 			return "NAME ERROR"
 
@@ -55,6 +58,8 @@ func get_station_scene(station:Stations):
 			return "res://scenes/Stations/campfire.tscn"
 		Stations.WATER_PURIFIER:
 			return "res://scenes/Stations/purifier.tscn"
+		Stations.BARRICADE:
+			return "res://scenes/Stations/barricade.tscn"
 
 func get_station_texture(station:Stations):
 	match station:
@@ -76,6 +81,8 @@ func get_station_texture(station:Stations):
 			return "res://images/stations/campfire(on).png"
 		Stations.WATER_PURIFIER:
 			return "res://images/stations/purifier_off.png"
+		Stations.BARRICADE:
+			return "res://images/stations/barricade.png"
 		_:
 			print("MISSING TEXTURE")
 			return "res://images/stations/well.png"
@@ -90,8 +97,7 @@ func get_station_cost(station:Stations):
 			}
 		Stations.CROP:  # Crop
 			return {
-				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 3,
+				ItemData.ItemTypes.WHEAT_SEEDS: 2,
 			}
 		Stations.QUARRY: # Quarry
 			return {
@@ -125,6 +131,10 @@ func get_station_cost(station:Stations):
 		Stations.CAMPFIRE:
 			return {
 				ItemData.ItemTypes.WOOD: 4
+			}
+		Stations.BARRICADE:
+			return {
+				ItemData.ItemTypes.WOOD: 2
 			}
 		_: # Else
 			return {

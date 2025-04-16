@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=59 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="2_8og45"]
@@ -44,6 +44,7 @@
 [ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="42_nclik"]
 [ext_resource type="Texture2D" uid="uid://6pumuile4k83" path="res://Resources/use_progress.tres" id="43_d0e5a"]
 [ext_resource type="AudioStream" uid="uid://io4vp1nm2jh1" path="res://Audio/SFX/Drop 2.wav" id="44_ec81o"]
+[ext_resource type="AudioStream" uid="uid://b5h5pgpof5ype" path="res://Audio/SFX/Death 1.wav" id="45_1plcu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
 size = Vector2(13, 19)
@@ -264,12 +265,12 @@ scale_min = 4.0
 scale_max = 4.0
 color = Color(0.52, 0.52, 0.52, 0.666667)
 
-[sub_resource type="Gradient" id="Gradient_a2m5h"]
+[sub_resource type="Gradient" id="Gradient_ec81o"]
 offsets = PackedFloat32Array(0, 0.87013)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jr42c"]
-gradient = SubResource("Gradient_a2m5h")
+gradient = SubResource("Gradient_ec81o")
 width = 128
 height = 128
 fill = 1
@@ -380,6 +381,10 @@ process_material = SubResource("ParticleProcessMaterial_i2bki")
 
 [node name="DropSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("44_ec81o")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("45_1plcu")
+volume_db = 2.811
 
 [connection signal="body_entered" from="Collector/PickupRange" to="." method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="Collector/PickupRange" to="." method="_on_pickup_range_body_exited"]

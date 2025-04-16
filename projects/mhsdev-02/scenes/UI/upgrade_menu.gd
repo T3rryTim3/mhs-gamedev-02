@@ -53,3 +53,4 @@ func display_menu():
 		new_item.button.pressed.connect(choose_upgrade.bind(upgrade))
 	
 	show()
+	$AnimationPlayer.play("Popup")

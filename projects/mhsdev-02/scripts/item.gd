@@ -1,6 +1,9 @@
 extends Entity
 class_name Item
 
+## Collider for item spawning
+@onready var spawn_collider:Area2D = $SpawnCollider
+
 ## Item ID
 @export var id:ItemData.ItemTypes
 

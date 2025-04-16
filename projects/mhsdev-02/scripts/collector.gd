@@ -139,15 +139,15 @@ func _process(delta:float) -> void:
 			add_nearest_item()
 			auto_collect_progress = 0
 	for x in range(len(current_resources)):
-		current_resources[x].z_index = z_index + x
+		if is_instance_valid(current_resources[x]):
+			current_resources[x].z_index = z_index + x
 
 func _physics_process(delta: float) -> void:
 	# Update collected item positions
 	for i in current_resources.size():
 
-		# Check if the item has not been freed previously, weakref is used as it is the only
-		# clear way to do so.
-		if (!weakref(current_resources[i].get_ref())):
+		# Check if the item has not been freed previously
+		if !is_instance_valid(current_resources[i]):
 			continue
 		var item:Item = current_resources[i]
 		if item.collect_progress <= pickup_time:
@@ -183,6 +183,8 @@ func cycle_items() -> void: ## Rotates the items around in ordering
 
 func _remove_item(item_id:int) -> void: ## Remove an item from current_resources by identifier
 	for i in current_resources.size():
+		if !is_instance_valid(current_resources[i]):
+			continue
 		if current_resources[i].collection_id == item_id:
 			current_resources.remove_at(i)
 			return
