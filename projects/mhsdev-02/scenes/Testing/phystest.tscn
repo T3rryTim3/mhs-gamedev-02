@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="7_s0786"]
 [ext_resource type="PackedScene" uid="uid://i0xmlk7yt0wk" path="res://scenes/Stations/oven.tscn" id="8_bnbq1"]
 [ext_resource type="PackedScene" uid="uid://dr8hujnthfhc6" path="res://scenes/Stations/forest.tscn" id="11_kicql"]
-[ext_resource type="Texture2D" uid="uid://bqnqdfgmkb7vc" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
+[ext_resource type="Texture2D" uid="uid://dskl87jddwwc0" path="res://images/Tilesets/Tileset v1.png" id="12_lf2jf"]
 [ext_resource type="PackedScene" uid="uid://d0j0sjf62c3tn" path="res://scenes/Base/blueprint.tscn" id="13_n1juf"]
 [ext_resource type="PackedScene" uid="uid://fvsdt81wdmnb" path="res://scenes/Stations/strength_totem.tscn" id="15_0j7fl"]
 [ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="16_2fpxk"]

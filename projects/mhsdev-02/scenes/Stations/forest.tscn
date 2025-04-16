@@ -11,7 +11,8 @@ collision_layer = 8
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_daxd7")
-produce_time = 10.0
+station_data = 3
+produce_time = 7.5
 sprite = NodePath("Sprite2D")
 move_influence = 0.01
 

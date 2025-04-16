@@ -1,6 +1,11 @@
 extends StaticBody2D
 class_name Machine
 
+enum CostGroups {
+	FIELD,
+	TUTORIAL
+}
+
 ## Cost display object
 @onready var cost_item = preload("res://scenes/UI/cost_item.tscn")
 
@@ -9,6 +14,12 @@ class_name Machine
 
 ## Object containing the cost display objects
 @onready var cost_container:VBoxContainer = $VBoxContainer
+
+## The selected costs for the machine
+@export var selected_costs:CostGroups
+
+## The costs after being loaded from selected_costs
+var costs:Array
 
 ## Currently spent resources
 var spent_resources:Dictionary[ItemData.ItemTypes, int]
@@ -19,24 +30,61 @@ var scale_val:float = 1.0
 ## The cost for the next station tier
 var cost:Dictionary[ItemData.ItemTypes, int]
 
+## The current index in the 'selected_costs' array
+var cost_index:int = 0
+
+func _load_costs(): ## Loads the costs from 'selected_costs'
+	match selected_costs:
+		CostGroups.FIELD:
+			costs = [
+				[5,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
+				[10,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
+				[15,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
+				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
+				[25,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}]
+			]
+		CostGroups.TUTORIAL:
+			pass
+
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
+
+func _next_cost(): ## Selects the next cost in 'costs'
+	if cost_index >= len(costs): # If there are no more costs
+		cost = {}
+		_update_label()
+		return
+
+	select_cost(costs[cost_index][0], costs[cost_index][1])
+	cost_index += 1
+
 func _ready():
 	cost = {
 		ItemData.ItemTypes.WOOD: 1
 	}
-	select_cost(2, {ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2})
-
+	_load_costs()
+	_next_cost()
 	_display_cost()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if get_viewport().get_camera_2d().global_position.y + 24 <global_position.y + $Sprite2D.texture.get_height()/2.0:
 		z_index = 5
 	else:
 		z_index = -1
+	
+	$Sprite2D.scale.y = scale_val
+	scale_val = clampf(scale_val - 1 * delta, 1, 2)
 
 ## Set the cost of the machine based upon the price given. 
 ## 'Items' is the dict of items that can be chosen (Item, Price).
-func select_cost(price:int, items:Dictionary[ItemData.ItemTypes, int]):
+func select_cost(price:int, items):
 	cost = {}
+	collector.clear_items()
 	while price > 0:
 		# Stop if there are no more possible items
 		if len(items) == 0:
@@ -85,9 +133,14 @@ func _on_collector_item_given(item) -> void:
 		if item.id == k and cost[k] - spent_resources[k] > 0:
 			collector.add_item(item)
 			spent_resources[k] += 1
-			scale_val = 1
+	scale_val = 1.2
 	_update_label()
-	_check_completion()
+	
+	if _check_completion():
+		_get_level().player.give_upgrade.emit()
+		_next_cost()
+		_update_cost()
+		_display_cost()
 
 func _update_cost():
 	for k in cost_container.get_children():

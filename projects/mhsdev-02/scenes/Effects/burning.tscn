@@ -15,6 +15,7 @@ point_count = 3
 curve = SubResource("Curve_t5lo4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_56560"]
+resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(10, 10, 10)

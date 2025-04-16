@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ch7yldb47xgpv"]
+[gd_scene load_steps=7 format=3 uid="uid://ch7yldb47xgpv"]
 
 [ext_resource type="Script" uid="uid://045ca7s7l0q4" path="res://scripts/item.gd" id="1_plafo"]
 [ext_resource type="Texture2D" uid="uid://bn31gxvc4ddqn" path="res://images/items/wheat.png" id="2_5utan"]
@@ -20,6 +20,9 @@ shader_parameter/max_or_add = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slsfp"]
 size = Vector2(48, 48)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1te3q"]
+size = Vector2(24, 24)
+
 [node name="Item" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 z_index = -2
 collision_layer = 2
@@ -35,3 +38,8 @@ texture = ExtResource("2_5utan")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_slsfp")
+
+[node name="SpawnCollider" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCollider"]
+shape = SubResource("RectangleShape2D_1te3q")

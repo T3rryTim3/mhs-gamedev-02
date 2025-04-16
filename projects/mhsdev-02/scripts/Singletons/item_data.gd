@@ -7,7 +7,9 @@ enum ItemTypes
 	BREAD,
 	WATER,
 	WATER_CLEAN,
-	ROCK
+	ROCK,
+	WHEAT_SEEDS,
+	APPLE
 }
 
 func get_item_data(id:ItemTypes) -> Dictionary:
@@ -16,6 +18,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 	var decay_rate = 0.05
 	var health = 1
 	var use_time = 0
+	var pickup_sound = "res://Audio/SFX/Items/Wheat.wav"
 	
 	match id:
 		ItemTypes.WOOD:
@@ -45,12 +48,22 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 15
 			decay_rate = 0
 			img_path = "res://images/items/rock.png"
+			pickup_sound = "res://Audio/SFX/rock.wav"
+		ItemTypes.WHEAT_SEEDS:
+			health = 3
+			decay_rate = 0
+			img_path = "res://images/items/Wheat Seeds.png"
+		ItemTypes.APPLE:
+			health = 8
+			decay_rate = 0.15
+			img_path = "res://images/items/Wheat Seeds.png"
 	return {
 		"health": health,
 		"decay_rate": decay_rate,
 		"img_path": img_path,
 		"use_time": use_time,
-		"id": id
+		"id": id,
+		"pickup_sound": pickup_sound
 	}
 
 func use_item(item:Item, player:Player, delta:float):
@@ -75,6 +88,10 @@ func use_item(item:Item, player:Player, delta:float):
 				item.queue_free()
 			ItemTypes.WATER_CLEAN:
 				player.state.thirst.val += 20
+				item.queue_free()
+			ItemTypes.APPLE:
+				player.state.thirst.val += 8
+				player.state.hunger.val += 8
 				item.queue_free()
 			ItemTypes.ROCK:
 				pass

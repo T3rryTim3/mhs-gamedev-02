@@ -37,6 +37,9 @@ var items:Node
 ## Location to store stations
 var stations:Node
 
+## The map
+var map:Node2D
+
 ## Its the player.. what else?
 var player:Player
 
@@ -66,6 +69,12 @@ func _ready():
 		items = Node.new()
 		add_child(items)
 
+	if find_child("Map") and $Map is Node2D:
+		map = $Map
+	else:
+		map = Node2D.new()
+		add_child(map)
+
 	player = get_tree().get_first_node_in_group("player")
 	if not player:
 		print("WARNING: PLAYER NOT FOUND")
@@ -89,10 +98,14 @@ func _spawn_item():
 	items.add_child(new_item)
 
 	var size = map_limit.shape.get_rect().size
-	new_item.global_position = Vector2(
-		randi_range(map_limit.global_position.x - size.x/2, map_limit.global_position.x + size.x/2),
-		randi_range(map_limit.global_position.y - size.y/2, map_limit.global_position.y + size.y/2)
-	)
+	for x in range(5):
+		new_item.global_position = Vector2(
+			randi_range(map_limit.global_position.x - size.x/2, map_limit.global_position.x + size.x/2),
+			randi_range(map_limit.global_position.y - size.y/2, map_limit.global_position.y + size.y/2)
+		)
+		if new_item.is_on_wall():
+			continue
+		break
 
 func _physics_process(delta: float) -> void:
 	current_spawn_cooldown += delta

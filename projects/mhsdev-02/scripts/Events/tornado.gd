@@ -3,7 +3,7 @@ class_name EventTornado
 
 @onready var tornado_body = $Tornado/Body
 @onready var tornado = $Tornado
-@onready var sprite = $Tornado/Body/AnimatedSprite2D
+@onready var sprite:AnimatedSprite2D = $Tornado/Body/AnimatedSprite2D
 @onready var collider = $Tornado/Body/Collision
 
 # Base fling strength of tornado
@@ -37,6 +37,8 @@ func _select_target():
 func _process(delta):
 	super(delta)
 	current_cooldown += delta
+	if tornado_body.global_position.distance_to(_get_player().global_position) > 400:
+		current_cooldown = move_cooldown + cooldown_delay # Dont wait if player is far
 	if current_cooldown >= move_cooldown + cooldown_delay:
 		_select_target()
 		current_cooldown = 0
@@ -44,6 +46,10 @@ func _process(delta):
 	if current_cooldown < move_cooldown: # Don't move during cooldown period
 		tornado_body.velocity = target_dir * 100 * EventMan.scale_val(data.strength)
 		tornado_body.move_and_slide()
+
+	# Fade out when ending
+	if data.duration - alive_dur < 1:
+		$Tornado.modulate.a = (data.duration - alive_dur)
 
 func _ready() -> void:
 	# Set default stats and connections
@@ -55,4 +61,20 @@ func _ready() -> void:
 	push_damage = 3 * EventMan.scale_val(data.strength)
 	_select_target()
 	sprite.play() # Tornado animation
+	
+	# Set position to outside of the map
+	var lim:CollisionShape2D = _get_level().map_limit
+	var pos = lim.global_position
+	var texture = sprite.sprite_frames.get_frame_texture(sprite.animation, 0)
+	
+	# Random left or right
+	if randi_range(1,2) % 2 == 0:
+		pos.x += lim.shape.get_rect().size.x/2 + tornado.scale.x * texture.get_size().x * 0.5
+	else:
+		pos.x -= lim.shape.get_rect().size.x/2 - tornado.scale.x * texture.get_size().x * 0.5
+	
+	# Y-offset
+	pos.y += randf_range(lim.shape.get_rect().size.y/-2,lim.shape.get_rect().size.y/2 )
+	
+	tornado.global_position = pos
 	

@@ -6,12 +6,13 @@ var stations:Array = [
 	StationData.Stations.WELL,
 	StationData.Stations.CAMPFIRE,
 	StationData.Stations.OVEN,
-	StationData.Stations.STRENGTH_TOTEM,
-	StationData.Stations.SPEED_TOTEM,
+	#StationData.Stations.STRENGTH_TOTEM,
+	#StationData.Stations.SPEED_TOTEM,
 	StationData.Stations.WATER_PURIFIER,
 	StationData.Stations.QUARRY,
 	StationData.Stations.FOREST,
-	StationData.Stations.CROP
+	StationData.Stations.CROP,
+	StationData.Stations.BARRICADE
 ]
 
 @onready var cost_item = preload("res://scenes/UI/cost_item.tscn")
@@ -38,6 +39,9 @@ func _set_station(new):
 		item.label.text = "0/" + str(cost[k])
 		item.texture_rect.texture = load(ItemData.get_item_data(k)["img_path"])
 		item.id = k
+
+	$VBoxContainer/Top.texture = load(StationData.get_station_texture(stations[(new + 1) % len(stations)]))
+	$VBoxContainer/Bottom.texture = load(StationData.get_station_texture(stations[(new - 1) % len(stations)]))
 
 	# Assign new value
 	current_index = new

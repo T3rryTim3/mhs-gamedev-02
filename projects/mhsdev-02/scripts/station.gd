@@ -16,6 +16,9 @@ var blueprint_collider = preload("res://scenes/Structure/blueprint_collider.tscn
 ## Preload remove collider
 var remove_collider = preload("res://scenes/Structure/station_remove_collider.tscn")
 
+## Used to prevent dying multiple times at once
+var dying = false
+
 enum LayerBehaviour
 {
 	ADAPTIVE,
@@ -41,14 +44,14 @@ enum LayerBehaviour
 ## Progress bar gradient
 @export var progress_bar_texture:Texture2D
 
+## Whether or not to display the progress bar
+@export var show_progress:bool = true
+
 ## Progress bar object
 @onready var progress_bar:StatBar
 
 ## Timer object
 @onready var progress_timer:Timer = Timer.new()
-
-## Force multi to dropped resources
-@export var fling_coef:float = 1
 
 ## Can be refrenced for station counting in the level (Used for effect stations)
 var active:bool = true
@@ -100,11 +103,17 @@ func _init_progress_bar(): ## Reset the progress bar
 	progress_bar.size_scale = health_bar.size_scale * 0.5
 	
 	progress_bar.texture_progress = progress_bar_texture
+	
+	if !show_progress:
+		progress_bar.visible = false
 
 	add_child(progress_bar)
 
 func _death():
 	# Create blueprint when destroyed
+	if dying:
+		return
+	dying = true
 	var new_station = load("res://scenes/Base/blueprint.tscn").instantiate()
 	new_station.target_station = station_data
 	get_parent().call_deferred("add_child", new_station)
@@ -186,4 +195,4 @@ func _update_remove_color(on:bool):
 	if on:
 		sprite.self_modulate = Color(40,1,1)
 	else:
-		sprite.self_modulate = Color(1,1,1)
+		sprite.self_modulate = Color(1,1 - damage_mod_coef,1 - damage_mod_coef)

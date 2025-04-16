@@ -1,12 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://6rt37s7rt8yn"]
+[gd_scene load_steps=26 format=3 uid="uid://6rt37s7rt8yn"]
 
 [ext_resource type="Script" uid="uid://dsh22e3hlmtpx" path="res://scripts/Events/tornado.gd" id="1_hquia"]
 [ext_resource type="Texture2D" uid="uid://d2brelvh11mbq" path="res://images/event/pixil-frame-0.png" id="2_u72bs"]
 [ext_resource type="Texture2D" uid="uid://3apexvksy8uk" path="res://images/event/pixil-frame-1.png" id="3_u0dys"]
 [ext_resource type="Texture2D" uid="uid://5kjpxua8ib07" path="res://images/event/pixil-frame-2.png" id="4_7hdht"]
 [ext_resource type="Texture2D" uid="uid://c4jy4rsfs0khp" path="res://images/event/pixil-frame-3.png" id="5_wc17b"]
+[ext_resource type="Texture2D" uid="uid://dmk6tourrlbtx" path="res://images/event/Tornado/Tornado Frame 1.png" id="6_e2ve3"]
+[ext_resource type="Texture2D" uid="uid://dsbdwrphy8qvd" path="res://images/event/Tornado/Tornado Frame 2.png" id="7_utn5a"]
+[ext_resource type="Texture2D" uid="uid://cnlp2l3cxg2q1" path="res://images/event/Tornado/Tornado Frame 3.png" id="8_dxdub"]
+[ext_resource type="Texture2D" uid="uid://ddh6xlv4613yc" path="res://images/event/Tornado/Tornado Frame 4.png" id="9_hwbyd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3jra"]
+size = Vector2(42, 43)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t771c"]
 animations = [{
@@ -26,10 +31,27 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_e2ve3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_utn5a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_dxdub")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hwbyd")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 15.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rs25x"]
-radius = 19.4165
+radius = 8.0
 
 [sub_resource type="Curve" id="Curve_3b33r"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -61,6 +83,63 @@ color = Color(0.75, 0.75, 0.75, 1)
 hue_variation_min = -2.23517e-08
 hue_variation_max = -2.23517e-08
 
+[sub_resource type="Curve" id="Curve_54plo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.757353, 0.820225), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jjt37"]
+curve = SubResource("Curve_54plo")
+
+[sub_resource type="Gradient" id="Gradient_80q7x"]
+colors = PackedColorArray(0.31, 0.31, 0.31, 1, 0.38, 0.38, 0.38, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_djh8l"]
+gradient = SubResource("Gradient_80q7x")
+
+[sub_resource type="Curve" id="Curve_jkljo"]
+_limits = [-2.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.0882353, 1), 0.0, 0.0, 0, 0, Vector2(0.310345, -1.1573), 0.0, 0.0, 0, 0, Vector2(0.477941, 1), 0.0, 0.0, 0, 0, Vector2(0.675862, -0.617977), 0.0, 0.0, 0, 0, Vector2(0.827586, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="Curve" id="Curve_42um2"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0.0147059, 0.011236), 0.0, 0.0, 0, 0, Vector2(0.257353, -0.370787), 0.0, 0.0, 0, 0, Vector2(0.558824, -0.662921), 0.0, 0.0, 0, 0, Vector2(0.772059, 0.258427), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1bw76"]
+curve_x = SubResource("Curve_jkljo")
+curve_y = SubResource("Curve_42um2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_br688"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -5, 0)
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 1)
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+directional_velocity_min = 20.0
+directional_velocity_max = 80.0
+directional_velocity_curve = SubResource("CurveXYZTexture_1bw76")
+gravity = Vector3(0, 0, 0)
+scale_min = 1.6
+scale_max = 2.6
+color_ramp = SubResource("GradientTexture1D_djh8l")
+alpha_curve = SubResource("CurveTexture_jjt37")
+hue_variation_min = -0.04
+hue_variation_max = 0.05
+
+[sub_resource type="Gradient" id="Gradient_e2ve3"]
+offsets = PackedFloat32Array(0, 0.902597, 1)
+colors = PackedColorArray(0.15, 0.15, 0.15, 0.207843, 0.15, 0.15, 0.15, 0.101961, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_utn5a"]
+gradient = SubResource("Gradient_e2ve3")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.509174)
+fill_to = Vector2(0.591743, 0.0458716)
+
 [node name="Tornado" type="Node"]
 script = ExtResource("1_hquia")
 
@@ -71,23 +150,42 @@ collision_layer = 32
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tornado/Body"]
-position = Vector2(0, -10)
+visible = false
+position = Vector2(0, -19.5)
 shape = SubResource("RectangleShape2D_o3jra")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Tornado/Body"]
 sprite_frames = SubResource("SpriteFrames_t771c")
-frame_progress = 0.874333
+animation = &"new_animation"
+frame_progress = 0.208778
 offset = Vector2(0, -48)
 
 [node name="Collision" type="Area2D" parent="Tornado/Body"]
+visible = false
 collision_layer = 0
-collision_mask = 11
+collision_mask = 43
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tornado/Body/Collision"]
-position = Vector2(0, -19)
+position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_rs25x")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Tornado/Body"]
+visible = false
 scale = Vector2(1.118, 1.63837)
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_vdndu")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Tornado/Body"]
+amount = 60
+lifetime = 10.0
+speed_scale = 3.5
+randomness = 0.22
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_br688")
+
+[node name="Sprite2D" type="Sprite2D" parent="Tornado/Body"]
+z_index = -1
+position = Vector2(0, -7)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("GradientTexture2D_utn5a")

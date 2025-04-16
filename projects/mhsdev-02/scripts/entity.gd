@@ -35,6 +35,9 @@ var stat_bar = preload("res://scenes/Base/health_bar.tscn")
 ## Current force applied on the object. 'z' corresponds to the visual height of the entity.
 var force:Vector3 = Vector3.ZERO
 
+## Damage audio stream player
+var dam_sound:AudioStreamPlayer2D
+
 ## Height off of the ground - Only affects sprite visual
 var height:float = 0
 
@@ -49,6 +52,9 @@ var max_health:float
 
 ## Array of currently applied effects
 var effects:Array = []
+
+## Coefficient of force applied to the entity
+@export var fling_coef:float = 1.0
 
 ## List of entity 'stats' (players have hunger, thirst, etc.) - Used for effects
 var state:Dictionary = {}
@@ -206,7 +212,7 @@ func apply_force(applied:Vector2): ## Apply force to the entity
 	var new_applied:Vector3 = Vector3(applied.x, applied.y, 0)
 	new_applied *= move_influence
 	new_applied.z = (abs(applied.y) + abs(applied.x)) / 80
-	force += new_applied
+	force += new_applied * fling_coef
 	
 	if applied.length() > 0:
 		force_applied.emit()
@@ -218,6 +224,8 @@ func _death() -> void: ## Calls upon health hitting zero. Will queue free by def
 
 func damage(amount:float) -> void: # Deal damage to the entity
 	damage_mod_coef = 1
+	if dam_sound.is_inside_tree():
+		dam_sound.play()
 	_update_health(health - amount)
 
 func heal(amount:float) -> void:
@@ -264,5 +272,10 @@ func _ready():
 	health_bar.size_scale = health_bar_scale
 
 	add_child(health_bar)
+	
+	# Damage sound
+	dam_sound = AudioStreamPlayer2D.new()
+	dam_sound.stream = load("res://Audio/SFX/hit.wav")
+	add_child(dam_sound)
 	
 	#add_effect(EffectData.EffectTypes.BURNING, 10, 1)

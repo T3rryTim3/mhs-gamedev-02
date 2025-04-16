@@ -43,6 +43,7 @@ drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 limit_type = 3
 auto_collect = true
+crate_type = 1
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_layer = 6
