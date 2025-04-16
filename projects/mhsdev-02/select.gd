@@ -48,4 +48,6 @@ func _on_Back_pressed():
 func _on_LevelButton_pressed():
 	Globals.main._load_scene(levels[current_level_index]["scene_enum"])
 	
-	
+
+func _on_back_pressed() -> void:
+	Globals.main._load_scene(Main.Scenes.MENU)

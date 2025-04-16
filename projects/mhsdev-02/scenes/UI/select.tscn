@@ -29,30 +29,42 @@ texture_normal = ExtResource("2_btj52")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1151.0
-offset_top = -54.0
-offset_right = -1113.0
-offset_bottom = -23.0
+anchors_preset = -1
+anchor_left = 0.017
+anchor_top = 0.441
+anchor_right = 0.017
+anchor_bottom = 0.441
+offset_left = -19.584
+offset_top = -15.768
+offset_right = 18.416
+offset_bottom = 15.232
 grow_horizontal = 0
 grow_vertical = 2
 text = "---->"
 
 [node name="Button2" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = -1
+anchor_left = 0.016
 anchor_top = 0.5
+anchor_right = 0.016
 anchor_bottom = 0.5
+offset_left = -18.432
 offset_top = -15.5
-offset_right = 38.0
+offset_right = 19.568
 offset_bottom = 15.5
 grow_vertical = 2
 text = "<----"
 
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 17.0
+offset_right = 91.0
+offset_bottom = 56.0
+text = "Back"
+
 [connection signal="pressed" from="TextureButton" to="." method="_on_LevelButton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Forward_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_back_pressed"]
