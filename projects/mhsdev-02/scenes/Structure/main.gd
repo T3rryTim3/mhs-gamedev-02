@@ -7,7 +7,8 @@ enum Scenes {
 	MENU,
 	LEVEL_SELECT,
 	LEVEL_FIELD,
-	LEVEL_TUTORIAL
+	LEVEL_TUTORIAL,
+	PAUSE
 }
 
 func show_settings():
@@ -25,8 +26,16 @@ func _load_scene(scene:Scenes):
 			$LoadedScene.add_child(load("res://scenes/Levels/field.tscn").instantiate())
 		Scenes.LEVEL_TUTORIAL:
 			$LoadedScene.add_child(load("res://scenes/Levels/tutorial.tscn").instantiate())
+		Scenes.PAUSE:
+			$LoadedScene.add_child(load("res://scenes/UI/PauseMenu.tscn").instantiate())
 
 func _ready() -> void:
 	Globals.main = self
 	_load_scene(Scenes.MENU)
+	print(get_tree().current_scene)
+	
+
+		
+func _pause():
+	_load_scene(Scenes.PAUSE)
 	print(get_tree().current_scene)
