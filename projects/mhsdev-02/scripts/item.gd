@@ -43,17 +43,17 @@ func _ready() -> void:
 	decay_rate = data["decay_rate"]
 	img_path = data["img_path"]
 	item_usage_max = data["use_time"]
-			
+
 	var image = load(img_path)
 	$Sprite2D.texture = image
-	
+
 	var audio_stream = AudioStreamPlayer2D.new()
 	audio_stream.autoplay = false
 	audio_stream.playing = false
 	audio_stream.stream = load(data["pickup_sound"])
 	add_child(audio_stream)
 	pickup_stream = audio_stream
-	
+
 	super()
 
 func enable_outline() -> void:

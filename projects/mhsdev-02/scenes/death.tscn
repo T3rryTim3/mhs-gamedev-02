@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2kfjeq21c6du"]
+[gd_scene load_steps=13 format=3 uid="uid://2kfjeq21c6du"]
 
 [ext_resource type="Texture2D" uid="uid://bf7wa8pqax57r" path="res://images/UI/You-Died_Frame 1.png" id="1_4868a"]
 [ext_resource type="Script" uid="uid://ci32nay68vu6i" path="res://death.gd" id="1_f0m10"]
@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://dma7ri71t4pw8" path="res://images/UI/You-Died_Frame 2.png" id="2_f0m10"]
 [ext_resource type="Texture2D" uid="uid://bkqrvckr410nt" path="res://images/UI/You-Died_Frame 3.png" id="3_wmr2h"]
 [ext_resource type="Texture2D" uid="uid://dubwykawu41b" path="res://images/UI/You-Died_ Frame 4.png" id="4_56rgi"]
+
+[sub_resource type="Gradient" id="Gradient_w0no0"]
+colors = PackedColorArray(0, 0, 0, 1, 0.289883, 0.00895993, 2.40654e-08, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7205l"]
+gradient = SubResource("Gradient_w0no0")
+fill_from = Vector2(0.46789, 0)
+fill_to = Vector2(0.504587, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r6ms4"]
 animations = [{
@@ -27,6 +35,42 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_w0no0"]
+resource_name = "Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7205l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2m3wi"]
+_data = {
+&"Open": SubResource("Animation_w0no0"),
+&"RESET": SubResource("Animation_7205l")
+}
+
 [node name="Death" type="Control"]
 material = ExtResource("1_w0no0")
 layout_mode = 3
@@ -36,6 +80,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f0m10")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_7205l")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -64,5 +117,10 @@ text = "Respawn
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2m3wi")
+}
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

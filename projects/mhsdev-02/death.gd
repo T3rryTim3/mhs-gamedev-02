@@ -2,6 +2,9 @@ extends Control
 
 @onready var you_died = $MarginContainer/AnimatedSprite2D
 
+func _display() -> void: ## Display the death screen
+	pass
+
 func _get_main() -> Main:
 	if !(get_tree().current_scene is Main):
 		print("ERROR: Main scene not found")
