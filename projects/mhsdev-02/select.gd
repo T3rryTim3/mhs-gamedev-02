@@ -52,6 +52,7 @@ func _on_back_pressed() -> void:
 
 func _on_start_pressed():
 	Globals.main._load_scene(levels[current_level_index]["scene_enum"])
+	Globals.current_level = levels[current_level_index]["scene_enum"]
 
 
 
