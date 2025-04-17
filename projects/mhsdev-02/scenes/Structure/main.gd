@@ -30,6 +30,7 @@ func _load_scene(scene:Scenes):
 			$LoadedScene.add_child(load("res://scenes/UI/PauseMenu.tscn").instantiate())
 
 func _ready() -> void:
+	Globals.main = self
 	_load_scene(Scenes.MENU)
 	print(get_tree().current_scene)
 	
