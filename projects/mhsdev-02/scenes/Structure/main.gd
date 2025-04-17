@@ -29,3 +29,4 @@ func _load_scene(scene:Scenes):
 func _ready() -> void:
 	_load_scene(Scenes.MENU)
 	print(get_tree().current_scene)
+	
