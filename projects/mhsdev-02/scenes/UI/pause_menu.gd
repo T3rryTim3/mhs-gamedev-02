@@ -9,7 +9,14 @@ func _get_main() -> Main:
 	return get_tree().current_scene
 
 func _unpause():
-	_get_main()._load_scene(Globals.current_level)
+	visible = false
+
+func _pause():
+	visible = true
+
+func _input(event: InputEvent) -> void:
+	if event.is_action("pause"):
+		_pause()
 
 func _ready() -> void:
 	visible = false
