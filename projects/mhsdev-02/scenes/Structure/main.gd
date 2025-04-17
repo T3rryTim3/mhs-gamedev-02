@@ -27,5 +27,6 @@ func _load_scene(scene:Scenes):
 			$LoadedScene.add_child(load("res://scenes/Levels/tutorial.tscn").instantiate())
 
 func _ready() -> void:
+	Globals.main = self
 	_load_scene(Scenes.MENU)
 	print(get_tree().current_scene)

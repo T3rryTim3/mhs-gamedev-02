@@ -15,7 +15,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xqpxi")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29, 0.29, 0.29, 0.415686)
+
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -23,42 +32,50 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = -113.0
+offset_top = -125.0
 offset_right = 150.0
-offset_bottom = 113.0
+offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
 text = "Paused"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Resume
 "
 flat = true
 
-[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 flat = true
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Menu
 "
 flat = true
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

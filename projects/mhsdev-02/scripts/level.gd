@@ -103,8 +103,11 @@ func _spawn_item():
 			randi_range(map_limit.global_position.x - size.x/2, map_limit.global_position.x + size.x/2),
 			randi_range(map_limit.global_position.y - size.y/2, map_limit.global_position.y + size.y/2)
 		)
-		if new_item.is_on_wall():
-			continue
+		for child in new_item.spawn_collider.get_overlapping_bodies():
+			print("Test")
+			if child is TileMapLayer:
+				print("Done did it")
+				continue
 		break
 
 func _physics_process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl7r51dy6jv3n"]
+[gd_scene load_steps=20 format=3 uid="uid://dl7r51dy6jv3n"]
 
 [ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_y5tme"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://de3olbljf3vem" path="res://images/UI/Death/You-Died_Frame 2.png" id="5_xh8q5"]
 [ext_resource type="Texture2D" uid="uid://cq555qqfo7kjy" path="res://images/UI/Death/You-Died_Frame 3.png" id="6_h03ao"]
 [ext_resource type="Texture2D" uid="uid://dm5k7kpau5tgv" path="res://images/UI/Death/You-Died_ Frame 4.png" id="7_7wvwv"]
+[ext_resource type="PackedScene" uid="uid://2kfjeq21c6du" path="res://scenes/death.tscn" id="8_h03ao"]
+[ext_resource type="Texture2D" uid="uid://w50q7hpdtyxh" path="res://images/UI/Stats/Health/Health bar 0.png" id="9_t6axx"]
+[ext_resource type="Texture2D" uid="uid://blsojfbk6wugf" path="res://images/UI/Stats/Health/Helth1.png" id="10_kj32l"]
+[ext_resource type="Texture2D" uid="uid://cmfxo2ewxo1un" path="res://images/UI/Stats/Health/helth bar.png" id="11_0fcg2"]
+[ext_resource type="PackedScene" uid="uid://cpvuemyt56v57" path="res://scenes/UI/PauseMenu.tscn" id="12_kj32l"]
 
 [sub_resource type="Gradient" id="Gradient_18exe"]
 colors = PackedColorArray(0.827451, 0, 0.137255, 0.419608, 0.827, 0, 0.137, 0)
@@ -34,7 +39,7 @@ texture = SubResource("GradientTexture2D_18exe")
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_0jeyp"]
 frames = 4
-speed_scale = 2.0
+speed_scale = 4.0
 frame_0/texture = ExtResource("4_18exe")
 frame_1/texture = ExtResource("5_xh8q5")
 frame_1/duration = 1.0
@@ -188,3 +193,23 @@ layout_mode = 2
 text = "Time alive: 1:00
 Upgrades Collected: 10
 Damage Taken: 0"
+
+[node name="Death2" parent="." instance=ExtResource("8_h03ao")]
+visible = false
+layout_mode = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = -8.0
+offset_top = 471.0
+offset_right = 52.0
+offset_bottom = 511.0
+scale = Vector2(4, 4)
+value = 20.0
+texture_under = ExtResource("9_t6axx")
+texture_over = ExtResource("10_kj32l")
+texture_progress = ExtResource("11_0fcg2")
+texture_progress_offset = Vector2(4, 0)
+
+[node name="PauseMenu" parent="." instance=ExtResource("12_kj32l")]
+layout_mode = 1

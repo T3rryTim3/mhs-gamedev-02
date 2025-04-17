@@ -1,3 +1,6 @@
 extends Node
 
-@onready var main:Main = get_tree().current_scene
+var main:Main
+
+func show_settings(): ## Displays the settings menu
+	pass
