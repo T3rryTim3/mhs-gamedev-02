@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://csflkx7jsvvxb"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://csflkx7jsvvxb"]
 
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_boeld"]
 
@@ -7,7 +7,11 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2450e"]
 bg_color = Color(0.52, 0.35776, 0.1456, 0.945098)
 
+[sub_resource type="Gradient" id="Gradient_abix8"]
+colors = PackedColorArray(0.994353, 0.895384, 0.485571, 1, 0.999424, 0.885879, 0.494501, 1)
+
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_abix8"]
+gradient = SubResource("Gradient_abix8")
 width = 12
 height = 12
 
