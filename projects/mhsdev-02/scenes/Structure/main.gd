@@ -14,23 +14,27 @@ enum Scenes {
 func show_settings():
 	settings.show()
 
-func _load_scene(scene:Scenes):
+func _load_scene(scene:Scenes, level_mode:Config.GameDifficulties=Config.GameDifficulties.FIELD_STANDARD):
+	var new_scene
 	for child in $LoadedScene.get_children():
 		child.queue_free()
 	match scene:
 		Scenes.MENU:
-			$LoadedScene.add_child(load("res://scenes/UI/MainMenu.tscn").instantiate())
+			new_scene = load("res://scenes/UI/MainMenu.tscn").instantiate()
 		Scenes.LEVEL_SELECT:
-			$LoadedScene.add_child(load("res://scenes/UI/select.tscn").instantiate())
+			new_scene = load("res://scenes/UI/select.tscn").instantiate()
 		Scenes.LEVEL_FIELD:
-			$LoadedScene.add_child(load("res://scenes/Levels/field.tscn").instantiate())
+			new_scene = load("res://scenes/Levels/field.tscn").instantiate()
 		Scenes.LEVEL_TUTORIAL:
-			$LoadedScene.add_child(load("res://scenes/Levels/tutorial.tscn").instantiate())
+			new_scene = load("res://scenes/Levels/tutorial.tscn").instantiate()
 		Scenes.PAUSE:
-			$LoadedScene.add_child(load("res://scenes/UI/PauseMenu.tscn").instantiate())
+			new_scene = load("res://scenes/UI/PauseMenu.tscn").instantiate()
 		_:
 			print("ERROR: SCENE NOT FOUND")
 			return
+	if new_scene is Level:
+		new_scene.level_data = Config.get_difficulty_level_data(level_mode)
+	$LoadedScene.add_child(new_scene)
 	Globals.current_level = scene
 
 func _ready() -> void:

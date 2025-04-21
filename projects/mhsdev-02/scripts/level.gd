@@ -113,10 +113,12 @@ func _ready():
 	stations.child_order_changed.connect(update_station_stats)
 
 	# Adjust based on level data
-	spawn_cooldown *= level_data.item_spawn_multi
-	event_spawn_cooldown *= level_data.event_cooldown_multi
-	strength_increase *= level_data.event_strength_multi
-	
+	#spawn_cooldown *= level_data.item_spawn_multi
+	#event_spawn_cooldown *= level_data.event_cooldown_multi
+	#strength_increase *= level_data.event_strength_multi
+	print(level_data.event_cooldown)
+	event_spawn_cooldown = level_data.event_cooldown
+	#
 
 func _spawn_item():
 	# Create and set item

@@ -1,9 +1,10 @@
 extends Node
 
 enum GameDifficulties {
-	EASY,
+	FIELD_STANDARD,
 	MEDIUM,
-	HARD
+	HARD,
+	PAIN_AND_SUFFERING
 }
 
 var PLAYER_BASE_MOVE_SPEED = 100 # Base movement speed
@@ -32,16 +33,26 @@ var MAX_STAMINA:int = 100
 
 func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 	match difficulty:
-		GameDifficulties.EASY:
+		GameDifficulties.FIELD_STANDARD:
 			var data = Level.LevelData.new()
-			data.event_cooldown_multi = 1
-			data.event_strength_multi = 0.5
-			
+			data.event_cooldown = 60
+			data.strength_per_minute = 5
 			return data
 		GameDifficulties.MEDIUM:
-			return Level.LevelData.new()
+			var data = Level.LevelData.new()
+			data.event_cooldown = 30
+			data.strength_per_minute = 10
+			return data
 		GameDifficulties.HARD:
-			return Level.LevelData.new()
+			var data = Level.LevelData.new()
+			data.event_cooldown = 15
+			data.strength_per_minute = 20
+			return data
+		GameDifficulties.PAIN_AND_SUFFERING:
+			var data = Level.LevelData.new()
+			data.event_cooldown = 1
+			data.strength_per_minute = 200
+			return data
 		_:
 			return Level.LevelData.new()
 
