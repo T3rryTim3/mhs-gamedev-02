@@ -63,22 +63,18 @@ var loaded:bool = false
 
 ## Holds data for level settings. This is used for both preset difficulties and custom ones.
 class LevelData:
-	var event_cooldown_multi : float
-	var event_strength_multi : float
-	var damage_multi : float
-	var thirst_multi : float
-	var hunger_multi : float
-	var item_spawn_multi : float
-	var station_speed_multi : float
+	var event_cooldown : float = 45
+	var strength_per_minute : float = 1
+	var damage_multi : float = 1
+	var thirst_multi : float = 1
+	var hunger_multi : float = 1
+	var item_spawn_cooldown : float = 45
+	var station_speed_multi : float = 1
+	var events : Array[EventMan.Events] = [EventMan.Events.TORNADO]
+	var items : Dictionary[ItemData.ItemTypes, int] = {ItemData.ItemTypes.WOOD:1}
 
-	func _init(p_event_cooldown_multi: float = 1.0, p_event_strength_multi: float = 1.0, p_damage_multi: float = 1.0, p_thirst_multi: int = 1.0, p_hunger_multi: float = 1.0, p_item_spawn_multi: float = 1.0, p_station_speed_multi: float = 1.0) -> void:
-		self.event_cooldown_multi = p_event_cooldown_multi #
-		self.event_strength_multi = p_event_strength_multi #
-		self.damage_multi = p_damage_multi
-		self.thirst_multi = p_thirst_multi
-		self.hunger_multi = p_hunger_multi
-		self.item_spawn_multi = p_item_spawn_multi #
-		self.station_speed_multi = p_station_speed_multi
+	func _init() -> void:
+		pass
 
 func _ready():
 	Globals.level = self

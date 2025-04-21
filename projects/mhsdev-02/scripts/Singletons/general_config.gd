@@ -30,6 +30,21 @@ var MAX_HUNGER:int = 100
 var MAX_THIRST:int = 100
 var MAX_STAMINA:int = 100
 
+func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
+	match difficulty:
+		GameDifficulties.EASY:
+			var data = Level.LevelData.new()
+			data.event_cooldown_multi = 1
+			data.event_strength_multi = 0.5
+			
+			return data
+		GameDifficulties.MEDIUM:
+			return Level.LevelData.new()
+		GameDifficulties.HARD:
+			return Level.LevelData.new()
+		_:
+			return Level.LevelData.new()
+
 func set_difficulty():
 	pass
 
