@@ -131,6 +131,7 @@ func _process(delta):
 	match layer_behavior:
 		0:
 			# Check if the player is above the station based on camera pos
+			pass
 			if get_viewport().get_camera_2d().global_position.y + 24 <global_position.y + get_sprite_texture().get_height()/2.0:
 				z_index = 5
 			else:
@@ -148,18 +149,28 @@ func _input(event: InputEvent) -> void:
 			queue_free()
 
 func _ready():
-	
-	add_to_group("station")
-	
+	var level = _get_level()
+
+	# Ensure the level is loaded
+	if !level.loaded:
+		await _get_level().ready
+
+	add_to_group("station") # Used for processing total station benefits
+
+	# Default values
 	if not sprite:
-		sprite = $Sprite2D
+		sprite = $Sprite2D # Can be manually reset using the exported variable
 	
 	if not progress_bar_texture:
 		progress_bar_texture = DEFAULT_PROGRESS_TEXTURE
-	
+
+	# Done after to ensure default values are present
 	super()
 	_init_progress_bar()
 	
+	# Accout for level settings
+	produce_time *= 1 / level.level_data.station_speed_multi # Take the reciprocal as produce_time is different from speed
+
 	progress_timer.one_shot = false
 	progress_timer.wait_time = produce_time
 	progress_timer.connect("timeout", produce)
@@ -168,6 +179,7 @@ func _ready():
 
 	progress_timer.start()
 
+	# Used for checking if the station is colliding with other stations during placement
 	var collider = blueprint_collider.instantiate()
 	add_child(collider)
 	collider.get_child(0).shape.size = get_sprite_texture().get_size()

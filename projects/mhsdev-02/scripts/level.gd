@@ -52,10 +52,40 @@ var strength:float = 0.0
 ## Current cooldown before event spawning
 var current_event_cooldown:float = 0
 
+## Difficulty settings for the level.
+var level_data:LevelData
+
+## If the level is fully loaded
+var loaded:bool = false
+
 ## Health vignette
 @onready var vignette_shader = load("res://Shaders/health_vignette.tres")
 
+## Holds data for level settings. This is used for both preset difficulties and custom ones.
+class LevelData:
+	var event_cooldown_multi : float
+	var event_strength_multi : float
+	var damage_multi : float
+	var thirst_multi : float
+	var hunger_multi : float
+	var item_spawn_multi : float
+	var station_speed_multi : float
+
+	func _init(p_event_cooldown_multi: float = 1.0, p_event_strength_multi: float = 1.0, p_damage_multi: float = 1.0, p_thirst_multi: int = 1.0, p_hunger_multi: float = 1.0, p_item_spawn_multi: float = 1.0, p_station_speed_multi: float = 1.0) -> void:
+		self.event_cooldown_multi = p_event_cooldown_multi #
+		self.event_strength_multi = p_event_strength_multi #
+		self.damage_multi = p_damage_multi
+		self.thirst_multi = p_thirst_multi
+		self.hunger_multi = p_hunger_multi
+		self.item_spawn_multi = p_item_spawn_multi #
+		self.station_speed_multi = p_station_speed_multi
+
 func _ready():
+	Globals.level = self
+	ready.connect(func (): loaded=true) # Set loaded to true when fully ready
+	if not level_data:
+		level_data = LevelData.new() # Default settings (1.0 multipliers)
+
 	# Ensure parent nodes are present, and if not, create them.
 	if find_child("Stations") and $Stations is Node:
 		stations = $Stations
@@ -85,6 +115,12 @@ func _ready():
 
 	# Connect updates for station effects
 	stations.child_order_changed.connect(update_station_stats)
+
+	# Adjust based on level data
+	spawn_cooldown *= level_data.item_spawn_multi
+	event_spawn_cooldown *= level_data.event_cooldown_multi
+	strength_increase *= level_data.event_strength_multi
+	
 
 func _spawn_item():
 	# Create and set item

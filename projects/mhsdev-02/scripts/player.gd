@@ -152,7 +152,7 @@ func _update_stats(delta:float): # Updates the player's stats with respect to ti
 	# Begin cooldown if not started
 	if sprinting:
 		current_sprint_cooldown = sprint_cooldown
-		var upgrade_mult = pow(0.9, _get_upgrade(Upgrades.Upgrades.STAMINA))
+		var upgrade_mult = pow(0.8, _get_upgrade(Upgrades.Upgrades.STAMINA))
 		state.stamina.val -= stamina_drain * delta * (int(_is_exhausted()) + 1) * upgrade_mult
 	if current_sprint_cooldown <= 0:
 		if !_is_thirsty():
@@ -340,7 +340,11 @@ func _process(delta) -> void:
 	
 	# Input
 	if Input.is_action_just_pressed("pickup"):
-		update_collector_stack_lim(_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+1+_get_upgrade(Upgrades.Upgrades.STRENGTH))
+		update_collector_stack_lim(
+			_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+
+			Config.PLAYER_BASE_ITEM_LIMIT+
+			_get_upgrade(Upgrades.Upgrades.STRENGTH)
+		)
 		if not collector.add_nearest_item():
 			collector.drop_item()
 	

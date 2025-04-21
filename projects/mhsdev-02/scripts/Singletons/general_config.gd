@@ -7,6 +7,8 @@ enum GameDifficulties {
 }
 
 var PLAYER_BASE_MOVE_SPEED = 100 # Base movement speed
+var PLAYER_BASE_ITEM_LIMIT:int = 1 # Base item stacking limit for the player
+
 var SPEED_TOTEM_INCREASE = 20 # Movement speed gained per speed totem
 var HIGH_TEMP_SPEED_FACTOR = 0 # Movement speed decreased when overheating
 var LOW_TEMP_SPEED_FACTOR = 30 # Movement speed decreased when too cold
