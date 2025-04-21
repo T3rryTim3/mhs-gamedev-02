@@ -32,9 +32,22 @@ func _ready():
 
 	_update_mode_display()
 
-func _process(_delta: float) -> void:
+func _update_stat_bars():
+	$Hunger.value = player.state.hunger.val * 100 / player.state.hunger.val_max
+	$Thirst.value = player.state.thirst.val * 100 / player.state.thirst.val_max
+	$Health.value = player.health * 100 / player.max_health
+
+func _process(delta: float) -> void:
 	if not player:
 		return
-	$VBoxContainer/hunger.value = player.state.hunger.val * 100 / player.state.hunger.val_max
-	$VBoxContainer/thirst.value = player.state.thirst.val * 100 / player.state.thirst.val_max
-	$VBoxContainer/temp.value = player.state.temp.val * 100 / player.state.temp.val_max
+	_update_stat_bars()
+
+	if Globals.level is Level:
+		Gamestats.level_time += delta
+	var minutes = Gamestats.level_time / 60
+	var seconds = fmod(Gamestats.level_time, 60)
+	var milliseconds = fmod(Gamestats.level_time, 1) * 100
+	var time_string = "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+	$Timer.text = time_string
+	#$VBoxContainer/temp.value = player.state.temp.val * 100 / player.state.temp.val_max
+	

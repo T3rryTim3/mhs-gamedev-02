@@ -1,4 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://brj2vmu5150lt"]
+[gd_scene load_steps=8 format=3 uid="uid://brj2vmu5150lt"]
+
+[sub_resource type="Gradient" id="Gradient_f7nsd"]
+colors = PackedColorArray(1, 0, 0, 1, 0.933333, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gg30k"]
+gradient = SubResource("Gradient_f7nsd")
 
 [sub_resource type="Gradient" id="Gradient_62jfc"]
 offsets = PackedFloat32Array(0, 0.909836, 1)
@@ -29,6 +35,7 @@ scale_min = 2.8
 scale_max = 6.0
 scale_curve = SubResource("CurveTexture_l23mf")
 color_ramp = SubResource("GradientTexture1D_mdhke")
+color_initial_ramp = SubResource("GradientTexture1D_gg30k")
 hue_variation_min = 1.0
 hue_variation_max = 1.0
 

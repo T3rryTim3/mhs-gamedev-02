@@ -27,6 +27,7 @@ GameSettings="*res://scripts/Singletons/gamesettings.gd"
 Config="*res://scripts/Singletons/general_config.gd"
 Upgrades="*res://scripts/Singletons/upgrades.gd"
 Globals="*res://scripts/Singletons/globals.gd"
+Gamestats="*res://scripts/Singletons/gamestats.gd"
 
 [display]
 

@@ -34,7 +34,7 @@ func get_upgrade_data(upgrade:Upgrades.Upgrades):
 			data["desc"] = "+1 Item carry limit"
 			data["lim"] = 5
 		Upgrades.STAMINA:
-			data["desc"] = "Use less stamina when sprinting"
+			data["desc"] = "Use 20% less stamina when sprinting"
 		Upgrades.THIRST:
 			data["icon"] = "res://images/items/water.png"
 			data["desc"] = "Higher max thirst"

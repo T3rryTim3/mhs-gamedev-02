@@ -351,7 +351,7 @@ position = Vector2(0, -12)
 position = Vector2(-51, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.5, 2.5)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 z_index = -4

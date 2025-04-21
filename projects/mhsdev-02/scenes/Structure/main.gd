@@ -28,6 +28,10 @@ func _load_scene(scene:Scenes):
 			$LoadedScene.add_child(load("res://scenes/Levels/tutorial.tscn").instantiate())
 		Scenes.PAUSE:
 			$LoadedScene.add_child(load("res://scenes/UI/PauseMenu.tscn").instantiate())
+		_:
+			print("ERROR: SCENE NOT FOUND")
+			return
+	Globals.current_level = scene
 
 func _ready() -> void:
 	Globals.main = self
