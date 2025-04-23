@@ -15,11 +15,19 @@ var levels = [
 				]
 			},
 			{
-				"name": "pain and suffering",
-				"leveldata": Config.GameDifficulties.PAIN_AND_SUFFERING,
+				"name": "Rowdy",
+				"leveldata": Config.GameDifficulties.FIELD_ROWDY,
 				"desc": [
-					["The Suffering.", Color(1,0,0)],
-					["The Pain.", Color(1,0,0)]
+					["2x Events", Color(1,0,0)],
+					["2x Events", Color(1,0,0)]
+				]
+			},
+			{
+				"name": "Mayhem",
+				"leveldata": Config.GameDifficulties.FIELD_MAYHEM,
+				"desc": [
+					["Events", Color(1,0,0)],
+					["Events", Color(1,0,0)]
 				]
 			}
 		]
@@ -31,7 +39,7 @@ var levels = [
 		"modes": [
 			{
 				"name": "Tutorial",
-				"leveldata": Config.GameDifficulties.MEDIUM,
+				"leveldata": Config.GameDifficulties.TUTORIAL,
 				"desc": [
 					["x2 Events", Color(1,0,0)],
 					["x2 Events", Color(1,0,0)]

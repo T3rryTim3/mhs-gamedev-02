@@ -1,10 +1,15 @@
 extends Node
 
 enum GameDifficulties {
+	TUTORIAL,
 	FIELD_STANDARD,
-	MEDIUM,
-	HARD,
-	PAIN_AND_SUFFERING
+	FIELD_ROWDY,
+	FIELD_MAYHEM,
+	FIELD_ENDLESS,
+	TUNDRA_STANDARD,
+	TUNDRA_ROWDY,
+	TUNDRA_MAYHEM,
+	TUNDRA_ENDLESS
 }
 
 var PLAYER_BASE_MOVE_SPEED = 100 # Base movement speed
@@ -33,25 +38,76 @@ var MAX_STAMINA:int = 100
 
 func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 	match difficulty:
-		GameDifficulties.FIELD_STANDARD:
+		GameDifficulties.TUTORIAL:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 60
-			data.strength_per_minute = 5
+			#data.temperature = 0
 			return data
-		GameDifficulties.MEDIUM:
+		
+		#Field Settings
+		
+		GameDifficulties.FIELD_STANDARD:
 			var data = Level.LevelData.new()
-			data.event_cooldown = 30
-			data.strength_per_minute = 10
+			data.event_cooldown = 55
+			#data.temperature = -1
 			return data
-		GameDifficulties.HARD:
+		
+		GameDifficulties.FIELD_ROWDY:
 			var data = Level.LevelData.new()
-			data.event_cooldown = 15
-			data.strength_per_minute = 20
+			data.event_cooldown = 45
+			#data.temperature = -1
+			data.events = 1.5
+			data.thirst_multi = 1.2
+			data.hunger_multi = 1.2
 			return data
-		GameDifficulties.PAIN_AND_SUFFERING:
+		
+		GameDifficulties.FIELD_MAYHEM:
 			var data = Level.LevelData.new()
-			data.event_cooldown = 1
-			data.strength_per_minute = 200
+			data.event_cooldown = 35
+			#data.temperature = -2
+			data.events = 1.5
+			data.thirst_multi = 1.5
+			data.hunger_multi = 1.5
+			return data
+		
+		GameDifficulties.FIELD_ENDLESS:
+			var data = Level.LevelData.new()
+			data.event_cooldown = 55
+			#data.temperature = -1
+			return data
+		
+		#Tundra Settings
+		
+		GameDifficulties.TUNDRA_STANDARD:
+			var data = Level.LevelData.new()
+			data.event_cooldown = 60
+			#data.temperature = -3
+			data.thirst_multi = 1.25
+			data.hunger_multi = 0.8
+			return data
+		
+		GameDifficulties.TUNDRA_ROWDY:
+			var data = Level.LevelData.new()
+			data.event_cooldown = 50
+			#data.temperature = -4
+			data.thirst_multi = 1.5
+			data.hunger = 1
+			return data
+		
+		GameDifficulties.TUNDRA_MAYHEM:
+			var data = Level.LevelData.new()
+			data.event_cooldown = 40
+			#data.temperature = -5
+			data.thirst_multi = 1.5
+			data.hunger_multi = 1.25
+			return data
+		
+		GameDifficulties.TUNDRA_ENDLESS:
+			var data = Level.LevelData.new()
+			data.event_cooldown = 60
+			#data.temperature = -3
+			data.thirst_multi = 1.25
+			data.hunger_multi = 0.8
 			return data
 		_:
 			return Level.LevelData.new()
