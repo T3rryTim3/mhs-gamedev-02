@@ -33,6 +33,7 @@ func _ready():
 	var lim = min(map_shape.get_rect().size.y/2, map_shape.get_rect().size.x/2)
 	lim -= $StaticBody2D/Sprite2D.texture.get_size().y/2
 	$StaticBody2D.global_position = map_shape.get_rect().get_center() + lim * Vector2(cos(angle), sin(angle))
+	$StaticBody2D/Spawn.play()
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -41,5 +42,6 @@ func _process(delta: float) -> void:
 	current_cooldown += delta
 	if current_cooldown >= cooldown:
 		current_cooldown = 0
+		$StaticBody2D/Erupt.play()
 		for x in range(10):
 			_fire()

@@ -25,15 +25,18 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 8
 			decay_rate = 0
 			img_path = "res://images/items/wood.png"
+			pickup_sound = "res://Audio/SFX/Items/wood.wav"
 		ItemTypes.WHEAT:
 			health = 3
 			decay_rate = 0.2
 			img_path = "res://images/items/wheat.png"
+			pickup_sound = "res://Audio/SFX/Items/wheat.wav"
 		ItemTypes.BREAD:
 			health = 6
 			decay_rate = 0.2
 			use_time = 1
 			img_path = "res://images/items/bread.png"
+			pickup_sound = "res://Audio/SFX/rock.wav"
 		ItemTypes.WATER:
 			health = 1
 			decay_rate = 0.0
@@ -48,7 +51,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 15
 			decay_rate = 0
 			img_path = "res://images/items/rock.png"
-			pickup_sound = "res://Audio/SFX/rock.wav"
+			pickup_sound = "res://Audio/SFX/Items/stone.wav"
 		ItemTypes.WHEAT_SEEDS:
 			health = 3
 			decay_rate = 0

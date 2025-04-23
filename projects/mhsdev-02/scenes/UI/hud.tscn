@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://w50q7hpdtyxh" path="res://images/UI/Stats/Health/Health bar 0.png" id="9_t6axx"]
 [ext_resource type="Texture2D" uid="uid://blsojfbk6wugf" path="res://images/UI/Stats/Health/Helth1.png" id="10_kj32l"]
 [ext_resource type="Texture2D" uid="uid://cmfxo2ewxo1un" path="res://images/UI/Stats/Health/helth bar.png" id="11_0fcg2"]
-[ext_resource type="Script" path="res://scripts/UI/playerstatbar.gd" id="12_bvuis"]
+[ext_resource type="Script" uid="uid://ducio72b3s1st" path="res://scripts/UI/playerstatbar.gd" id="12_bvuis"]
 [ext_resource type="PackedScene" uid="uid://cpvuemyt56v57" path="res://scenes/UI/PauseMenu.tscn" id="12_kj32l"]
 [ext_resource type="Texture2D" uid="uid://du2v5bxgnjd7b" path="res://images/UI/Stats/Hunger/Hunger bar 0.png" id="12_syq1e"]
 [ext_resource type="Texture2D" uid="uid://daat7lxig261k" path="res://images/UI/Stats/Hunger/Hunger Icon.png" id="13_bvuis"]
@@ -57,6 +57,7 @@ frame_3/texture = ExtResource("7_7wvwv")
 frame_3/duration = 1.0
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,10 +181,6 @@ text = "Time alive: 1:00
 Upgrades Collected: 10
 Damage Taken: 0"
 
-[node name="Death2" parent="." instance=ExtResource("8_h03ao")]
-visible = false
-layout_mode = 1
-
 [node name="Health" type="TextureProgressBar" parent="."]
 layout_mode = 0
 offset_left = 125.0
@@ -253,3 +250,6 @@ offset_right = 20.0
 offset_bottom = 28.0
 grow_horizontal = 2
 text = "1:100swd"
+
+[node name="Death2" parent="." instance=ExtResource("8_h03ao")]
+layout_mode = 1

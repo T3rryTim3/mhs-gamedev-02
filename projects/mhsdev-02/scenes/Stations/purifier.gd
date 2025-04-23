@@ -1,5 +1,4 @@
 extends Station
-class_name Purifier
 
 @onready var collector = $Collector
 

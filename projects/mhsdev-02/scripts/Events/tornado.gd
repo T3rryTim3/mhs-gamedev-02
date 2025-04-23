@@ -61,6 +61,7 @@ func _ready() -> void:
 	push_damage = 3 * EventMan.scale_val(data.strength)
 	_select_target()
 	sprite.play() # Tornado animation
+	$Tornado/Body/Sound.play()
 	
 	# Set position to outside of the map
 	var lim:CollisionShape2D = _get_level().map_limit

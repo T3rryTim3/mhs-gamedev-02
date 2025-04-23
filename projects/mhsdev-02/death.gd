@@ -1,9 +1,17 @@
 extends Control
 
 @onready var you_died = $MarginContainer/AnimatedSprite2D
+var player:Player
 
-func _display() -> void: ## Display the death screen
-	pass
+func display() -> void: ## Display the death screen
+	get_tree().paused = true
+	$AnimationPlayer.play("Open")
+	if player:
+		var minutes = Gamestats.level_time / 60
+		var seconds = fmod(Gamestats.level_time, 60)
+		var milliseconds = fmod(Gamestats.level_time, 1) * 100
+		var time_string = "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+		$TimeAlive.text = "Time Survived: " + time_string
 
 func _get_main() -> Main:
 	if !(get_tree().current_scene is Main):
