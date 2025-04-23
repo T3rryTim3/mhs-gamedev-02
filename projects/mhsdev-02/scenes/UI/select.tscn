@@ -45,12 +45,13 @@ layout_mode = 2
 alignment = 1
 selected = 0
 item_count = 3
-popup/item_0/text = "Normal"
 popup/item_0/id = 0
-popup/item_1/text = "Hard"
 popup/item_1/id = 1
-popup/item_2/text = "Custom"
-popup/item_2/id = 2
+popup/item_2/id = 0
+
+[node name="Descriptions" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
