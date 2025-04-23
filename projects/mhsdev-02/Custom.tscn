@@ -8,53 +8,79 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 17
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
 value = 1.0
 
-[node name="HSlider2" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider2" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 0.5
 max_value = 5.0
 step = 0.5
 value = 0.5
 
-[node name="HSlider3" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider3" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
 step = 0.5
 value = 1.0
 
-[node name="HSlider4" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider4" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
 step = 0.5
 value = 1.0
 
-[node name="HSlider5" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider5" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 0.5
 max_value = 2.0
 step = 0.5
 value = 1.0
 
-[node name="HSlider6" type="HSlider" parent="VBoxContainer"]
+[node name="HSlider6" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 min_value = 0.5
 max_value = 3.0
 step = 0.5
 value = 0.5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Event Spawn"
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Damage "
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Thirst Multiplier"
+
+[node name="Label4" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Hunger Multiplier"
+
+[node name="Label5" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Event Strength"
+
+[node name="Label6" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Station Speed"

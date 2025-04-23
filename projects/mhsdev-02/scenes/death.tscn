@@ -332,4 +332,5 @@ horizontal_alignment = 1
 stream = ExtResource("7_7205l")
 bus = &"Music"
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Respawn" to="." method="_on_respawn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

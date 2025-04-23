@@ -9,7 +9,8 @@ enum GameDifficulties {
 	TUNDRA_STANDARD,
 	TUNDRA_ROWDY,
 	TUNDRA_MAYHEM,
-	TUNDRA_ENDLESS
+	TUNDRA_ENDLESS,
+	CUSTOM
 }
 
 var PLAYER_BASE_MOVE_SPEED = 100 # Base movement speed
@@ -45,7 +46,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUTORIAL:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 100000
-			#data.temperature = 0
+			data.temp_drain = 0
 			return data
 		
 		#Field Settings
@@ -53,14 +54,15 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.FIELD_STANDARD:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 55
-			#data.temperature = -1
+			data.temp_drain = 0.4
 			return data
 		
 		GameDifficulties.FIELD_ROWDY:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 45
-			#data.temperature = -1
-			data.events = 1.5
+			data.temp_drain = 0.4
+			data.strength_per_minute = 1.5
+			data.event_multiplier = 2
 			data.thirst_multi = 1.2
 			data.hunger_multi = 1.2
 			return data
@@ -68,8 +70,8 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.FIELD_MAYHEM:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 35
-			#data.temperature = -2
-			data.events = 1.5
+			data.temp_drain = 0.8
+			data.strength_per_minute = 1.5
 			data.thirst_multi = 1.5
 			data.hunger_multi = 1.5
 			return data
@@ -77,7 +79,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.FIELD_ENDLESS:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 55
-			#data.temperature = -1
+			data.temp_drain = 0.4
 			return data
 		
 		#Tundra Settings
@@ -85,7 +87,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUNDRA_STANDARD:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 60
-			#data.temperature = -3
+			data.temp_drain = 1.2
 			data.thirst_multi = 1.25
 			data.hunger_multi = 0.8
 			return data
@@ -93,7 +95,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUNDRA_ROWDY:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 50
-			#data.temperature = -4
+			data.temp_drain = 1.6
 			data.thirst_multi = 1.5
 			data.hunger = 1
 			return data
@@ -101,7 +103,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUNDRA_MAYHEM:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 40
-			#data.temperature = -5
+			data.temp_drain = 2
 			data.thirst_multi = 1.5
 			data.hunger_multi = 1.25
 			return data
@@ -109,7 +111,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUNDRA_ENDLESS:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 60
-			#data.temperature = -3
+			data.temp_drain = 1.2
 			data.thirst_multi = 1.25
 			data.hunger_multi = 0.8
 			return data
