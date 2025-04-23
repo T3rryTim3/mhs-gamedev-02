@@ -5,7 +5,8 @@ enum Upgrades {
 	STRENGTH,
 	STAMINA,
 	THIRST,
-	HUNGER
+	HUNGER,
+	TOUGH
 }
 
 func get_upgrades() -> Array[Upgrades.Upgrades]: ## Returns an array of all of the upgrades
@@ -14,7 +15,8 @@ func get_upgrades() -> Array[Upgrades.Upgrades]: ## Returns an array of all of t
 		Upgrades.STRENGTH,
 		Upgrades.STAMINA,
 		Upgrades.THIRST,
-		Upgrades.HUNGER
+		Upgrades.HUNGER,
+		Upgrades.TOUGH
 	]
 
 func get_upgrade_data(upgrade:Upgrades.Upgrades):
@@ -40,5 +42,8 @@ func get_upgrade_data(upgrade:Upgrades.Upgrades):
 			data["desc"] = "Higher max thirst"
 		Upgrades.HUNGER:
 			data["desc"] = "Higher max hunger"
+		Upgrades.TOUGH:
+			data["desc"] = "You take 15% less damage."
+			data["lim"] = 5
 	
 	return data

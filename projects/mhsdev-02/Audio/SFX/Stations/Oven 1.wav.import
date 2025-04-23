@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://7cscdyea1sfk"
-path="res://.godot/imported/Oven 1.wav-fd40b84ba852e72f6f92fa31a92f7b0a.sample"
+path="res://.godot/imported/Oven 1.wav-3dd0330929a8040e39f08ad5f43ef0c2.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/Oven 1.wav"
-dest_files=["res://.godot/imported/Oven 1.wav-fd40b84ba852e72f6f92fa31a92f7b0a.sample"]
+source_file="res://Audio/SFX/Stations/Oven 1.wav"
+dest_files=["res://.godot/imported/Oven 1.wav-3dd0330929a8040e39f08ad5f43ef0c2.sample"]
 
 [params]
 

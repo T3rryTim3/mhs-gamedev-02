@@ -8,6 +8,8 @@ class_name Player
 
 signal give_upgrade
 signal mode_changed
+signal death
+signal item_used
 
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
 
@@ -194,6 +196,7 @@ func _use(delta): # Use the topmost held item
 	if not item:
 		return
 	ItemData.use_item(item, self, delta)
+	emit_signal("item_used", item)
 
 func _used_item() -> Item: # Gets the currently being used item, if any
 	var item = collector.get_topmost_item()
@@ -241,6 +244,8 @@ func _update_blueprint_sprite(new):
 
 func _ready():
 	super()
+	dam_sound.stream = load("res://Audio/SFX/Other/hurt.wav") # Replace damage sound
+	dam_sound.volume_db -= 1
 
 	await _get_level().ready # Ensures UI is fully loaded
 
@@ -278,13 +283,14 @@ func _ready():
 	blueprint_overlay.visible = false
 	blueprint_overlay.new_station.connect(_update_blueprint_sprite)
 
+	var l_data = _get_level().level_data
 	# Create stats
-	state["hunger"] = StateItem.new(100, 0, 100, 0.6,
+	state["hunger"] = StateItem.new(100, 0, 100, Config.DRAIN_HUNGER * l_data.hunger_multi,
 		[
 			DrainFactor.new("sprint", 0.5, DrainFactorTypes.ADD, false),
 		]
 	)
-	state["thirst"] = StateItem.new(100, 0, 100, 0.8,
+	state["thirst"] = StateItem.new(100, 0, 100, Config.DRAIN_THIRST * l_data.thirst_multi,
 		[
 			DrainFactor.new("sprint", 0.5, DrainFactorTypes.ADD, false),
 			DrainFactor.new("high_temp", 1, DrainFactorTypes.ADD)
@@ -408,6 +414,8 @@ func _input(event) -> void:
 					collector.cycle_items()
 				KEY_P:
 					give_upgrade.emit()
+				KEY_7:
+					_update_health(0)
 
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and current_blueprint:
@@ -418,9 +426,15 @@ func _input(event) -> void:
 
 	holding_item = len(collector.current_resources) > 0
 
+func damage(amount:float) -> void: # Deal damage to the entity
+	amount *= _get_level().level_data.damage_multi # Increase damage based on leveldata
+	amount *= pow(0.9, _get_upgrade(Upgrades.Upgrades.TOUGH))
+	super(amount)
+
 func _death():
 	if not alive:
 		return
+	death.emit()
 	alive = false
 	$DeathSound.play()
 	hide()

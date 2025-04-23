@@ -7,7 +7,7 @@ enum GameDifficulties {
 }
 
 var PLAYER_BASE_MOVE_SPEED = 100 # Base movement speed
-var PLAYER_BASE_ITEM_LIMIT:int = 1 # Base item stacking limit for the player
+var PLAYER_BASE_ITEM_LIMIT:int = 2 # Base item stacking limit for the player
 
 var SPEED_TOTEM_INCREASE = 20 # Movement speed gained per speed totem
 var HIGH_TEMP_SPEED_FACTOR = 0 # Movement speed decreased when overheating
@@ -21,6 +21,10 @@ var SPEED_UPGRADE_INCREASE = 20
 var HUNGER_UPGRADE_INCREASE = 20
 var THIRST_UPGRADE_INCREASE = 20
 var STAMINA_UPGRADE_INCREASE = 20
+
+# Stat drain stats
+var DRAIN_HUNGER:float = 0.45
+var DRAIN_THIRST:float = 0.6
 
 # Upgrades given every machine power
 var UPGRADE_COUNT = 3

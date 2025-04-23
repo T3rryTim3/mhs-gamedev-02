@@ -1,6 +1,9 @@
 extends Node2D
 class_name Level
 
+signal station_built
+signal station_deleted
+
 ## Scene for creating new items
 @onready var item_scn = preload("res://scenes/Base/item.tscn")
 
@@ -14,19 +17,22 @@ class_name Level
 @export var map_limit:CollisionShape2D
 
 ## Spawn cooldown for items
-@export_range(0,10) var spawn_cooldown:float = 3
+var spawn_cooldown:float = 3
 
 ## Stress increase per minute.
-@export var strength_increase:float = 1
+var strength_increase:float = 1
 
-@export var spawn_items:Dictionary[ItemData.ItemTypes, int] = {
+var spawn_items:Dictionary[ItemData.ItemTypes, int] = {
 	ItemData.ItemTypes.WHEAT: 10,
 }
 
-@export var events:Array[EventMan.Events]
+var events:Array[EventMan.Events]
+
+## If the current level is the tutorial
+var tutorial:bool = false
 
 # Seconds between each event
-@export var event_spawn_cooldown:float = 10
+var event_spawn_cooldown:float = 10
 
 # Cooldown for next item spawn
 var current_spawn_cooldown:float = 0
@@ -63,15 +69,25 @@ var loaded:bool = false
 
 ## Holds data for level settings. This is used for both preset difficulties and custom ones.
 class LevelData:
-	var event_cooldown : float = 45
-	var strength_per_minute : float = 1
+	var event_cooldown : float = 45 
+	var strength_per_minute : float = 1 
 	var damage_multi : float = 1
-	var thirst_multi : float = 1
-	var hunger_multi : float = 1
-	var item_spawn_cooldown : float = 45
+	var thirst_multi : float = 1 
+	var hunger_multi : float = 1 
+	var item_spawn_cooldown : float = 2.75
 	var station_speed_multi : float = 1
-	var events : Array[EventMan.Events] = [EventMan.Events.TORNADO]
-	var items : Dictionary[ItemData.ItemTypes, int] = {ItemData.ItemTypes.WOOD:1}
+	var grace_period : float = 60 # Extra time until the first event
+	var temp_drain : float = 0.3
+	var events : Array[EventMan.Events] = [
+		EventMan.Events.TORNADO,
+		EventMan.Events.VOLCANO
+	]
+	var items : Dictionary[ItemData.ItemTypes, int] = {
+		ItemData.ItemTypes.WOOD:6,
+		ItemData.ItemTypes.WHEAT:2,
+		ItemData.ItemTypes.ROCK:8,
+		ItemData.ItemTypes.WHEAT_SEEDS:12
+	}
 
 	func _init() -> void:
 		pass
@@ -80,7 +96,7 @@ func _ready():
 	Globals.level = self
 	ready.connect(func (): loaded=true) # Set loaded to true when fully ready
 	if not level_data:
-		level_data = LevelData.new() # Default settings (1.0 multipliers)
+		level_data = LevelData.new() # Default settings
 
 	# Ensure parent nodes are present, and if not, create them.
 	if find_child("Stations") and $Stations is Node:
@@ -112,11 +128,13 @@ func _ready():
 	# Connect updates for station effects
 	stations.child_order_changed.connect(update_station_stats)
 
-	# Adjust based on level data
-	spawn_cooldown *= level_data.item_spawn_multi
-	event_spawn_cooldown *= level_data.event_cooldown_multi
-	strength_increase *= level_data.event_strength_multi
-	
+	# Load level data
+	spawn_cooldown = level_data.item_spawn_cooldown
+	current_event_cooldown -= level_data.grace_period
+	event_spawn_cooldown = level_data.event_cooldown
+	strength_increase = level_data.strength_per_minute
+	events = level_data.events
+	spawn_items = level_data.items
 
 func _spawn_item():
 	# Create and set item
@@ -194,7 +212,7 @@ func update_station_stats(): ## Updates variables dependent on stations
 		player.update_collector_stack_lim(player_strength)
 
 func player_stat_update(_player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
-	player.state.temp.val -= 0.4 * delta
+	player.state.temp.val -= level_data.temp_drain * delta
 
 func get_upgrades() -> Dictionary[Upgrades.Upgrades, int]: ## Returns a dictionary of the player's upgrades
 	return player.upgrades

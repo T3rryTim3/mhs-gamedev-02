@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://6rt37s7rt8yn"]
+[gd_scene load_steps=27 format=3 uid="uid://6rt37s7rt8yn"]
 
 [ext_resource type="Script" uid="uid://dsh22e3hlmtpx" path="res://scripts/Events/tornado.gd" id="1_hquia"]
 [ext_resource type="Texture2D" uid="uid://d2brelvh11mbq" path="res://images/event/pixil-frame-0.png" id="2_u72bs"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dsbdwrphy8qvd" path="res://images/event/Tornado/Tornado Frame 2.png" id="7_utn5a"]
 [ext_resource type="Texture2D" uid="uid://cnlp2l3cxg2q1" path="res://images/event/Tornado/Tornado Frame 3.png" id="8_dxdub"]
 [ext_resource type="Texture2D" uid="uid://ddh6xlv4613yc" path="res://images/event/Tornado/Tornado Frame 4.png" id="9_hwbyd"]
+[ext_resource type="AudioStream" uid="uid://cpa3imp5cxjn2" path="res://Audio/SFX/Event/tornadoTest.wav" id="10_utn5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3jra"]
 size = Vector2(42, 43)
@@ -189,3 +190,6 @@ z_index = -1
 position = Vector2(0, -7)
 scale = Vector2(0.6, 0.6)
 texture = SubResource("GradientTexture2D_utn5a")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="Tornado/Body"]
+stream = ExtResource("10_utn5a")
