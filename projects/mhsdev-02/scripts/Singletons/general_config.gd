@@ -40,7 +40,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 	match difficulty:
 		GameDifficulties.TUTORIAL:
 			var data = Level.LevelData.new()
-			data.event_cooldown = 60
+			data.event_cooldown = 100000
 			#data.temperature = 0
 			return data
 		
