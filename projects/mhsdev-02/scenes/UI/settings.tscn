@@ -19,7 +19,7 @@ script = ExtResource("1_nld73")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-current_tab = 2
+current_tab = 1
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
 visible = false
@@ -74,7 +74,6 @@ max_value = 1000.0
 value = 1000.0
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -83,6 +82,7 @@ layout_mode = 1
 offset_left = 13.0
 
 [node name="Game" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 

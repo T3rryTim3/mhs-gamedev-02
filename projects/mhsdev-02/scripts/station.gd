@@ -146,6 +146,7 @@ func _process(delta):
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if can_delete:
+			_get_level().station_deleted.emit()
 			queue_free()
 
 func _ready():
@@ -189,6 +190,9 @@ func _ready():
 
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")
+
+	# Emit station built signal. Used for the tutorial.
+	_get_level().station_built.emit()
 
 func _check_delete():
 	var glob_mouse = get_global_mouse_position()

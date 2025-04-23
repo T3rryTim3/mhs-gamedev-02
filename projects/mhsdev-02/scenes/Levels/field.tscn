@@ -19,6 +19,7 @@ size = Vector2(1293, 960)
 
 [sub_resource type="Environment" id="Environment_nmvk3"]
 background_mode = 3
+ambient_light_source = 1
 ambient_light_sky_contribution = 0.26
 ssao_radius = 1.5
 ssao_detail = 1.5
@@ -865,16 +866,6 @@ fill_to = Vector2(0.917431, 0.0917431)
 script = ExtResource("1_mkj7t")
 health_vignette_curve = SubResource("Curve_d0i73")
 map_limit = NodePath("CameraLimit")
-spawn_cooldown = 1.65
-strength_increase = 0.7
-spawn_items = Dictionary[int, int]({
-0: 10,
-1: 3,
-5: 12,
-6: 15
-})
-events = Array[int]([0, 0])
-event_spawn_cooldown = 45.0
 
 [node name="CameraLimit" type="CollisionShape2D" parent="."]
 visible = false

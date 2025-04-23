@@ -10,12 +10,6 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_8w15x")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Settings" parent="CanvasLayer" instance=ExtResource("3_f5ioo")]
-visible = false
-theme = ExtResource("1_21ivj")
-
 [node name="LevelViewport" type="SubViewportContainer" parent="."]
 visible = false
 material = ExtResource("2_t81tu")
@@ -43,3 +37,10 @@ bus = &"Music"
 
 [node name="LoadedScene" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Settings" parent="CanvasLayer" instance=ExtResource("3_f5ioo")]
+visible = false
+theme = ExtResource("1_21ivj")
