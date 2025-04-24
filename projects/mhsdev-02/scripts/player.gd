@@ -7,6 +7,7 @@ class_name Player
 @onready var high_temp_particles:GPUParticles2D = $HighTempParticles
 
 signal give_upgrade
+signal upgrade_added
 signal mode_changed
 signal death
 signal item_used
@@ -113,7 +114,8 @@ func add_upgrade(upgrade = Upgrades.Upgrade) -> void: ## Give the player an upgr
 	state.hunger.val_max = Config.MAX_HUNGER + _get_upgrade(Upgrades.Upgrades.HUNGER) * Config.HUNGER_UPGRADE_INCREASE
 	state.thirst.val_max = Config.MAX_THIRST + _get_upgrade(Upgrades.Upgrades.THIRST) * Config.THIRST_UPGRADE_INCREASE
 	#state.stamina.val_max = Config.MAX_STAMINA + _get_upgrade(Upgrades.Upgrades.STAMINA) * Config.STAMINA_UPGRADE_INCREASE
-	
+	upgrade_added.emit()
+
 func _get_upgrade(upgrade = Upgrades.Upgrades) -> int: ## Returns the upgrade count of the passed upgrade
 	if upgrade in upgrades:
 		return upgrades[upgrade]

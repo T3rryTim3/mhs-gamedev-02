@@ -14,6 +14,7 @@ script = ExtResource("1_daxd7")
 station_data = 3
 produce_time = 7.5
 sprite = NodePath("Sprite2D")
+health = 18.0
 move_influence = 0.01
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

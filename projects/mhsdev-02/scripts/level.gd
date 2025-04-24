@@ -3,6 +3,7 @@ class_name Level
 
 signal station_built
 signal station_deleted
+signal machine_powered
 
 ## Scene for creating new items
 @onready var item_scn = preload("res://scenes/Base/item.tscn")
@@ -74,6 +75,7 @@ class LevelData:
 	var damage_multi : float = 1
 	var thirst_multi : float = 1 
 	var hunger_multi : float = 1 
+	var station_health_multi : float = 1
 	var item_spawn_cooldown : float = 2.75
 	var station_speed_multi : float = 1
 	var grace_period : float = 60 # Extra time until the first event

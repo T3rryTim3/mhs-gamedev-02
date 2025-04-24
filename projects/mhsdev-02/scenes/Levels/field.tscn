@@ -949,6 +949,7 @@ position = Vector2(241, -173)
 [node name="Quarry" parent="Map" instance=ExtResource("7_tx5fc")]
 y_sort_enabled = true
 position = Vector2(-572, 255)
+health = 15.0
 
 [node name="Node" type="Node" parent="Map"]
 

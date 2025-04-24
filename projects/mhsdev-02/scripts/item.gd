@@ -43,6 +43,7 @@ func _ready() -> void:
 	decay_rate = data["decay_rate"]
 	img_path = data["img_path"]
 	item_usage_max = data["use_time"]
+	effect_immunities = data["effect_immunities"]
 
 	var image = load(img_path)
 	$Sprite2D.texture = image

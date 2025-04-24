@@ -155,6 +155,9 @@ func _ready():
 	# Ensure the level is loaded
 	if !level.loaded:
 		await _get_level().ready
+	
+	max_health *= _get_level().level_data.station_health_multi
+	health = max_health
 
 	add_to_group("station") # Used for processing total station benefits
 
@@ -204,6 +207,9 @@ func _check_delete():
 		if (glob_mouse.y > global_position.y - sizey/2) and (glob_mouse.y < global_position.y + sizey/2):
 			if _get_level().player.delete_mode:
 				can_delete = true
+	
+	if _get_level().tutorial and station_data == StationData.Stations.WELL:
+		can_delete = false
 
 	_update_remove_color(can_delete)
 

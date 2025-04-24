@@ -23,6 +23,9 @@ signal force_applied
 
 ## Healthbar placement offset (Starting from bottom-center of the sprite)
 @export var health_bar_offset:Vector2 = Vector2.ZERO
+
+## Effect immunities
+@export var effect_immunities:Array[EffectData.EffectTypes]
 #endregion
 
 #region Other vars
@@ -133,6 +136,8 @@ class StateItem: ## Data for a property of the entity (thirst, temp, etc.)
 
 #region Effects
 func add_effect(effect:EffectData.EffectTypes, duration:float, strength:float): ## Add an effect to the entity
+	if effect in effect_immunities:
+		return
 	var new = EffectData.Effect.new(effect, duration, strength, self)
 	effects.append(new)
 	new.connect("removed", effects.erase.bind(new))

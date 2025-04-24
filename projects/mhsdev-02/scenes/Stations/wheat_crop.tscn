@@ -18,6 +18,7 @@ script = ExtResource("1_n77je")
 station_data = 1
 produce_time = 15.0
 sprite = NodePath("Sprite2D")
+health = 15.0
 move_influence = 0.01
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

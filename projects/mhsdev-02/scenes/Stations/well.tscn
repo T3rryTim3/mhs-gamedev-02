@@ -15,7 +15,8 @@ script = ExtResource("1_ld0x8")
 produce_time = 15.0
 progress_bar_texture = ExtResource("2_iy0j5")
 sprite = NodePath("Sprite2D")
-move_influence = 0.01
+health = 22.0
+move_influence = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ubvcw")

@@ -44,7 +44,9 @@ func _load_costs(): ## Loads the costs from 'selected_costs'
 				[25,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}]
 			]
 		CostGroups.TUTORIAL:
-			pass
+			costs = [
+				[3,{ItemData.ItemTypes.BREAD: 2, ItemData.ItemTypes.WATER: 0.5}]
+			]
 
 func _get_level(): ## Finds the first Level ancestor
 	var parent = get_parent() 
@@ -57,9 +59,8 @@ func _get_level(): ## Finds the first Level ancestor
 func _next_cost(): ## Selects the next cost in 'costs'
 	if cost_index >= len(costs): # If there are no more costs
 		cost = {}
-		_update_label()
+		#_update_cost()
 		return
-
 	select_cost(costs[cost_index][0], costs[cost_index][1])
 	cost_index += 1
 
@@ -82,7 +83,7 @@ func _process(delta: float) -> void:
 
 ## Set the cost of the machine based upon the price given. 
 ## 'Items' is the dict of items that can be chosen (Item, Price).
-func select_cost(price:int, items):
+func select_cost(price:float, items):
 	cost = {}
 	collector.clear_items()
 	while price > 0:
@@ -117,8 +118,11 @@ func _display_cost():
 		item.texture_rect.texture = load(ItemData.get_item_data(k)["img_path"])
 		item.id = k
 
-func _update_label():
-	for k in $VBoxContainer.get_children():
+func _update_cost():
+	for k in cost_container.get_children():
+		if not (k.id in cost):
+			_display_cost()
+			return
 		k.label.text = str(spent_resources[k.id]) + "/" + str(cost[k.id])
 
 func _check_completion():
@@ -134,14 +138,12 @@ func _on_collector_item_given(item) -> void:
 			collector.add_item(item)
 			spent_resources[k] += 1
 	scale_val = 1.2
-	_update_label()
 	
 	if _check_completion():
+		_get_level().machine_powered.emit()
 		_get_level().player.give_upgrade.emit()
 		_next_cost()
-		_update_cost()
 		_display_cost()
-
-func _update_cost():
-	for k in cost_container.get_children():
-		k.label.text = str(spent_resources[k.id]) + "/" + str(cost[k.id])
+		_update_cost()
+	else:
+		_update_cost()

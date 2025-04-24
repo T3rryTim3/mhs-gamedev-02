@@ -122,21 +122,30 @@ func _next_tutorial_step(data=null):
 				tutorial_step = 5
 				return
 			player.item_used.disconnect(_next_tutorial_step)
-			$Timer.text = "Task: Enter delete mode and delete a station (Default R)"
+			$Timer.text = "Task: Enter delete mode and delete the water purifier (Default H)"
 			_get_level().station_deleted.connect(_next_tutorial_step)
 		7: # Cook bread
-			if not (_get_level().get_station_count(StationData.Stations.WELL) == 0):
-				tutorial_step = 6
-				return
 			_get_level().station_deleted.disconnect(_next_tutorial_step)
 			_get_level().load_bread_step()
-			$Timer.text = "Task: Use the oven to cook and eat bread. Put wheat on the left, and wood on the right."
+			$Timer.text = "Task: Use the oven to cook and eat bread. Put wheat on the left, and wood on the right.\nYou will need to make a wheat crop to get the wheat."
 			player.item_used.connect(_next_tutorial_step)
 		8:
 			if not ((data is Item) and data.id == ItemData.ItemTypes.BREAD):
 				tutorial_step = 7
 				return
-			$Timer.text = "Task: Power the machine."
+			player.item_used.disconnect(_next_tutorial_step)
+			$Timer.text = "Task: Add the required items into the machine."
+			_get_level().load_machine_step()
+			player.give_upgrade.connect(_next_tutorial_step)
+		9:
+			print("WOOT")
+			$Timer.text = "Task: Select an upgrade."
+			player.give_upgrade.disconnect(_next_tutorial_step)
+			player.upgrade_added.connect(_next_tutorial_step)
+		10:
+			$Timer.text = "Task: Survive the tornado!"
+			EventMan.spawn_event(EventMan.Events.TORNADO, _get_level(), 1)
+			player.upgrade_added.disconnect(_next_tutorial_step)
 			
 
 func _process(delta: float) -> void:
