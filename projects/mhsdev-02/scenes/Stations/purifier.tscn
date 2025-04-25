@@ -33,18 +33,19 @@ produce_time = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xxqte")
+offset = Vector2(0, -24)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, -4)
 scale = Vector2(0.341842, 1)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+visible = false
 z_index = 1
-position = Vector2(16, 7)
+position = Vector2(49, -29)
 script = ExtResource("4_2w02e")
 stack_limit = 5
-can_steal = true
 decay_coef = 0.0
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")

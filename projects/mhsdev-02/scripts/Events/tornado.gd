@@ -58,7 +58,7 @@ func _ready() -> void:
 	tornado.scale = _double_vec2(EventMan.scale_val(data.strength) * 2)
 	move_cooldown = 2.0
 	cooldown_delay = 1.0 / data.strength
-	push_damage = 3 * EventMan.scale_val(data.strength)
+	push_damage = 2.5 * EventMan.scale_val(data.strength)
 	_select_target()
 	sprite.play() # Tornado animation
 	$Tornado/Body/Sound.play()

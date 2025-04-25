@@ -7,6 +7,7 @@ class_name Player
 @onready var high_temp_particles:GPUParticles2D = $HighTempParticles
 
 signal give_upgrade
+signal upgrade_added
 signal mode_changed
 signal death
 signal item_used
@@ -113,7 +114,8 @@ func add_upgrade(upgrade = Upgrades.Upgrade) -> void: ## Give the player an upgr
 	state.hunger.val_max = Config.MAX_HUNGER + _get_upgrade(Upgrades.Upgrades.HUNGER) * Config.HUNGER_UPGRADE_INCREASE
 	state.thirst.val_max = Config.MAX_THIRST + _get_upgrade(Upgrades.Upgrades.THIRST) * Config.THIRST_UPGRADE_INCREASE
 	#state.stamina.val_max = Config.MAX_STAMINA + _get_upgrade(Upgrades.Upgrades.STAMINA) * Config.STAMINA_UPGRADE_INCREASE
-	
+	upgrade_added.emit()
+
 func _get_upgrade(upgrade = Upgrades.Upgrades) -> int: ## Returns the upgrade count of the passed upgrade
 	if upgrade in upgrades:
 		return upgrades[upgrade]
@@ -278,7 +280,7 @@ func _ready():
 		use_bar.visible = false
 
 	# Blueprint overlay
-	blueprint_overlay = load("res://scenes/UI/side_blueprint_overlay.tscn").instantiate()
+	blueprint_overlay = load("res://scenes/UI/blueprint_menu.tscn").instantiate()
 	_get_level().ui_layer.add_child.call_deferred(blueprint_overlay)
 	blueprint_overlay.visible = false
 	blueprint_overlay.new_station.connect(_update_blueprint_sprite)

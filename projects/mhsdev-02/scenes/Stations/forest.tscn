@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5th77juet2mm" path="res://images/stations/forest.png" id="2_r7yf8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 13.5)
+size = Vector2(63, 6)
 
 [node name="Forest" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8
@@ -14,14 +14,16 @@ script = ExtResource("1_daxd7")
 station_data = 3
 produce_time = 7.5
 sprite = NodePath("Sprite2D")
+health = 18.0
 move_influence = 0.01
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_r7yf8")
+offset = Vector2(0, -34)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 37.75)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(38, 24)
+position = Vector2(42, -21)

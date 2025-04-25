@@ -30,8 +30,8 @@ var THIRST_UPGRADE_INCREASE = 20
 var STAMINA_UPGRADE_INCREASE = 20
 
 # Stat drain stats
-var DRAIN_HUNGER:float = 0.45
-var DRAIN_THIRST:float = 0.6
+var DRAIN_HUNGER:float = 0.38
+var DRAIN_THIRST:float = 0.53
 
 # Upgrades given every machine power
 var UPGRADE_COUNT = 3

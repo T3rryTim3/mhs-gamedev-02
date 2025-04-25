@@ -24,9 +24,7 @@ func _ready() -> void:
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
 	_get_main()._load_scene(Main.Scenes.MENU)
-	
 
 func _on_respawn_pressed() -> void:
 	get_tree().paused = false
 	_get_main()._load_scene(Globals.current_level)
-	

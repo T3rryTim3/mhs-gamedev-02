@@ -48,6 +48,7 @@ fill_from = Vector2(0.490826, 0.458716)
 fill_to = Vector2(0.917431, 0.0917431)
 
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("map_limit")]
+y_sort_enabled = true
 script = ExtResource("1_4wtvl")
 health_vignette_curve = SubResource("Curve_6b36i")
 map_limit = NodePath("CameraLimit")
@@ -585,6 +586,7 @@ texture_scale = 1.48
 [node name="The Machine" parent="Map" instance=ExtResource("9_k5src")]
 y_sort_enabled = true
 position = Vector2(-620, -54)
+selected_costs = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -611,3 +613,6 @@ id = 0
 
 [node name="OvenPos" type="Node2D" parent="."]
 position = Vector2(-337, -77)
+
+[node name="MachinePos" type="Node2D" parent="."]
+position = Vector2(-201, 66)
