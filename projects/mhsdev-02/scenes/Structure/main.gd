@@ -2,6 +2,9 @@ extends Node2D
 class_name Main
 
 @onready var settings = $CanvasLayer/Settings
+@onready var achievements = $CanvasLayer/Achievements
+
+
 
 var ui_hover_sound:AudioStreamPlayer
 var ui_click_sound:AudioStreamPlayer
@@ -11,7 +14,8 @@ enum Scenes {
 	LEVEL_SELECT,
 	LEVEL_FIELD,
 	LEVEL_TUTORIAL,
-	PAUSE
+	PAUSE,
+	ACHIEVEMENTS
 }
 
 func get_all(node: Node):
@@ -32,6 +36,11 @@ func _connect_ui_sound(node:Node): ## Adds UI interact sounds to the passed node
 func show_settings():
 	settings.show()
 
+func show_achievements():
+	achievements.show()
+
+
+
 func _load_scene(scene:Scenes, level_mode:Config.GameDifficulties=Config.GameDifficulties.FIELD_STANDARD):
 	var new_scene
 	for child in $LoadedScene.get_children():
@@ -47,6 +56,8 @@ func _load_scene(scene:Scenes, level_mode:Config.GameDifficulties=Config.GameDif
 			new_scene = load("res://scenes/Levels/tutorial.tscn").instantiate()
 		Scenes.PAUSE:
 			new_scene = load("res://scenes/UI/PauseMenu.tscn").instantiate()
+		Scenes.ACHIEVEMENTS:
+			new_scene = load("res://scenes/UI/unlock_screen.tscn").instantiate()
 		_:
 			print("ERROR: SCENE NOT FOUND")
 			return
@@ -75,6 +86,6 @@ func _ready() -> void:
 	get_tree().connect("node_added", _connect_ui_sound) # Type checking is done within fucntion
 	#child_entered_tree.connect(func(): print("NEW ONE 11"))
 
-func _pause():
-	_load_scene(Scenes.PAUSE)
-	print(get_tree().current_scene)
+#func _pause():
+	#_load_scene(Scenes.PAUSE)
+	#print(get_tree().current_scene)

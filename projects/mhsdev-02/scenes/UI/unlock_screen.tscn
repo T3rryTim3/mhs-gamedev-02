@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=3 uid="uid://jca8p77y4d7o"]
+
+[ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_6hurt"]
+[ext_resource type="Script" uid="uid://dbrdmheb7o2du" path="res://scenes/UI/unlock_screen.gd" id="2_8abig"]
+[ext_resource type="PackedScene" uid="uid://cbtd3r7p6qouo" path="res://panel_container.tscn" id="3_rs607"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hurt"]
+bg_color = Color(0.32, 0.0693333, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7wu1"]
+bg_color = Color(0.778904, 0.641025, 0.464466, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Gradient" id="Gradient_v4qnw"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0.33, 0.33, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w42as"]
+gradient = SubResource("Gradient_v4qnw")
+width = 90
+height = 90
+
+[node name="Unlock Screen" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_6hurt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hurt")
+script = ExtResource("2_8abig")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "Achievements"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="PanelContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_rs607")]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o7wu1")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_w42as")
+stretch_mode = 4
+
+[node name="LabelBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer/HSplitContainer/LabelBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.23722, 0.1682, 1)
+theme_override_font_sizes/font_size = 40
+text = "Strongman"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer/HSplitContainer/LabelBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Carry three items at once"
+
+[node name="Button" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

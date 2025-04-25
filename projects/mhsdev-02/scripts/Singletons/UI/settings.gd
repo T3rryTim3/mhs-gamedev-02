@@ -1,16 +1,14 @@
 extends MarginContainer
 
 @onready var exit_button = $ExitButton
-@onready var keybinds = $TabContainer/Game/Keybinds
-@onready var misc = $TabContainer/Game/control
+
+
 
 func close_menu():
 	visible = false
 
 func _ready():
 	exit_button.pressed.connect(close_menu)
-	keybinds.visible = false
-	misc.visible = false
 	_on_master_value_changed()
 	_on_sfx_value_changed()
 	_on_music_value_changed()
@@ -26,10 +24,7 @@ func _on_sfx_value_changed(_value: float = 1) -> void:
 
 
 func _on_keybinds_button_pressed() -> void:
-	keybinds.visible = true
-	misc.visible = false
+	Globals.main.show_keybind_settings()
 
 func _on_gamemode_button_pressed() -> void:
-	misc.visible = true
-	keybinds.visible = false
-	
+	Globals.main.show_game_settings()

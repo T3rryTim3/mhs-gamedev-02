@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=8 format=3 uid="uid://cec63m3q1fajg"]
 
 [ext_resource type="Script" uid="uid://bptko54whwnfa" path="res://scenes/Structure/main.gd" id="1_8w15x"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_21ivj"]
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
 [ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
 [ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="3_f5ioo"]
+[ext_resource type="PackedScene" uid="uid://jca8p77y4d7o" path="res://scenes/UI/unlock_screen.tscn" id="7_32u4x"]
 [ext_resource type="AudioStream" uid="uid://bq84efkqhemuh" path="res://Audio/Music/beehive-final.wav" id="7_8538w"]
 
 [node name="Main" type="Node2D"]
@@ -44,3 +45,6 @@ layer = 10
 [node name="Settings" parent="CanvasLayer" instance=ExtResource("3_f5ioo")]
 visible = false
 theme = ExtResource("1_21ivj")
+
+[node name="Achievements" parent="CanvasLayer" instance=ExtResource("7_32u4x")]
+visible = false

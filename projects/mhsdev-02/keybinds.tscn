@@ -46,6 +46,8 @@ size_flags_horizontal = 3
 
 [node name="InputButton" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList" instance=ExtResource("2_iyn53")]
 layout_mode = 2
+mouse_filter = 0
+action_mode = 0
 
 [node name="InputButton2" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList" instance=ExtResource("2_iyn53")]
 layout_mode = 2
