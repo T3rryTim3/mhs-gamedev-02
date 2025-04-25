@@ -80,6 +80,7 @@ class LevelData:
 	var station_speed_multi : float = 1
 	var grace_period : float = 60 # Extra time until the first event
 	var temp_drain : float = 0.3
+	var event_multiplier : int = 1
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
 		EventMan.Events.VOLCANO
@@ -170,10 +171,11 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta) -> void:
 	# Update the health vignette
-	var health_perc = 1 - player.health / player.max_health
-	health_perc = health_vignette_curve.sample(health_perc)
-	vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
-	vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
+	if player:
+		var health_perc = 1 - player.health / player.max_health
+		health_perc = health_vignette_curve.sample(health_perc)
+		vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
+		vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
 	
 	# Update stress and weather events
 	strength += strength_increase / 60 * delta

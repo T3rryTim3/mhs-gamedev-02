@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cbe3h2ghbyfgw"
-path="res://.godot/imported/Wheat.wav-d84e6f716234f06e1e0510e80c232638.sample"
+uid="uid://cvqwklk8t04a"
+path="res://.godot/imported/wheat.wav-28f21256967b07f0481276a891b7a545.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/Items/Wheat.wav"
-dest_files=["res://.godot/imported/Wheat.wav-d84e6f716234f06e1e0510e80c232638.sample"]
+source_file="res://Audio/SFX/Items/wheat.wav"
+dest_files=["res://.godot/imported/wheat.wav-28f21256967b07f0481276a891b7a545.sample"]
 
 [params]
 

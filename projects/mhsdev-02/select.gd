@@ -3,6 +3,7 @@ extends Control
 var levels = [
 	{
 		"name": "Field",
+		"description": "An empty field perfect for not having (parentheses)",
 		"scene_enum": Main.Scenes.LEVEL_FIELD,
 		"image_path": "res://images/placeholder/image.png",
 		"modes": [
@@ -13,6 +14,7 @@ var levels = [
 					["x2 Events", Color(1,0,0)],
 					["x2 Events", Color(1,0,0)]
 				]
+				
 			},
 			{
 				"name": "Rowdy",
@@ -34,6 +36,7 @@ var levels = [
 	},
 	{
 		"name": "Tutorial",
+		"description": "A guide on how to use (parentheses)",
 		"scene_enum": Main.Scenes.LEVEL_TUTORIAL,
 		"image_path": "res://images/items/bread.png",
 		"modes": [
@@ -50,9 +53,9 @@ var levels = [
 ]
 
 var current_level_index = 0
-@onready var custom_diff = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer
 @onready var mode_dropdown = $PanelContainer/MarginContainer/VBoxContainer/Difficulty
 @onready var descriptions = $PanelContainer/MarginContainer/VBoxContainer/Descriptions
+
 
 #func update_button(button):
 	#var data = levels[current_level_index]
@@ -65,7 +68,8 @@ func _ready():
 	#var levelbutton = $TextureButton
 	var forward = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward
 	var back = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back
-	custom_diff.visible = false
+	_update_data()
+
 	
 	#update_button(levelbutton)
 
@@ -77,12 +81,15 @@ func _update_data(): ## Updates based on the current scene selected
 	mode_dropdown.clear()
 	for mode_index in len(level["modes"]):
 		mode_dropdown.add_item(level["modes"][mode_index]["name"], mode_index)
+	$PanelContainer2/MarginContainer/Title.text = levels[current_level_index]["name"]
+	$PanelContainer2/MarginContainer2/LevelDesk.text = levels[current_level_index]["description"]
 
 func _on_Forward_pressed():
 	current_level_index += 1
 	if current_level_index >= levels.size():
 		current_level_index = 0 
 	_update_data()
+	
 
 func _on_Back_pressed():
 	current_level_index -= 1
@@ -94,6 +101,7 @@ func _on_back_pressed() -> void:
 	Globals.main._load_scene(Main.Scenes.MENU)
 
 func _on_start_pressed():
+	print(levels[current_level_index]["scene_enum"])
 	Globals.main._load_scene(levels[current_level_index]["scene_enum"], levels[current_level_index]["modes"][mode_dropdown.selected]["leveldata"])
 	Globals.current_level = levels[current_level_index]["scene_enum"]
 
@@ -106,6 +114,7 @@ func _update_desc():
 		label.add_theme_color_override("font_color",line[1])
 		label.text = line[0]
 		descriptions.add_child(label)
+
 
 func _on_difficulty_item_selected(index: int) -> void:
 	print(current_level_index)
