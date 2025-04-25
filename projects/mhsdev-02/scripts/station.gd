@@ -99,6 +99,8 @@ func _init_progress_bar(): ## Reset the progress bar
 
 	progress_bar.position.y = (-sprite_texture.get_height()/2.0)*sprite.scale.y
 	progress_bar.position.y -= progress_bar_offset
+	
+	progress_bar.position += sprite.offset
 
 	progress_bar.size_scale = health_bar.size_scale * 0.5
 	
@@ -117,7 +119,7 @@ func _death():
 	var new_station = load("res://scenes/Base/blueprint.tscn").instantiate()
 	new_station.target_station = station_data
 	get_parent().call_deferred("add_child", new_station)
-	new_station.global_position = global_position
+	new_station.global_position = global_position + sprite.offset
 
 	# Delete self
 	queue_free()
@@ -140,6 +142,7 @@ func _process(delta):
 			z_index = -1
 		2: 
 			z_index = 5
+	z_index = 0
 
 	_check_delete()
 
@@ -155,9 +158,6 @@ func _ready():
 	# Ensure the level is loaded
 	if !level.loaded:
 		await _get_level().ready
-	
-	max_health *= _get_level().level_data.station_health_multi
-	health = max_health
 
 	add_to_group("station") # Used for processing total station benefits
 
@@ -171,6 +171,13 @@ func _ready():
 	# Done after to ensure default values are present
 	super()
 	_init_progress_bar()
+
+	max_health *= _get_level().level_data.station_health_multi
+	health = max_health
+	if health <= 0:
+		print(self)
+		print(_get_level().level_data.station_health_multi)
+		print(max_health)
 	
 	# Accout for level settings
 	produce_time *= 1 / level.level_data.station_speed_multi # Take the reciprocal as produce_time is different from speed
@@ -189,7 +196,7 @@ func _ready():
 	collider.get_child(0).shape.size = get_sprite_texture().get_size()
 
 	# Align station to grid
-	global_position = _round_vector(global_position, 24)
+	#global_position = _round_vector(global_position, 24)
 
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")

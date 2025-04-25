@@ -30,10 +30,12 @@ func get_upgrade_data(upgrade:Upgrades.Upgrades):
 	match upgrade:
 		Upgrades.SPEED:
 			data["desc"] = "Increased movement speed"
+			data["icon"] = "res://images/upgrades/Energy soda™.png"
 			#data["icon"] = ""
 			data["lim"] = 100
 		Upgrades.STRENGTH:
 			data["desc"] = "+1 Item carry limit"
+			data["icon"] = "res://images/upgrades/Dumb bell.png"
 			data["lim"] = 5
 		Upgrades.STAMINA:
 			data["desc"] = "Use 20% less stamina when sprinting"

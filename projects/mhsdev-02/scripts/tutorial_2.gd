@@ -9,6 +9,7 @@ func _ready():
 	level_data.event_cooldown = 1000000000
 	level_data.item_spawn_cooldown = 1000000000
 	load_machine_step()
+	current_event_cooldown = -100000
 
 func load_bread_step(): ## Loads everything for the bread cooking tutorial step 
 	var station_scene = load(StationData.get_station_scene(StationData.Stations.OVEN))

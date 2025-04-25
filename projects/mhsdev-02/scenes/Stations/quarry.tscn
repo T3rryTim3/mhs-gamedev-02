@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dgsmem6qotb3f" path="res://images/stations/quarry.png" id="3_cat8v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 64.5)
+size = Vector2(88, 21.25)
 
 [node name="Quarry" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8
@@ -21,9 +21,10 @@ effect_immunities = Array[int]([5])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_cat8v")
+offset = Vector2(0, -34)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 12.25)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]

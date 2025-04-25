@@ -35,14 +35,14 @@ func get_event_data(event:Events, strength:float = 1) -> EventData:
 			return EventData.new(
 				"tornado",
 				"res://scenes/Events/tornado.tscn",
-				20 * scale_val(strength),
+				20,
 				strength
 			)
 		Events.VOLCANO:
 			return EventData.new(
 				"volcano",
 				"res://scenes/Events/volcano.tscn",
-				15 * scale_val(strength),
+				15,
 				strength
 			)
 	return null

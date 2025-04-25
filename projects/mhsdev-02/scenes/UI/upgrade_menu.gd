@@ -37,9 +37,15 @@ func display_menu():
 
 	while len(remaining) > 0: # Ensure there are enough upgrades
 		var choice = remaining.pick_random()
+		var data = Upgrades.get_upgrade_data(choice)
+		
+		# Remove the option if the player has reached the max amount of the chosen upgrade
+		if _get_level().player._get_upgrade(choice) >= data["lim"]:
+			remaining.erase(choice)
+
 		upgrades.append(choice)
 		remaining.erase(choice)
-		if len(upgrades) >= Config.UPGRADE_COUNT:
+		if len(upgrades) >= Config.UPGRADE_COUNT: # Ensure only 3 upgrades are chosen
 			break
 
 	# Add the buttons to select the upgrades

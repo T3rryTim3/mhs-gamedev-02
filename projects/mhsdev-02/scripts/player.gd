@@ -280,7 +280,7 @@ func _ready():
 		use_bar.visible = false
 
 	# Blueprint overlay
-	blueprint_overlay = load("res://scenes/UI/side_blueprint_overlay.tscn").instantiate()
+	blueprint_overlay = load("res://scenes/UI/blueprint_menu.tscn").instantiate()
 	_get_level().ui_layer.add_child.call_deferred(blueprint_overlay)
 	blueprint_overlay.visible = false
 	blueprint_overlay.new_station.connect(_update_blueprint_sprite)

@@ -23,5 +23,6 @@ func _ready() -> void:
 
 func _on_quit_pressed() -> void:
 	_get_main()._load_scene(Main.Scenes.MENU)
-	
-	
+
+func _on_respawn_pressed() -> void:
+	pass # Replace with function body.

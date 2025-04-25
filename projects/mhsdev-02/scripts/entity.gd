@@ -277,7 +277,9 @@ func _ready():
 	health_bar.size_scale = health_bar_scale
 
 	add_child(health_bar)
-	
+
+	health_bar.position += sprite.offset
+
 	# Damage sound
 	dam_sound = AudioStreamPlayer2D.new()
 	dam_sound.stream = load("res://Audio/SFX/hit.wav")

@@ -102,7 +102,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("MarginContainer/VBoxContainer/Respawn:self_modulate")
+tracks/4/path = NodePath("MarginContainer/VBoxContainer/Try Again:self_modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -201,7 +201,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("MarginContainer/VBoxContainer/Respawn:self_modulate")
+tracks/4/path = NodePath("MarginContainer/VBoxContainer/Try Again:self_modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -293,13 +293,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Respawn" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Try Again" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_w0no0")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7205l")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2m3wi")
-text = "Respawn
-"
+text = "Try Again"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -332,4 +331,5 @@ horizontal_alignment = 1
 stream = ExtResource("7_7205l")
 bus = &"Music"
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Try Again" to="." method="_on_respawn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

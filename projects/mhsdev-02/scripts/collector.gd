@@ -16,7 +16,8 @@ signal item_given
 enum CrateVisuals {
 	NONE,
 	ITEM_CRATE,
-	PENTAGRAM
+	PENTAGRAM,
+	BRICK
 }
 
 ## Collector visual preload
@@ -128,7 +129,22 @@ func _ready() -> void:
 					if len(current_resources) == 0:
 						display.inner.show()
 			)
-			
+		else:
+			display.inner.visible = false
+	elif crate_type == CrateVisuals.BRICK:
+		# Add crate
+		display = display_scn.instantiate()
+		add_child(display)
+		display.position = pickup_pos_node.position + Vector2(0, 8) # Pixel offset
+		display.texture = load("res://images/stations/Brick Crate.png")
+
+		if limit_type_enable:
+			# Add crate display
+			var data = ItemData.get_item_data(limit_type)
+			var image = load(data["img_path"])
+			display.inner.modulate = Color(1,1,1,1)
+			display.inner.scale = Vector2(0.8,0.8)
+			display.inner.texture = image
 		else:
 			display.inner.visible = false
 
