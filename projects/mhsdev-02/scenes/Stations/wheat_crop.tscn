@@ -1,54 +1,63 @@
 [gd_scene load_steps=6 format=3 uid="uid://csace8iqaxmcx"]
 
-[ext_resource type="Script" path="res://scripts/wheat_crop.gd" id="1_n77je"]
+[ext_resource type="Script" uid="uid://bx0u5borueoa2" path="res://scripts/wheat_crop.gd" id="1_n77je"]
 [ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="3_06phv"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="4_hwtpo"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_hwtpo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 13.5)
+size = Vector2(86, 13.5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
-radius = 17.58
+[sub_resource type="CircleShape2D" id="CircleShape2D_n06fg"]
+radius = 45.3982
 
 [node name="Wheat Crop" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_n77je")
+station_data = 1
+produce_time = 15.0
 sprite = NodePath("Sprite2D")
+health = 15.0
 move_influence = 0.01
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_06phv")
+offset = Vector2(0, -48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 37.75)
+position = Vector2(1, -10)
 shape = SubResource("RectangleShape2D_astqw")
 
+[node name="DropPos" type="Node2D" parent="."]
+position = Vector2(0, 4)
+
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
-z_index = -2
-position = Vector2(0, -2)
+visible = false
+z_index = 1
+position = Vector2(114, -25)
 script = ExtResource("4_hwtpo")
+stack_limit = 5
 can_steal = true
+decay_coef = 0.0
 pickup_area = NodePath("PickupRange")
 pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 limit_type = 3
 auto_collect = true
+crate_type = 1
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
+collision_layer = 6
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
-position = Vector2(68, 16)
-shape = SubResource("CircleShape2D_j4lag")
+position = Vector2(-114, -18)
+shape = SubResource("CircleShape2D_n06fg")
 
 [node name="PickupPos" type="Node2D" parent="Collector"]
-position = Vector2(68, 16)
+position = Vector2(-114, -16)
 
 [node name="DropPos" type="Node2D" parent="Collector"]
-position = Vector2(-70, 19)
-
-[node name="DropPos" type="Node2D" parent="."]
-position = Vector2(0, 59)
+position = Vector2(-50, 49)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://7cscdyea1sfk"
+path="res://.godot/imported/Oven 1.wav-3dd0330929a8040e39f08ad5f43ef0c2.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Stations/Oven 1.wav"
+dest_files=["res://.godot/imported/Oven 1.wav-3dd0330929a8040e39f08ad5f43ef0c2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

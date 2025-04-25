@@ -5,6 +5,7 @@
 .import/
 export.cfg
 export_presets.cfg
+projects/mhsdev-02/exports/
 
 # Imported translations (automatically generated from CSV files)
 *.translation

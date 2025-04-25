@@ -29,6 +29,9 @@ enum LayerBehaviour
 ## Resources currently spent to build
 var spent_resources:Dictionary = {}
 
+## Used for animation
+var scale_val:float = 0
+
 ## Cooldown timer
 var cooldown_timer:float = 0.0
 
@@ -37,6 +40,17 @@ var cooldown_limit:float = 1.0
 
 ## Stops certain functions
 var completing = false
+
+## If the blueprint can currently be deleted
+var can_delete:bool = false
+
+func _get_level(): ## Finds the first Level ancestor
+	var parent = get_parent() 
+	while parent != null:
+		if parent is Level:
+			return parent
+		parent = parent.get_parent()
+	return null
 
 func get_sprite_texture() -> Texture2D:
 	if sprite is Sprite2D:
@@ -50,10 +64,19 @@ func _ready():
 	# Get station texture
 	sprite.texture = load(StationData.get_station_texture(target_station))
 	
+	var size = sprite.texture.get_size()
+	
+	$BlueprintCollider.collision_shape.shape.size = size
+	$ColorRect.size = size
+	$ColorRect.global_position = sprite.global_position - size/2
+	$ShowRange/CollisionShape2D.shape.radius = size.x / 1.25
+	$VBoxContainer.position.y -= 48 - size.y/2
+	$VBoxContainer.hide()
+
 	sprite.material.set_shader_parameter("blue", 1)
-	
+
 	collector.stack_limit = 0
-	
+
 	# Ready resource display
 	for k in cost:
 		spent_resources[k] = 0
@@ -93,6 +116,8 @@ func _update_label():
 		k.label.text = str(spent_resources[k.id]) + "/" + str(cost[k.id])
 
 func _process(delta: float) -> void:
+	scale_val = clampf(scale_val - 8 * delta, 0, 1)
+	sprite.scale.y = 1 + (0.2 * sin(PI * scale_val))
 	if not completing:
 		cooldown_timer += delta
 		if cooldown_timer > cooldown_limit:
@@ -109,6 +134,8 @@ func _process(delta: float) -> void:
 			z_index = -1
 		2: 
 			z_index = 5
+
+	_check_delete()
 
 func _collect():
 	# Collect and filter nearby items
@@ -131,10 +158,44 @@ func _on_collector_item_reset() -> void:
 	_check_completion()
 
 func _on_collector_item_given(item) -> void:
-	for k in cost:
+	for k in cost.keys():
 		if item.id == k and cost[k] - spent_resources[k] > 0:
 			collector.add_item(item)
 			spent_resources[k] += 1
+			scale_val = 1
 	_update_label()
 	_check_completion()
-			
+
+func _on_show_range_body_entered(body: Node2D) -> void:
+	if body is Player:
+		$VBoxContainer.show()
+
+func _on_show_range_body_exited(body: Node2D) -> void:
+	if body is Player:
+		$VBoxContainer.hide()
+
+#region Deletion handling
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if can_delete:
+			queue_free()
+
+func _check_delete():
+	var glob_mouse = get_global_mouse_position()
+	var sizex = get_sprite_texture().get_size().x
+	var sizey = get_sprite_texture().get_size().y
+	
+	can_delete = false
+	if (glob_mouse.x > global_position.x - sizex/2) and (glob_mouse.x < global_position.x + sizex/2):
+		if (glob_mouse.y > global_position.y - sizey/2) and (glob_mouse.y < global_position.y + sizey/2):
+			if _get_level().player.delete_mode:
+				can_delete = true
+
+	_update_remove_color(can_delete)
+
+func _update_remove_color(on:bool):
+	if on:
+		sprite.self_modulate = Color(40,1,1)
+	else:
+		sprite.self_modulate = Color(1,1,1)
+#endregion

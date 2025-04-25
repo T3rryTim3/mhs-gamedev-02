@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://drodt32mwcalu"]
+
+[ext_resource type="Script" path="res://blueprint_radial_menu.gd" id="1_ra2vh"]
+[ext_resource type="Texture2D" uid="uid://snjwj6jqyrjh" path="res://images/stations/oven(on).png" id="2_3add6"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 8.0
+offset_right = 3.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ra2vh")
+
+[node name="center" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 311.0
+offset_right = 554.0
+offset_bottom = 407.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_3add6")
+
+[node name="right" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 448.0
+offset_right = 792.0
+offset_bottom = 544.0
+texture = ExtResource("2_3add6")
+
+[node name="left" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 458.0
+offset_right = 422.0
+offset_bottom = 554.0
+texture = ExtResource("2_3add6")

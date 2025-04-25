@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://dedve84sqmfh0"]
+
+[ext_resource type="Script" uid="uid://b6ervq38l22v8" path="res://scenes/Stations/purifier.gd" id="1_q6as8"]
+[ext_resource type="Texture2D" uid="uid://d3waqwoyaypqh" path="res://images/stations/purifier_off.png" id="2_xxqte"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_2w02e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
+size = Vector2(66.5, 7)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
+radius = 17.58
+
+[sub_resource type="Gradient" id="Gradient_kvyef"]
+offsets = PackedFloat32Array(0, 0.87013)
+colors = PackedColorArray(1, 0.256333, 0.03, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xklao"]
+gradient = SubResource("Gradient_kvyef")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.490826, 0.458716)
+
+[node name="Purifier" type="CharacterBody2D"]
+z_as_relative = false
+y_sort_enabled = true
+collision_layer = 8
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_q6as8")
+station_data = 8
+produce_time = 15.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xxqte")
+offset = Vector2(0, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.341842, 1)
+shape = SubResource("RectangleShape2D_astqw")
+
+[node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+visible = false
+z_index = 1
+position = Vector2(49, -29)
+script = ExtResource("4_2w02e")
+stack_limit = 5
+decay_coef = 0.0
+pickup_area = NodePath("PickupRange")
+pickup_pos_node = NodePath("PickupPos")
+drop_pos_node = NodePath("DropPos")
+limit_type_enable = true
+limit_type = 3
+auto_collect = true
+
+[node name="PickupRange" type="Area2D" parent="Collector"]
+collision_layer = 6
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
+position = Vector2(-49, 10)
+shape = SubResource("CircleShape2D_j4lag")
+
+[node name="PickupPos" type="Node2D" parent="Collector"]
+position = Vector2(-49, 9)
+
+[node name="DropPos" type="Node2D" parent="Collector"]
+position = Vector2(-50, 49)
+
+[node name="DropPos" type="Node2D" parent="."]
+position = Vector2(0, 26)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+enabled = false
+texture = SubResource("GradientTexture2D_xklao")

@@ -17,10 +17,12 @@ func _update_sprite():
 		if progress_timer.is_stopped():
 			progress_timer.start()
 			$PointLight2D.enabled = true
+			$AudioStreamPlayer2D.playing = true
 	else:
 		sprite.texture = sprite_off
 		progress_timer.stop()
 		$PointLight2D.enabled = false
+		$AudioStreamPlayer2D.playing = false
 
 func _ready():
 	super()

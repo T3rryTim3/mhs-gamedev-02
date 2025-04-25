@@ -5,7 +5,7 @@ class_name WheatCrop
 
 var pickup_timer:Timer
 
-var decay_rate:float = 0.2
+var decay_rate:float = 0.08
 
 func produce():
 	super()

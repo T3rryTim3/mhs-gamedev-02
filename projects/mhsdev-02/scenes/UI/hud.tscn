@@ -1,40 +1,255 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl7r51dy6jv3n"]
+[gd_scene load_steps=28 format=3 uid="uid://dl7r51dy6jv3n"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_6sjk5"]
-[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_8lowj"]
+[ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
+[ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_y5tme"]
+[ext_resource type="PackedScene" uid="uid://cvqm6jurw2hl8" path="res://scenes/UI/upgrade_menu.tscn" id="3_y5tme"]
+[ext_resource type="Texture2D" uid="uid://h1tr8kquqhlp" path="res://images/UI/Death/You-Died_Frame 1.png" id="4_18exe"]
+[ext_resource type="Texture2D" uid="uid://de3olbljf3vem" path="res://images/UI/Death/You-Died_Frame 2.png" id="5_xh8q5"]
+[ext_resource type="Texture2D" uid="uid://cq555qqfo7kjy" path="res://images/UI/Death/You-Died_Frame 3.png" id="6_h03ao"]
+[ext_resource type="Texture2D" uid="uid://dm5k7kpau5tgv" path="res://images/UI/Death/You-Died_ Frame 4.png" id="7_7wvwv"]
+[ext_resource type="PackedScene" uid="uid://2kfjeq21c6du" path="res://scenes/death.tscn" id="8_h03ao"]
+[ext_resource type="Texture2D" uid="uid://w50q7hpdtyxh" path="res://images/UI/Stats/Health/Health bar 0.png" id="9_t6axx"]
+[ext_resource type="Texture2D" uid="uid://blsojfbk6wugf" path="res://images/UI/Stats/Health/Helth1.png" id="10_kj32l"]
+[ext_resource type="Texture2D" uid="uid://cmfxo2ewxo1un" path="res://images/UI/Stats/Health/helth bar.png" id="11_0fcg2"]
+[ext_resource type="Script" uid="uid://ducio72b3s1st" path="res://scripts/Singletons/UI/playerstatbar.gd" id="12_bvuis"]
+[ext_resource type="PackedScene" uid="uid://cpvuemyt56v57" path="res://scenes/UI/PauseMenu.tscn" id="12_kj32l"]
+[ext_resource type="Texture2D" uid="uid://du2v5bxgnjd7b" path="res://images/UI/Stats/Hunger/Hunger bar 0.png" id="12_syq1e"]
+[ext_resource type="Texture2D" uid="uid://daat7lxig261k" path="res://images/UI/Stats/Hunger/Hunger Icon.png" id="13_bvuis"]
+[ext_resource type="Texture2D" uid="uid://cbv6mqskvvpnh" path="res://images/UI/Stats/Hunger/Hunger Bar.png" id="14_72mkl"]
+[ext_resource type="Texture2D" uid="uid://cinpnqv1kp7yd" path="res://images/UI/Stats/Thirst/Thirst bar 0.png" id="15_riety"]
+[ext_resource type="Texture2D" uid="uid://c0jyuwty7cei3" path="res://images/UI/Stats/Thirst/thirst icon.png" id="16_r44e2"]
+[ext_resource type="Texture2D" uid="uid://cbqqb0mub0etx" path="res://images/UI/Stats/Thirst/Thirst bar.png" id="17_7frj2"]
+[ext_resource type="Texture2D" uid="uid://cj3r5l6nmhku3" path="res://images/UI/Stats/Samuel health bar icon.png" id="19_dm2wl"]
 
-[sub_resource type="Theme" id="Theme_w33oh"]
-default_font = ExtResource("1_8lowj")
-default_font_size = 24
+[sub_resource type="Gradient" id="Gradient_18exe"]
+colors = PackedColorArray(0.827451, 0, 0.137255, 0.419608, 0.827, 0, 0.137, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0jeyp"]
+gradient = SubResource("Gradient_18exe")
+fill_from = Vector2(0.494624, 0)
+fill_to = Vector2(0.521505, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cg4gw"]
+texture = SubResource("GradientTexture2D_0jeyp")
+
+[sub_resource type="Gradient" id="Gradient_y5tme"]
+resource_local_to_scene = true
+colors = PackedColorArray(0.287784, 0.312084, 1, 0.42, 0.286, 0.314, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_18exe"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_y5tme")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.510753, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0jeyp"]
+texture = SubResource("GradientTexture2D_18exe")
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_0jeyp"]
+frames = 4
+speed_scale = 4.0
+frame_0/texture = ExtResource("4_18exe")
+frame_1/texture = ExtResource("5_xh8q5")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("6_h03ao")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("7_7wvwv")
+frame_3/duration = 1.0
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_w33oh")
+theme = ExtResource("1_y5tme")
 script = ExtResource("1_6sjk5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="UpgradeMenu" parent="." instance=ExtResource("3_y5tme")]
+visible = false
 layout_mode = 1
-anchors_preset = -1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+
+[node name="RemovingDisplay" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 171.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_cg4gw")
+
+[node name="Label2" type="Label" parent="RemovingDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_right = 5.0
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -72.5
+offset_right = 4.0
+offset_bottom = -44.5
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0.961654, 0, 0.217181, 1)
+text = "Removing.."
 
-[node name="hunger" type="ProgressBar" parent="VBoxContainer"]
-modulate = Color(1, 0.583333, 0, 1)
-layout_mode = 2
+[node name="BuildingDisplay" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 171.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0jeyp")
 
-[node name="thirst" type="ProgressBar" parent="VBoxContainer"]
-modulate = Color(0, 1, 0.983333, 1)
-layout_mode = 2
+[node name="Label2" type="Label" parent="BuildingDisplay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -71.5
+offset_right = 18.0
+offset_bottom = -43.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0.493338, 0.393249, 1, 1)
+text = "Building..."
 
-[node name="temp" type="ProgressBar" parent="VBoxContainer"]
-modulate = Color(0.825833, 1, 0.05, 1)
+[node name="Death" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Death"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Death"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+texture = SubResource("AnimatedTexture_0jeyp")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Death"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="Death/MarginContainer"]
 layout_mode = 2
+text = "Time alive: 1:00
+Upgrades Collected: 10
+Damage Taken: 0"
+
+[node name="Health" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 471.0
+offset_right = 185.0
+offset_bottom = 511.0
+scale = Vector2(4, 4)
+value = 100.0
+texture_under = ExtResource("9_t6axx")
+texture_over = ExtResource("10_kj32l")
+texture_progress = ExtResource("11_0fcg2")
+script = ExtResource("12_bvuis")
+threshold_perc = 10.0
+
+[node name="Hunger" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 537.0
+offset_right = 220.0
+offset_bottom = 577.0
+scale = Vector2(4, 4)
+value = 100.0
+texture_under = ExtResource("12_syq1e")
+texture_over = ExtResource("13_bvuis")
+texture_progress = ExtResource("14_72mkl")
+script = ExtResource("12_bvuis")
+threshold_perc = 2.0
+
+[node name="Thirst" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 592.0
+offset_right = 191.0
+offset_bottom = 632.0
+scale = Vector2(4, 4)
+value = 100.0
+texture_under = ExtResource("15_riety")
+texture_over = ExtResource("16_r44e2")
+texture_progress = ExtResource("17_7frj2")
+script = ExtResource("12_bvuis")
+threshold_perc = 2.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("12_kj32l")]
+visible = false
+layout_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -160.0
+offset_right = 39.0
+offset_bottom = -120.0
+grow_vertical = 0
+scale = Vector2(4, 4)
+texture = ExtResource("19_dm2wl")
+
+[node name="Timer" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "1:100swd"
+
+[node name="Death2" parent="." instance=ExtResource("8_h03ao")]
+layout_mode = 1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bdqexil7x13m1"]
 
-[ext_resource type="Script" path="res://broad.gd" id="1_tr2l0"]
+[ext_resource type="Script" uid="uid://r3sebikdxy7q" path="res://broad.gd" id="1_tr2l0"]
 [ext_resource type="Texture2D" uid="uid://xvtxeuvbp12u" path="res://images/stations/oven(off).png" id="2_ak00h"]
 
 [node name="Slot" type="PanelContainer"]

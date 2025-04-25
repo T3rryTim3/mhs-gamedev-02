@@ -23,6 +23,9 @@ signal force_applied
 
 ## Healthbar placement offset (Starting from bottom-center of the sprite)
 @export var health_bar_offset:Vector2 = Vector2.ZERO
+
+## Effect immunities
+@export var effect_immunities:Array[EffectData.EffectTypes]
 #endregion
 
 #region Other vars
@@ -34,6 +37,9 @@ var stat_bar = preload("res://scenes/Base/health_bar.tscn")
 
 ## Current force applied on the object. 'z' corresponds to the visual height of the entity.
 var force:Vector3 = Vector3.ZERO
+
+## Damage audio stream player
+var dam_sound:AudioStreamPlayer2D
 
 ## Height off of the ground - Only affects sprite visual
 var height:float = 0
@@ -49,6 +55,9 @@ var max_health:float
 
 ## Array of currently applied effects
 var effects:Array = []
+
+## Coefficient of force applied to the entity
+@export var fling_coef:float = 1.0
 
 ## List of entity 'stats' (players have hunger, thirst, etc.) - Used for effects
 var state:Dictionary = {}
@@ -77,12 +86,12 @@ class DrainFactor: ## An individual factor affecting a state item's drain
 	var type:DrainFactorTypes
 	var enabled:bool
 	
-	func _init(drain_id:String, drain_num:float, drain_type:DrainFactorTypes, enabled:bool=false):
+	func _init(drain_id:String, drain_num:float, drain_type:DrainFactorTypes, on:bool=false):
 		self.id = drain_id
 		self.num = drain_num
 		self.type = drain_type
-		self.enabled = enabled
-	
+		self.enabled = on
+
 	func apply(input:float) -> float: ## Apply the factor
 		if not enabled:
 			return input
@@ -127,6 +136,8 @@ class StateItem: ## Data for a property of the entity (thirst, temp, etc.)
 
 #region Effects
 func add_effect(effect:EffectData.EffectTypes, duration:float, strength:float): ## Add an effect to the entity
+	if effect in effect_immunities:
+		return
 	var new = EffectData.Effect.new(effect, duration, strength, self)
 	effects.append(new)
 	new.connect("removed", effects.erase.bind(new))
@@ -173,7 +184,7 @@ func _movement(_delta) -> void: ## Used in subclasses for movement
 	pass
 
 func _process(delta) -> void:
-	health_bar.visible = show_health
+	health_bar.visible = show_health and health < max_health
 	_apply_effects(delta)
 	for k in state.keys(): # Clamp stats
 		if state[k] is StateItem:
@@ -206,7 +217,7 @@ func apply_force(applied:Vector2): ## Apply force to the entity
 	var new_applied:Vector3 = Vector3(applied.x, applied.y, 0)
 	new_applied *= move_influence
 	new_applied.z = (abs(applied.y) + abs(applied.x)) / 80
-	force += new_applied
+	force += new_applied * fling_coef
 	
 	if applied.length() > 0:
 		force_applied.emit()
@@ -218,6 +229,8 @@ func _death() -> void: ## Calls upon health hitting zero. Will queue free by def
 
 func damage(amount:float) -> void: # Deal damage to the entity
 	damage_mod_coef = 1
+	if dam_sound.is_inside_tree():
+		dam_sound.play()
 	_update_health(health - amount)
 
 func heal(amount:float) -> void:
@@ -264,5 +277,12 @@ func _ready():
 	health_bar.size_scale = health_bar_scale
 
 	add_child(health_bar)
+
+	health_bar.position += sprite.offset
+
+	# Damage sound
+	dam_sound = AudioStreamPlayer2D.new()
+	dam_sound.stream = load("res://Audio/SFX/hit.wav")
+	add_child(dam_sound)
 	
 	#add_effect(EffectData.EffectTypes.BURNING, 10, 1)

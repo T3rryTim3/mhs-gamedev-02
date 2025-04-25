@@ -1,0 +1,110 @@
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://csflkx7jsvvxb"]
+
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_boeld"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7g6h"]
+
+[sub_resource type="Gradient" id="Gradient_abix8"]
+colors = PackedColorArray(0.994353, 0.895384, 0.485571, 1, 0.999424, 0.885879, 0.494501, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_abix8"]
+gradient = SubResource("Gradient_abix8")
+width = 12
+height = 12
+
+[sub_resource type="Gradient" id="Gradient_2450e"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j4w4u"]
+gradient = SubResource("Gradient_2450e")
+width = 12
+height = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_j4w4u"]
+color = Color(0.73, 0.5256, 0.3212, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_c5buk"]
+color = Color(1, 0.762616, 0.490618, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_t5cwq"]
+color = Color(0.10937, 0.0394138, 0.00765468, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqhca"]
+bg_color = Color(0.477147, 0.309491, 9.62615e-08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_no5tn"]
+bg_color = Color(0.684645, 0.603054, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mch0r"]
+bg_color = Color(0.55, 0.393983, 0.143, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg1yn"]
+bg_color = Color(0.820244, 0.527457, 0.0536971, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wp2lp"]
+bg_color = Color(1, 0.601201, 0.458567, 0.737255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abix8"]
+bg_color = Color(0.84, 0.64036, 0.3192, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5cwq"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.656307, 0.446743, 0.225054, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4w4u"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.761546, 0.528782, 0.285863, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5buk"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.62, 0.434207, 0.2356, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[resource]
+default_font = ExtResource("1_boeld")
+default_font_size = 27
+Button/styles/focus = SubResource("StyleBoxEmpty_w7g6h")
+Button/styles/normal = null
+HSlider/icons/grabber = SubResource("GradientTexture2D_abix8")
+HSlider/icons/grabber_disabled = null
+HSlider/icons/grabber_highlight = SubResource("GradientTexture2D_j4w4u")
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = SubResource("StyleBoxLine_j4w4u")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxLine_c5buk")
+HSlider/styles/slider = SubResource("StyleBoxLine_t5cwq")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_oqhca")
+OptionButton/styles/hover_mirrored = SubResource("StyleBoxFlat_no5tn")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_mch0r")
+OptionButton/styles/normal_mirrored = SubResource("StyleBoxFlat_fg1yn")
+OptionButton/styles/pressed = null
+Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_wp2lp")
+TabContainer/colors/font_selected_color = Color(1, 1, 1, 1)
+TabContainer/colors/font_unselected_color = Color(0.79, 0.79, 0.79, 1)
+TabContainer/styles/panel = SubResource("StyleBoxFlat_abix8")
+TabContainer/styles/tab_disabled = null
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_t5cwq")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_j4w4u")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_c5buk")

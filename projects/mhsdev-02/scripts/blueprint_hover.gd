@@ -3,8 +3,18 @@ class_name BlueprintHover
 
 @onready var sprite = $Sprite2D
 
-var station:StationData.Stations
+var station:StationData.Stations : set = _update_sprite
 var valid = false
+
+func _update_sprite(new:StationData.Stations):
+	if station != new:
+		$Sprite2D.texture = load(StationData.get_station_texture(new))
+
+	var size = $Sprite2D.texture.get_size()
+	$CollisionShape2D.shape.size = size / 1.2
+	$ColorRect.size =  size
+	$ColorRect.position = size * -1/2
+	station = new
 
 func update() -> void:
 	var collide = false
