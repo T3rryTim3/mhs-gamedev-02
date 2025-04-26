@@ -201,6 +201,8 @@ func _ready():
 	# Add shader for selection
 	sprite.material = load("res://Resources/station_select_shader.tres")
 
+	global_position -= sprite.offset
+
 	# Emit station built signal. Used for the tutorial.
 	_get_level().station_built.emit()
 

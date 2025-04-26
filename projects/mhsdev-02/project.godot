@@ -28,6 +28,7 @@ Config="*res://scripts/Singletons/general_config.gd"
 Upgrades="*res://scripts/Singletons/upgrades.gd"
 Globals="*res://scripts/Singletons/globals.gd"
 Gamestats="*res://scripts/Singletons/gamestats.gd"
+Achievements="*res://scripts/Singletons/achievements.gd"
 
 [display]
 
@@ -37,6 +38,7 @@ window/stretch/mode="canvas_items"
 
 station=""
 player=""
+MapSpawned="An item which was spawned by the map."
 
 [input]
 

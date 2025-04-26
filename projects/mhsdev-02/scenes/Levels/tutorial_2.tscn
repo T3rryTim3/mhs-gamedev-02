@@ -608,7 +608,7 @@ text = "Task: Pick up wood from the ground."
 position = Vector2(-203, -75)
 
 [node name="Item" parent="." instance=ExtResource("10_s0pjx")]
-position = Vector2(7, -103)
+position = Vector2(-87, -69)
 id = 0
 
 [node name="OvenPos" type="Node2D" parent="."]

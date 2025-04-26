@@ -31,6 +31,9 @@ enum ThirstLevel {
 ## Sprint speed (Multiplier)
 @export var sprint_speed:float = 1.5
 
+## The farthest that the player can drop items
+@export var max_drop_distance:float = 50
+
 ## Stamina per second drained while sprining
 @export var stamina_drain:float = 20
 
@@ -214,26 +217,29 @@ func highlight_nearest(): ## Highlight the nearest item
 	var nearest_distance:float = INF
 
 	# Loop through items
-	for x in collector.pickup_area.get_overlapping_bodies():
-		var distance = global_position.distance_to(x.global_position)
-
-		if x is Item and distance < nearest_distance:
-
-			# Update if its the closest
-			if not (x.get_parent() is Collector):
-				if nearest:
-					nearest.disable_outline()
-				nearest = x
-				nearest_distance = distance
-
-		elif x is Item:
-			x.disable_outline()
-
+	#for x in collector.pickup_area.get_overlapping_bodies():
+		#var distance = global_position.distance_to(x.global_position)
+#
+		#if x is Item and distance < nearest_distance:
+#
+			## Update if its the closest
+			#if not (x.get_parent() is Collector):
+				#if nearest:
+					#nearest.disable_outline()
+				#nearest = x
+				#nearest_distance = distance
+#
+		#elif x is Item:
+			#x.disable_outline()
+	nearest = collector._get_nearest_item(false, -1, get_global_mouse_position())
 	if nearest:
 		if len(collector.current_resources) < collector.stack_limit:
 			nearest.enable_outline()
 		else:
 			nearest.disable_outline()
+	for x in collector.pickup_area.get_overlapping_bodies():
+		if x is Item and not (x == nearest):
+			x.disable_outline()
 
 func _on_pickup_range_body_exited(body: Node2D) -> void:
 	if body is Item:
@@ -353,11 +359,15 @@ func _process(delta) -> void:
 			Config.PLAYER_BASE_ITEM_LIMIT+
 			_get_upgrade(Upgrades.Upgrades.STRENGTH)
 		)
-		if not collector.add_nearest_item():
-			collector.drop_item()
+		if not collector.add_nearest_item(-1, get_global_mouse_position()):
+			var dir = global_position.direction_to(get_global_mouse_position())
+			var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+			collector.drop_item(dir*distance + global_position)
 	
 	elif Input.is_action_just_pressed("drop"):
-		collector.drop_item()
+		var dir = global_position.direction_to(get_global_mouse_position())
+		var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+		collector.drop_item(dir*distance + global_position)
 
 	# Update item progress
 	var item = _used_item()

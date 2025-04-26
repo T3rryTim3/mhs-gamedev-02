@@ -136,6 +136,7 @@ func _on_collector_item_given(item) -> void:
 	for k in cost.keys():
 		if item.id == k and cost[k] - spent_resources[k] > 0:
 			collector.add_item(item)
+			collector.delete_item()
 			spent_resources[k] += 1
 	scale_val = 1.2
 	

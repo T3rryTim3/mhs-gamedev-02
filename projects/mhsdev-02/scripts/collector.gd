@@ -197,6 +197,12 @@ func cycle_items() -> void: ## Rotates the items around in ordering
 	var last_item = current_resources.pop_back()
 	current_resources.insert(0, last_item)
 
+func delete_item() -> void: ## Delete the first item in the stack
+	if len(current_resources) <= 0:
+		return
+	current_resources[0].queue_free()
+	_remove_item(0)
+
 func _remove_item(item_id:int) -> void: ## Remove an item from current_resources by identifier
 	for i in current_resources.size():
 		if !is_instance_valid(current_resources[i]):
@@ -210,7 +216,7 @@ func clear_items() -> void: ## Remove all items in the collector
 		current_resources.remove_at(i)
 		return
 
-func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the nearest Item node not currently in a collector.
+func _get_nearest_item(reset:bool = true, force_type: = -1, pos:Vector2 = pickup_pos_node.global_position) -> Item: ## Get the nearest Item node not currently in a collector.
 	var nearest_distance:float = INF
 	var nearest_obj:PhysicsBody2D
 
@@ -218,7 +224,7 @@ func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the 
 	for body in pickup_area.get_overlapping_bodies():
 		if not (body is Item):
 			continue
-		var distance = pickup_pos_node.global_position.distance_to(body.global_position)
+		var distance = pos.distance_to(body.global_position)
 		if distance < nearest_distance:
 
 			# Prevent collector stealing unless enabled
@@ -246,8 +252,8 @@ func _get_nearest_item(reset:bool = true, force_type: = -1) -> Item: ## Get the 
 
 	return nearest_obj
 
-func add_nearest_item(force_type = -1) -> bool:
-	var nearest_item = _get_nearest_item(true, force_type)
+func add_nearest_item(force_type = -1, pos:Vector2 = pickup_pos_node.global_position) -> bool:
+	var nearest_item = _get_nearest_item(true, force_type, pos)
 	if not nearest_item:
 		return false
 	return add_item(nearest_item)
@@ -320,10 +326,13 @@ func destroy_item() -> void: ## Destroy the top item
 	
 	item.queue_free()
 
-func _reparent_item(item:Item): ## Reparent item to the level
+func _reparent_item(item:Item, pos = null): ## Reparent item to the level
 	reset_item_stats(item)
 
-	item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
+	if pos and pos is Vector2:
+		item.global_position = pos
+	else:
+		item.position = drop_pos_node.position + Vector2(randi_range(-drop_offset, drop_offset), randi_range(-drop_offset, drop_offset))
 	var glob_pos:Vector2 = item.global_position
 
 	# Reparent item to root
@@ -351,10 +360,11 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 			item.get_parent().reset_item_stats(item)
 		add_item(item, true)
 
-func drop_item() -> bool: ## Drop the topmost item.
+func drop_item(pos = null) -> bool: ## Drop the topmost item.
 	# Validate request
 	if len(current_resources) == 0:
 		return false
+
 
 	var near_collector
 	for area in $PickupRange.get_overlapping_areas():
@@ -366,14 +376,17 @@ func drop_item() -> bool: ## Drop the topmost item.
 
 	var item:Item = current_resources[-1] # Get topmost item
 
+	if pos and pos is Vector2:
+		item.global_position = pos
+
 	# Drop item or give it to an overlapping collector
 	if near_collector:
 		item.global_position = near_collector.get_parent().pickup_pos_node.global_position
 		near_collector.get_parent().item_entered(item)
 		if item.get_parent() == self: # If the collector did not accept the item
-			_reparent_item(item)
+			_reparent_item(item, pos)
 	else:
-		_reparent_item(item)
+		_reparent_item(item, pos)
 	
 	if pickup_sound:
 		item.play_pickup_sound()

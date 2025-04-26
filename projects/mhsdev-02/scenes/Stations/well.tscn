@@ -20,10 +20,10 @@ move_influence = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ubvcw")
-offset = Vector2(0, -48)
+offset = Vector2(0, -36)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7.75)
+position = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]

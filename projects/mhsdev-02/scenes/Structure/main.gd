@@ -14,6 +14,35 @@ enum Scenes {
 	PAUSE
 }
 
+func save():
+	var save_dict = {
+		"achievements": Achievements.current,
+	}
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	save_file.store_line(JSON.stringify(save_dict))
+
+func load_game():
+	if not FileAccess.file_exists("user://savegame.save"):
+		return # Error! We don't have a save to load.
+
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var save_dict = JSON.parse_string(save_file.get_as_text())
+	Achievements.current = save_dict["achievements"]
+	print(save_dict)
+
+
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed:
+			match event.keycode:
+				KEY_Y:
+					print("Granting Achievement")
+					Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
+					print("Saving...")
+					save()
+					print("Loading...")
+					load_game()
+
 func get_all(node: Node):
 	var all_children := []
 	for child in node.get_children():
@@ -44,7 +73,7 @@ func _load_scene(scene:Scenes, level_mode:Config.GameDifficulties=Config.GameDif
 		Scenes.LEVEL_FIELD:
 			new_scene = load("res://scenes/Levels/field.tscn").instantiate()
 		Scenes.LEVEL_TUTORIAL:
-			new_scene = load("res://scenes/Levels/tutorial.tscn").instantiate()
+			new_scene = load("res://scenes/Levels/tutorial_2.tscn").instantiate()
 		Scenes.PAUSE:
 			new_scene = load("res://scenes/UI/PauseMenu.tscn").instantiate()
 		_:
@@ -74,6 +103,8 @@ func _ready() -> void:
 
 	get_tree().connect("node_added", _connect_ui_sound) # Type checking is done within fucntion
 	#child_entered_tree.connect(func(): print("NEW ONE 11"))
+
+	load_game()
 
 func _pause():
 	_load_scene(Scenes.PAUSE)
