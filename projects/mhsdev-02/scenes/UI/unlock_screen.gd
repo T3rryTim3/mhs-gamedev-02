@@ -1,7 +1,7 @@
 extends PanelContainer
 
 @onready var panel_object = preload("res://panel_container.tscn")
-@onready var progress = get_node("$MarginContainer/VBoxContainer/ScrollContainer/PanelContainer/ProgressBar")
+@onready var progress = get_node("res://panel_container.tscn")
 
 
 func _on_button_pressed() -> void:
@@ -10,21 +10,15 @@ func _on_button_pressed() -> void:
 func _load_achievements() -> void:
 	for child in $MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		child.queue_free()
-	var achievements = {
-		1: {
-			"name": "Addict",
-			"desc": "Beat the game 10 times",
-			"icon": "",
-			"max": 10
-		}
-	}
+	const data = preload("res://scripts/Singletons/achievements.gd")
+	
 	var current = {
 		1: 3
 	}
 	
-	for k in achievements:
+	for k in data:
 		var new_panel = panel_object.instantiate()
-		new_panel.load_achievement(achievements[k], current[k])
+		new_panel.load_achievement(data[k], current[k])
 		$MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer.add_child(new_panel)
 
 
