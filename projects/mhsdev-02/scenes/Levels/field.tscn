@@ -940,11 +940,11 @@ camera_limit = NodePath("../../CameraLimit")
 
 [node name="Wheat Crop2" parent="Map" instance=ExtResource("5_viceh")]
 y_sort_enabled = true
-position = Vector2(89, -117)
+position = Vector2(89, -153)
 
 [node name="Wheat Crop3" parent="Map" instance=ExtResource("5_viceh")]
 y_sort_enabled = true
-position = Vector2(245, -118)
+position = Vector2(245, -154)
 
 [node name="Quarry" parent="Map" instance=ExtResource("7_tx5fc")]
 y_sort_enabled = true

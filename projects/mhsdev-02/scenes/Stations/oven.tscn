@@ -31,7 +31,7 @@ collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_onh8p")
 station_data = 4
-produce_time = 15.0
+produce_time = 12.0
 progress_bar_texture = ExtResource("2_tqr35")
 sprite = NodePath("Sprite2D")
 move_influence = 0.01
@@ -102,7 +102,7 @@ position = Vector2(53, 9)
 position = Vector2(52, 48)
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(0, 38)
+position = Vector2(0, 13)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 enabled = false

@@ -30,8 +30,8 @@ var THIRST_UPGRADE_INCREASE = 20
 var STAMINA_UPGRADE_INCREASE = 20
 
 # Stat drain stats
-var DRAIN_HUNGER:float = 0.38
-var DRAIN_THIRST:float = 0.53
+var DRAIN_HUNGER:float = 0.33
+var DRAIN_THIRST:float = 0.46
 
 # Upgrades given every machine power
 var UPGRADE_COUNT = 3
@@ -46,6 +46,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUTORIAL:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 100000
+			data.item_spawn_cooldown = 2.5
 			data.temp_drain = 0
 			return data
 		

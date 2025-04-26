@@ -3,3 +3,6 @@ extends Node
 
 ## Amount of time spent on the current level
 var level_time:float = 0
+
+func initialize():
+	level_time = 0
