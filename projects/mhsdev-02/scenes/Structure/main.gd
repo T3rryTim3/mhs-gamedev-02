@@ -119,4 +119,3 @@ func _ready() -> void:
 func _pause():
 	_load_scene(Scenes.PAUSE)
 	print(get_tree().current_scene)
-

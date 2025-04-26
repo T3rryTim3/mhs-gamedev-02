@@ -41,15 +41,17 @@ var data = {
 	}
 }
 
-var current = {
-	
-}
+var current = {}
 
-#func _ready():
-	#for k in data:
-		#current[k] = 0
+func _ready():
+	print("achievements Singleton Initialized")
+	for k in data.keys():
+		current[k] = 0
 
 func raise_progress(achievement:Achievements.Achievements, increase:int=1): ## Increases the progress for a given achievement.
 	if not achievement in current:
 		current[achievement] = 0
 	current[achievement] = min(data[achievement]["max"], current[achievement] + increase)
+
+func get_data():
+	return data
