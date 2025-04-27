@@ -48,6 +48,10 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 100000
 			data.item_spawn_cooldown = 2.5
 			data.temp_drain = 0
+			data.strength_per_minute = 0.1
+			data.thirst_multi = 0.5
+			data.hunger_multi = 0.5
+			
 			return data
 		
 		#Field Settings
@@ -98,7 +102,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 50
 			data.temp_drain = 1.6
 			data.thirst_multi = 1.5
-			data.hunger = 1
+			data.hunger_multi = 1
 			return data
 		
 		GameDifficulties.TUNDRA_MAYHEM:
@@ -116,6 +120,21 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.thirst_multi = 1.25
 			data.hunger_multi = 0.8
 			return data
+			
+		GameDifficulties.CUSTOM:
+			var data = Level.LevelData.new()
+			var sliders_root = get_node("/root/select/CustomSliders")
+			data.event_cooldown = sliders_root.get_node("Cooldown").value
+			data.item_spawn_cooldown = sliders_root.get_node("ItemSpawn").value
+			data.temp_drain = sliders_root.get_node("Temperature").value
+			data.strength_per_minute = sliders_root.get_node("Events").value
+			data.thirst_multi = sliders_root.get_node("Thirst").value
+			data.hunger_multi = sliders_root.get_node("Hunger").value
+	
+			return data
+			
+			
+			
 		_:
 			return Level.LevelData.new()
 

@@ -49,12 +49,20 @@ var levels = [
 				]
 			}
 		]
+	},
+	{
+		"name": "Custom",
+		"description": "A sandbox to play as you wish",
+		"scene_enum": "p",
+		"image_path": "res://images/placeholder.png"
+		
 	}
 ]
 
 var current_level_index = 0
 @onready var mode_dropdown = $PanelContainer/MarginContainer/VBoxContainer/Difficulty
 @onready var descriptions = $PanelContainer/MarginContainer/VBoxContainer/Descriptions
+@onready var custom_sliders = $PanelContainer/MarginContainer/VBoxContainer/CustomSliders
 
 
 #func update_button(button):
@@ -68,6 +76,7 @@ func _ready():
 	#var levelbutton = $TextureButton
 	var forward = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward
 	var back = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back
+	custom_sliders.visible = false
 	_update_data()
 
 	
