@@ -90,8 +90,8 @@ func _update_data(): ## Updates based on the current scene selected
 	mode_dropdown.clear()
 	for mode_index in len(level["modes"]):
 		mode_dropdown.add_item(level["modes"][mode_index]["name"], mode_index)
-	$PanelContainer2/MarginContainer/Title.text = levels[current_level_index]["name"]
-	$PanelContainer2/MarginContainer2/LevelDesk.text = levels[current_level_index]["description"]
+	$PanelContainer2/MarginContainer/VBoxContainer/Title.text = levels[current_level_index]["name"]
+	$PanelContainer2/MarginContainer/VBoxContainer/LevelDesk.text = levels[current_level_index]["description"]
 
 func _on_Forward_pressed():
 	current_level_index += 1

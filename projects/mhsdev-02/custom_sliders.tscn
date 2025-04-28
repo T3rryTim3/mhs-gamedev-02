@@ -43,6 +43,9 @@ layout_mode = 2
 
 [node name="Cooldown" type="HSlider" parent="VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
+min_value = 1.0
+max_value = 10000.0
+value = 1.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -67,6 +70,9 @@ layout_mode = 2
 
 [node name="ItemSpawn" type="HSlider" parent="VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
+min_value = 1.0
+max_value = 100000.0
+value = 1.0
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -91,6 +97,8 @@ layout_mode = 2
 
 [node name="Temperature" type="HSlider" parent="VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
+max_value = 2.0
+step = 0.25
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -115,6 +123,10 @@ layout_mode = 2
 
 [node name="Events" type="HSlider" parent="VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
+min_value = 1.0
+max_value = 2.0
+step = 0.25
+value = 1.0
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -139,6 +151,10 @@ layout_mode = 2
 
 [node name="Thirst" type="HSlider" parent="VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+step = 0.05
+value = 1.0
 
 [node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -163,3 +179,7 @@ layout_mode = 2
 
 [node name="Hunger" type="HSlider" parent="VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+step = 0.05
+value = 1.0
