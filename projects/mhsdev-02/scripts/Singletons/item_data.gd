@@ -89,6 +89,7 @@ func use_item(item:Item, player:Player, delta:float):
 
 	# If item fully used
 	if item.item_usage_progress >= item.item_usage_max:
+		player.emit_signal("item_used", item)
 		match item.id:
 			ItemTypes.WOOD:
 				pass

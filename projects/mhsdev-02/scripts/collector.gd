@@ -12,6 +12,9 @@ signal item_reset
 ## Fires when a collector drops an item into this one.
 signal item_given
 
+## Fires when the resources in it are changed
+signal resources_updated
+
 ## Different types of crate visuals
 enum CrateVisuals {
 	NONE,
@@ -84,14 +87,21 @@ var auto_collect_progress:float = 0
 var current_item_id:int = 0
 
 ## Current resources in the stack. (FILO)
-var current_resources:Array = []
+var current_resources:Array = [] : set = _set_resources
+
+var starting_range_pos:Vector2 = Vector2.ZERO
 
 ## Crate object
 var display:Sprite2D
 #endregion
 
+func _set_resources(new):
+	current_resources = new
+	resources_updated.emit()
+
 #region Built in
 func _ready() -> void:
+	starting_range_pos = $PickupRange.position
 	if crate_type == CrateVisuals.ITEM_CRATE:
 		# Add crate
 		display = display_scn.instantiate()

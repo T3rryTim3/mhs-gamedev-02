@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dl7r51dy6jv3n"]
+[gd_scene load_steps=29 format=3 uid="uid://dl7r51dy6jv3n"]
 
 [ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_y5tme"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://c0jyuwty7cei3" path="res://images/UI/Stats/Thirst/thirst icon.png" id="16_r44e2"]
 [ext_resource type="Texture2D" uid="uid://cbqqb0mub0etx" path="res://images/UI/Stats/Thirst/Thirst bar.png" id="17_7frj2"]
 [ext_resource type="Texture2D" uid="uid://cj3r5l6nmhku3" path="res://images/UI/Stats/Samuel health bar icon.png" id="19_dm2wl"]
+[ext_resource type="Texture2D" uid="uid://btcwci6xrmgxj" path="res://images/UI/hand.png" id="21_72mkl"]
 
 [sub_resource type="Gradient" id="Gradient_18exe"]
 colors = PackedColorArray(0.827451, 0, 0.137255, 0.419608, 0.827, 0, 0.137, 0)
@@ -253,3 +254,89 @@ text = "1:100swd"
 
 [node name="Death2" parent="." instance=ExtResource("8_h03ao")]
 layout_mode = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.513
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0239868
+offset_top = -78.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HeldItems" type="VBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = -25.0
+offset_right = 64.0
+offset_bottom = -181.0
+grow_vertical = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="HeldItems"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="HeldItems"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="HeldItems"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="HeldItems"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="HeldItems"]
+layout_mode = 2
+texture = ExtResource("21_72mkl")
+expand_mode = 5
+stretch_mode = 5

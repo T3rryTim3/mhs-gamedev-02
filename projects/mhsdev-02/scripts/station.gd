@@ -192,6 +192,7 @@ func _ready():
 
 	# Used for checking if the station is colliding with other stations during placement
 	var collider = blueprint_collider.instantiate()
+	collider.position += sprite.offset
 	add_child(collider)
 	collider.get_child(0).shape.size = get_sprite_texture().get_size()
 

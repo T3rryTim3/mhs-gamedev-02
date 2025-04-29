@@ -27,6 +27,7 @@ script = ExtResource("1_ywkvs")
 station_data = 7
 progress_bar_texture = ExtResource("2_7woxb")
 sprite = NodePath("Sprite2D")
+move_influence = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_b1r6p")

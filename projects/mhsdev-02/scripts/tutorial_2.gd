@@ -8,7 +8,6 @@ func _ready():
 	level_data.thirst_multi = 0
 	level_data.event_cooldown = 1000000000
 	level_data.item_spawn_cooldown = 1000000000
-	load_machine_step()
 	current_event_cooldown = -100000
 
 func load_bread_step(): ## Loads everything for the bread cooking tutorial step 

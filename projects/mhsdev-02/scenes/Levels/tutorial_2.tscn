@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://dr2f5o623r6j8"]
+[gd_scene load_steps=13 format=4 uid="uid://dr2f5o623r6j8"]
 
 [ext_resource type="Script" uid="uid://bkwpqv2qd6esc" path="res://scripts/tutorial_2.gd" id="1_4wtvl"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="3_uwxpi"]
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="4_0a0ye"]
 [ext_resource type="Texture2D" uid="uid://c5th77juet2mm" path="res://images/stations/forest.png" id="7_83ma5"]
-[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="8_4wtvl"]
 [ext_resource type="PackedScene" uid="uid://d0j0sjf62c3tn" path="res://scenes/Base/blueprint.tscn" id="9_6b36i"]
 [ext_resource type="PackedScene" uid="uid://widdd1xl7ari" path="res://scenes/Stations/the_machine.tscn" id="9_k5src"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="10_s0pjx"]
@@ -587,22 +586,6 @@ texture_scale = 1.48
 y_sort_enabled = true
 position = Vector2(-620, -54)
 selected_costs = 1
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("8_4wtvl")
-text = "Task: Pick up wood from the ground."
 
 [node name="Blueprint" parent="." instance=ExtResource("9_6b36i")]
 position = Vector2(-203, -75)
