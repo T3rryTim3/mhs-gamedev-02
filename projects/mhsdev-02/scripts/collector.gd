@@ -87,17 +87,13 @@ var auto_collect_progress:float = 0
 var current_item_id:int = 0
 
 ## Current resources in the stack. (FILO)
-var current_resources:Array = [] : set = _set_resources
+var current_resources:Array = []
 
 var starting_range_pos:Vector2 = Vector2.ZERO
 
 ## Crate object
 var display:Sprite2D
 #endregion
-
-func _set_resources(new):
-	current_resources = new
-	resources_updated.emit()
 
 #region Built in
 func _ready() -> void:
@@ -220,6 +216,7 @@ func _remove_item(item_id:int) -> void: ## Remove an item from current_resources
 		if current_resources[i].collection_id == item_id:
 			current_resources.remove_at(i)
 			return
+	resources_updated.emit()
 
 func clear_items() -> void: ## Remove all items in the collector
 	for i in current_resources.size():
@@ -305,7 +302,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 		item.collect_progress = pickup_time
 
 	item_collected.emit()
-	
+	resources_updated.emit()
+
 	if decay_coef == 0:
 		item.show_health = false
 
@@ -333,7 +331,7 @@ func destroy_item() -> void: ## Destroy the top item
 
 	var item:Item = current_resources[-1] # Get topmost item
 	reset_item_stats(item)
-	
+
 	item.queue_free()
 
 func _reparent_item(item:Item, pos = null): ## Reparent item to the level
@@ -353,6 +351,8 @@ func _reparent_item(item:Item, pos = null): ## Reparent item to the level
 
 	# Reset position back
 	item.global_position = glob_pos
+
+	resources_updated.emit()
 
 func get_topmost_item() -> Item: ## Returns the topmost item.
 	if len(current_resources) == 0:

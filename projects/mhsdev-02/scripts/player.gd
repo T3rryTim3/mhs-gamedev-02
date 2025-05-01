@@ -79,7 +79,7 @@ var current_sprint_cooldown:float = 0.0
 var delete_mode:bool = false
 
 ## Time until next hunger damage tick
-var hunger_tick:float = 1.5
+var hunger_tick:float = 2.5
 
 ## Damage per hunger tick
 var hunger_damage:float = 1

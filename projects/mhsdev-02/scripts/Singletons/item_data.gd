@@ -65,7 +65,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 		ItemTypes.WHEAT_SEEDS:
 			health = 3
 			decay_rate = 0
-			img_path = "res://images/items/Wheat Seeds.png"
+			img_path = "res://images/items/Wheat Seeds Bag.png"
 		ItemTypes.APPLE:
 			health = 8
 			decay_rate = 0.1

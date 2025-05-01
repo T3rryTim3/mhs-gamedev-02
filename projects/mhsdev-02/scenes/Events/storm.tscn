@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://db6ulycnywgrc"]
+
+[ext_resource type="Script" uid="uid://dtrel3tdenhpb" path="res://scenes/Events/storm.gd" id="1_hbpd6"]
+[ext_resource type="Texture2D" uid="uid://ddfxp82bdurxa" path="res://images/event/Storm/lightning 1.png" id="3_aj7u2"]
+[ext_resource type="Texture2D" uid="uid://kuorkrr6tkxn" path="res://images/event/Storm/lightning 3.png" id="4_v54kc"]
+[ext_resource type="Texture2D" uid="uid://dh54sj1sjgmm6" path="res://images/event/Storm/Lighnting 2.png" id="5_4ka4a"]
+[ext_resource type="AudioStream" uid="uid://uauxowy0nyjv" path="res://Audio/SFX/Event/volcanoSpawnTest.wav" id="5_hw6sc"]
+[ext_resource type="Texture2D" uid="uid://cn05b4sy3b7am" path="res://images/event/Storm/lighitning 4.png" id="6_4dt60"]
+[ext_resource type="Texture2D" uid="uid://nefdihhb3hrn" path="res://images/event/Storm/litining 5.png" id="7_5u5dn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uu3rc"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_aj7u2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v54kc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4ka4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4dt60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5u5dn")
+}],
+"loop": false,
+"name": &"strike",
+"speed": 10.0
+}]
+
+[node name="Volcano" type="Node"]
+script = ExtResource("1_hbpd6")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="Spawn" type="AudioStreamPlayer2D" parent="StaticBody2D2"]
+scale = Vector2(0.333333, 0.333333)
+stream = ExtResource("5_hw6sc")
+bus = &"SFX"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D2"]
+sprite_frames = SubResource("SpriteFrames_uu3rc")
+animation = &"strike"
+frame = 4
+frame_progress = 1.0

@@ -22,18 +22,22 @@ func _get_level(): ## Finds the first Level ancestor
 	return null
 
 func _update_held_items(): ## Updates the held items display
-	if $HeldItems.get_children_count() != player.collector.stack_limit:
-		for child in $HeldItems.get_children():
-			child.queue_free()
-		for x in range(player.collector.stack_limit):
-			var new_rect = TextureRect.new()
-			new_rect.expand_mode = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
-			new_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			$HeldItems.add_child(new_rect)
-
-	var i:int = 0
-	for child:TextureRect in $HeldItems.get_children():
-		child.texture = load(ItemData.get_item_data(player.collector.current_resources[i])["img_path"])
+	print("Updated")
+	$itemsheld.text = str(len(player.collector.current_resources)) + "/" + str(player.collector.stack_limit)
+	
+	#if $HeldItems.get_children_count() != player.collector.stack_limit:
+		#for child in $HeldItems.get_children():
+			#child.queue_free()
+		#for x in range(player.collector.stack_limit):
+			#var new_rect = TextureRect.new()
+			#new_rect.expand_mode = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
+			#new_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			#$HeldItems.add_child(new_rect)
+#
+	#var i:int = 0
+	#for child:TextureRect in $HeldItems.get_children():
+		#child.texture = load(ItemData.get_item_data(player.collector.current_resources[i])["img_path"])
+	
 
 func _update_mode_display(): # Updates the 'Bulding' and 'Removing' displays as needed
 	if player.delete_mode:
@@ -54,6 +58,8 @@ func _ready():
 	player = _get_level().player
 	player.give_upgrade.connect($UpgradeMenu.display_menu)
 	player.mode_changed.connect(_update_mode_display)
+	player.collector.resources_updated.connect(_update_held_items)
+	EventMan.event_spawned.connect($DisasterDisplay/AnimationPlayer.play.bind("show"))
 	player.death.connect(_player_death)
 	$Death2.player = player
 
@@ -66,11 +72,10 @@ func _ready():
 		]
 		_next_tutorial_step()
 
-	player.collector.resources_updated.connect(_update_held_items)
-
 func _update_stat_bars():
 	$Hunger.value = player.state.hunger.val * 100 / player.state.hunger.val_max
 	$Thirst.value = player.state.thirst.val * 100 / player.state.thirst.val_max
+	$Temp.value = player.state.temp.val * 100 / player.state.temp.val_max
 	$Health.value = player.health * 100 / player.max_health
 
 func _get_key(action:String) -> String: ## Get the string version of an action's event
@@ -183,6 +188,12 @@ func _process(delta: float) -> void:
 		var milliseconds = fmod(Gamestats.level_time, 1) * 100
 		var time_string = "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
 		$Timer.text = time_string
+
+	# Update temperature displays
+	if player.state.temp.val <= 10:
+		$FreezeOverlay.modulate.a = (10 - player.state.temp.val) / 10
+	else:
+		$FreezeOverlay.modulate.a = 0
 
 	#$VBoxContainer/temp.value = player.state.temp.val * 100 / player.state.temp.val_max
 	

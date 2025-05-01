@@ -2,6 +2,8 @@ extends Node
 
 # TODO Call kill() on expired events
 
+signal event_spawned
+
 enum Events {
 	TORNADO,
 	VOLCANO
@@ -61,3 +63,4 @@ func spawn_event(event:Events, parent:Node, strength:float = 1):
 
 	parent.add_child(event_scn)
 	event_scn.spawn()
+	event_spawned.emit()

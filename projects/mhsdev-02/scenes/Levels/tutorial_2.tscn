@@ -53,6 +53,7 @@ health_vignette_curve = SubResource("Curve_6b36i")
 map_limit = NodePath("CameraLimit")
 
 [node name="CameraLimit" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-122.5, 1.5)
 shape = SubResource("RectangleShape2D_5cqmg")
 debug_color = Color(0, 0.61, 0.61, 0.243137)

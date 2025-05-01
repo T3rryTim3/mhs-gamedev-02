@@ -4,6 +4,7 @@ class_name Level
 signal station_built
 signal station_deleted
 signal machine_powered
+signal victory
 
 ## Scene for creating new items
 @onready var item_scn = preload("res://scenes/Base/item.tscn")
@@ -140,6 +141,9 @@ func _ready():
 	strength_increase = level_data.strength_per_minute
 	events = level_data.events
 	spawn_items = level_data.items
+
+func _win(): ## Ends the game in a victory
+	victory.emit()
 
 func _spawn_item():
 

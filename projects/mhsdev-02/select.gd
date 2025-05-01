@@ -54,7 +54,17 @@ var levels = [
 		"name": "Custom",
 		"description": "A sandbox to play as you wish",
 		"scene_enum": "p",
-		"image_path": "res://images/placeholder.png"
+		"image_path": "res://images/placeholder.png",
+		"modes": [
+			{
+				"name": "Tutorial",
+				"leveldata": Config.GameDifficulties.TUTORIAL,
+				"desc": [
+					["x2 Events", Color(1,0,0)],
+					["x2 Events", Color(1,0,0)]
+				]
+			}
+		]
 		
 	}
 ]
@@ -74,12 +84,9 @@ var current_level_index = 0
 
 func _ready():
 	#var levelbutton = $TextureButton
-	var forward = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward
-	var back = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back
 	custom_sliders.visible = false
 	_update_data()
 
-	
 	#update_button(levelbutton)
 
 func _update_data(): ## Updates based on the current scene selected
@@ -125,6 +132,5 @@ func _update_desc():
 		descriptions.add_child(label)
 
 
-func _on_difficulty_item_selected(index: int) -> void:
-	print(current_level_index)
+func _on_difficulty_item_selected(_index: int) -> void:
 	_update_desc()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://05yvts8fokno"]
+[gd_scene load_steps=16 format=4 uid="uid://05yvts8fokno"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="3_qqx7g"]
@@ -16,6 +16,12 @@ point_count = 4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cqmg"]
 size = Vector2(1293, 960)
 
+[sub_resource type="Gradient" id="Gradient_4sovy"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tx5fc"]
+gradient = SubResource("Gradient_4sovy")
+fill_from = Vector2(0, 1)
+
 [sub_resource type="Environment" id="Environment_nmvk3"]
 background_mode = 3
 ambient_light_source = 1
@@ -23,13 +29,15 @@ ambient_light_sky_contribution = 0.26
 ssao_radius = 1.5
 ssao_detail = 1.5
 glow_enabled = true
-glow_intensity = 0.21
-glow_strength = 0.6
-glow_bloom = 0.37
+glow_intensity = 0.38
+glow_strength = 0.72
+glow_bloom = 0.4
 glow_blend_mode = 1
 glow_hdr_threshold = 0.0
-glow_hdr_scale = 0.95
-glow_hdr_luminance_cap = 41.18
+glow_hdr_scale = 2.04
+glow_hdr_luminance_cap = 16.93
+glow_map_strength = 0.87
+glow_map = SubResource("GradientTexture2D_tx5fc")
 adjustment_enabled = true
 adjustment_brightness = 1.1
 adjustment_contrast = 0.91
