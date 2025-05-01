@@ -1,14 +1,9 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://g6y057uryhne"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://g6y057uryhne"]
 
-[ext_resource type="Texture2D" uid="uid://b6v7fhjbbyo4q" path="res://images/Tilesets/Tileset v2.png" id="1_usy5m"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_8qkb0"]
-diffuse_texture = ExtResource("1_usy5m")
-specular_color = Color(0.16, 0.5, 0.188333, 1)
-texture_filter = 3
+[ext_resource type="Texture2D" uid="uid://dpc4v7mvx07m2" path="res://images/Tilesets/Tileset v3.5.png" id="1_usy5m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8pxyf"]
-texture = SubResource("CanvasTexture_8qkb0")
+texture = ExtResource("1_usy5m")
 texture_region_size = Vector2i(24, 24)
 0:0/0 = 0
 1:0/0 = 0
@@ -23,8 +18,11 @@ texture_region_size = Vector2i(24, 24)
 8:0/0 = 0
 8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, 0, 12, -12, 12, -12, 0)
 9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -12, 0, -12, 12, -12, 12, 0, 0, 0, 0, 12)
 10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 0, -12, 0)
 11:0/0 = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, -12, -12, 12, -12, 12, 12, 0, 12, 0, 0)
 12:0/0 = 0
 13:0/0 = 0
 14:0/0 = 0
@@ -42,10 +40,13 @@ texture_region_size = Vector2i(24, 24)
 7:1/0 = 0
 7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 8:1/0 = 0
-8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -12, 0, 12, -12, 12, -12, -12)
+8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 0, -12, 0, 12, -12, 12)
 9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 0, -12, 0, 12, -12, 12)
 10:1/0 = 0
+10:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 12, 12, -12, 0, -12, 12, 12)
 11:1/0 = 0
+11:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 12, 0, -12, 12, -12, 12, 12)
 12:1/0 = 0
 13:1/0 = 0
 14:1/0 = 0
@@ -65,8 +66,11 @@ texture_region_size = Vector2i(24, 24)
 8:2/0 = 0
 8:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -12, 0, 0, -12, 0, -12, -12)
 9:2/0 = 0
+9:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -12, 0, -12, 0, 0, 12, 0, 12, 12)
 10:2/0 = 0
+10:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, 0, 12, 0, 12, 12)
 11:2/0 = 0
+11:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -12, 12, -12, 12, 12, -12, 12, -12, 0, 0, 0)
 12:2/0 = 0
 13:2/0 = 0
 14:2/0 = 0
@@ -244,8 +248,11 @@ texture_region_size = Vector2i(24, 24)
 7:11/0 = 0
 7:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 9, 6, 9, 6, 12, -6, 12)
 8:11/0 = 0
+8:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 6, 9, 6, 9, 12, -12, 12)
 9:11/0 = 0
+9:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, 6, 9, 6, 9, 12, -9, 12)
 10:11/0 = 0
+10:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, 6, 9, 6, 9, 12, -9, 12)
 11:11/0 = 0
 12:11/0 = 0
 13:11/0 = 0
@@ -265,7 +272,9 @@ texture_region_size = Vector2i(24, 24)
 6:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 9, 6, 9, 6, 12, -6, 12)
 7:12/0 = 0
 8:12/0 = 0
+8:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, 6, 9, 6, 9, 12, -9, 12)
 9:12/0 = 0
+9:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, 6, 9, 6, 9, 12, -9, 12)
 10:12/0 = 0
 11:12/0 = 0
 12:12/0 = 0
@@ -285,7 +294,9 @@ texture_region_size = Vector2i(24, 24)
 8:13/0 = 0
 9:13/0 = 0
 10:13/0 = 0
+10:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -3, 9, -3, 9, 12, -9, 12)
 11:13/0 = 0
+11:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -3, 9, -3, 9, 12, -9, 12)
 12:13/0 = 0
 13:13/0 = 0
 14:13/0 = 0
@@ -304,7 +315,9 @@ texture_region_size = Vector2i(24, 24)
 8:14/0 = 0
 9:14/0 = 0
 10:14/0 = 0
+10:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -3, 9, -3, 9, 12, -9, 12)
 11:14/0 = 0
+11:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -3, 9, -3, 9, 12, -9, 12)
 12:14/0 = 0
 13:14/0 = 0
 14:14/0 = 0
@@ -322,7 +335,9 @@ texture_region_size = Vector2i(24, 24)
 7:15/0 = 0
 8:15/0 = 0
 10:15/0 = 0
+10:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -3, 9, -3, 9, 12, -9, 12)
 11:15/0 = 0
+11:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -3, 9, -3, 9, 12, -9, 12)
 13:15/0 = 0
 14:15/0 = 0
 16:15/0 = 0
@@ -421,6 +436,7 @@ texture_region_size = Vector2i(24, 24)
 3:18/0 = 0
 9:18/0 = 0
 15:18/0 = 0
+18:12/0 = 0
 
 [resource]
 tile_size = Vector2i(24, 24)

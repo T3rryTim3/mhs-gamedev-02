@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://cq3uvlqudujo"]
+[gd_scene load_steps=29 format=4 uid="uid://cq3uvlqudujo"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_owht8"]
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="2_kkg4i"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://eakxcbropecy" path="res://images/items/wood.png" id="18_n3lc2"]
 [ext_resource type="PackedScene" uid="uid://dl7r51dy6jv3n" path="res://scenes/UI/hud.tscn" id="19_je3yu"]
 [ext_resource type="PackedScene" uid="uid://bvd5pn0v5xpkb" path="res://scenes/Stations/waterpurify.tscn" id="20_ft6uq"]
+[ext_resource type="Texture2D" uid="uid://ciaqtjf88ddrm" path="res://images/event/rain.png" id="21_rtewx"]
 
 [sub_resource type="Curve" id="Curve_d0i73"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.457895, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -445,6 +446,10 @@ glow_hdr_threshold = 0.19
 adjustment_enabled = true
 adjustment_saturation = 1.2
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hvi4f"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+
 [node name="phystest" type="Node2D" node_paths=PackedStringArray("items", "stations", "player")]
 script = ExtResource("1_owht8")
 items = NodePath("Items")
@@ -589,3 +594,7 @@ shadow_filter = 1
 
 [node name="Water Purifier" parent="." instance=ExtResource("20_ft6uq")]
 position = Vector2(-172, 24)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_hvi4f")
+texture = ExtResource("21_rtewx")

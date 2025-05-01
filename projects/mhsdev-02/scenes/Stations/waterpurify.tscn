@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://bvd5pn0v5xpkb"]
 
-[ext_resource type="Script" path="res://scripts/waterpurify.gd" id="1_d6yw6"]
+[ext_resource type="Script" uid="uid://dbbhdhlsxv6im" path="res://scripts/waterpurify.gd" id="1_d6yw6"]
 [ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_q0kcp"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="3_fw2r1"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="4_kknpf"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="4_p83ug"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_p83ug"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
 size = Vector2(66.5, 13.5)
