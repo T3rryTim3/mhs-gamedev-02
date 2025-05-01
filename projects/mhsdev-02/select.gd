@@ -49,12 +49,30 @@ var levels = [
 				]
 			}
 		]
+	},
+	{
+		"name": "Custom",
+		"description": "A sandbox to play as you wish",
+		"scene_enum": "p",
+		"image_path": "res://images/placeholder.png",
+		"modes": [
+			{
+				"name": "Tutorial",
+				"leveldata": Config.GameDifficulties.TUTORIAL,
+				"desc": [
+					["x2 Events", Color(1,0,0)],
+					["x2 Events", Color(1,0,0)]
+				]
+			}
+		]
+		
 	}
 ]
 
 var current_level_index = 0
 @onready var mode_dropdown = $PanelContainer/MarginContainer/VBoxContainer/Difficulty
 @onready var descriptions = $PanelContainer/MarginContainer/VBoxContainer/Descriptions
+@onready var custom_sliders = $PanelContainer/MarginContainer/VBoxContainer/CustomSliders
 
 
 #func update_button(button):
@@ -66,11 +84,9 @@ var current_level_index = 0
 
 func _ready():
 	#var levelbutton = $TextureButton
-	var forward = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward
-	var back = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back
+	custom_sliders.visible = false
 	_update_data()
 
-	
 	#update_button(levelbutton)
 
 func _update_data(): ## Updates based on the current scene selected
@@ -81,8 +97,8 @@ func _update_data(): ## Updates based on the current scene selected
 	mode_dropdown.clear()
 	for mode_index in len(level["modes"]):
 		mode_dropdown.add_item(level["modes"][mode_index]["name"], mode_index)
-	$PanelContainer2/MarginContainer/Title.text = levels[current_level_index]["name"]
-	$PanelContainer2/MarginContainer2/LevelDesk.text = levels[current_level_index]["description"]
+	$PanelContainer2/MarginContainer/VBoxContainer/Title.text = levels[current_level_index]["name"]
+	$PanelContainer2/MarginContainer/VBoxContainer/LevelDesk.text = levels[current_level_index]["description"]
 
 func _on_Forward_pressed():
 	current_level_index += 1
@@ -116,6 +132,5 @@ func _update_desc():
 		descriptions.add_child(label)
 
 
-func _on_difficulty_item_selected(index: int) -> void:
-	print(current_level_index)
+func _on_difficulty_item_selected(_index: int) -> void:
 	_update_desc()

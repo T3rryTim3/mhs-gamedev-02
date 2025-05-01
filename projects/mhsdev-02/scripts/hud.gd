@@ -5,6 +5,7 @@ var player:Player
 @onready var RemoveDisplay = $RemovingDisplay
 @onready var BuildDisplay = $BuildingDisplay
 @onready var item_scn = preload("res://scenes/Base/item.tscn")
+@onready var item_slot_image = preload("res://images/UI/hand.png")
 
 # If the level is "Tutorial"
 var tutorial_mode:bool = false
@@ -19,6 +20,24 @@ func _get_level(): ## Finds the first Level ancestor
 			return parent
 		parent = parent.get_parent()
 	return null
+
+func _update_held_items(): ## Updates the held items display
+	print("Updated")
+	$itemsheld.text = str(len(player.collector.current_resources)) + "/" + str(player.collector.stack_limit)
+	
+	#if $HeldItems.get_children_count() != player.collector.stack_limit:
+		#for child in $HeldItems.get_children():
+			#child.queue_free()
+		#for x in range(player.collector.stack_limit):
+			#var new_rect = TextureRect.new()
+			#new_rect.expand_mode = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
+			#new_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			#$HeldItems.add_child(new_rect)
+#
+	#var i:int = 0
+	#for child:TextureRect in $HeldItems.get_children():
+		#child.texture = load(ItemData.get_item_data(player.collector.current_resources[i])["img_path"])
+	
 
 func _update_mode_display(): # Updates the 'Bulding' and 'Removing' displays as needed
 	if player.delete_mode:
@@ -39,6 +58,8 @@ func _ready():
 	player = _get_level().player
 	player.give_upgrade.connect($UpgradeMenu.display_menu)
 	player.mode_changed.connect(_update_mode_display)
+	player.collector.resources_updated.connect(_update_held_items)
+	EventMan.event_spawned.connect($DisasterDisplay/AnimationPlayer.play.bind("show"))
 	player.death.connect(_player_death)
 	$Death2.player = player
 
@@ -46,12 +67,19 @@ func _ready():
 	
 	if _get_level().tutorial:
 		tutorial_mode = true
+		player.blueprint_overlay.stations = [
+			StationData.Stations.WATER_PURIFIER
+		]
 		_next_tutorial_step()
 
 func _update_stat_bars():
 	$Hunger.value = player.state.hunger.val * 100 / player.state.hunger.val_max
 	$Thirst.value = player.state.thirst.val * 100 / player.state.thirst.val_max
+	$Temp.value = player.state.temp.val * 100 / player.state.temp.val_max
 	$Health.value = player.health * 100 / player.max_health
+
+func _get_key(action:String) -> String: ## Get the string version of an action's event
+	return InputMap.action_get_events(action)[0].as_text().rstrip(" (Physical)")
 
 ## Handles all tutorial steps. 'data' is used within the function, and should not be passed.
 func _next_tutorial_step(data=null):
@@ -60,7 +88,7 @@ func _next_tutorial_step(data=null):
 	tutorial_step += 1
 	match tutorial_step:
 		1: # Pickup wood
-			$Timer.text = "Task: Grab some wood."
+			$Timer.text = "Task: Move your cursor over the wood and press " + _get_key("pickup") + " to grab it."
 			player.collector.item_collected.connect(_next_tutorial_step)
 		2: # Build the well
 			# Check validity
@@ -69,7 +97,7 @@ func _next_tutorial_step(data=null):
 				return
 			player.collector.item_collected.disconnect(_next_tutorial_step)
 
-			$Timer.text = "Task: Add items to the well blueprint to build it. (Default Q or E to drop)"
+			$Timer.text = "Task: Drop items as needed into the well blueprint using " + _get_key("drop") + "."
 
 			# Spawn items to build a well
 			var cost = StationData.get_station_cost(StationData.Stations.WELL)
@@ -77,7 +105,7 @@ func _next_tutorial_step(data=null):
 				for i in range(cost[k]):
 					var new_item:Item = item_scn.instantiate()
 					new_item.id = k
-					new_item.global_position = player.global_position + Vector2(randi_range(-10,10), 20)
+					new_item.global_position = player.global_position + Vector2(randi_range(-30,30), 20)
 					_get_level().items.add_child(new_item)
 
 			# Connect next step
@@ -90,7 +118,7 @@ func _next_tutorial_step(data=null):
 
 			# Update text and connect next step
 			_get_level().station_built.disconnect(_next_tutorial_step)
-			$Timer.text = "Task: Open your blueprint menu (Default B)"
+			$Timer.text = "Task: Press " + _get_key("blueprint") + " to open the blueprint menu."
 			player.mode_changed.connect(_next_tutorial_step)
 		4: # Build a purifier
 			if not (player.current_blueprint):
@@ -98,10 +126,10 @@ func _next_tutorial_step(data=null):
 				return
 			player.mode_changed.disconnect(_next_tutorial_step)
 			_get_level().station_built.connect(_next_tutorial_step)
-			$Timer.text = "Task: Build a water purifier."
+			$Timer.text = "Task: Select the water purifier, and click somewhere to place it.\n After that, finish builing it by placing the required items inside."
 			
 			# Spawn items for the purifier
-			var cost = StationData.get_station_cost(StationData.Stations.WELL)
+			var cost = StationData.get_station_cost(StationData.Stations.WATER_PURIFIER)
 			for k in cost:
 				for i in range(cost[k]):
 					var new_item:Item = item_scn.instantiate()
@@ -109,20 +137,18 @@ func _next_tutorial_step(data=null):
 					new_item.global_position = player.global_position + Vector2(randi_range(-10,10), 20)
 					_get_level().items.add_child(new_item)
 		5: # Drink purified water
-			print("Built")
 			if not (_get_level().get_station_count(StationData.Stations.WATER_PURIFIER) > 0):
 				tutorial_step = 4
 				return
-			print("Pass")
 			_get_level().station_built.disconnect(_next_tutorial_step)
-			$Timer.text = "Task: Drink some purified water"
+			$Timer.text = "Task: Place water from the well into the purifier, \n then drink the purified water by holding " + _get_key("use_item") + "."
 			player.item_used.connect(_next_tutorial_step)
 		6: # Delete the well
 			if not ((data is Item) and data.id == ItemData.ItemTypes.WATER_CLEAN):
 				tutorial_step = 5
 				return
 			player.item_used.disconnect(_next_tutorial_step)
-			$Timer.text = "Task: Enter delete mode and delete the water purifier (Default H)"
+			$Timer.text = "Task: Press " + _get_key("remove_station") + " to enter delete mode and delete the water purifier"
 			_get_level().station_deleted.connect(_next_tutorial_step)
 		7: # Cook bread
 			_get_level().station_deleted.disconnect(_next_tutorial_step)
@@ -146,7 +172,7 @@ func _next_tutorial_step(data=null):
 			$Timer.text = "Task: Survive the tornado!"
 			EventMan.spawn_event(EventMan.Events.TORNADO, _get_level(), 1)
 			player.upgrade_added.disconnect(_next_tutorial_step)
-			
+
 
 func _process(delta: float) -> void:
 	if not player:
@@ -162,5 +188,12 @@ func _process(delta: float) -> void:
 		var milliseconds = fmod(Gamestats.level_time, 1) * 100
 		var time_string = "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
 		$Timer.text = time_string
+
+	# Update temperature displays
+	if player.state.temp.val <= 10:
+		$FreezeOverlay.modulate.a = (10 - player.state.temp.val) / 10
+	else:
+		$FreezeOverlay.modulate.a = 0
+
 	#$VBoxContainer/temp.value = player.state.temp.val * 100 / player.state.temp.val_max
 	

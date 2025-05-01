@@ -65,7 +65,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 		ItemTypes.WHEAT_SEEDS:
 			health = 3
 			decay_rate = 0
-			img_path = "res://images/items/Wheat Seeds.png"
+			img_path = "res://images/items/Wheat Seeds Bag.png"
 		ItemTypes.APPLE:
 			health = 8
 			decay_rate = 0.1
@@ -89,6 +89,7 @@ func use_item(item:Item, player:Player, delta:float):
 
 	# If item fully used
 	if item.item_usage_progress >= item.item_usage_max:
+		player.emit_signal("item_used", item)
 		match item.id:
 			ItemTypes.WOOD:
 				pass

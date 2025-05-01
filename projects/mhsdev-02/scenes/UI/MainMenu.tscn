@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://bdoih6i4e544o"]
 
-[ext_resource type="Texture2D" uid="uid://beuycd5o4nrj7" path="res://images/UI/Untitled146_20241128133911.png" id="1_pwmwk"]
 [ext_resource type="Script" uid="uid://b56kst3spliqf" path="res://scripts/Singletons/UI/main_menu.gd" id="1_tsx0n"]
 [ext_resource type="Texture2D" uid="uid://dhao8dfdkahn1" path="res://images/UI/Quit Button.png" id="1_uhdlp"]
 [ext_resource type="Texture2D" uid="uid://djjyvup20gwdy" path="res://images/UI/Settings Button.png" id="2_bhomi"]
 [ext_resource type="Texture2D" uid="uid://clvd844ej4n6" path="res://images/UI/Game Dev. Titile BG.png" id="2_kgeke"]
 [ext_resource type="Texture2D" uid="uid://0ug226hayure" path="res://images/UI/Start Button.png" id="3_04mn6"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="3_y0vty"]
+[ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="4_kgeya"]
 [ext_resource type="PackedScene" uid="uid://xb6pyhv20ns" path="res://scenes/UI/Credits.tscn" id="6_tnlov"]
 
 [node name="Control" type="Control"]
@@ -48,6 +48,15 @@ offset_right = 655.0
 grow_vertical = 0
 text = "v0.0.0"
 
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+offset_left = 820.0
+offset_top = 67.0
+offset_right = 929.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(0.53, 0.300333, 0, 1)
+text = "Achievements"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -63,9 +72,12 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.67, 0.67)
 
-[node name="Samuel" type="TextureRect" parent="HBoxContainer"]
+[node name="Samael" type="Button" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("1_pwmwk")
+size_flags_horizontal = 3
+icon = ExtResource("4_kgeya")
+flat = true
+expand_icon = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -124,6 +136,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 metadata/_edit_use_anchors_ = true
 
+[connection signal="pressed" from="HBoxContainer/Samael" to="." method="_on_samael_pressed"]
 [connection signal="pressed" from="VBoxContainer/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/settings" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_button_pressed"]

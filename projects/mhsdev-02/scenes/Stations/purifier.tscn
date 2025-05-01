@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_2w02e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 7)
+size = Vector2(105.312, 7)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
 radius = 17.58
@@ -33,10 +33,10 @@ produce_time = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xxqte")
-offset = Vector2(0, -24)
+offset = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, 6)
 scale = Vector2(0.341842, 1)
 shape = SubResource("RectangleShape2D_astqw")
 

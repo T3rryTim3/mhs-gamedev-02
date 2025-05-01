@@ -4,6 +4,7 @@ class_name Level
 signal station_built
 signal station_deleted
 signal machine_powered
+signal victory
 
 ## Scene for creating new items
 @onready var item_scn = preload("res://scenes/Base/item.tscn")
@@ -80,6 +81,7 @@ class LevelData:
 	var station_speed_multi : float = 1
 	var grace_period : float = 60 # Extra time until the first event
 	var temp_drain : float = 0.3
+	var item_limit : int = 10 # Max amount of items in the level+6
 	var event_multiplier : int = 1
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
@@ -97,6 +99,7 @@ class LevelData:
 
 func _ready():
 	Globals.level = self
+	Gamestats.initialize()
 	ready.connect(func (): loaded=true) # Set loaded to true when fully ready
 	if not level_data:
 		level_data = LevelData.new() # Default settings
@@ -139,7 +142,15 @@ func _ready():
 	events = level_data.events
 	spawn_items = level_data.items
 
+func _win(): ## Ends the game in a victory
+	victory.emit()
+
 func _spawn_item():
+
+	# Ensure there are less items than the limit
+	if len(get_tree().get_nodes_in_group("MapSpawned")) >= level_data.item_limit:
+		return
+
 	# Create and set item
 	var new_item:Item = item_scn.instantiate()
 	new_item.id = weighted_random_choice(spawn_items)
@@ -148,6 +159,7 @@ func _spawn_item():
 	if (not new_item) or not map_limit:
 		return
 
+	new_item.add_to_group("MapSpawned")
 	items.add_child(new_item)
 
 	var size = map_limit.shape.get_rect().size
