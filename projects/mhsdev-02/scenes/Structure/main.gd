@@ -68,9 +68,7 @@ func show_settings():
 func show_achievements():
 	achievements.show()
 
-
-
-func _load_scene(scene:Scenes, level_mode:Config.GameDifficulties=Config.GameDifficulties.FIELD_STANDARD):
+func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 	var new_scene
 	for child in $LoadedScene.get_children():
 		child.queue_free()
@@ -91,7 +89,8 @@ func _load_scene(scene:Scenes, level_mode:Config.GameDifficulties=Config.GameDif
 			print("ERROR: SCENE NOT FOUND")
 			return
 	if new_scene is Level:
-		new_scene.level_data = Config.get_difficulty_level_data(level_mode)
+		new_scene.level_data = level_data
+		Globals.current_leveldata = level_data
 	$LoadedScene.add_child(new_scene)
 	Globals.current_level = scene
 

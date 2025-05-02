@@ -179,7 +179,7 @@ func _process(delta: float) -> void:
 		return
 	_update_stat_bars()
 
-	if Globals.level is Level:
+	if Globals.level is Level and not get_tree().paused:
 		Gamestats.level_time += delta
 
 	if not tutorial_mode:

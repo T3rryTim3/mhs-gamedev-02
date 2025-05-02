@@ -63,4 +63,7 @@ func spawn_event(event:Events, parent:Node, strength:float = 1):
 
 	parent.add_child(event_scn)
 	event_scn.spawn()
+
+	Gamestats.events_spawned += 1
+
 	event_spawned.emit()

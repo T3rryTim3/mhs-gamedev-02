@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=68 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="2_8og45"]
@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://6pumuile4k83" path="res://Resources/use_progress.tres" id="43_d0e5a"]
 [ext_resource type="AudioStream" uid="uid://io4vp1nm2jh1" path="res://Audio/SFX/Drop 2.wav" id="44_ec81o"]
 [ext_resource type="AudioStream" uid="uid://b5h5pgpof5ype" path="res://Audio/SFX/Death 1.wav" id="45_1plcu"]
+[ext_resource type="Texture2D" uid="uid://digipvhfyt660" path="res://images/Particles/Leaf.png" id="46_nxqlp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
 size = Vector2(13, 19)
@@ -318,6 +319,44 @@ scale_curve = SubResource("CurveXYZTexture_rklrc")
 color = Color(0.14, 0.942667, 1, 1)
 color_ramp = SubResource("GradientTexture1D_ohi6n")
 
+[sub_resource type="Curve" id="Curve_u6rfl"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 1), 0.0, 0.0, 0, 0, Vector2(0.845588, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ivyfu"]
+curve = SubResource("Curve_u6rfl")
+
+[sub_resource type="Curve" id="Curve_qygu4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.205882, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(0.816177, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_hf0j2"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.213235, -0.483146), 0.0, 0.0, 0, 0, Vector2(0.470588, 1), 0.0, 0.0, 0, 0, Vector2(0.727941, -0.483146), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_oug1p"]
+curve_x = SubResource("Curve_qygu4")
+curve_y = SubResource("Curve_hf0j2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pyido"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(300, 150, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+velocity_pivot = Vector3(0, 5, 0)
+direction = Vector3(0, 10, 0)
+spread = 8.133
+initial_velocity_min = 8.0
+initial_velocity_max = 10.0
+directional_velocity_min = 5.99998
+directional_velocity_max = 15.0
+directional_velocity_curve = SubResource("CurveXYZTexture_oug1p")
+gravity = Vector3(0, 2, 0)
+scale_min = 0.3
+scale_max = 0.6
+alpha_curve = SubResource("CurveTexture_ivyfu")
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["player"]]
 z_index = 3
 y_sort_enabled = true
@@ -393,6 +432,13 @@ stream = ExtResource("44_ec81o")
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("45_1plcu")
 volume_db = 2.811
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(0, -73)
+amount = 80
+texture = ExtResource("46_nxqlp")
+lifetime = 30.0
+process_material = SubResource("ParticleProcessMaterial_pyido")
 
 [connection signal="body_entered" from="Collector/PickupRange" to="." method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="Collector/PickupRange" to="." method="_on_pickup_range_body_exited"]

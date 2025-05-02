@@ -43,7 +43,9 @@ unique_name_in_owner = true
 layer = 10
 
 [node name="Settings" parent="CanvasLayer" instance=ExtResource("3_f5ioo")]
-visible = false
+process_mode = 3
+z_index = 20
+z_as_relative = false
 theme = ExtResource("1_21ivj")
 
 [node name="Achievements" parent="CanvasLayer" instance=ExtResource("7_32u4x")]

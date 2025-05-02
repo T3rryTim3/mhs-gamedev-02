@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpvuemyt56v57"]
+[gd_scene load_steps=3 format=3 uid="uid://cpvuemyt56v57"]
 
 [ext_resource type="Script" uid="uid://dyjasvahse4q7" path="res://scenes/UI/pause_menu.gd" id="1_xqpxi"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fsae6"]
+
 [node name="Control2" type="Control"]
+z_index = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +16,7 @@ offset_right = 1.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_xqpxi")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -20,9 +24,12 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.29, 0.29, 0.29, 0.415686)
+mouse_filter = 2
+color = Color(0.172833, 0.172833, 0.172833, 1)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -37,6 +44,8 @@ offset_right = 150.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fsae6")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
@@ -45,9 +54,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 6
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
@@ -58,6 +69,7 @@ text = "Paused"
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Resume" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
