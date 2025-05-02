@@ -67,15 +67,15 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 45
 			data.temp_drain = 0.4
 			data.strength_per_minute = 1.5
-			data.event_multiplier = 2
 			data.thirst_multi = 1.2
 			data.hunger_multi = 1.2
 			return data
 		
 		GameDifficulties.FIELD_MAYHEM:
 			var data = Level.LevelData.new()
-			data.event_cooldown = 35
+			data.event_cooldown = 45
 			data.temp_drain = 0.8
+			data.event_multiplier = 2
 			data.strength_per_minute = 1.5
 			data.thirst_multi = 1.5
 			data.hunger_multi = 1.5
@@ -93,7 +93,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			var data = Level.LevelData.new()
 			data.event_cooldown = 60
 			data.temp_drain = 1.2
-			data.thirst_multi = 1.25
+			data.thirst_multi = 0.8
 			data.hunger_multi = 0.8
 			return data
 		

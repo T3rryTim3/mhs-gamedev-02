@@ -120,6 +120,8 @@ func _death():
 	new_station.target_station = station_data
 	get_parent().call_deferred("add_child", new_station)
 	new_station.global_position = global_position + sprite.offset
+	
+	Gamestats.stations_destroyed += 1
 
 	# Delete self
 	queue_free()

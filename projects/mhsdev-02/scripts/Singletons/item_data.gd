@@ -9,7 +9,8 @@ enum ItemTypes
 	WATER_CLEAN,
 	ROCK,
 	WHEAT_SEEDS,
-	APPLE
+	APPLE,
+	ACORN
 }
 
 func get_item_data(id:ItemTypes) -> Dictionary:
@@ -70,6 +71,10 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 8
 			decay_rate = 0.1
 			img_path = "res://images/items/Wheat Seeds.png"
+		ItemTypes.ACORN:
+			health = 6
+			decay_rate = 0
+			img_path = "res://images/items/Acorn.png"
 	return {
 		"health": health,
 		"decay_rate": decay_rate,

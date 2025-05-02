@@ -101,6 +101,9 @@ func _complete():
 	
 	station.global_position = global_position
 	get_parent().add_child(station)
+
+	Gamestats.stations_placed += 1
+
 	queue_free()
 
 func _check_completion():

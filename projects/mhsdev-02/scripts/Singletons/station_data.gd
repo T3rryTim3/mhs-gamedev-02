@@ -106,8 +106,7 @@ func get_station_cost(station:Stations):
 			}
 		Stations.FOREST: # Forest
 			return {
-				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 5
+				ItemData.ItemTypes.ACORN: 2
 			}
 		Stations.OVEN: # Oven
 			return {

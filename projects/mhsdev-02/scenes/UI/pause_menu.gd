@@ -9,9 +9,11 @@ func _get_main() -> Main:
 	return get_tree().current_scene
 
 func _unpause():
+	get_tree().paused = false
 	visible = false
 
 func _pause():
+	get_tree().paused = true
 	visible = true
 
 func _input(event: InputEvent) -> void:

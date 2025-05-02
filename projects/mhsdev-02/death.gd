@@ -6,6 +6,7 @@ var player:Player
 func display() -> void: ## Display the death screen
 	get_tree().paused = true
 	$AnimationPlayer.play("Open")
+	$MarginContainer/Label.text = Gamestats.get_string()
 	if player:
 		var minutes = Gamestats.level_time / 60
 		var seconds = fmod(Gamestats.level_time, 60)
@@ -27,4 +28,4 @@ func _on_quit_pressed() -> void:
 
 func _on_respawn_pressed() -> void:
 	get_tree().paused = false
-	_get_main()._load_scene(Globals.current_level)
+	Globals.Main._load_scene(Globals.current_level, Globals.current_leveldata)
