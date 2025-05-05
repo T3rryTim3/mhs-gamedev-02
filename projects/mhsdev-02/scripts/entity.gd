@@ -254,6 +254,9 @@ func get_sprite_texture() -> Texture2D:
 	return null
 
 func _update_health(new:float) -> void: ## Update health while keeping within limits.
+	if self is Player and health - new > 0:
+		Gamestats.damage_taken += health - new
+
 	health = clamp(new, 0, max_health)
 	if health <= 0:
 		_death()

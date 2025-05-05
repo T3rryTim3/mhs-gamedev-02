@@ -88,6 +88,31 @@ func get_station_texture(station:Stations):
 			return "res://images/stations/well.png"
 			
 
+func get_station_desc(station:Stations) -> String:
+	match station:
+		Stations.WELL: # Well
+			return "Produces water over time."
+		Stations.CROP:  # Crop
+			return "Produces wheat over time. Water must be supplied to heal it."
+		Stations.QUARRY: # Quarry
+			return "Produces rocks over time."
+		Stations.FOREST: # Forest
+			return "Produces wood over time."
+		Stations.OVEN: # Oven
+			return "Converts wood and wheat into bread."
+		Stations.STRENGTH_TOTEM: # Strength Totem
+			return "+1 Item carry limit while powered with wheat."
+		Stations.SPEED_TOTEM:
+			return "+20 Speed while powered with wheat."
+		Stations.WATER_PURIFIER:
+			return "Converts water into purified water. Purified water restores more thirst."
+		Stations.CAMPFIRE:
+			return "Slowly heats in an area around it."
+		Stations.BARRICADE:
+			return "Blocks disasters."
+		_: # Else
+			return ""
+
 func get_station_cost(station:Stations):
 	match station:
 		Stations.WELL: # Well
@@ -106,8 +131,7 @@ func get_station_cost(station:Stations):
 			}
 		Stations.FOREST: # Forest
 			return {
-				ItemData.ItemTypes.ROCK: 2,
-				ItemData.ItemTypes.WOOD: 5
+				ItemData.ItemTypes.ACORN: 2
 			}
 		Stations.OVEN: # Oven
 			return {

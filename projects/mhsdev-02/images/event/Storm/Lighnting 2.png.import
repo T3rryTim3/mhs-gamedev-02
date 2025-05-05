@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4jy4rsfs0khp"
-path="res://.godot/imported/pixil-frame-3.png-174f4f09563faba22afe9312f1159c30.ctex"
+uid="uid://dh54sj1sjgmm6"
+path="res://.godot/imported/Lighnting 2.png-04f7bed8fd8852235f6066849b0d52a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/event/pixil-frame-3.png"
-dest_files=["res://.godot/imported/pixil-frame-3.png-174f4f09563faba22afe9312f1159c30.ctex"]
+source_file="res://images/event/Storm/Lighnting 2.png"
+dest_files=["res://.godot/imported/Lighnting 2.png-04f7bed8fd8852235f6066849b0d52a2.ctex"]
 
 [params]
 

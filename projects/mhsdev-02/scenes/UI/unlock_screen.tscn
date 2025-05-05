@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_6hurt"]
 [ext_resource type="Script" uid="uid://dbrdmheb7o2du" path="res://scenes/UI/unlock_screen.gd" id="2_8abig"]
-[ext_resource type="PackedScene" uid="uid://cbtd3r7p6qouo" path="res://panel_container.tscn" id="3_rs607"]
+[ext_resource type="PackedScene" uid="uid://cbtd3r7p6qouo" path="res://achievementitem.tscn" id="3_rs607"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hurt"]
 bg_color = Color(0.32, 0.0693333, 0, 1)

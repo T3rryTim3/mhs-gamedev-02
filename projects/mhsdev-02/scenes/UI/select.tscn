@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr75yhrni3tcn"]
+[gd_scene load_steps=8 format=3 uid="uid://cr75yhrni3tcn"]
 
 [ext_resource type="Script" uid="uid://chcsl85yq7660" path="res://select.gd" id="1_catev"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_gup8f"]
 [ext_resource type="Texture2D" uid="uid://0ug226hayure" path="res://images/UI/Start Button.png" id="3_gup8f"]
-[ext_resource type="PackedScene" uid="uid://bnp4x4n2jwes6" path="res://custom_sliders.tscn" id="4_bfs70"]
-[ext_resource type="PackedScene" uid="uid://cc6iwjkl1y75b" path="res://loadingscreentips.tscn" id="5_wwl0d"]
+[ext_resource type="PackedScene" path="res://custom_sliders.tscn" id="4_bfs70"]
+[ext_resource type="Texture2D" uid="uid://bt7wqkl0ubvrb" path="res://images/placeholder/image.png" id="5_h47y5"]
+[ext_resource type="PackedScene" uid="uid://c4kt2p7my0yub" path="res://loadingscreentips.tscn" id="5_wwl0d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h47y5"]
+bg_color = Color(0.82, 0.6068, 0.328, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+anti_aliasing = false
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -16,29 +25,42 @@ grow_vertical = 2
 theme = ExtResource("1_gup8f")
 script = ExtResource("1_catev")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 400.0
+grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h47y5")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Exit" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
-[node name="Difficulty" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Difficulty" type="OptionButton" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 selected = 0
@@ -47,62 +69,82 @@ popup/item_0/id = 0
 popup/item_1/id = 1
 popup/item_2/id = 0
 
-[node name="Descriptions" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Descriptions" type="VBoxContainer" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 60
 alignment = 1
 
-[node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Back" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "<----"
 
-[node name="Forward" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Forward" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "---->"
 
-[node name="Start" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Start" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 icon = ExtResource("3_gup8f")
 flat = true
 
-[node name="CustomSliders" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_bfs70")]
+[node name="CustomSliders" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_bfs70")]
 visible = false
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -700.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h47y5")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 1
+size_flags_vertical = 3
+text = "Level Name"
+horizontal_alignment = 1
 
-[node name="LevelDesk" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+[node name="LevelDesk" type="Label" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "Descriptione A awim f iwfmf womgw ovomw ogwokfo kfokefef"
+horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("5_h47y5")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -111,13 +153,24 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="loadingscreentips" parent="PanelContainer2/MarginContainer3" instance=ExtResource("5_wwl0d")]
+[node name="loadingscreentips" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer3" instance=ExtResource("5_wwl0d")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Exit" to="." method="_on_back_pressed"]
-[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/Difficulty" to="." method="_on_difficulty_item_selected"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back" to="." method="_on_Back_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward" to="." method="_on_Forward_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.432413, 0.230032, 4.81308e-08, 1)
+
+[connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Exit" to="." method="_on_back_pressed"]
+[connection signal="item_selected" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Difficulty" to="." method="_on_difficulty_item_selected"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward" to="." method="_on_Forward_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

@@ -5,11 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://c40i5hc8ws7b6" path="res://keybinds.tscn" id="2_usoba"]
 
 [node name="Settings" type="MarginContainer"]
+top_level = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -18,6 +20,7 @@ script = ExtResource("1_nld73")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 current_tab = 2
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
@@ -81,13 +84,12 @@ metadata/_tab_index = 1
 layout_mode = 1
 offset_left = 13.0
 
-[node name="Game" type="TabBar" parent="TabContainer"]
+[node name="Keybinds" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Keybinds" parent="TabContainer/Game" instance=ExtResource("2_usoba")]
+[node name="Keybinds" parent="TabContainer/Keybinds" instance=ExtResource("2_usoba")]
 layout_mode = 1
-mouse_filter = 1
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 2

@@ -66,6 +66,9 @@ var stamina_show_delta:float = 0
 ## Current blueprint hover object
 var current_blueprint:BlueprintHover
 
+## Current item drop display
+var current_item_display:Sprite2D
+
 ## Currently sprinting
 var sprinting:bool = false
 
@@ -76,13 +79,16 @@ var current_sprint_cooldown:float = 0.0
 var delete_mode:bool = false
 
 ## Time until next hunger damage tick
-var hunger_tick:float = 1.5
+var hunger_tick:float = 2.5
 
 ## Damage per hunger tick
 var hunger_damage:float = 1
 
 ## Whether or not the player is still alive
 var alive = true
+
+## An array of the currently selected blueprints. This is used to determine the item hover visibility
+var hovered_blueprints:Array[Blueprint]
 
 var hunger_tick_max:float
 #endregion
@@ -201,7 +207,6 @@ func _use(delta): # Use the topmost held item
 	if not item:
 		return
 	ItemData.use_item(item, self, delta)
-	emit_signal("item_used", item)
 
 func _used_item() -> Item: # Gets the currently being used item, if any
 	var item = collector.get_topmost_item()
@@ -209,28 +214,12 @@ func _used_item() -> Item: # Gets the currently being used item, if any
 		return item
 	return null
 
-func update_collector_stack_lim(limit:int):
-	collector.stack_limit = limit
+func update_collector_stack_lim():
+	collector.stack_limit = _get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+Config.PLAYER_BASE_ITEM_LIMIT+_get_upgrade(Upgrades.Upgrades.STRENGTH)
+
 
 func highlight_nearest(): ## Highlight the nearest item
 	var nearest:Item = null
-	var nearest_distance:float = INF
-
-	# Loop through items
-	#for x in collector.pickup_area.get_overlapping_bodies():
-		#var distance = global_position.distance_to(x.global_position)
-#
-		#if x is Item and distance < nearest_distance:
-#
-			## Update if its the closest
-			#if not (x.get_parent() is Collector):
-				#if nearest:
-					#nearest.disable_outline()
-				#nearest = x
-				#nearest_distance = distance
-#
-		#elif x is Item:
-			#x.disable_outline()
 	nearest = collector._get_nearest_item(false, -1, get_global_mouse_position())
 	if nearest:
 		if len(collector.current_resources) < collector.stack_limit:
@@ -252,10 +241,21 @@ func _update_blueprint_sprite(new):
 
 func _ready():
 	super()
+	Globals.player = self
 	dam_sound.stream = load("res://Audio/SFX/Other/hurt.wav") # Replace damage sound
 	dam_sound.volume_db -= 1
 
+	update_collector_stack_lim()
+
 	await _get_level().ready # Ensures UI is fully loaded
+
+	## Apply respective map particles
+	match Globals.current_level:
+		Main.Scenes.LEVEL_FIELD:
+			$MapParticles/Leaves.visible = true
+		Main.Scenes.LEVEL_TUNDRA:
+			$MapParticles/Snow.visible = true
+		
 
 	if camera_limit: # Prevent camera from going beyond area
 		$Camera2D.limit_bottom = camera_limit.global_position.y + camera_limit.shape.get_rect().size.y/2
@@ -307,7 +307,7 @@ func _ready():
 	state["temp"] = StateItem.new(50, 0, 100, 0, # Manually drained through level
 		[
 			DrainFactor.new("sprint", -0.5, DrainFactorTypes.ADD, false),
-			DrainFactor.new("campfire", -2, DrainFactorTypes.ADD, false)
+			DrainFactor.new("campfire", -6, DrainFactorTypes.ADD, false)
 		]
 	)
 	state["stamina"] = StateItem.new(100, 0, 100, 0, 
@@ -354,15 +354,13 @@ func _process(delta) -> void:
 	
 	# Input
 	if Input.is_action_just_pressed("pickup"):
-		update_collector_stack_lim(
-			_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+
-			Config.PLAYER_BASE_ITEM_LIMIT+
-			_get_upgrade(Upgrades.Upgrades.STRENGTH)
-		)
+		update_collector_stack_lim()
 		if not collector.add_nearest_item(-1, get_global_mouse_position()):
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
 			collector.drop_item(dir*distance + global_position)
+		if len(collector.current_resources) >= 3:
+			Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
 	
 	elif Input.is_action_just_pressed("drop"):
 		var dir = global_position.direction_to(get_global_mouse_position())
@@ -387,6 +385,32 @@ func _process(delta) -> void:
 	var offset = Vector2.ZERO.direction_to(get_local_mouse_position())
 	$Camera2D.offset = $Camera2D.offset.lerp(offset * distance, 10 * delta)
 
+	# Show item overlay
+	if len(collector.current_resources) > 0 and not current_blueprint:
+		if current_item_display and current_item_display.get_meta("item") != collector.get_topmost_item().id:
+			current_item_display.queue_free()
+		elif current_item_display and len(hovered_blueprints) > 0:
+			current_item_display.hide()
+		elif current_item_display:
+			current_item_display.show()
+
+		if not current_item_display:
+			var img = ItemData.get_item_data(collector.get_topmost_item().id)["img_path"]
+
+			current_item_display = Sprite2D.new()
+			current_item_display.texture = load(img)
+			current_item_display.modulate.a = 0.5
+			current_item_display.set_meta("item", collector.get_topmost_item().id)
+
+			add_child(current_item_display)
+
+		var item_dir = global_position.direction_to(get_global_mouse_position())
+		var item_distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+		current_item_display.global_position = item_dir * item_distance + global_position
+	else:
+		if current_item_display:
+			current_item_display.queue_free()
+
 	_update_stats(delta)
 
 func _input(event) -> void:
@@ -399,21 +423,23 @@ func _input(event) -> void:
 		else:
 			delete_mode = false
 		mode_changed.emit()
+	
+	if event.is_action_pressed("blueprint"):
+		if current_blueprint:
+			stop_blueprint()
+		else:
+			if delete_mode:
+				delete_mode = false
+			begin_blueprint(StationData.Stations.WELL)
+		mode_changed.emit()
 
 	if event is InputEventKey:
 		if event.pressed:
 			match event.keycode:
-				KEY_B:
-					if current_blueprint:
-						stop_blueprint()
-					else:
-						if delete_mode:
-							delete_mode = false
-						begin_blueprint(StationData.Stations.WELL)
-					mode_changed.emit()
 				KEY_K:
-					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")
@@ -446,6 +472,7 @@ func damage(amount:float) -> void: # Deal damage to the entity
 func _death():
 	if not alive:
 		return
+	Achievements.raise_progress(Achievements.Achievements.ILL_BE_BACK, 1)
 	death.emit()
 	alive = false
 	$DeathSound.play()
@@ -456,7 +483,7 @@ func _movement(delta) -> void:
 	move_dir = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
 	
 	# Check for sprinting input
-	if Input.is_action_pressed("sprint") and state.stamina.val > 0:
+	if Input.is_action_pressed("sprint") and state.stamina.val > 0 and move_dir != Vector2.ZERO:
 		sprinting = true
 	else:
 		sprinting = false

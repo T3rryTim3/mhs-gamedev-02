@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbtd3r7p6qouo"]
+[gd_scene load_steps=4 format=3 uid="uid://cbtd3r7p6qouo"]
 
 [ext_resource type="Script" uid="uid://dk4tvonilhthh" path="res://ach.gd" id="1_srtw7"]
+[ext_resource type="Texture2D" uid="uid://d3mb6jisop4vf" path="res://images/upgrades/Dumb bell.png" id="2_ms2qq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7wu1"]
 bg_color = Color(0.778904, 0.641025, 0.464466, 1)
@@ -8,15 +9,6 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-
-[sub_resource type="Gradient" id="Gradient_v4qnw"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 0.33, 0.33, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_w42as"]
-gradient = SubResource("Gradient_v4qnw")
-width = 90
-height = 90
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 10
@@ -36,12 +28,19 @@ theme_override_constants/margin_bottom = 5
 [node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = SubResource("GradientTexture2D_w42as")
-stretch_mode = 4
+texture = ExtResource("2_ms2qq")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="LabelBox" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2

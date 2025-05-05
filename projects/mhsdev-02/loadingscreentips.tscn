@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc6iwjkl1y75b"]
+[gd_scene load_steps=3 format=3 uid="uid://c4kt2p7my0yub"]
 
-[ext_resource type="Script" uid="uid://ddcy2pr4aidwy" path="res://loadingscreentips.gd" id="1_q74re"]
+[ext_resource type="Script" path="res://loadingscreentips.gd" id="1_q74re"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q74re"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -18,11 +20,14 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 490.0
-offset_top = -186.0
+offset_top = -35.0
 offset_right = -481.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_q74re")
 
 [node name="Label" type="Label" parent="PanelContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Bla BlA sefjsedfoiainw oiwjasdinwa sdinw oinfoiw dim"

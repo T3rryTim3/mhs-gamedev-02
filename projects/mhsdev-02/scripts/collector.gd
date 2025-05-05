@@ -12,6 +12,9 @@ signal item_reset
 ## Fires when a collector drops an item into this one.
 signal item_given
 
+## Fires when the resources in it are changed
+signal resources_updated
+
 ## Different types of crate visuals
 enum CrateVisuals {
 	NONE,
@@ -86,12 +89,15 @@ var current_item_id:int = 0
 ## Current resources in the stack. (FILO)
 var current_resources:Array = []
 
+var starting_range_pos:Vector2 = Vector2.ZERO
+
 ## Crate object
 var display:Sprite2D
 #endregion
 
 #region Built in
 func _ready() -> void:
+	starting_range_pos = $PickupRange.position
 	if crate_type == CrateVisuals.ITEM_CRATE:
 		# Add crate
 		display = display_scn.instantiate()
@@ -210,6 +216,7 @@ func _remove_item(item_id:int) -> void: ## Remove an item from current_resources
 		if current_resources[i].collection_id == item_id:
 			current_resources.remove_at(i)
 			return
+	resources_updated.emit()
 
 func clear_items() -> void: ## Remove all items in the collector
 	for i in current_resources.size():
@@ -295,7 +302,8 @@ func add_item(item:Item, skip_animation:bool=false) -> bool: ## Add an item to t
 		item.collect_progress = pickup_time
 
 	item_collected.emit()
-	
+	resources_updated.emit()
+
 	if decay_coef == 0:
 		item.show_health = false
 
@@ -323,7 +331,7 @@ func destroy_item() -> void: ## Destroy the top item
 
 	var item:Item = current_resources[-1] # Get topmost item
 	reset_item_stats(item)
-	
+
 	item.queue_free()
 
 func _reparent_item(item:Item, pos = null): ## Reparent item to the level
@@ -343,6 +351,8 @@ func _reparent_item(item:Item, pos = null): ## Reparent item to the level
 
 	# Reset position back
 	item.global_position = glob_pos
+
+	resources_updated.emit()
 
 func get_topmost_item() -> Item: ## Returns the topmost item.
 	if len(current_resources) == 0:
@@ -367,12 +377,15 @@ func drop_item(pos = null) -> bool: ## Drop the topmost item.
 
 
 	var near_collector
+	var old_pos = $PickupRange.global_position
+	$PickupRange.global_position = pos
 	for area in $PickupRange.get_overlapping_areas():
 		if not (area is Area2D):
 			continue
 		if not (area.get_parent() is Collector):
 			continue
 		near_collector = area
+	$PickupRange.global_position = old_pos
 
 	var item:Item = current_resources[-1] # Get topmost item
 

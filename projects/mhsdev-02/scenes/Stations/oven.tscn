@@ -35,6 +35,7 @@ produce_time = 12.0
 progress_bar_texture = ExtResource("2_tqr35")
 sprite = NodePath("Sprite2D")
 move_influence = 0.01
+effect_immunities = Array[int]([5])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_oom4y")

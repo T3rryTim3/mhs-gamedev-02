@@ -2,9 +2,12 @@ extends Node
 
 # TODO Call kill() on expired events
 
+signal event_spawned
+
 enum Events {
 	TORNADO,
-	VOLCANO
+	VOLCANO,
+	STORM
 }
 
 ## The log base used for difficulty scaling.
@@ -45,6 +48,13 @@ func get_event_data(event:Events, strength:float = 1) -> EventData:
 				15,
 				strength
 			)
+		Events.STORM:
+			return EventData.new(
+				"storm",
+				"res://scenes/Events/storm.tscn",
+				20,
+				strength
+			)
 	return null
 
 func spawn_event(event:Events, parent:Node, strength:float = 1):
@@ -61,3 +71,7 @@ func spawn_event(event:Events, parent:Node, strength:float = 1):
 
 	parent.add_child(event_scn)
 	event_scn.spawn()
+
+	Gamestats.events_spawned += 1
+
+	event_spawned.emit()
