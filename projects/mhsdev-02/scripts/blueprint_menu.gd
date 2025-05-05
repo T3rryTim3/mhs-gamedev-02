@@ -32,6 +32,7 @@ func _set_station(new):
 
 	$TextureRect.texture = load(StationData.get_station_texture(stations[new]))
 	$TextureRect/Label.text = StationData.get_station_name(stations[new])
+	$Label2.text = StationData.get_station_desc(stations[new])
 	# Create new cost objects
 	var cost = StationData.get_station_cost(stations[new])
 	for k in cost:

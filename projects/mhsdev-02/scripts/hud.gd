@@ -22,7 +22,6 @@ func _get_level(): ## Finds the first Level ancestor
 	return null
 
 func _update_held_items(): ## Updates the held items display
-	print("Updated")
 	$itemsheld.text = str(len(player.collector.current_resources)) + "/" + str(player.collector.stack_limit)
 	
 	#if $HeldItems.get_children_count() != player.collector.stack_limit:
@@ -64,6 +63,7 @@ func _ready():
 	$Death2.player = player
 
 	_update_mode_display()
+	_update_held_items()
 	
 	if _get_level().tutorial:
 		tutorial_mode = true
@@ -73,10 +73,11 @@ func _ready():
 		_next_tutorial_step()
 
 func _update_stat_bars():
-	$Hunger.value = player.state.hunger.val * 100 / player.state.hunger.val_max
-	$Thirst.value = player.state.thirst.val * 100 / player.state.thirst.val_max
-	$Temp.value = player.state.temp.val * 100 / player.state.temp.val_max
-	$Health.value = player.health * 100 / player.max_health
+	var offset = 10
+	$Hunger.value = min(100, offset + player.state.hunger.val * (100-offset) / player.state.hunger.val_max)
+	$Thirst.value = min(100, offset + player.state.thirst.val * (100-offset) / player.state.thirst.val_max)
+	$Temp.value = min(100, offset + player.state.temp.val * (100-offset) / player.state.temp.val_max)
+	$Health.value = min(100, offset + player.health * (100-offset) / player.max_health)
 
 func _get_key(action:String) -> String: ## Get the string version of an action's event
 	return InputMap.action_get_events(action)[0].as_text().rstrip(" (Physical)")

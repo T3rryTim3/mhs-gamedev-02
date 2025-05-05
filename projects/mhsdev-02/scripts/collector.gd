@@ -377,12 +377,15 @@ func drop_item(pos = null) -> bool: ## Drop the topmost item.
 
 
 	var near_collector
+	var old_pos = $PickupRange.global_position
+	$PickupRange.global_position = pos
 	for area in $PickupRange.get_overlapping_areas():
 		if not (area is Area2D):
 			continue
 		if not (area.get_parent() is Collector):
 			continue
 		near_collector = area
+	$PickupRange.global_position = old_pos
 
 	var item:Item = current_resources[-1] # Get topmost item
 

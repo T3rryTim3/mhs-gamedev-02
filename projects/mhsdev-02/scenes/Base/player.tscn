@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=73 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="2_8og45"]
@@ -358,6 +358,7 @@ alpha_curve = SubResource("CurveTexture_u6rfl")
 hue_variation_min = -2.23517e-08
 hue_variation_max = -2.23517e-08
 turbulence_noise_strength = 20.0
+
 [sub_resource type="Curve" id="Curve_u6rfl"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 1), 0.0, 0.0, 0, 0, Vector2(0.845588, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
@@ -472,19 +473,18 @@ stream = ExtResource("44_ec81o")
 stream = ExtResource("45_1plcu")
 volume_db = 2.811
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="MapParticles" type="Node2D" parent="."]
+
+[node name="Snow" type="GPUParticles2D" parent="MapParticles"]
+visible = false
 position = Vector2(-36, 2)
 amount = 1000
 lifetime = 40.0
 speed_scale = 3.58
 process_material = SubResource("ParticleProcessMaterial_1plcu")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+[node name="Leaves" type="GPUParticles2D" parent="MapParticles"]
 visible = false
-position = Vector2(-121, 210)
-amount = 1000
-lifetime = 40.0
-process_material = SubResource("ParticleProcessMaterial_1plcu")
 position = Vector2(0, -73)
 amount = 80
 texture = ExtResource("46_nxqlp")

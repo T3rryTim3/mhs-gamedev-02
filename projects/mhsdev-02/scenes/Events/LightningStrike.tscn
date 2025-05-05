@@ -1,3 +1,128 @@
-[gd_scene format=3 uid="uid://b0px88u7gy3cc"]
+[gd_scene load_steps=20 format=3 uid="uid://b0px88u7gy3cc"]
+
+[ext_resource type="Script" uid="uid://bcr0hwf2t3slu" path="res://scripts/Events/lightning_strike.gd" id="1_12la8"]
+[ext_resource type="AudioStream" uid="uid://uauxowy0nyjv" path="res://Audio/SFX/Event/volcanoSpawnTest.wav" id="1_wjsu0"]
+[ext_resource type="Texture2D" uid="uid://cpenq2rk5deu2" path="res://images/event/Storm/Strike/Lightning Strike 1.png" id="2_12la8"]
+[ext_resource type="Texture2D" uid="uid://dervf621fkxm2" path="res://images/event/Storm/Strike/Lightning Strike 2.png" id="3_or0o4"]
+[ext_resource type="Texture2D" uid="uid://blgpxr7ci62pr" path="res://images/event/Storm/Strike/Lightning Strike 3.png" id="4_ky3nx"]
+[ext_resource type="Texture2D" uid="uid://0aejgnft4fbt" path="res://images/event/Storm/Strike/Lightning Strike 4.png" id="5_dgnoc"]
+[ext_resource type="Texture2D" uid="uid://bt1qeg0guha5f" path="res://images/event/Storm/Strike/Lightning Strike 5.png" id="6_uanoa"]
+[ext_resource type="Texture2D" uid="uid://d1pc3ct3auau1" path="res://images/event/Storm/Strike/Lightning Strike 6.png" id="7_245bs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v31ax"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_12la8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_or0o4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ky3nx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dgnoc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_uanoa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_245bs")
+}],
+"loop": false,
+"name": &"strike",
+"speed": 10.0
+}]
+
+[sub_resource type="Curve" id="Curve_or0o4"]
+_data = [Vector2(0.0294118, 1), 0.0, 0.0, 0, 0, Vector2(0.845588, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.11236), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ky3nx"]
+curve = SubResource("Curve_or0o4")
+
+[sub_resource type="Gradient" id="Gradient_dgnoc"]
+colors = PackedColorArray(0.883333, 1, 0, 1, 0.941667, 1, 0.5, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uanoa"]
+gradient = SubResource("Gradient_dgnoc")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_wjsu0"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1clcv"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -121.7
+angle_max = 40.6
+direction = Vector3(1, -30, 0)
+spread = 30.0
+initial_velocity_min = 48.0
+initial_velocity_max = 70.0
+directional_velocity_min = -8.00002
+directional_velocity_max = -8.00002
+directional_velocity_curve = SubResource("CurveXYZTexture_wjsu0")
+gravity = Vector3(0, 200, 0)
+color_ramp = SubResource("GradientTexture1D_uanoa")
+alpha_curve = SubResource("CurveTexture_ky3nx")
+
+[sub_resource type="Gradient" id="Gradient_v31ax"]
+offsets = PackedFloat32Array(0.928571, 1)
+colors = PackedColorArray(0.816667, 1, 0, 0.0745098, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1clcv"]
+gradient = SubResource("Gradient_v31ax")
+fill = 1
+fill_from = Vector2(0.509174, 0.481651)
+fill_to = Vector2(0.513761, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_245bs"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_12la8"]
+radius = 32.0
 
 [node name="LightningStrike" type="StaticBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_12la8")
+
+[node name="Spawn" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(0.333333, 0.333333)
+stream = ExtResource("1_wjsu0")
+bus = &"SFX"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v31ax")
+animation = &"strike"
+frame = 5
+frame_progress = 1.0
+offset = Vector2(0, -48)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 16
+explosiveness = 0.2
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_1clcv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("GradientTexture2D_1clcv")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_245bs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_12la8")

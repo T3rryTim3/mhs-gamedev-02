@@ -214,8 +214,9 @@ func _used_item() -> Item: # Gets the currently being used item, if any
 		return item
 	return null
 
-func update_collector_stack_lim(limit:int):
-	collector.stack_limit = limit
+func update_collector_stack_lim():
+	collector.stack_limit = _get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+Config.PLAYER_BASE_ITEM_LIMIT+_get_upgrade(Upgrades.Upgrades.STRENGTH)
+
 
 func highlight_nearest(): ## Highlight the nearest item
 	var nearest:Item = null
@@ -240,10 +241,21 @@ func _update_blueprint_sprite(new):
 
 func _ready():
 	super()
+	Globals.player = self
 	dam_sound.stream = load("res://Audio/SFX/Other/hurt.wav") # Replace damage sound
 	dam_sound.volume_db -= 1
 
+	update_collector_stack_lim()
+
 	await _get_level().ready # Ensures UI is fully loaded
+
+	## Apply respective map particles
+	match Globals.current_level:
+		Main.Scenes.LEVEL_FIELD:
+			$MapParticles/Leaves.visible = true
+		Main.Scenes.LEVEL_TUNDRA:
+			$MapParticles/Snow.visible = true
+		
 
 	if camera_limit: # Prevent camera from going beyond area
 		$Camera2D.limit_bottom = camera_limit.global_position.y + camera_limit.shape.get_rect().size.y/2
@@ -342,15 +354,13 @@ func _process(delta) -> void:
 	
 	# Input
 	if Input.is_action_just_pressed("pickup"):
-		update_collector_stack_lim(
-			_get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+
-			Config.PLAYER_BASE_ITEM_LIMIT+
-			_get_upgrade(Upgrades.Upgrades.STRENGTH)
-		)
+		update_collector_stack_lim()
 		if not collector.add_nearest_item(-1, get_global_mouse_position()):
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
 			collector.drop_item(dir*distance + global_position)
+		if len(collector.current_resources) >= 3:
+			Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
 	
 	elif Input.is_action_just_pressed("drop"):
 		var dir = global_position.direction_to(get_global_mouse_position())
@@ -413,21 +423,23 @@ func _input(event) -> void:
 		else:
 			delete_mode = false
 		mode_changed.emit()
+	
+	if event.is_action_pressed("blueprint"):
+		if current_blueprint:
+			stop_blueprint()
+		else:
+			if delete_mode:
+				delete_mode = false
+			begin_blueprint(StationData.Stations.WELL)
+		mode_changed.emit()
 
 	if event is InputEventKey:
 		if event.pressed:
 			match event.keycode:
-				KEY_B:
-					if current_blueprint:
-						stop_blueprint()
-					else:
-						if delete_mode:
-							delete_mode = false
-						begin_blueprint(StationData.Stations.WELL)
-					mode_changed.emit()
 				KEY_K:
-					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")
@@ -460,6 +472,7 @@ func damage(amount:float) -> void: # Deal damage to the entity
 func _death():
 	if not alive:
 		return
+	Achievements.raise_progress(Achievements.Achievements.ILL_BE_BACK, 1)
 	death.emit()
 	alive = false
 	$DeathSound.play()
@@ -470,7 +483,7 @@ func _movement(delta) -> void:
 	move_dir = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
 	
 	# Check for sprinting input
-	if Input.is_action_pressed("sprint") and state.stamina.val > 0:
+	if Input.is_action_pressed("sprint") and state.stamina.val > 0 and move_dir != Vector2.ZERO:
 		sprinting = true
 	else:
 		sprinting = false

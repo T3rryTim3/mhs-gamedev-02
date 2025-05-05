@@ -39,8 +39,8 @@ var levels = [
 	{
 		"name": "Tundra",
 		"description": "A harsh environment requiring a good source of heat and food.",
-		"scene_enum": Main.Scenes.LEVEL_FIELD,
-		"image_path": "res://images/placeholder/image.png",
+		"scene_enum": Main.Scenes.LEVEL_TUNDRA,
+		"image_path": "res://images/placeholder/Screenshot from 2025-05-01 20-43-53.png",
 		"modes": [
 			{
 				"name": "Standard",
@@ -109,9 +109,9 @@ var levels = [
 ]
 
 var current_level_index = 0
-@onready var mode_dropdown = $HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Difficulty
-@onready var descriptions = $HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Descriptions
-@onready var custom_sliders = $HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/CustomSliders
+@onready var mode_dropdown = $MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Difficulty
+@onready var descriptions = $MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Descriptions
+@onready var custom_sliders = $MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/CustomSliders
 
 
 #func update_button(button):
@@ -136,9 +136,9 @@ func _update_data(): ## Updates based on the current scene selected
 	mode_dropdown.clear()
 	for mode_index in len(level["modes"]):
 		mode_dropdown.add_item(level["modes"][mode_index]["name"], mode_index)
-	$HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/Title.text = levels[current_level_index]["name"]
-	$HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/LevelDesk.text = levels[current_level_index]["description"]
-	$HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/TextureRect.texture = load(levels[current_level_index]["image_path"])
+	$MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/Title.text = levels[current_level_index]["name"]
+	$MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/LevelDesk.text = levels[current_level_index]["description"]
+	$MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/TextureRect.texture = load(levels[current_level_index]["image_path"])
 
 func _on_Forward_pressed():
 	current_level_index += 1
@@ -163,8 +163,8 @@ func _on_start_pressed():
 		return #TODO: Load slider values into a leveldata object
 	else:
 		level_data = Config.get_difficulty_level_data(levels[current_level_index]["modes"][mode_dropdown.selected]["leveldata"])
-	Globals.main._load_scene(levels[current_level_index]["scene_enum"], level_data)
 	Globals.current_level = levels[current_level_index]["scene_enum"]
+	Globals.main._load_scene(levels[current_level_index]["scene_enum"], level_data)
 
 func _update_desc():
 	var desc = levels[current_level_index]["modes"][mode_dropdown.selected]["desc"]
@@ -173,9 +173,18 @@ func _update_desc():
 	for line in desc:
 		var label:Label = Label.new() 
 		label.add_theme_color_override("font_color",line[1])
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.text = line[0]
 		descriptions.add_child(label)
 
+func _input(event):
+	if event.is_pressed():
+		if event.is_action("ui_left"):
+			_on_Back_pressed()
+		elif event.is_action("ui_right"):
+			_on_Forward_pressed()
+		elif event.is_action_pressed("ui_accept"):
+			_on_start_pressed()
 
 func _on_difficulty_item_selected(_index: int) -> void:
 	_update_desc()

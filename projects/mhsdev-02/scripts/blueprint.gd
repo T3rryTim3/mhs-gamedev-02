@@ -45,12 +45,7 @@ var completing = false
 var can_delete:bool = false
 
 func _get_level(): ## Finds the first Level ancestor
-	var parent = get_parent() 
-	while parent != null:
-		if parent is Level:
-			return parent
-		parent = parent.get_parent()
-	return null
+	return Globals.level
 
 func get_sprite_texture() -> Texture2D:
 	if sprite is Sprite2D:
@@ -146,7 +141,7 @@ func _process(delta: float) -> void:
 		item_id = player.collector.get_topmost_item().id
 
 	# Check if the hovered item can be spent and is overlapping the blueprint
-	if item_id != -1 and cost.has(item_id) and spent_resources[item_id] < cost[item_id]:
+	if item_id != -1 and cost.has(item_id) and spent_resources[item_id] < cost[item_id] and player.current_item_display:
 		var pos = player.current_item_display.global_position
 		if (pos.x > global_position.x - sizex/2) and (pos.x < global_position.x + sizex/2):
 			if (pos.y > global_position.y - sizey/2) and (pos.y < global_position.y + sizey/2):
@@ -156,7 +151,6 @@ func _process(delta: float) -> void:
 					player.hovered_blueprints.append(self)
 	if not success: # Reset the size if not applicable
 		if (self in player.hovered_blueprints):
-			print("Erase.")
 			player.hovered_blueprints.erase(self)
 		scale = Vector2(1,1)
 

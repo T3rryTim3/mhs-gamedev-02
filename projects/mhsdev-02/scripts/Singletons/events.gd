@@ -6,7 +6,8 @@ signal event_spawned
 
 enum Events {
 	TORNADO,
-	VOLCANO
+	VOLCANO,
+	STORM
 }
 
 ## The log base used for difficulty scaling.
@@ -45,6 +46,13 @@ func get_event_data(event:Events, strength:float = 1) -> EventData:
 				"volcano",
 				"res://scenes/Events/volcano.tscn",
 				15,
+				strength
+			)
+		Events.STORM:
+			return EventData.new(
+				"storm",
+				"res://scenes/Events/storm.tscn",
+				20,
 				strength
 			)
 	return null

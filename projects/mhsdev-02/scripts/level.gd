@@ -71,6 +71,7 @@ var loaded:bool = false
 
 ## Holds data for level settings. This is used for both preset difficulties and custom ones.
 class LevelData:
+	var mode : Config.GameDifficulties
 	var event_cooldown : float = 45 
 	var strength_per_minute : float = 1 
 	var damage_multi : float = 1
@@ -124,7 +125,7 @@ func _ready():
 		map = Node2D.new()
 		add_child(map)
 
-	player = get_tree().get_first_node_in_group("player")
+	player = Globals.player
 	if not player:
 		print("WARNING: PLAYER NOT FOUND")
 	
@@ -144,6 +145,14 @@ func _ready():
 	spawn_items = level_data.items
 
 func _win(): ## Ends the game in a victory
+	Achievements.raise_progress(Achievements.Achievements.ADDICT)
+	match level_data.mode:
+		Config.GameDifficulties.FIELD_STANDARD:
+			Achievements.raise_progress(Achievements.Achievements.FIELD_STANDARD)
+		Config.GameDifficulties.FIELD_ROWDY:
+			Achievements.raise_progress(Achievements.Achievements.FIELD_ROWDY)
+		Config.GameDifficulties.FIELD_MAYHEM:
+			Achievements.raise_progress(Achievements.Achievements.FIELD_MAYHEM)
 	victory.emit()
 
 func _spawn_item():
@@ -225,11 +234,11 @@ func get_station_count(type:StationData.Stations) -> int: ## Gets the number of 
 
 func update_station_stats(): ## Updates variables dependent on stations
 	if player:
-		var player_strength = 1 + get_station_count(StationData.Stations.STRENGTH_TOTEM)
-		player.update_collector_stack_lim(player_strength)
+		player.update_collector_stack_lim()
 
 func player_stat_update(_player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
-	player.state.temp.val -= level_data.temp_drain * delta
+	if player:
+		player.state.temp.val -= level_data.temp_drain * delta
 
 func get_upgrades() -> Dictionary[Upgrades.Upgrades, int]: ## Returns a dictionary of the player's upgrades
 	return player.upgrades

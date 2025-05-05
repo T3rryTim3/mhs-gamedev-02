@@ -11,5 +11,7 @@ var level:Level
 
 var main:Main
 
+var player:Player
+
 func show_settings(): ## Displays the settings menu
 	pass
