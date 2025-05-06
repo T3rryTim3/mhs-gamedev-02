@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cr75yhrni3tcn"]
+[gd_scene load_steps=12 format=3 uid="uid://cr75yhrni3tcn"]
 
 [ext_resource type="Script" uid="uid://chcsl85yq7660" path="res://select.gd" id="1_catev"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_gup8f"]
@@ -8,12 +8,18 @@
 [ext_resource type="PackedScene" uid="uid://c4kt2p7my0yub" path="res://loadingscreentips.tscn" id="5_wwl0d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h47y5"]
-bg_color = Color(0.82, 0.6068, 0.328, 1)
+bg_color = Color(0.0250615, 5.53504e-07, 0.217473, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2mra"]
+bg_color = Color(0, 0.171, 0.57, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_161ai"]
+bg_color = Color(0.1344, 0.18624, 0.48, 1)
 
 [sub_resource type="Gradient" id="Gradient_h47y5"]
 
@@ -69,6 +75,11 @@ text = "Back"
 
 [node name="Difficulty" type="OptionButton" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_j2mra")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_161ai")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_161ai")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_161ai")
+theme_override_styles/normal = SubResource("StyleBoxFlat_161ai")
 alignment = 1
 selected = 0
 item_count = 3
@@ -174,7 +185,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.432413, 0.230032, 4.81308e-08, 1)
+color = Color(0.00759, 0.0051, 0.03, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false

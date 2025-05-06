@@ -80,7 +80,7 @@ func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 	get_tree().paused = false
 	match scene:
 		Scenes.MENU:
-			new_scene = load("res://scenes/UI/MainMenu.tscn").instantiate()
+			new_scene = load("res://scenes/UI/MainMenu2.tscn").instantiate()
 		Scenes.LEVEL_SELECT:
 			new_scene = load("res://scenes/UI/select.tscn").instantiate()
 		Scenes.LEVEL_FIELD:

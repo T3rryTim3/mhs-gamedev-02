@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://brj2vmu5150lt" path="res://scenes/Effects/burning.tscn" id="3_mjp5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_op5oi"]
-size = Vector2(14, 14)
 
 [sub_resource type="Gradient" id="Gradient_62jfc"]
 offsets = PackedFloat32Array(0, 0.909836, 1)
@@ -53,7 +52,7 @@ fill_to = Vector2(0.917431, 0.0917431)
 
 [node name="Fireball" type="CharacterBody2D"]
 y_sort_enabled = true
-collision_layer = 0
+collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_op5oi")
 

@@ -5,6 +5,7 @@ class_name Player
 @onready var collector_collider:CollisionShape2D = $Collector/PickupRange/CollisionShape2D
 @onready var use_bar = $TextureProgressBar
 @onready var high_temp_particles:GPUParticles2D = $HighTempParticles
+@onready var camera:Camera2D = $Camera2D
 
 signal give_upgrade
 signal upgrade_added
@@ -48,6 +49,9 @@ enum ThirstLevel {
 #endregion
 
 #region Other Vars
+## Camera offset from the mouse position
+var camera_mouse_offset:Vector2
+
 ## Current upgrades
 var upgrades = {}
 
@@ -321,11 +325,9 @@ func _ready():
 func _attack():
 	if not super(): # Return if attack is in progress already
 		return
-	print("Swing")
 	for body:CollisionObject2D in $HitCollider.get_overlapping_bodies():
-		print(body)
-		if body.has_method("_player_hit"):
-			body._player_hit()
+		if body.has_method("player_hit"):
+			body.player_hit()
 
 func _process(delta) -> void:
 	super(delta)
@@ -333,7 +335,6 @@ func _process(delta) -> void:
 	if EventMan.is_event(EventMan.Events.STORM):
 		$MapParticles/Rain.emitting = true
 		$MapParticles/Rain.visible = true
-		print($MapParticles/Rain.amount)
 		$MapParticles/Rain.modulate.a = min(1, $MapParticles/Rain.modulate.a + delta * 0.1)
 	else:
 		$MapParticles/Rain.emitting = false
@@ -392,7 +393,7 @@ func _process(delta) -> void:
 
 	# Update item progress
 	var item = _used_item()
-	if Input.is_action_pressed("use_item"):
+	if Input.is_action_just_pressed("use_item"):
 		if not _use(delta):
 			_attack()
 	elif item:
@@ -403,11 +404,6 @@ func _process(delta) -> void:
 		use_bar.value = (item.item_usage_progress / item.item_usage_max) * use_bar.max_value
 	else:
 		use_bar.hide()
-
-	# Lerp camera
-	var distance = min(100, Vector2.ZERO.distance_to(get_local_mouse_position())) / 2
-	var offset = Vector2.ZERO.direction_to(get_local_mouse_position())
-	$Camera2D.offset = $Camera2D.offset.lerp(offset * distance, 10 * delta)
 
 	# Show item overlay
 	if len(collector.current_resources) > 0 and not current_blueprint:
@@ -461,9 +457,9 @@ func _input(event) -> void:
 		if event.pressed:
 			match event.keycode:
 				KEY_K:
-					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")
@@ -491,6 +487,7 @@ func _input(event) -> void:
 func damage(amount:float) -> void: # Deal damage to the entity
 	amount *= _get_level().level_data.damage_multi # Increase damage based on leveldata
 	amount *= pow(0.9, _get_upgrade(Upgrades.Upgrades.TOUGH))
+	camera.add_trauma(amount / max_health)
 	super(amount)
 
 func _death():

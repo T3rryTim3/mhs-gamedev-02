@@ -106,7 +106,7 @@ collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_12la8")
 
-[node name="Spawn" type="AudioStreamPlayer2D" parent="."]
+[node name="Strike" type="AudioStreamPlayer2D" parent="."]
 scale = Vector2(0.333333, 0.333333)
 stream = ExtResource("1_wjsu0")
 bus = &"SFX"

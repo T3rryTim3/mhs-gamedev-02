@@ -83,8 +83,7 @@ var levels = [
 				"name": "Tutorial",
 				"leveldata": Config.GameDifficulties.TUTORIAL,
 				"desc": [
-					["x2 Events", Color(1,0,0)],
-					["x2 Events", Color(1,0,0)]
+					["None", Color(0,1,0)]
 				]
 			}
 		]

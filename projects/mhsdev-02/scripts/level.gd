@@ -111,6 +111,7 @@ func _ready():
 		level_data = LevelData.new() # Default settings
 
 	storm_modulate_node = load("res://scenes/storm_modulate.tscn").instantiate()
+	storm_modulate_node.goal = Color(1, 1, 1, 1)
 	add_child(storm_modulate_node)
 	storm_modulate_node.enabled = true
 
@@ -209,11 +210,15 @@ func _process(delta) -> void:
 	
 
 	# Update canvasmodulate nodes
+	storm_modulate_node.goal = Color(1,1,1)
 	if EventMan.is_event(EventMan.Events.STORM):
-		storm_modulate_node.enabled = true
-	else:
-		storm_modulate_node.enabled = false
-	
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.573, 0.531, 0.823, 1))
+	if EventMan.is_event(EventMan.Events.VOLCANO):
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(1, 0.71, 0.42, 1))
+	if EventMan.is_event(EventMan.Events.TORNADO):
+		if player.camera.trauma < 0.03:
+			player.camera.trauma = 0.03
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.735, 0.79, 0.749, 1))
 
 	# Update stress and weather events
 	strength += strength_increase / 60 * delta

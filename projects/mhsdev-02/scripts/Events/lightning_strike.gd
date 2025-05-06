@@ -31,8 +31,11 @@ func _process(delta: float) -> void:
 
 	# When the warning is over
 	if old < warning_time and current_progress >= warning_time:
+		Globals.level.player.camera.add_trauma(0.2)
 		$AnimatedSprite2D.play("strike")
+		$Strike.play()
 		$AnimatedSprite2D.animation_finished.connect(_end)
+		$TextureRect.visible = false
 		$PointLight2D.enabled = true
 		$PointLight2D.visible = true
 		for body in $Area2D.get_overlapping_bodies():
@@ -46,7 +49,6 @@ func _ready():
 	push_strength = EventMan.scale_val(data.strength/2) * 300
 	strike_damage = 1 * EventMan.scale_val(data.strength)
 	scale = Vector2(EventMan.scale_val(data.strength) * 2,EventMan.scale_val(data.strength) * 2)
-	$Spawn.play()
 	$TextureRect.visible = true
 	$GPUParticles2D.visible = true
 	$GPUParticles2D.emitting = true

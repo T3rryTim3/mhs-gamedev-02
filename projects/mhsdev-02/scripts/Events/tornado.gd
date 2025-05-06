@@ -36,6 +36,7 @@ func _select_target():
 
 func _process(delta):
 	super(delta)
+	_get_player().velocity
 	current_cooldown += delta
 	if tornado_body.global_position.distance_to(_get_player().global_position) > 400:
 		current_cooldown = move_cooldown + cooldown_delay # Dont wait if player is far

@@ -10,7 +10,10 @@ var tips = [
 	"Powering the machine early helps you survive longer.",
 	"You can carry multiple items at once and rotate them around (Default R). ",
 	"Press Q (Default) to drop items without picking anything up.",
-	"Sprinting increases your thirst drain, so use it wisely."
+	"Sprinting increases your thirst drain, so use it wisely.",
+	"Hit stations with your pitchfork to speed them up.",
+	"You can deflect fireballs by hitting them.",
+	"Balance is important; stay alive while also fueling the machine."
 ]
 
 func select_tip():
