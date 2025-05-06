@@ -39,18 +39,18 @@ func _load_costs(): ## Loads the costs from 'selected_costs'
 		CostGroups.FIELD:
 			costs = [
 				[5,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
-				[10,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
-				[15,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
-				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
-				[25,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}]
+				[8,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
+				[12,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
+				[14,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
+				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}]
 			]
 		CostGroups.TUNDRA:
 			costs = [
 				[5,{ItemData.ItemTypes.ROCK: 1, ItemData.ItemTypes.WATER: 2, ItemData.ItemTypes.WHEAT_SEEDS: 2}],
-				[10,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1}],
-				[15,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WATER_CLEAN: 3, ItemData.ItemTypes.ROCK: 1}],
-				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.WATER_CLEAN: 3}],
-				[25,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1, ItemData.ItemTypes.WATER_CLEAN: 3}]
+				[8,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1}],
+				[12,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WATER_CLEAN: 3, ItemData.ItemTypes.ROCK: 1}],
+				[14,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.WATER_CLEAN: 3}],
+				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1, ItemData.ItemTypes.WATER_CLEAN: 3}]
 			]
 		CostGroups.TUTORIAL:
 			costs = [

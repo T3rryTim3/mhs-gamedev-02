@@ -110,6 +110,7 @@ layout_mode = 2
 text = "---->"
 
 [node name="Start" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 icon = ExtResource("3_gup8f")
@@ -118,6 +119,11 @@ flat = true
 [node name="CustomSliders" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_bfs70")]
 visible = false
 layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+flat = true
 
 [node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2
@@ -199,3 +205,4 @@ texture = SubResource("GradientTexture2D_161ai")
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward" to="." method="_on_Forward_pressed"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_start_pressed"]

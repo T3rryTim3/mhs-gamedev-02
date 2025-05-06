@@ -377,6 +377,7 @@ func _process(delta) -> void:
 		if not collector.add_nearest_item(-1, get_global_mouse_position()):
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+			collector.search_range.global_position = (dir*distance + global_position)
 			collector.drop_item(dir*distance + global_position)
 		if len(collector.current_resources) >= 3:
 			Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
@@ -384,6 +385,7 @@ func _process(delta) -> void:
 	elif Input.is_action_just_pressed("drop"):
 		var dir = global_position.direction_to(get_global_mouse_position())
 		var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+		collector.search_range.global_position = (dir*distance + global_position)
 		collector.drop_item(dir*distance + global_position)
 
 	# Move hit collider
@@ -393,8 +395,8 @@ func _process(delta) -> void:
 
 	# Update item progress
 	var item = _used_item()
-	if Input.is_action_just_pressed("use_item"):
-		if not _use(delta):
+	if Input.is_action_pressed("use_item"):
+		if not _use(delta) and Input.is_action_just_pressed("use_item"): # Prevent holding attack
 			_attack()
 	elif item:
 		item.using = false
@@ -524,6 +526,8 @@ func _movement(delta) -> void:
 		collector_pos_dir.y = 0
 
 	collector.position = collector_pos_dir * (collector_collider.shape.get_rect().size.x/4)
+	#collector.pickup_area.global_position = camera_mouse_offset
+	#collector.position = camera_mouse_offset
 	collector.drop_pos_node.position = collector.position
 
 	# Account for animation bounce
