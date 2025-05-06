@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b0px88u7gy3cc"]
+[gd_scene load_steps=22 format=3 uid="uid://b0px88u7gy3cc"]
 
 [ext_resource type="Script" uid="uid://bcr0hwf2t3slu" path="res://scripts/Events/lightning_strike.gd" id="1_12la8"]
 [ext_resource type="AudioStream" uid="uid://uauxowy0nyjv" path="res://Audio/SFX/Event/volcanoSpawnTest.wav" id="1_wjsu0"]
@@ -48,7 +48,7 @@ point_count = 3
 curve = SubResource("Curve_or0o4")
 
 [sub_resource type="Gradient" id="Gradient_dgnoc"]
-colors = PackedColorArray(0.883333, 1, 0, 1, 0.941667, 1, 0.5, 1)
+colors = PackedColorArray(0.883333, 1, 0, 1, 0.67968, 0.72, 0.1152, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_uanoa"]
 gradient = SubResource("Gradient_dgnoc")
@@ -69,6 +69,7 @@ directional_velocity_min = -8.00002
 directional_velocity_max = -8.00002
 directional_velocity_curve = SubResource("CurveXYZTexture_wjsu0")
 gravity = Vector3(0, 200, 0)
+scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_uanoa")
 alpha_curve = SubResource("CurveTexture_ky3nx")
 
@@ -87,6 +88,17 @@ radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_12la8"]
 radius = 32.0
+
+[sub_resource type="Gradient" id="Gradient_12la8"]
+colors = PackedColorArray(0.900833, 1, 0.15, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_or0o4"]
+gradient = SubResource("Gradient_12la8")
+width = 96
+height = 96
+fill = 1
+fill_from = Vector2(0.527523, 0.522936)
+fill_to = Vector2(0.53211, 0.0412844)
 
 [node name="LightningStrike" type="StaticBody2D"]
 scale = Vector2(2, 2)
@@ -122,7 +134,13 @@ texture = SubResource("GradientTexture2D_1clcv")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_245bs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_12la8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.9, 0.84, 0, 1)
+texture = SubResource("GradientTexture2D_or0o4")

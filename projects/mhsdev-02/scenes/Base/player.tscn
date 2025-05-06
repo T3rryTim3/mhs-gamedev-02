@@ -1,22 +1,38 @@
-[gd_scene load_steps=73 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=92 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
+[ext_resource type="Texture2D" uid="uid://cygwur3w30pv8" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack01.png" id="2_3ua4m"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="2_8og45"]
 [ext_resource type="Texture2D" uid="uid://dpa3towsv1ott" path="res://images/Humanoid/Player/Front(Holding).png" id="3_dtcmw"]
+[ext_resource type="Texture2D" uid="uid://f6y1megc1ac3" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack02.png" id="3_eekm3"]
+[ext_resource type="Texture2D" uid="uid://b8dlv5u5qck28" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack03.png" id="4_ans4x"]
 [ext_resource type="Texture2D" uid="uid://cwik73dujqb48" path="res://images/Humanoid/Player/Left.png" id="4_c83oj"]
+[ext_resource type="Texture2D" uid="uid://bb23i1cfalgkc" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack04.png" id="5_hkcpf"]
 [ext_resource type="Texture2D" uid="uid://b168qewgnx7lv" path="res://images/Humanoid/Player/Left(Holding).png" id="5_mey21"]
+[ext_resource type="Texture2D" uid="uid://b77kevt28ym4p" path="res://images/Humanoid/Pitchfork sprites-animations/left attack/leftattack01.png" id="6_ffcsl"]
 [ext_resource type="Texture2D" uid="uid://1pkuug6n6d53" path="res://images/Humanoid/Player/Right.png" id="6_h6q1k"]
+[ext_resource type="Texture2D" uid="uid://bfsrkov8saap" path="res://images/Humanoid/Pitchfork sprites-animations/left attack/leftattack02.png" id="7_eouh7"]
 [ext_resource type="Texture2D" uid="uid://b3vi2krjcsjtx" path="res://images/Humanoid/Player/Right(Holding).png" id="7_wocvw"]
+[ext_resource type="Texture2D" uid="uid://cmssacrhkusyu" path="res://images/Humanoid/Pitchfork sprites-animations/left attack/leftattack03.png" id="8_5fp0c"]
 [ext_resource type="Texture2D" uid="uid://cw82b6i0a6v6m" path="res://images/Humanoid/Player/Back.png" id="8_vth45"]
+[ext_resource type="Texture2D" uid="uid://biucuk4niaqly" path="res://images/Humanoid/Pitchfork sprites-animations/left attack/leftattack04.png" id="9_pmy23"]
 [ext_resource type="Texture2D" uid="uid://budy6rh4c4sqf" path="res://images/Humanoid/Player/Back(Holding).png" id="9_wjtvo"]
 [ext_resource type="Texture2D" uid="uid://bby0shumrraid" path="res://images/Humanoid/Player/FrontWalk/FrontWalk01.png" id="10_k1u1b"]
+[ext_resource type="Texture2D" uid="uid://des31py1qom1b" path="res://images/Humanoid/Pitchfork sprites-animations/right attack/rightattack01.png" id="10_k78ua"]
 [ext_resource type="Texture2D" uid="uid://ew7uypumd3c3" path="res://images/Humanoid/Player/FrontWalk/FrontWalk02.png" id="11_7gp7b"]
+[ext_resource type="Texture2D" uid="uid://koxcs1uf660n" path="res://images/Humanoid/Pitchfork sprites-animations/right attack/rightattack02.png" id="11_fdmar"]
+[ext_resource type="Texture2D" uid="uid://c16agkax1d5vf" path="res://images/Humanoid/Pitchfork sprites-animations/right attack/rightattack03.png" id="12_7tg46"]
 [ext_resource type="Texture2D" uid="uid://bxgplq6v328wd" path="res://images/Humanoid/Player/FrontWalk/FrontWalk03.png" id="12_uu0wx"]
 [ext_resource type="Texture2D" uid="uid://bgr04ep78vs8e" path="res://images/Humanoid/Player/FrontWalk/FrontWalk04.png" id="13_qnerm"]
+[ext_resource type="Texture2D" uid="uid://53cnjgl1xjmw" path="res://images/Humanoid/Pitchfork sprites-animations/right attack/rightattack04.png" id="13_y755a"]
+[ext_resource type="Texture2D" uid="uid://cbw2yfvahvg7t" path="res://images/Humanoid/Pitchfork sprites-animations/back attack/backattack01.png" id="14_kvra5"]
 [ext_resource type="Texture2D" uid="uid://brvvr8lsdeyfh" path="res://images/Humanoid/Player/FrontWalk(Holding)/FrontWalk(Holding)01.png" id="14_pf3np"]
+[ext_resource type="Texture2D" uid="uid://lgv4o4vcj3ok" path="res://images/Humanoid/Pitchfork sprites-animations/back attack/backattack02.png" id="15_bwthr"]
 [ext_resource type="Texture2D" uid="uid://i1rinc3om4te" path="res://images/Humanoid/Player/FrontWalk(Holding)/FrontWalk(Holding)02.png" id="15_nw0pq"]
 [ext_resource type="Texture2D" uid="uid://0jtfpv3ft5ae" path="res://images/Humanoid/Player/FrontWalk(Holding)/FrontWalk(Holding)03.png" id="16_2un5a"]
+[ext_resource type="Texture2D" uid="uid://rl0xmi8r6mbu" path="res://images/Humanoid/Pitchfork sprites-animations/back attack/backattack03.png" id="16_nx015"]
 [ext_resource type="Texture2D" uid="uid://bnmgl0dxy76e1" path="res://images/Humanoid/Player/FrontWalk(Holding)/FrontWalk(Holding)04.png" id="17_f0n4y"]
+[ext_resource type="Texture2D" uid="uid://4b50krstykvf" path="res://images/Humanoid/Pitchfork sprites-animations/back attack/backattack04.png" id="17_nbllt"]
 [ext_resource type="Texture2D" uid="uid://dwtjjvym7igk" path="res://images/Humanoid/Player/LeftWalk/LeftWalk01.png" id="18_poywp"]
 [ext_resource type="Texture2D" uid="uid://dmcq5nqltjxwg" path="res://images/Humanoid/Player/LeftWalk/LeftWalk02.png" id="19_8otcc"]
 [ext_resource type="Texture2D" uid="uid://bcny1lpwipin0" path="res://images/Humanoid/Player/LeftWalk/LeftWalk03.png" id="20_75n3u"]
@@ -52,6 +68,74 @@ size = Vector2(13, 19)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1g787"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3ua4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eekm3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ans4x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hkcpf")
+}],
+"loop": false,
+"name": &"attack_down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ffcsl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_eouh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5fp0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pmy23")
+}],
+"loop": false,
+"name": &"attack_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_k78ua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fdmar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7tg46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_y755a")
+}],
+"loop": false,
+"name": &"attack_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_kvra5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_bwthr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_nx015")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_nbllt")
+}],
+"loop": false,
+"name": &"attack_up",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_8og45")
@@ -327,25 +411,25 @@ point_count = 4
 curve = SubResource("Curve_nxqlp")
 
 [sub_resource type="Gradient" id="Gradient_1plcu"]
-colors = PackedColorArray(0.78, 0.78, 0.78, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.491032, 0.828324, 1, 1, 0.245223, 0.504994, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_nxqlp"]
 gradient = SubResource("Gradient_1plcu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1plcu"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(0, -20, 0)
+emission_shape_offset = Vector3(-200, -200, 0)
 emission_shape_scale = Vector3(250, 250, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
-angle_min = 1.07288e-05
-angle_max = 1.07288e-05
+angle_min = -45.0
+angle_max = -45.0
 direction = Vector3(10, 10, 0)
 spread = 5.0
-initial_velocity_min = 5.0
-initial_velocity_max = 20.0
-angular_velocity_min = -90.0
-angular_velocity_max = 90.0
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
 orbit_velocity_min = 9.49949e-08
 orbit_velocity_max = 9.49949e-08
 radial_velocity_min = -2.23517e-05
@@ -358,6 +442,14 @@ alpha_curve = SubResource("CurveTexture_u6rfl")
 hue_variation_min = -2.23517e-08
 hue_variation_max = -2.23517e-08
 turbulence_noise_strength = 20.0
+
+[sub_resource type="Gradient" id="Gradient_nxqlp"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u6rfl"]
+gradient = SubResource("Gradient_nxqlp")
+width = 10
+height = 1
 
 [sub_resource type="Curve" id="Curve_u6rfl"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 1), 0.0, 0.0, 0, 0, Vector2(0.845588, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -397,6 +489,9 @@ scale_min = 0.3
 scale_max = 0.6
 alpha_curve = SubResource("CurveTexture_ivyfu")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ua4m"]
+radius = 18.0278
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["player"]]
 z_index = 3
 y_sort_enabled = true
@@ -412,8 +507,7 @@ shape = SubResource("RectangleShape2D_xebjq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_1g787")
-animation = &"move_down_holding"
-frame_progress = 0.779783
+animation = &"attack_up"
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 script = ExtResource("42_nclik")
@@ -483,6 +577,15 @@ lifetime = 40.0
 speed_scale = 3.58
 process_material = SubResource("ParticleProcessMaterial_1plcu")
 
+[node name="Rain" type="GPUParticles2D" parent="MapParticles"]
+position = Vector2(-36, 2)
+amount = 1000
+texture = SubResource("GradientTexture2D_u6rfl")
+lifetime = 10.0
+speed_scale = 3.1
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_1plcu")
+
 [node name="Leaves" type="GPUParticles2D" parent="MapParticles"]
 visible = false
 position = Vector2(0, -73)
@@ -490,6 +593,15 @@ amount = 80
 texture = ExtResource("46_nxqlp")
 lifetime = 30.0
 process_material = SubResource("ParticleProcessMaterial_pyido")
+
+[node name="HitCollider" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 255
+monitorable = false
+
+[node name="HitCollider" type="CollisionShape2D" parent="HitCollider"]
+shape = SubResource("CircleShape2D_3ua4m")
+debug_color = Color(0.882758, 0.309723, 0.341698, 0.42)
 
 [connection signal="body_entered" from="Collector/PickupRange" to="." method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="Collector/PickupRange" to="." method="_on_pickup_range_body_exited"]

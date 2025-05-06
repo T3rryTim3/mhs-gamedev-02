@@ -90,6 +90,29 @@ func _process(delta: float) -> void:
 	$Sprite2D.scale.y = scale_val
 	scale_val = clampf(scale_val - 1 * delta, 1, 2)
 
+	var player:Player = _get_level().player
+	var sizex = $Sprite2D.texture.get_size().x
+	var sizey = $Sprite2D.texture.get_size().y
+	var success = false
+
+	var item_id = -1
+	if len(player.collector.current_resources) > 0:
+		item_id = player.collector.get_topmost_item().id
+
+	# Check if the hovered item can be spent and is overlapping the blueprint
+	if item_id != -1 and cost.has(item_id) and spent_resources[item_id] < cost[item_id] and player.current_item_display:
+		var pos = player.current_item_display.global_position
+		if (pos.x > global_position.x - sizex/2) and (pos.x < global_position.x + sizex/2):
+			if (pos.y > global_position.y - sizey/2) and (pos.y < global_position.y + sizey/2):
+				scale = Vector2(1.1,1.1)
+				success = true
+				if not (self in player.hovered_blueprints):
+					player.hovered_blueprints.append(self)
+	if not success: # Reset the size if not applicable
+		if (self in player.hovered_blueprints):
+			player.hovered_blueprints.erase(self)
+		scale = Vector2(1,1)
+
 ## Set the cost of the machine based upon the price given. 
 ## 'Items' is the dict of items that can be chosen (Item, Price).
 func select_cost(price:float, items):

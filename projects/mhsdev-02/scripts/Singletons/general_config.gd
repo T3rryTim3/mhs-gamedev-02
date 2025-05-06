@@ -58,6 +58,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.FIELD_STANDARD:
 			data = Level.LevelData.new()
 			data.event_cooldown = 55
+			data.strength_per_minute = 0.4
 			data.temp_drain = 0.4
 			return data
 		
@@ -65,7 +66,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data = Level.LevelData.new()
 			data.event_cooldown = 45
 			data.temp_drain = 0.4
-			data.strength_per_minute = 1.5
+			data.strength_per_minute = 0.6
 			data.thirst_multi = 1.2
 			data.hunger_multi = 1.2
 		
@@ -73,12 +74,13 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 45
 			data.temp_drain = 0.8
 			data.event_multiplier = 2
-			data.strength_per_minute = 1.5
+			data.strength_per_minute = 1.2
 			data.thirst_multi = 1.5
 			data.hunger_multi = 1.5
 		
 		GameDifficulties.FIELD_ENDLESS:
 			data.event_cooldown = 55
+			data.strength_per_minute = 1.2
 			data.temp_drain = 0.4
 			return data
 		
@@ -86,6 +88,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		
 		GameDifficulties.TUNDRA_STANDARD:
 			data.event_cooldown = 60
+			data.strength_per_minute = 0.4
 			data.temp_drain = 1.2
 			data.thirst_multi = 0.8
 			data.hunger_multi = 0.8
@@ -95,6 +98,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 50
 			data.temp_drain = 1.6
 			data.thirst_multi = 1.5
+			data.strength_per_minute = 0.8
 			data.hunger_multi = 1
 			return data
 		
@@ -102,6 +106,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 40
 			data.temp_drain = 2
 			data.thirst_multi = 1.5
+			data.strength_per_minute = 1
 			data.hunger_multi = 1.25
 			return data
 		
@@ -109,6 +114,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.event_cooldown = 60
 			data.temp_drain = 1.2
 			data.thirst_multi = 1.25
+			data.strength_per_minute = 1.2
 			data.hunger_multi = 0.8
 			return data
 			

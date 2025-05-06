@@ -65,6 +65,10 @@ var stretch_val:float = 0
 ## (Animation) Animation length
 var stretch_time:float = 0.15
 
+func _player_hit():
+	print("Hit")
+
+
 func create_item(id:ItemData.ItemTypes, item_force:Vector2=Vector2.ZERO):
 	var new_drop:Item = drop.instantiate()
 	new_drop.id = id

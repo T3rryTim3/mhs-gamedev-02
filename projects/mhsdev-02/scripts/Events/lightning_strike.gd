@@ -11,14 +11,30 @@ var data:EventMan.EventData
 
 var current_progress:float = 0
 
+var ending:bool = false
+var end_time:float = 0.3
+var current_end_time:float = 0
+
+func _end():
+	ending = true
+
 func _process(delta: float) -> void:
 	var old = current_progress
 	current_progress += delta
 
+	if ending:
+		current_end_time += delta
+		modulate.a = 1 - (current_end_time / end_time)
+		$PointLight2D.energy = 1 - (current_end_time / end_time)
+		if current_end_time >= end_time:
+			queue_free()
+
 	# When the warning is over
 	if old < warning_time and current_progress >= warning_time:
 		$AnimatedSprite2D.play("strike")
-		$AnimatedSprite2D.animation_finished.connect(queue_free)
+		$AnimatedSprite2D.animation_finished.connect(_end)
+		$PointLight2D.enabled = true
+		$PointLight2D.visible = true
 		for body in $Area2D.get_overlapping_bodies():
 			if body is not Entity:
 				return
@@ -33,3 +49,5 @@ func _ready():
 	$Spawn.play()
 	$TextureRect.visible = true
 	$GPUParticles2D.visible = true
+	$GPUParticles2D.emitting = true
+	$PointLight2D.visible = false

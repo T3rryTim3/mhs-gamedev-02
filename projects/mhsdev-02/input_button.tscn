@@ -5,10 +5,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2ntc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np8g7"]
-bg_color = Color(0.6, 0.6, 0.6, 0.392157)
+bg_color = Color(0.6, 0.6, 0.6, 0.254)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or0cn"]
-bg_color = Color(0, 0, 0, 0.392157)
+bg_color = Color(0, 0, 0, 0.193)
 
 [node name="InputButton" type="Button"]
 custom_minimum_size = Vector2(0, 18)

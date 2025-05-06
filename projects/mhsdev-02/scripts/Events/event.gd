@@ -3,6 +3,7 @@ class_name Event
 
 var data:EventMan.EventData
 var level:Level
+var event_enum:EventMan.Events
 
 var alive_dur:float = 0
 
