@@ -1,10 +1,20 @@
-extends Tree
+extends Control
+
+@onready var bgc = $"Background Colour"
+@onready var bgg = $"Background Gradient"
+@onready var tree = $HSplitContainer/Tree
+
+var levels:Array
+var root:TreeItem
+
+
 
 var all_levels = [
 	{
 		"name": "Tutorial",
 		"description": "A guide on how to use (parentheses)",
 		"color": Color(0.9,0.9,0.9),
+		"bg_color":Color(1,1,1),
 		"scene_enum": Main.Scenes.LEVEL_TUTORIAL,
 		"image_path": "res://images/placeholder/image.png",
 		"modes": [
@@ -21,6 +31,7 @@ var all_levels = [
 		"name": "Field",
 		"description": "An empty field perfect for not having (parentheses)",
 		"color": Color(0,1,0),
+		"bg_color":Color(1,1,1),
 		"scene_enum": Main.Scenes.LEVEL_FIELD,
 		"image_path": "res://images/placeholder/image.png",
 		"modes": [
@@ -28,6 +39,7 @@ var all_levels = [
 				"name": "Standard",
 				"leveldata": Config.GameDifficulties.FIELD_STANDARD,
 				"color" : Color(0.4, 1, 0.4),
+				"bg_color":Color(1,1,1),
 				"desc": [
 					["55s Event delay", Color(1,0,0)],
 					["-0.4 Temperature", Color(1,0,0)]
@@ -98,6 +110,45 @@ var all_levels = [
 		]
 	},
 	{
+		"name": "Desert",
+		"description": "A harsh environment requiring a good source of water.",
+		"color": Color(1,0.9,0),
+		"scene_enum": Main.Scenes.LEVEL_TUNDRA,
+		"achievement": Achievements.Achievements.FIELD_STANDARD,
+		"image_path": "res://images/placeholder/Screenshot from 2025-05-01 20-43-53.png",
+		"modes": [
+			{
+				"name": "Standard",
+				"leveldata": Config.GameDifficulties.TUNDRA_STANDARD,
+				"desc": [
+					["60s Event delay", Color(1,0,0)],
+					["-1.2 Temperature", Color(1,0,0)],
+					["Hunger drains slower", Color(0,1,0)],
+					["Thirst drains slower", Color(0,1,0)]
+				]
+				
+			},
+			{
+				"name": "Rowdy",
+				"leveldata": Config.GameDifficulties.TUNDRA_ROWDY,
+				"desc": [
+					["-10s between events", Color(1,0,0)],
+					["Hunger decreases faster", Color(1,0,0)],
+					["Thirst decreases faster", Color(1,0,0)],
+					["Events are stronger", Color(1,0,0)]
+				]
+			},
+			{
+				"name": "Mayhem",
+				"leveldata": Config.GameDifficulties.TUNDRA_MAYHEM,
+				"desc": [
+					["All events are doubled", Color(1,0,0)],
+					["Temperature drains twice as fast", Color(1,0,0)]
+				]
+			}
+		]
+	},
+	{
 		"name": "Custom",
 		"description": "A sandbox to play as you wish",
 		"color": Color(1,0,1),
@@ -117,13 +168,9 @@ var all_levels = [
 	}
 ]
 
-var levels:Array
-var root:TreeItem
-
 func _ready():
-
-	root = create_item()
-	hide_root = true
+	root = tree.create_item()
+	tree.hide_root = true
 
 	levels = []
 	for level in all_levels:
@@ -141,7 +188,7 @@ func _ready():
 
 		levels[level_index]["type"] = "level"
 
-		var level_item = create_item()
+		var level_item = tree.create_item()
 		level_item.set_text(0, level["name"])
 		level_item.set_metadata(0, level)
 		if "color" in level:
@@ -157,7 +204,7 @@ func _ready():
 				#if not Achievements.has_achievement(mode["achievement"]):
 					#continue
 
-			var mode_item = create_item(level_item)
+			var mode_item = tree.create_item(level_item)
 			mode_item.set_text(0, mode["name"])
 			mode_item.set_metadata(0, mode)
 			
@@ -168,16 +215,33 @@ func _ready():
 
 		level_index += 1
 			
-	item_selected.connect(_item_selected)
+	tree.item_selected.connect(_item_selected)
 	
 func _item_selected():
-	print(get_selected())
-	print(get_selected().get_metadata(0))
+	print(tree.get_selected())
+	print(tree.get_selected().get_metadata(0))
 	# Store the data in a variable
-	var data = get_selected().get_metadata(0)
-	var level_data = get_selected().get_parent().get_metadata(0)
+	var data = tree.get_selected().get_metadata(0)
+	var level_data = tree.get_selected().get_parent().get_metadata(0)
 	# Verify that the selected item is a mode
 	if data["type"] != "mode":
 		return
 	# Load the data regarding the title, description, etc.
 	level_data["name"] 
+	
+	# Load the colors
+	_update_color(data, level_data)
+
+func _update_color(mode:Dictionary, level:Dictionary) -> void:
+	var level_color
+	var mode_color
+	if "bg_color" in level:
+		level_color = level["bg_color"]
+	else:
+		level_color = Color.ALICE_BLUE
+	if "bg_color" in mode:
+		mode_color = mode["bg_color"]
+	else:
+		mode_color = Color.WHITE
+	bgc.target_color = level_color
+	bgg.target_color = mode_color

@@ -1,26 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmvd1we8icqh8"]
+[gd_scene load_steps=11 format=3 uid="uid://bmvd1we8icqh8"]
 
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_43cdq"]
-[ext_resource type="Script" uid="uid://dqfovj7xxmxes" path="res://scenes/UI/testingtree.gd" id="2_tskks"]
+[ext_resource type="Script" uid="uid://cwuro2r7m6v6h" path="res://scripts/select_2.gd" id="2_uauud"]
+[ext_resource type="Script" uid="uid://8tn83ih1hdy4" path="res://scripts/background_colour.gd" id="3_uauud"]
+[ext_resource type="Texture2D" uid="uid://bt7wqkl0ubvrb" path="res://images/placeholder/image.png" id="3_xceru"]
+[ext_resource type="Script" uid="uid://pyxlitev2uqc" path="res://scripts/background_gradient.gd" id="4_43cdq"]
+[ext_resource type="PackedScene" uid="uid://c4kt2p7my0yub" path="res://loadingscreentips.tscn" id="4_l2oi8"]
 
-[sub_resource type="Gradient" id="Gradient_h47y5"]
+[sub_resource type="Gradient" id="Gradient_l2oi8"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.47451)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_161ai"]
-gradient = SubResource("Gradient_h47y5")
-width = 448
-height = 256
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uauud"]
+gradient = SubResource("Gradient_l2oi8")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.509174, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tskks"]
-bg_color = Color(0.162379, 6.5169e-05, 0.559639, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2oi8"]
+bg_color = Color(0.1, 0.1, 0.1, 0.443137)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xceru"]
-bg_color = Color(0, 0.273, 0.864, 0.685)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uauud"]
 
-[node name="Control" type="Control"]
+[node name="Select2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,8 +28,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_43cdq")
+script = ExtResource("2_uauud")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background Colour" type="ColorRect" parent="."]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -38,91 +39,132 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.0786143, 0.00475872, 0.222422, 1)
+color = Color(0.108333, 0.5, 0, 1)
+script = ExtResource("3_uauud")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("GradientTexture2D_161ai")
+[node name="Background Gradient" type="TextureRect" parent="."]
+modulate = Color(0.798652, 0.947511, 0.715598, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_uauud")
+script = ExtResource("4_43cdq")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 408.0
-offset_bottom = 306.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_tskks")
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 500
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="Tree" type="Tree" parent="HSplitContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2oi8")
+
+[node name="PanelContainer2" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uauud")
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer/PanelContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("3_xceru")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/PanelContainer2/MarginContainer/MarginContainer/TextureRect"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="ColorRect" type="ColorRect" parent="HSplitContainer/PanelContainer2/MarginContainer/MarginContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+color = Color(0.075229, 0.08294, 0.443119, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Level Name"
+horizontal_alignment = 1
+
+[node name="LevelDesk" type="Label" parent="HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Descriptione A awim f iwfmf womgw ovomw ogwokfo kfokefef"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MarginContainer3" type="MarginContainer" parent="HSplitContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="loadingscreentips" parent="HSplitContainer/PanelContainer2/MarginContainer3" instance=ExtResource("4_l2oi8")]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Level"
+size_flags_vertical = 8
 
-[node name="Control" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Button3" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Button6" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Button7" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Button5" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_xceru")
-toggle_mode = true
-text = "Field"
-
-[node name="Tree" type="Tree" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -797.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 2
-size_flags_vertical = 3
-script = ExtResource("2_tskks")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 556.0
+offset_top = 165.0
+offset_right = 1330.0
+offset_bottom = 662.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_xceru")
