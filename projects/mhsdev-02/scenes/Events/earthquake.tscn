@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://q0hr8i345mv8"]
+
+[ext_resource type="Script" uid="uid://bwypec7quu4no" path="res://scripts/Events/earthquake.gd" id="1_0sppg"]
+
+[node name="Earthquake" type="Node"]
+script = ExtResource("1_0sppg")

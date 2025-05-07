@@ -623,9 +623,5 @@ texture_scale = 1.48
 y_sort_enabled = true
 position = Vector2(-115, -54)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0.7347, 0.79, 0.748525, 1)
-
 [node name="Item" parent="." instance=ExtResource("9_qqx7g")]
 position = Vector2(141, 51)

@@ -215,10 +215,15 @@ func _process(delta) -> void:
 		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.573, 0.531, 0.823, 1))
 	if EventMan.is_event(EventMan.Events.VOLCANO):
 		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(1, 0.71, 0.42, 1))
+	if EventMan.is_event(EventMan.Events.BLIZZARD):
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(1, 1, 1.5, 1))
 	if EventMan.is_event(EventMan.Events.TORNADO):
 		if player.camera.trauma < 0.03:
 			player.camera.trauma = 0.03
 		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.735, 0.79, 0.749, 1))
+	if EventMan.is_event(EventMan.Events.EARTHQUAKE):
+		if player.camera.trauma < 0.08:
+			player.camera.trauma = 0.08
 
 	# Update stress and weather events
 	strength += strength_increase / 60 * delta
