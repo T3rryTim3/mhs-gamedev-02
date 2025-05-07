@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://hb5fdud01v6k"]
+[gd_scene load_steps=16 format=4 uid="uid://dvg2fbt0s1cro"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_chcrk"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="2_l6hh4"]
@@ -29,7 +29,7 @@ glow_hdr_threshold = 0.0
 glow_hdr_scale = 0.95
 glow_hdr_luminance_cap = 41.18
 adjustment_enabled = true
-adjustment_brightness = 1.18
+adjustment_brightness = 1.25
 adjustment_contrast = 0.83
 adjustment_saturation = 0.8
 
@@ -575,9 +575,6 @@ shape = SubResource("RectangleShape2D_lhv6x")
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(239, -283)
 shape = SubResource("RectangleShape2D_lhv6x")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.88, 1, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false

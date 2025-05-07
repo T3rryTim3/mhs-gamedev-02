@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr75yhrni3tcn"]
+[gd_scene load_steps=12 format=3 uid="uid://cr75yhrni3tcn"]
 
 [ext_resource type="Script" uid="uid://chcsl85yq7660" path="res://select.gd" id="1_catev"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_gup8f"]
@@ -8,12 +8,25 @@
 [ext_resource type="PackedScene" uid="uid://c4kt2p7my0yub" path="res://loadingscreentips.tscn" id="5_wwl0d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h47y5"]
-bg_color = Color(0.82, 0.6068, 0.328, 1)
+bg_color = Color(0.0250615, 5.53504e-07, 0.217473, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2mra"]
+bg_color = Color(0, 0.171, 0.57, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_161ai"]
+bg_color = Color(0.1344, 0.18624, 0.48, 1)
+
+[sub_resource type="Gradient" id="Gradient_h47y5"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_161ai"]
+gradient = SubResource("Gradient_h47y5")
+width = 448
+height = 256
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -62,6 +75,11 @@ text = "Back"
 
 [node name="Difficulty" type="OptionButton" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_j2mra")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_161ai")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_161ai")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_161ai")
+theme_override_styles/normal = SubResource("StyleBoxFlat_161ai")
 alignment = 1
 selected = 0
 item_count = 3
@@ -92,6 +110,7 @@ layout_mode = 2
 text = "---->"
 
 [node name="Start" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 icon = ExtResource("3_gup8f")
@@ -101,6 +120,11 @@ flat = true
 visible = false
 layout_mode = 2
 
+[node name="Button" type="Button" parent="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+flat = true
+
 [node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -108,11 +132,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_h47y5")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_h47y5")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer"]
 layout_mode = 2
@@ -120,7 +155,7 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 text = "Level Name"
 horizontal_alignment = 1
 
@@ -137,12 +172,6 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("5_h47y5")
-expand_mode = 5
-stretch_mode = 5
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2"]
 layout_mode = 2
@@ -167,10 +196,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.432413, 0.230032, 4.81308e-08, 1)
+color = Color(0.00759, 0.0051, 0.03, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture2D_161ai")
 
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Exit" to="." method="_on_back_pressed"]
 [connection signal="item_selected" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Difficulty" to="." method="_on_difficulty_item_selected"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Forward" to="." method="_on_Forward_pressed"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_start_pressed"]

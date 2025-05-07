@@ -5,6 +5,7 @@ class_name Player
 @onready var collector_collider:CollisionShape2D = $Collector/PickupRange/CollisionShape2D
 @onready var use_bar = $TextureProgressBar
 @onready var high_temp_particles:GPUParticles2D = $HighTempParticles
+@onready var camera:Camera2D = $Camera2D
 
 signal give_upgrade
 signal upgrade_added
@@ -48,6 +49,9 @@ enum ThirstLevel {
 #endregion
 
 #region Other Vars
+## Camera offset from the mouse position
+var camera_mouse_offset:Vector2
+
 ## Current upgrades
 var upgrades = {}
 
@@ -88,7 +92,7 @@ var hunger_damage:float = 1
 var alive = true
 
 ## An array of the currently selected blueprints. This is used to determine the item hover visibility
-var hovered_blueprints:Array[Blueprint]
+var hovered_blueprints:Array
 
 var hunger_tick_max:float
 #endregion
@@ -202,11 +206,12 @@ func stop_blueprint():
 #endregion
 
 #region Items
-func _use(delta): # Use the topmost held item
+func _use(delta) -> bool: # Use the topmost held item. Returns true if done successfully
 	var item = collector.get_topmost_item()
 	if not item:
-		return
+		return false
 	ItemData.use_item(item, self, delta)
+	return true
 
 func _used_item() -> Item: # Gets the currently being used item, if any
 	var item = collector.get_topmost_item()
@@ -255,7 +260,6 @@ func _ready():
 			$MapParticles/Leaves.visible = true
 		Main.Scenes.LEVEL_TUNDRA:
 			$MapParticles/Snow.visible = true
-		
 
 	if camera_limit: # Prevent camera from going beyond area
 		$Camera2D.limit_bottom = camera_limit.global_position.y + camera_limit.shape.get_rect().size.y/2
@@ -318,8 +322,31 @@ func _ready():
 
 	#add_effect(EffectData.EffectTypes.WEATHER_COLD, 100, 10)
 
+func _attack():
+	if not super(): # Return if attack is in progress already
+		return
+	for body:CollisionObject2D in $HitCollider.get_overlapping_bodies():
+		if body.has_method("player_hit"):
+			body.player_hit()
+
 func _process(delta) -> void:
 	super(delta)
+
+	if EventMan.is_event(EventMan.Events.STORM):
+		$MapParticles/Rain.emitting = true
+		$MapParticles/Rain.visible = true
+		$MapParticles/Rain.modulate.a = min(1, $MapParticles/Rain.modulate.a + delta * 0.5)
+	else:
+		$MapParticles/Rain.emitting = false
+		$MapParticles/Rain.modulate.a = 0
+
+	if EventMan.is_event(EventMan.Events.BLIZZARD):
+		$MapParticles/Snow2.emitting = true
+		$MapParticles/Snow2.visible = true
+		$MapParticles/Snow2.modulate.a = min(1, $MapParticles/Snow2.modulate.a + delta * 0.1)
+	else:
+		$MapParticles/Snow2.emitting = false
+		$MapParticles/Snow2.modulate.a = 0
 
 	# Update blueprint
 	if current_blueprint:
@@ -358,6 +385,7 @@ func _process(delta) -> void:
 		if not collector.add_nearest_item(-1, get_global_mouse_position()):
 			var dir = global_position.direction_to(get_global_mouse_position())
 			var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+			collector.search_range.global_position = (dir*distance + global_position)
 			collector.drop_item(dir*distance + global_position)
 		if len(collector.current_resources) >= 3:
 			Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
@@ -365,12 +393,19 @@ func _process(delta) -> void:
 	elif Input.is_action_just_pressed("drop"):
 		var dir = global_position.direction_to(get_global_mouse_position())
 		var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+		collector.search_range.global_position = (dir*distance + global_position)
 		collector.drop_item(dir*distance + global_position)
+
+	# Move hit collider
+	var rad = $HitCollider/HitCollider.shape.radius
+	var ang = global_position.direction_to(get_global_mouse_position()).angle()
+	$HitCollider.position = Vector2(rad*cos(ang),rad*sin(ang)) # Aim towards the mouse
 
 	# Update item progress
 	var item = _used_item()
 	if Input.is_action_pressed("use_item"):
-		_use(delta)
+		if not _use(delta) and Input.is_action_just_pressed("use_item"): # Prevent holding attack
+			_attack()
 	elif item:
 		item.using = false
 
@@ -379,11 +414,6 @@ func _process(delta) -> void:
 		use_bar.value = (item.item_usage_progress / item.item_usage_max) * use_bar.max_value
 	else:
 		use_bar.hide()
-
-	# Lerp camera
-	var distance = min(100, Vector2.ZERO.distance_to(get_local_mouse_position())) / 2
-	var offset = Vector2.ZERO.direction_to(get_local_mouse_position())
-	$Camera2D.offset = $Camera2D.offset.lerp(offset * distance, 10 * delta)
 
 	# Show item overlay
 	if len(collector.current_resources) > 0 and not current_blueprint:
@@ -439,7 +469,8 @@ func _input(event) -> void:
 				KEY_K:
 					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")
@@ -467,6 +498,7 @@ func _input(event) -> void:
 func damage(amount:float) -> void: # Deal damage to the entity
 	amount *= _get_level().level_data.damage_multi # Increase damage based on leveldata
 	amount *= pow(0.9, _get_upgrade(Upgrades.Upgrades.TOUGH))
+	camera.add_trauma(amount / max_health)
 	super(amount)
 
 func _death():
@@ -503,6 +535,8 @@ func _movement(delta) -> void:
 		collector_pos_dir.y = 0
 
 	collector.position = collector_pos_dir * (collector_collider.shape.get_rect().size.x/4)
+	#collector.pickup_area.global_position = camera_mouse_offset
+	#collector.position = camera_mouse_offset
 	collector.drop_pos_node.position = collector.position
 
 	# Account for animation bounce

@@ -39,18 +39,18 @@ func _load_costs(): ## Loads the costs from 'selected_costs'
 		CostGroups.FIELD:
 			costs = [
 				[5,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
-				[10,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
-				[15,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
-				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
-				[25,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}]
+				[8,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2}],
+				[12,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
+				[14,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}],
+				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 2}]
 			]
 		CostGroups.TUNDRA:
 			costs = [
 				[5,{ItemData.ItemTypes.ROCK: 1, ItemData.ItemTypes.WATER: 2, ItemData.ItemTypes.WHEAT_SEEDS: 2}],
-				[10,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1}],
-				[15,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WATER_CLEAN: 3, ItemData.ItemTypes.ROCK: 1}],
-				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.WATER_CLEAN: 3}],
-				[25,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1, ItemData.ItemTypes.WATER_CLEAN: 3}]
+				[8,{ItemData.ItemTypes.WHEAT: 1, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1}],
+				[12,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WATER_CLEAN: 3, ItemData.ItemTypes.ROCK: 1}],
+				[14,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.WATER_CLEAN: 3}],
+				[20,{ItemData.ItemTypes.BREAD: 3, ItemData.ItemTypes.WOOD: 2, ItemData.ItemTypes.ROCK: 1, ItemData.ItemTypes.WATER_CLEAN: 3}]
 			]
 		CostGroups.TUTORIAL:
 			costs = [
@@ -89,6 +89,29 @@ func _process(delta: float) -> void:
 	
 	$Sprite2D.scale.y = scale_val
 	scale_val = clampf(scale_val - 1 * delta, 1, 2)
+
+	var player:Player = _get_level().player
+	var sizex = $Sprite2D.texture.get_size().x
+	var sizey = $Sprite2D.texture.get_size().y
+	var success = false
+
+	var item_id = -1
+	if len(player.collector.current_resources) > 0:
+		item_id = player.collector.get_topmost_item().id
+
+	# Check if the hovered item can be spent and is overlapping the blueprint
+	if item_id != -1 and cost.has(item_id) and spent_resources[item_id] < cost[item_id] and player.current_item_display:
+		var pos = player.current_item_display.global_position
+		if (pos.x > global_position.x - sizex/2) and (pos.x < global_position.x + sizex/2):
+			if (pos.y > global_position.y - sizey/2) and (pos.y < global_position.y + sizey/2):
+				scale = Vector2(1.1,1.1)
+				success = true
+				if not (self in player.hovered_blueprints):
+					player.hovered_blueprints.append(self)
+	if not success: # Reset the size if not applicable
+		if (self in player.hovered_blueprints):
+			player.hovered_blueprints.erase(self)
+		scale = Vector2(1,1)
 
 ## Set the cost of the machine based upon the price given. 
 ## 'Items' is the dict of items that can be chosen (Item, Price).

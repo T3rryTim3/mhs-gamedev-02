@@ -24,6 +24,9 @@ var spawn_cooldown:float = 3
 ## Stress increase per minute.
 var strength_increase:float = 1
 
+## Node which handles modulation for the storm
+var storm_modulate_node:CanvasModulate
+
 var spawn_items:Dictionary[ItemData.ItemTypes, int] = {
 	ItemData.ItemTypes.WHEAT: 10,
 }
@@ -86,7 +89,8 @@ class LevelData:
 	var event_multiplier : int = 1
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
-		EventMan.Events.VOLCANO
+		EventMan.Events.VOLCANO,
+		EventMan.Events.STORM
 	]
 	var items : Dictionary[ItemData.ItemTypes, int] = {
 		ItemData.ItemTypes.WOOD:6,
@@ -105,6 +109,11 @@ func _ready():
 	ready.connect(func (): loaded=true) # Set loaded to true when fully ready
 	if not level_data:
 		level_data = LevelData.new() # Default settings
+
+	storm_modulate_node = load("res://scenes/storm_modulate.tscn").instantiate()
+	storm_modulate_node.goal = Color(1, 1, 1, 1)
+	add_child(storm_modulate_node)
+	storm_modulate_node.enabled = true
 
 	# Ensure parent nodes are present, and if not, create them.
 	if find_child("Stations") and $Stations is Node:
@@ -192,13 +201,25 @@ func _physics_process(delta: float) -> void:
 		current_spawn_cooldown = 0
 
 func _process(delta) -> void:
-	# Update the health vignette
-	if player:
-		var health_perc = 1 - player.health / player.max_health
-		health_perc = health_vignette_curve.sample(health_perc)
-		vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
-		vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
+	## Update the health vignette
+	#if player:
+		#var health_perc = 1 - player.health / player.max_health
+		#health_perc = health_vignette_curve.sample(health_perc)
+		#vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
+		#vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
 	
+
+	# Update canvasmodulate nodes
+	storm_modulate_node.goal = Color(1,1,1)
+	if EventMan.is_event(EventMan.Events.STORM):
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.573, 0.531, 0.823, 1))
+	if EventMan.is_event(EventMan.Events.VOLCANO):
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(1, 0.71, 0.42, 1))
+	if EventMan.is_event(EventMan.Events.TORNADO):
+		if player.camera.trauma < 0.03:
+			player.camera.trauma = 0.03
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.735, 0.79, 0.749, 1))
+
 	# Update stress and weather events
 	strength += strength_increase / 60 * delta
 	current_event_cooldown += delta

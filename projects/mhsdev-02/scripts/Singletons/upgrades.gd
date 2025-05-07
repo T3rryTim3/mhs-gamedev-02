@@ -14,8 +14,8 @@ func get_upgrades() -> Array[Upgrades.Upgrades]: ## Returns an array of all of t
 		Upgrades.SPEED,
 		Upgrades.STRENGTH,
 		Upgrades.STAMINA,
-		Upgrades.THIRST,
-		Upgrades.HUNGER,
+		#Upgrades.THIRST,
+		#Upgrades.HUNGER,
 		Upgrades.TOUGH
 	]
 
@@ -46,6 +46,7 @@ func get_upgrade_data(upgrade:Upgrades.Upgrades):
 			data["desc"] = "Higher max hunger"
 		Upgrades.TOUGH:
 			data["desc"] = "You take 15% less damage."
+			data["icon"] = "res://images/items/rock.png"
 			data["lim"] = 5
 	
 	return data

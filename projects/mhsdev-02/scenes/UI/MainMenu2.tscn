@@ -1,0 +1,311 @@
+[gd_scene load_steps=21 format=3 uid="uid://balgfikn4j3tg"]
+
+[ext_resource type="Script" uid="uid://dlwsscq8t8ea6" path="res://scripts/main_menu_2.gd" id="1_u47ac"]
+[ext_resource type="Texture2D" uid="uid://f6y1megc1ac3" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack02.png" id="3_7boc3"]
+[ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="4_glh20"]
+[ext_resource type="Texture2D" uid="uid://dmk6tourrlbtx" path="res://images/event/Tornado/Tornado Frame 1.png" id="4_pxb63"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="4_xqxyr"]
+[ext_resource type="Texture2D" uid="uid://dsbdwrphy8qvd" path="res://images/event/Tornado/Tornado Frame 2.png" id="5_u47ac"]
+[ext_resource type="Texture2D" uid="uid://cnlp2l3cxg2q1" path="res://images/event/Tornado/Tornado Frame 3.png" id="6_cang6"]
+[ext_resource type="Texture2D" uid="uid://ddh6xlv4613yc" path="res://images/event/Tornado/Tornado Frame 4.png" id="7_glh20"]
+[ext_resource type="Texture2D" uid="uid://koxcs1uf660n" path="res://images/Humanoid/Pitchfork sprites-animations/right attack/rightattack02.png" id="8_pxb63"]
+[ext_resource type="PackedScene" uid="uid://xb6pyhv20ns" path="res://scenes/UI/Credits.tscn" id="8_v3fjk"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_3erjg"]
+frames = 4
+frame_0/texture = ExtResource("4_pxb63")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("5_u47ac")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("6_cang6")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("7_glh20")
+frame_3/duration = 0.1
+
+[sub_resource type="Gradient" id="Gradient_cvomb"]
+colors = PackedColorArray(0, 0, 0, 1, 0.0416666, 0, 0.25, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xqxyr"]
+gradient = SubResource("Gradient_cvomb")
+fill_to = Vector2(0.944954, 0.853211)
+
+[sub_resource type="Gradient" id="Gradient_nxqlp"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g5qp7"]
+gradient = SubResource("Gradient_nxqlp")
+width = 10
+height = 1
+
+[sub_resource type="Curve" id="Curve_pxb63"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0588235, 0.348315), 0.0, 0.0, 0, 0, Vector2(0.875, 0.52809), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_u6rfl"]
+curve = SubResource("Curve_pxb63")
+
+[sub_resource type="Gradient" id="Gradient_u47ac"]
+colors = PackedColorArray(0.491032, 0.828324, 1, 1, 0.245223, 0.504994, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nxqlp"]
+gradient = SubResource("Gradient_u47ac")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cang6"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-200, -200, 0)
+emission_shape_scale = Vector3(250, 250, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -45.0
+angle_max = -45.0
+direction = Vector3(10, 10, 0)
+spread = 5.0
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 4.0
+scale_over_velocity_max = 1.0
+color_ramp = SubResource("GradientTexture1D_nxqlp")
+alpha_curve = SubResource("CurveTexture_u6rfl")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+turbulence_noise_strength = 20.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_u47ac")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 585.0
+offset_right = 655.0
+offset_bottom = 608.0
+grow_vertical = 0
+text = "v0.1.0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 693.0
+offset_top = 42.0
+offset_right = 1173.0
+offset_bottom = 522.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.67, 0.67)
+mouse_filter = 2
+
+[node name="Samael" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_glh20")
+flat = true
+expand_icon = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -333.0
+offset_top = -23.0
+offset_right = -181.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Start" type="Button" parent="VBoxContainer2"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_xqxyr")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+flat = true
+
+[node name="Settings" type="Button" parent="VBoxContainer2"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_xqxyr")
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+flat = true
+
+[node name="Achievements" type="Button" parent="VBoxContainer2"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_xqxyr")
+theme_override_font_sizes/font_size = 40
+text = "Achievements"
+flat = true
+
+[node name="Credits" type="Button" parent="VBoxContainer2"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_xqxyr")
+theme_override_font_sizes/font_size = 40
+text = "Credits"
+flat = true
+
+[node name="Quit" type="Button" parent="VBoxContainer2"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_xqxyr")
+theme_override_font_sizes/font_size = 40
+text = "Exit"
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -62.0
+offset_right = -122.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0872665
+scale = Vector2(15, 15)
+mouse_filter = 2
+texture = ExtResource("3_7boc3")
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -551.064
+offset_top = -728.0
+offset_right = -455.064
+offset_bottom = -632.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 0.0872665
+scale = Vector2(8, 8)
+mouse_filter = 2
+texture = SubResource("AnimatedTexture_3erjg")
+stretch_mode = 5
+
+[node name="TextureRect6" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.662745)
+z_index = -1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -331.064
+offset_top = -614.0
+offset_right = -235.064
+offset_bottom = -518.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 0.0872665
+scale = Vector2(8, 8)
+mouse_filter = 2
+texture = SubResource("AnimatedTexture_3erjg")
+stretch_mode = 5
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xqxyr")
+
+[node name="Rain" type="GPUParticles2D" parent="."]
+position = Vector2(-36, 2)
+scale = Vector2(2, 2)
+amount = 1000
+texture = SubResource("GradientTexture2D_g5qp7")
+lifetime = 10.0
+speed_scale = 2.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_cang6")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.683915, 0.755812, 0.957345, 1)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0.286275)
+offset_left = -99.0
+offset_top = 70.0
+offset_right = -51.0
+offset_bottom = 118.0
+rotation = 0.139626
+scale = Vector2(12, 12)
+mouse_filter = 2
+texture = ExtResource("8_pxb63")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 121.0
+offset_top = 41.0
+offset_right = 535.0
+offset_bottom = 101.0
+theme_override_colors/font_outline_color = Color(0.312469, 0.574831, 0.700359, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_xqxyr")
+theme_override_font_sizes/font_size = 60
+text = "Book of Samael"
+
+[node name="PanelContainer" parent="." instance=ExtResource("8_v3fjk")]
+z_index = 1
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[connection signal="pressed" from="HBoxContainer/Samael" to="." method="_on_samael_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Settings" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Achievements" to="." method="_on_samael_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Quit" to="." method="_on_button_pressed"]
