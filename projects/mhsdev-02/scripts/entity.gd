@@ -263,6 +263,7 @@ func _update_health(new:float) -> void: ## Update health while keeping within li
 
 func _ready():
 	# Set max health to current value
+	add_to_group("entity")
 	max_health = health
 
 	var sprite_texture = get_sprite_texture()

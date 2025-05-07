@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=96 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cygwur3w30pv8" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack01.png" id="2_3ua4m"]
@@ -408,10 +408,12 @@ color = Color(0.14, 0.942667, 1, 1)
 color_ramp = SubResource("GradientTexture1D_ohi6n")
 
 [sub_resource type="Curve" id="Curve_nxqlp"]
+resource_local_to_scene = true
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.117647, 1), 0.0, 0.0, 0, 0, Vector2(0.904412, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_eekm3"]
+resource_local_to_scene = true
 curve = SubResource("Curve_nxqlp")
 
 [sub_resource type="Gradient" id="Gradient_1plcu"]
@@ -422,6 +424,7 @@ gradient = SubResource("Gradient_1plcu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1plcu"]
 resource_local_to_scene = true
+resource_name = "Snow"
 particle_flag_disable_z = true
 emission_shape_offset = Vector3(-200, -200, 0)
 emission_shape_scale = Vector3(250, 250, 1)
@@ -431,8 +434,8 @@ angle_min = -45.0
 angle_max = -45.0
 direction = Vector3(10, 10, 0)
 spread = 5.0
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
 angular_velocity_min = -1.60933e-05
 angular_velocity_max = -1.60933e-05
 orbit_velocity_min = 9.49949e-08
@@ -440,7 +443,37 @@ orbit_velocity_max = 9.49949e-08
 radial_velocity_min = -2.23517e-05
 radial_velocity_max = -2.23517e-05
 gravity = Vector3(0, 0, 0)
-scale_max = 2.7
+scale_max = 2.0
+scale_over_velocity_max = 1.0
+color_ramp = SubResource("GradientTexture1D_ans4x")
+alpha_curve = SubResource("CurveTexture_eekm3")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+turbulence_noise_strength = 20.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ans4x"]
+resource_local_to_scene = true
+resource_name = "Snow"
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-200, -200, 0)
+emission_shape_scale = Vector3(250, 250, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -45.0
+angle_max = -45.0
+direction = Vector3(10, 10, 0)
+spread = 5.0
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 5.0
 scale_over_velocity_max = 1.0
 color_ramp = SubResource("GradientTexture1D_ans4x")
 alpha_curve = SubResource("CurveTexture_eekm3")
@@ -449,12 +482,41 @@ hue_variation_max = -2.23517e-08
 turbulence_noise_strength = 20.0
 
 [sub_resource type="Gradient" id="Gradient_hkcpf"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+colors = PackedColorArray(0.46, 0.982, 1, 0, 0.22, 0.558, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_u6rfl"]
 gradient = SubResource("Gradient_hkcpf")
 width = 10
 height = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eekm3"]
+resource_local_to_scene = true
+resource_name = "Rain"
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-200, -200, 0)
+emission_shape_scale = Vector3(250, 250, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -45.0
+angle_max = -45.0
+direction = Vector3(10, 10, 0)
+spread = 5.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_over_velocity_max = 1.0
+color_ramp = SubResource("GradientTexture1D_ans4x")
+alpha_curve = SubResource("CurveTexture_eekm3")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+turbulence_noise_strength = 20.0
 
 [sub_resource type="Curve" id="Curve_u6rfl"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.169118, 1), 0.0, 0.0, 0, 0, Vector2(0.845588, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -585,22 +647,27 @@ volume_db = 2.811
 [node name="MapParticles" type="Node2D" parent="."]
 
 [node name="Snow" type="GPUParticles2D" parent="MapParticles"]
-position = Vector2(-36, 2)
+visible = false
+position = Vector2(1, 138)
 amount = 1000
-lifetime = 60.0
-speed_scale = 3.0
+lifetime = 10.0
 process_material = SubResource("ParticleProcessMaterial_1plcu")
+
+[node name="Snow2" type="GPUParticles2D" parent="MapParticles"]
+visible = false
+position = Vector2(-228, -130)
+amount = 1500
+process_material = SubResource("ParticleProcessMaterial_ans4x")
 
 [node name="Rain" type="GPUParticles2D" parent="MapParticles"]
 visible = false
 position = Vector2(-36, 2)
-emitting = false
 amount = 1000
 texture = SubResource("GradientTexture2D_u6rfl")
 lifetime = 10.0
 speed_scale = 3.1
 fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_1plcu")
+process_material = SubResource("ParticleProcessMaterial_eekm3")
 
 [node name="Leaves" type="GPUParticles2D" parent="MapParticles"]
 visible = false
@@ -609,6 +676,9 @@ amount = 80
 texture = ExtResource("46_nxqlp")
 lifetime = 30.0
 process_material = SubResource("ParticleProcessMaterial_pyido")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MapParticles"]
+visible = false
 
 [node name="HitCollider" type="Area2D" parent="."]
 collision_layer = 0

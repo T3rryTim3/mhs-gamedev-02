@@ -7,7 +7,8 @@ signal event_spawned
 enum Events {
 	TORNADO,
 	VOLCANO,
-	STORM
+	STORM,
+	BLIZZARD
 }
 
 var spawned_events:Array = []
@@ -60,6 +61,13 @@ func get_event_data(event:Events, strength:float = 1) -> EventData:
 			return EventData.new(
 				"storm",
 				"res://scenes/Events/storm.tscn",
+				30,
+				strength
+			)
+		Events.BLIZZARD:
+			return EventData.new(
+				"blizzard",
+				"res://scenes/Events/blizzard.tscn",
 				30,
 				strength
 			)

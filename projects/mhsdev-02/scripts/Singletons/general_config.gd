@@ -92,6 +92,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.temp_drain = 1.2
 			data.thirst_multi = 0.8
 			data.hunger_multi = 0.8
+			data.events.append(EventMan.Events.BLIZZARD)
 			return data
 		
 		GameDifficulties.TUNDRA_ROWDY:
@@ -100,6 +101,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.thirst_multi = 1.5
 			data.strength_per_minute = 0.8
 			data.hunger_multi = 1
+			data.events.append(EventMan.Events.BLIZZARD)
 			return data
 		
 		GameDifficulties.TUNDRA_MAYHEM:
@@ -108,6 +110,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.thirst_multi = 1.5
 			data.strength_per_minute = 1
 			data.hunger_multi = 1.25
+			data.events.append(EventMan.Events.BLIZZARD)
 			return data
 		
 		GameDifficulties.TUNDRA_ENDLESS:
@@ -116,6 +119,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.thirst_multi = 1.25
 			data.strength_per_minute = 1.2
 			data.hunger_multi = 0.8
+			data.events.append(EventMan.Events.BLIZZARD)
 			return data
 			
 		GameDifficulties.CUSTOM:
@@ -126,6 +130,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.strength_per_minute = sliders_root.get_node("Events").value
 			data.thirst_multi = sliders_root.get_node("Thirst").value
 			data.hunger_multi = sliders_root.get_node("Hunger").value
+			data.events.append(EventMan.Events.BLIZZARD)
 		_:
 			return Level.LevelData.new()
 	data.mode = difficulty

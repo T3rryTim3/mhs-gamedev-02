@@ -335,10 +335,18 @@ func _process(delta) -> void:
 	if EventMan.is_event(EventMan.Events.STORM):
 		$MapParticles/Rain.emitting = true
 		$MapParticles/Rain.visible = true
-		$MapParticles/Rain.modulate.a = min(1, $MapParticles/Rain.modulate.a + delta * 0.1)
+		$MapParticles/Rain.modulate.a = min(1, $MapParticles/Rain.modulate.a + delta * 0.5)
 	else:
 		$MapParticles/Rain.emitting = false
 		$MapParticles/Rain.modulate.a = 0
+
+	if EventMan.is_event(EventMan.Events.BLIZZARD):
+		$MapParticles/Snow2.emitting = true
+		$MapParticles/Snow2.visible = true
+		$MapParticles/Snow2.modulate.a = min(1, $MapParticles/Snow2.modulate.a + delta * 0.1)
+	else:
+		$MapParticles/Snow2.emitting = false
+		$MapParticles/Snow2.modulate.a = 0
 
 	# Update blueprint
 	if current_blueprint:
@@ -459,9 +467,10 @@ func _input(event) -> void:
 		if event.pressed:
 			match event.keycode:
 				KEY_K:
-					EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")

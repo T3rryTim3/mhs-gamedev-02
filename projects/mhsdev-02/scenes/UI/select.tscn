@@ -132,11 +132,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_h47y5")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_h47y5")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer"]
 layout_mode = 2
@@ -144,7 +155,7 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 text = "Level Name"
 horizontal_alignment = 1
 
@@ -161,12 +172,6 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("5_h47y5")
-expand_mode = 5
-stretch_mode = 5
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HSplitContainer/PanelContainer2"]
 layout_mode = 2
