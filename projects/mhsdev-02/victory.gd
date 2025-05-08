@@ -3,9 +3,10 @@ extends Control
 @onready var yipee = $MarginContainer/AnimatedSprite2D
 var player:Player
 
-func display() -> void: ## Display the death screen
+func display() -> void: 
 	get_tree().paused = true
 	$AnimationPlayer.play("Open")
+	$MarginContainer/Label.text = Gamestats.get_string()
 	if player:
 		var minutes = Gamestats.level_time / 60
 		var seconds = fmod(Gamestats.level_time, 60)
@@ -19,7 +20,7 @@ func _get_main() -> Main:
 	return get_tree().current_scene
 
 func _ready() -> void:
-	visible = false
+	visible = true
 
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
@@ -28,4 +29,4 @@ func _on_quit_pressed() -> void:
 
 func _on_restart_pressed() -> void:
 	get_tree().paused = false
-	_get_main()._load_scene(Globals.current_level)
+	Globals.main._load_scene(Globals.current_level, Globals.current_leveldata)

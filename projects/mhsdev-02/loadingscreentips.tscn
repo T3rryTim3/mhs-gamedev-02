@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bi5kl6iyh0ako"]
+[gd_scene load_steps=3 format=3 uid="uid://c4kt2p7my0yub"]
 
 [ext_resource type="Script" uid="uid://ddcy2pr4aidwy" path="res://loadingscreentips.gd" id="1_q74re"]
 
@@ -29,3 +29,5 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_q74re")
 
 [node name="Label" type="Label" parent="PanelContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Bla BlA sefjsedfoiainw oiwjasdinwa sdinw oinfoiw dim"

@@ -56,6 +56,8 @@ enum LayerBehaviour
 ## Can be refrenced for station counting in the level (Used for effect stations)
 var active:bool = true
 
+var current_produce_time:float = 0
+
 ## If the station can currently be removed (If the mouse is hovering over and player is in delete mode)
 var can_delete:bool = false
 
@@ -64,6 +66,10 @@ var stretch_val:float = 0
 
 ## (Animation) Animation length
 var stretch_time:float = 0.15
+
+func player_hit():
+	current_produce_time += 1
+	stretch_val = 0
 
 func create_item(id:ItemData.ItemTypes, item_force:Vector2=Vector2.ZERO):
 	var new_drop:Item = drop.instantiate()
@@ -129,7 +135,11 @@ func _death():
 func _process(delta):
 	super(delta)
 	# Update progress bar
-	progress_bar.current = (progress_timer.time_left / progress_timer.wait_time)
+	current_produce_time += delta
+	if current_produce_time > produce_time:
+		current_produce_time = 0
+		produce()
+	progress_bar.current = 1-(current_produce_time / produce_time)
 	produce_anim(delta)
 	
 	match layer_behavior:
@@ -184,9 +194,9 @@ func _ready():
 	# Accout for level settings
 	produce_time *= 1 / level.level_data.station_speed_multi # Take the reciprocal as produce_time is different from speed
 
-	progress_timer.one_shot = false
-	progress_timer.wait_time = produce_time
-	progress_timer.connect("timeout", produce)
+	#progress_timer.one_shot = false
+	#progress_timer.wait_time = produce_time
+	#progress_timer.connect("timeout", produce)
 
 	add_child(progress_timer)
 

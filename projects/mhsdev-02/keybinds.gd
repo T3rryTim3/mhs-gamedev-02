@@ -1,7 +1,7 @@
-extends Control
+extends MarginContainer
 
 @onready var input_button_scene = preload("res://input_button.tscn")
-@onready var action_list = $PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList
+@onready var action_list = $VBoxContainer
 
 
 var is_remapping = false
@@ -10,20 +10,21 @@ var remapping_button = null
 
 var input_actions = {
 	"move_up" : "Move up",
-	"move_down" : "Move down",
 	"move_left" : "Move left",
+	"move_down" : "Move down",
 	"move_right" : "Move right",
-	"place" : "Place",
-	"spawn_event" : "Spawn event",
 	"sprint" : "Sprint",
+	"place" : "Place",
+	"blueprint": "Toggle blueprint",
+	"remove_station": "Delete mode",
 	"pickup" : "Pick up",
 	"drop" : "Drop",
-	"use_item" : "Use item"
+	"use_item" : "Use item",
+	"spawn_event" : "[DEBUG] Spawn event",
 }
 
 func _ready():
 	_create_action_list()
-
 
 func _create_action_list():
 	InputMap.load_from_project_settings()
@@ -39,7 +40,7 @@ func _create_action_list():
 		
 		var events = InputMap.action_get_events(action)
 		if events.size() > 0:
-			input_label.text = events[0].as_text().trim_suffix(" (Physical)")
+			input_label.text = events[0].as_text().trim_suffix(" (Physical)") # (Physical) is added onto inputs 
 		else:
 			input_label.text = ""
 		

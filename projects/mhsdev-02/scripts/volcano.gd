@@ -43,5 +43,6 @@ func _process(delta: float) -> void:
 	if current_cooldown >= cooldown:
 		current_cooldown = 0
 		$StaticBody2D/Erupt.play()
+		Globals.level.player.camera.add_trauma(0.4)
 		for x in range(10):
 			_fire()

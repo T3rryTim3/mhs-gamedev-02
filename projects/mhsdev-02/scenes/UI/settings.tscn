@@ -84,13 +84,12 @@ metadata/_tab_index = 1
 layout_mode = 1
 offset_left = 13.0
 
-[node name="Game" type="TabBar" parent="TabContainer"]
+[node name="Keybinds" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Keybinds" parent="TabContainer/Game" instance=ExtResource("2_usoba")]
+[node name="Keybinds" parent="TabContainer/Keybinds" instance=ExtResource("2_usoba")]
 layout_mode = 1
-mouse_filter = 1
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 2

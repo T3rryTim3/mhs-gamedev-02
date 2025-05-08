@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdoih6i4e544o"]
+[gd_scene load_steps=10 format=3 uid="uid://bdoih6i4e544o"]
 
 [ext_resource type="Script" uid="uid://b56kst3spliqf" path="res://scripts/Singletons/UI/main_menu.gd" id="1_tsx0n"]
 [ext_resource type="Texture2D" uid="uid://dhao8dfdkahn1" path="res://images/UI/Quit Button.png" id="1_uhdlp"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="3_y0vty"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="4_kgeya"]
 [ext_resource type="PackedScene" uid="uid://xb6pyhv20ns" path="res://scenes/UI/Credits.tscn" id="6_tnlov"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="8_qa57o"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -112,6 +113,46 @@ size_flags_horizontal = 0
 size_flags_vertical = 6
 size_flags_stretch_ratio = 2.94
 icon = ExtResource("1_uhdlp")
+flat = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("8_qa57o")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+flat = true
+
+[node name="Button2" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("8_qa57o")
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+flat = true
+
+[node name="Button3" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("8_qa57o")
+theme_override_font_sizes/font_size = 40
+text = "Exit"
 flat = true
 
 [node name="Credits" type="Button" parent="."]

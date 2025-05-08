@@ -28,4 +28,4 @@ func _on_quit_pressed() -> void:
 
 func _on_respawn_pressed() -> void:
 	get_tree().paused = false
-	Globals.Main._load_scene(Globals.current_level, Globals.current_leveldata)
+	Globals.main._load_scene(Globals.current_level, Globals.current_leveldata)

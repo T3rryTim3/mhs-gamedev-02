@@ -39,6 +39,7 @@ window/stretch/mode="canvas_items"
 station=""
 player=""
 MapSpawned="An item which was spawned by the map."
+entity=""
 
 [input]
 

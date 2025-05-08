@@ -101,7 +101,7 @@ func use_item(item:Item, player:Player, delta:float):
 			ItemTypes.WHEAT:
 				pass
 			ItemTypes.BREAD:
-				player.state.hunger.val += 20
+				player.state.hunger.val += 25
 				item.queue_free()
 			ItemTypes.WATER:
 				player.state.thirst.val += 10

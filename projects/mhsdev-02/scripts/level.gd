@@ -24,6 +24,9 @@ var spawn_cooldown:float = 3
 ## Stress increase per minute.
 var strength_increase:float = 1
 
+## Node which handles modulation for the storm
+var storm_modulate_node:CanvasModulate
+
 var spawn_items:Dictionary[ItemData.ItemTypes, int] = {
 	ItemData.ItemTypes.WHEAT: 10,
 }
@@ -71,6 +74,7 @@ var loaded:bool = false
 
 ## Holds data for level settings. This is used for both preset difficulties and custom ones.
 class LevelData:
+	var mode : Config.GameDifficulties
 	var event_cooldown : float = 45 
 	var strength_per_minute : float = 1 
 	var damage_multi : float = 1
@@ -85,7 +89,8 @@ class LevelData:
 	var event_multiplier : int = 1
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
-		EventMan.Events.VOLCANO
+		EventMan.Events.VOLCANO,
+		EventMan.Events.STORM
 	]
 	var items : Dictionary[ItemData.ItemTypes, int] = {
 		ItemData.ItemTypes.WOOD:6,
@@ -104,6 +109,11 @@ func _ready():
 	ready.connect(func (): loaded=true) # Set loaded to true when fully ready
 	if not level_data:
 		level_data = LevelData.new() # Default settings
+
+	storm_modulate_node = load("res://scenes/storm_modulate.tscn").instantiate()
+	storm_modulate_node.goal = Color(1, 1, 1, 1)
+	add_child(storm_modulate_node)
+	storm_modulate_node.enabled = true
 
 	# Ensure parent nodes are present, and if not, create them.
 	if find_child("Stations") and $Stations is Node:
@@ -124,7 +134,7 @@ func _ready():
 		map = Node2D.new()
 		add_child(map)
 
-	player = get_tree().get_first_node_in_group("player")
+	player = Globals.player
 	if not player:
 		print("WARNING: PLAYER NOT FOUND")
 	
@@ -144,6 +154,14 @@ func _ready():
 	spawn_items = level_data.items
 
 func _win(): ## Ends the game in a victory
+	Achievements.raise_progress(Achievements.Achievements.ADDICT)
+	match level_data.mode:
+		Config.GameDifficulties.FIELD_STANDARD:
+			Achievements.raise_progress(Achievements.Achievements.FIELD_STANDARD)
+		Config.GameDifficulties.FIELD_ROWDY:
+			Achievements.raise_progress(Achievements.Achievements.FIELD_ROWDY)
+		Config.GameDifficulties.FIELD_MAYHEM:
+			Achievements.raise_progress(Achievements.Achievements.FIELD_MAYHEM)
 	victory.emit()
 
 func _spawn_item():
@@ -183,13 +201,25 @@ func _physics_process(delta: float) -> void:
 		current_spawn_cooldown = 0
 
 func _process(delta) -> void:
-	# Update the health vignette
-	if player:
-		var health_perc = 1 - player.health / player.max_health
-		health_perc = health_vignette_curve.sample(health_perc)
-		vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
-		vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
+	## Update the health vignette
+	#if player:
+		#var health_perc = 1 - player.health / player.max_health
+		#health_perc = health_vignette_curve.sample(health_perc)
+		#vignette_shader.set_shader_parameter("MainAlpha", max(0, 1-(health_perc+0.6)))
+		#vignette_shader.set_shader_parameter("OuterRadius", max(0, (5-(health_perc+0.6)*5)/2 + 0.01))
 	
+
+	# Update canvasmodulate nodes
+	storm_modulate_node.goal = Color(1,1,1)
+	if EventMan.is_event(EventMan.Events.STORM):
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.573, 0.531, 0.823, 1))
+	if EventMan.is_event(EventMan.Events.VOLCANO):
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(1, 0.71, 0.42, 1))
+	if EventMan.is_event(EventMan.Events.TORNADO):
+		if player.camera.trauma < 0.03:
+			player.camera.trauma = 0.03
+		storm_modulate_node.goal = storm_modulate_node.goal.blend(Color(0.735, 0.79, 0.749, 1))
+
 	# Update stress and weather events
 	strength += strength_increase / 60 * delta
 	current_event_cooldown += delta
@@ -225,11 +255,11 @@ func get_station_count(type:StationData.Stations) -> int: ## Gets the number of 
 
 func update_station_stats(): ## Updates variables dependent on stations
 	if player:
-		var player_strength = 1 + get_station_count(StationData.Stations.STRENGTH_TOTEM)
-		player.update_collector_stack_lim(player_strength)
+		player.update_collector_stack_lim()
 
 func player_stat_update(_player:Player, delta:float): ## "Weather" of the level; update player stats (temp)
-	player.state.temp.val -= level_data.temp_drain * delta
+	if player:
+		player.state.temp.val -= level_data.temp_drain * delta
 
 func get_upgrades() -> Dictionary[Upgrades.Upgrades, int]: ## Returns a dictionary of the player's upgrades
 	return player.upgrades

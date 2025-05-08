@@ -77,6 +77,8 @@ enum CrateVisuals {
 
 ## Show a crate with the limit_type item, if set
 @export var crate_type:CrateVisuals
+
+@export var search_range:Area2D
 #endregion
 
 #region Variables
@@ -363,6 +365,7 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 	
 	# Fire signal for custom pickup functionality
 	item_given.emit(item)
+	print("E")
 	
 	# Auto collect
 	if auto_collect and item.id == limit_type:
@@ -377,12 +380,24 @@ func drop_item(pos = null) -> bool: ## Drop the topmost item.
 
 
 	var near_collector
-	for area in $PickupRange.get_overlapping_areas():
-		if not (area is Area2D):
-			continue
-		if not (area.get_parent() is Collector):
-			continue
-		near_collector = area
+	if not search_range:
+		var old_pos = $PickupRange.global_position
+		$PickupRange.global_position = pos
+		for area in $PickupRange.get_overlapping_areas():
+			if not (area is Area2D):
+				continue
+			if not (area.get_parent() is Collector):
+				continue
+			near_collector = area
+		$PickupRange.global_position = old_pos
+	else:
+		search_range.global_position = pos
+		for area in search_range.get_overlapping_areas():
+			if not (area is Area2D):
+				continue
+			if not (area.get_parent() is Collector):
+				continue
+			near_collector = area
 
 	var item:Item = current_resources[-1] # Get topmost item
 

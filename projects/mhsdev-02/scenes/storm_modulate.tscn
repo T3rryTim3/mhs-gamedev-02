@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://djeyn4gc1het8"]
+
+[ext_resource type="Script" uid="uid://b4jauwfci8ycr" path="res://scripts/storm_modulate.gd" id="1_01cos"]
+
+[node name="StormModulate" type="CanvasModulate"]
+color = Color(0.57267, 0.530805, 0.823156, 1)
+script = ExtResource("1_01cos")
