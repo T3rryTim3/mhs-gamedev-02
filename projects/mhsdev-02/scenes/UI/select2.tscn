@@ -39,11 +39,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.108333, 0.5, 0, 1)
+color = Color(0.921942, 0.962093, 0.387004, 1)
 script = ExtResource("3_uauud")
 
 [node name="Background Gradient" type="TextureRect" parent="."]
-modulate = Color(0.798652, 0.947511, 0.715598, 1)
+modulate = Color(0.271345, 0, 0.110549, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
