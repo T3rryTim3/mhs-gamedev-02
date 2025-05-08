@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://05yvts8fokno"]
+[gd_scene load_steps=19 format=4 uid="uid://05yvts8fokno"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="3_qqx7g"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://csace8iqaxmcx" path="res://scenes/Stations/wheat_crop.tscn" id="5_viceh"]
 [ext_resource type="PackedScene" uid="uid://b35jl6n4ic477" path="res://scenes/Stations/quarry.tscn" id="7_tx5fc"]
 [ext_resource type="PackedScene" uid="uid://ch7yldb47xgpv" path="res://scenes/Base/item.tscn" id="9_qqx7g"]
-[ext_resource type="AudioStream" uid="uid://cvhf0qeqrtpkj" path="res://Audio/Music/Project_2(2).mp3" id="10_2ntn0"]
 [ext_resource type="Texture2D" uid="uid://c5th77juet2mm" path="res://images/stations/forest.png" id="10_tx5fc"]
 [ext_resource type="PackedScene" uid="uid://widdd1xl7ari" path="res://scenes/Stations/the_machine.tscn" id="12_2xnvh"]
 [ext_resource type="PackedScene" uid="uid://dr8hujnthfhc6" path="res://scenes/Stations/forest.tscn" id="12_5xgm6"]
@@ -636,10 +635,6 @@ position = Vector2(-115, -54)
 
 [node name="Item" parent="." instance=ExtResource("9_qqx7g")]
 position = Vector2(141, 51)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_2ntn0")
-autoplay = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-159, 37)

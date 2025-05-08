@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpvuemyt56v57"]
+[gd_scene load_steps=4 format=3 uid="uid://cpvuemyt56v57"]
 
 [ext_resource type="Script" uid="uid://dyjasvahse4q7" path="res://scenes/UI/pause_menu.gd" id="1_xqpxi"]
+[ext_resource type="Texture2D" uid="uid://n1wv8cahjghf" path="res://images/UI/Paused Icon_.png" id="2_6q0ex"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fsae6"]
 
 [node name="Control2" type="Control"]
+top_level = true
 z_index = 2
 layout_mode = 3
 anchors_preset = 15
@@ -33,15 +35,9 @@ color = Color(0.172833, 0.172833, 0.172833, 1)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -125.0
-offset_right = 150.0
-offset_bottom = 125.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -61,11 +57,10 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 6
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 1
-text = "Paused"
+texture = ExtResource("2_6q0ex")
+stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -82,6 +77,11 @@ layout_mode = 2
 text = "Settings"
 flat = true
 
+[node name="Achievements" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Achievements"
+flat = true
+
 [node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Menu
@@ -90,4 +90,5 @@ flat = true
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -66,6 +66,10 @@ text = "Mizuki Wong - Art (Items, UI)"
 layout_mode = 2
 text = "Devin Wadkins - Professional Solitaire Player"
 
+[node name="Label7" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Evan Gould - Sound Effects"
+
 [node name="Exit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Exit"

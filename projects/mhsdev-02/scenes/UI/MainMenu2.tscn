@@ -1,15 +1,56 @@
-[gd_scene load_steps=21 format=3 uid="uid://balgfikn4j3tg"]
+[gd_scene load_steps=31 format=3 uid="uid://balgfikn4j3tg"]
 
 [ext_resource type="Script" uid="uid://dlwsscq8t8ea6" path="res://scripts/main_menu_2.gd" id="1_u47ac"]
 [ext_resource type="Texture2D" uid="uid://f6y1megc1ac3" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack02.png" id="3_7boc3"]
+[ext_resource type="Texture2D" uid="uid://cpenq2rk5deu2" path="res://images/event/Storm/Strike/Lightning Strike 1.png" id="3_pdvs1"]
+[ext_resource type="Texture2D" uid="uid://dervf621fkxm2" path="res://images/event/Storm/Strike/Lightning Strike 2.png" id="4_1isbc"]
 [ext_resource type="Texture2D" uid="uid://cthdvmnjajh0s" path="res://images/Humanoid/Player/Front.png" id="4_glh20"]
 [ext_resource type="Texture2D" uid="uid://dmk6tourrlbtx" path="res://images/event/Tornado/Tornado Frame 1.png" id="4_pxb63"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="4_xqxyr"]
+[ext_resource type="Texture2D" uid="uid://blgpxr7ci62pr" path="res://images/event/Storm/Strike/Lightning Strike 3.png" id="5_qo4kw"]
 [ext_resource type="Texture2D" uid="uid://dsbdwrphy8qvd" path="res://images/event/Tornado/Tornado Frame 2.png" id="5_u47ac"]
 [ext_resource type="Texture2D" uid="uid://cnlp2l3cxg2q1" path="res://images/event/Tornado/Tornado Frame 3.png" id="6_cang6"]
+[ext_resource type="Texture2D" uid="uid://0aejgnft4fbt" path="res://images/event/Storm/Strike/Lightning Strike 4.png" id="6_jpfc4"]
 [ext_resource type="Texture2D" uid="uid://ddh6xlv4613yc" path="res://images/event/Tornado/Tornado Frame 4.png" id="7_glh20"]
+[ext_resource type="Texture2D" uid="uid://bt1qeg0guha5f" path="res://images/event/Storm/Strike/Lightning Strike 5.png" id="7_mttql"]
+[ext_resource type="Texture2D" uid="uid://d1pc3ct3auau1" path="res://images/event/Storm/Strike/Lightning Strike 6.png" id="8_1v2b5"]
 [ext_resource type="Texture2D" uid="uid://koxcs1uf660n" path="res://images/Humanoid/Pitchfork sprites-animations/right attack/rightattack02.png" id="8_pxb63"]
 [ext_resource type="PackedScene" uid="uid://xb6pyhv20ns" path="res://scenes/UI/Credits.tscn" id="8_v3fjk"]
+[ext_resource type="AudioStream" uid="uid://cmr8ya0568flo" path="res://Audio/SFX/Event/Storm Edit 1 Export 1.mp3" id="11_jdhw3"]
+[ext_resource type="AudioStream" uid="uid://bqmmnjp7qm5oi" path="res://Audio/SFX/Event/Wind Edit 1 Export 1.mp3" id="12_3erjg"]
+[ext_resource type="AudioStream" uid="uid://curk663of4kwl" path="res://Audio/SFX/Event/Lightning Strike Edit 1 Export 1.mp3" id="19_1isbc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_17c8u"]
+resource_name = "Lightning"
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_pdvs1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1isbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qo4kw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jpfc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mttql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1v2b5")
+}],
+"loop": false,
+"name": &"strike",
+"speed": 10.0
+}]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_3erjg"]
 frames = 4
@@ -125,6 +166,14 @@ size_flags_horizontal = 3
 icon = ExtResource("4_glh20")
 flat = true
 expand_icon = true
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(225, 308)
+scale = Vector2(15, 15)
+sprite_frames = SubResource("SpriteFrames_17c8u")
+animation = &"strike"
+frame = 5
+frame_progress = 1.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -298,12 +347,28 @@ theme_override_font_sizes/font_size = 60
 text = "Book of Samael"
 
 [node name="PanelContainer" parent="." instance=ExtResource("8_v3fjk")]
+visible = false
 z_index = 1
 layout_mode = 1
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_jdhw3")
+volume_db = -5.622
+autoplay = true
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_3erjg")
+autoplay = true
+bus = &"SFX"
+
+[node name="Strike" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_1isbc")
+volume_db = -22.486
 
 [connection signal="pressed" from="HBoxContainer/Samael" to="." method="_on_samael_pressed"]
 [connection signal="pressed" from="VBoxContainer2/Start" to="." method="_on_start_pressed"]

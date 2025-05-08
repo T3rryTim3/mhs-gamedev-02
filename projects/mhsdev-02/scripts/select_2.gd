@@ -39,6 +39,7 @@ var all_levels = [
 	{
 		"name": "Field",
 		"description": "An empty field perfect for farming.",
+		"music_path": "res://Audio/Music/Field.mp3",
 		"color": Color(0,1,0),
 		"text_color": Color("004516"),
 		"bg_color":Color(0.108,0.5,0),
@@ -88,6 +89,7 @@ var all_levels = [
 	{
 		"name": "Tundra",
 		"description": "A harsh environment requiring a good source of heat and food.",
+		"music_path": "res://Audio/Music/frost-final.mp3",
 		"color": Color(1,1,1),
 		"text_color": Color("310095"),
 		"bg_color": Color("f1f3ff"),
@@ -207,8 +209,6 @@ func _ready():
 				#continue
 		levels.append(level)
 
-	print(levels)
-
 	var level_index = 0
 	
 	# Load levels
@@ -269,10 +269,7 @@ func _item_selected():
 	_update_color(data, level_data)
 
 func _item_activated():
-	print("ACTIVATED")
-	print(current_level)
 	if not current_level:
-		print("Return")
 		return
 	var level_data
 	if current_level["name"] == "Custom":
@@ -280,6 +277,8 @@ func _item_activated():
 	else:
 		level_data = Config.get_difficulty_level_data(current_mode["leveldata"])
 	Globals.current_level = current_level["scene_enum"]
+	if current_level["music_path"]:
+		Globals.main.music_man.target_song = current_level["music_path"]
 	Globals.main._load_scene(current_level["scene_enum"], level_data)
 
 func _update_color(mode:Dictionary, level:Dictionary) -> void:

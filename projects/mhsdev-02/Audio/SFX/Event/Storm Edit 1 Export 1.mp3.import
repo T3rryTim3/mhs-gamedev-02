@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmr8ya0568flo"
+path="res://.godot/imported/Storm Edit 1 Export 1.mp3-8b706f975212b2e3928934af1d8653be.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Event/Storm Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Storm Edit 1 Export 1.mp3-8b706f975212b2e3928934af1d8653be.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -9,10 +9,12 @@ func _get_main() -> Main:
 	return get_tree().current_scene
 
 func _unpause():
+	Globals.main.music_man.lp_toggle = false
 	get_tree().paused = false
 	visible = false
 
 func _pause():
+	Globals.main.music_man.lp_toggle = true
 	get_tree().paused = true
 	visible = true
 
@@ -29,3 +31,7 @@ func _on_settings_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	_get_main()._load_scene(Main.Scenes.MENU)
+
+
+func _on_achievements_pressed() -> void:
+	Globals.main.show_achievements()
