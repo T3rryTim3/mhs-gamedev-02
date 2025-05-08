@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://de3olbljf3vem" path="res://images/UI/Death/You-Died_Frame 2.png" id="5_xh8q5"]
 [ext_resource type="Texture2D" uid="uid://cq555qqfo7kjy" path="res://images/UI/Death/You-Died_Frame 3.png" id="6_h03ao"]
 [ext_resource type="Texture2D" uid="uid://dm5k7kpau5tgv" path="res://images/UI/Death/You-Died_ Frame 4.png" id="7_7wvwv"]
-[ext_resource type="PackedScene" uid="uid://2kfjeq21c6du" path="res://scenes/death.tscn" id="8_h03ao"]
+[ext_resource type="PackedScene" uid="uid://2kfjeq21c6du" path="res://images/Tilesets/drive-download-20250505T193212Z-001/death.tscn" id="8_h03ao"]
 [ext_resource type="Texture2D" uid="uid://w50q7hpdtyxh" path="res://images/UI/Stats/Health/Health bar 0.png" id="9_t6axx"]
 [ext_resource type="Texture2D" uid="uid://blsojfbk6wugf" path="res://images/UI/Stats/Health/Helth1.png" id="10_kj32l"]
 [ext_resource type="Texture2D" uid="uid://cmfxo2ewxo1un" path="res://images/UI/Stats/Health/helth bar.png" id="11_0fcg2"]

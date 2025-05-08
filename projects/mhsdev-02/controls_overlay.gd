@@ -1,0 +1,6 @@
+extends Control
+
+
+var controls = [
+	""
+]

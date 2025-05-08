@@ -10,6 +10,10 @@ enum GameDifficulties {
 	TUNDRA_ROWDY,
 	TUNDRA_MAYHEM,
 	TUNDRA_ENDLESS,
+	DESERT_STANDARD,
+	DESERT_ROWDY,
+	DESERT_MAYHEM,
+	DESERT_ENDLESS,
 	CUSTOM
 }
 
@@ -122,6 +126,43 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.events.append(EventMan.Events.BLIZZARD)
 			return data
 			
+		GameDifficulties.DESERT_STANDARD:
+			data.event_cooldown = 40
+			data.temp_drain = -2
+			data.thirst_multi = 1.6
+			data.strength_per_minute = 1
+			data.hunger_multi = 0.25
+			#data.events.append(EventMan.Events.SANDSTORM)
+			return data
+			
+		GameDifficulties.DESERT_ROWDY:
+			data.event_cooldown = 30
+			data.temp_drain = -3
+			data.thirst_multi = 1.8
+			data.strength_per_minute = 1.25
+			data.hunger_multi = 0.25
+			#data.events.append(EventMan.Events.SANDSTORM)
+			return data
+			
+		GameDifficulties.DESERT_MAYHEM:
+			data.event_cooldown = 25
+			data.temp_drain = -4
+			data.thirst_multi = 2
+			data.strength_per_minute = 1.5
+			data.hunger_multi = 0.314159265
+			#data.events.append(EventMan.Events.SANDSTORM)
+			return data
+			
+		GameDifficulties.DESERT_ENDLESS:
+			data.event_cooldown = 30
+			data.temp_drain = -3
+			data.thirst_multi = 1.8
+			data.strength_per_minute = 1.25
+			data.hunger_multi = 0.25
+			#data.events.append(EventMan.Events.SANDSTORM)
+			return data
+		
+		
 		GameDifficulties.CUSTOM:
 			var sliders_root = get_node("/root/select/CustomSliders")
 			data.event_cooldown = sliders_root.get_node("Cooldown").value

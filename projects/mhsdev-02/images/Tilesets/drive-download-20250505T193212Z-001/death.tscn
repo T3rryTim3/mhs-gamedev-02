@@ -1,12 +1,12 @@
 [gd_scene load_steps=20 format=3 uid="uid://2kfjeq21c6du"]
 
-[ext_resource type="Texture2D" uid="uid://bf7wa8pqax57r" path="res://images/UI/You-Died_Frame 1.png" id="1_4868a"]
-[ext_resource type="Script" uid="uid://ci32nay68vu6i" path="res://death.gd" id="1_f0m10"]
-[ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="1_w0no0"]
-[ext_resource type="Texture2D" uid="uid://dma7ri71t4pw8" path="res://images/UI/You-Died_Frame 2.png" id="2_f0m10"]
-[ext_resource type="Texture2D" uid="uid://bkqrvckr410nt" path="res://images/UI/You-Died_Frame 3.png" id="3_wmr2h"]
-[ext_resource type="Texture2D" uid="uid://dubwykawu41b" path="res://images/UI/You-Died_ Frame 4.png" id="4_56rgi"]
-[ext_resource type="AudioStream" uid="uid://o1psb3fxogpp" path="res://Audio/Music/death.mp3" id="7_7205l"]
+[ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="1_ew74o"]
+[ext_resource type="Script" uid="uid://ci32nay68vu6i" path="res://death.gd" id="2_wyngq"]
+[ext_resource type="Texture2D" uid="uid://bf7wa8pqax57r" path="res://images/UI/You-Died_Frame 1.png" id="3_c56gr"]
+[ext_resource type="Texture2D" uid="uid://dma7ri71t4pw8" path="res://images/UI/You-Died_Frame 2.png" id="4_ap2fg"]
+[ext_resource type="Texture2D" uid="uid://bkqrvckr410nt" path="res://images/UI/You-Died_Frame 3.png" id="5_2fgbn"]
+[ext_resource type="Texture2D" uid="uid://dubwykawu41b" path="res://images/UI/You-Died_ Frame 4.png" id="6_hpplu"]
+[ext_resource type="AudioStream" uid="uid://o1psb3fxogpp" path="res://Audio/Music/death.mp3" id="7_fpawv"]
 
 [sub_resource type="Gradient" id="Gradient_w0no0"]
 colors = PackedColorArray(0, 0, 0, 1, 0.289883, 0.00895993, 2.40654e-08, 1)
@@ -20,16 +20,16 @@ fill_to = Vector2(0.5, 1)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_4868a")
+"texture": ExtResource("3_c56gr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_f0m10")
+"texture": ExtResource("4_ap2fg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_wmr2h")
+"texture": ExtResource("5_2fgbn")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_56rgi")
+"texture": ExtResource("6_hpplu")
 }],
 "loop": true,
 "name": &"death",
@@ -255,14 +255,14 @@ _data = {
 
 [node name="Death" type="Control"]
 visible = false
-material = ExtResource("1_w0no0")
+material = ExtResource("1_ew74o")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_f0m10")
+script = ExtResource("2_wyngq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -340,7 +340,7 @@ text = "Time survived:"
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_7205l")
+stream = ExtResource("7_fpawv")
 bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Try Again" to="." method="_on_respawn_pressed"]

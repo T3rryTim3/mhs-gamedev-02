@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4kt2p7my0yub"]
 
-[ext_resource type="Script" path="res://loadingscreentips.gd" id="1_q74re"]
+[ext_resource type="Script" uid="uid://ddcy2pr4aidwy" path="res://loadingscreentips.gd" id="1_q74re"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q74re"]
 

@@ -1,14 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://c75ghiugnraey"]
+[gd_scene load_steps=14 format=3 uid="uid://c75ghiugnraey"]
 
 [ext_resource type="Script" uid="uid://crilhakryle6e" path="res://victory.gd" id="1_7bnjr"]
+[ext_resource type="Texture2D" uid="uid://b5xpmn1yppuer" path="res://images/Tilesets/drive-download-20250505T193212Z-001/Victorysprite/Victory 1.png" id="2_15ee3"]
+[ext_resource type="Texture2D" uid="uid://c2s5auq4uehb7" path="res://images/Tilesets/drive-download-20250505T193212Z-001/Victorysprite/Victory 2.png" id="3_u1yty"]
+[ext_resource type="Texture2D" uid="uid://be5oew533yk2w" path="res://images/Tilesets/drive-download-20250505T193212Z-001/Victorysprite/Victory 3.png" id="4_msd2c"]
+[ext_resource type="Texture2D" uid="uid://ec7jfkbdi22l" path="res://images/Tilesets/drive-download-20250505T193212Z-001/Victorysprite/Victory 4.png" id="5_ebtt0"]
+[ext_resource type="Texture2D" uid="uid://bxxj8mumjdi0n" path="res://images/Tilesets/drive-download-20250505T193212Z-001/Victorysprite/Victory 5.png" id="6_v245v"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="7_u1yty"]
 
 [sub_resource type="Gradient" id="Gradient_w0no0"]
-colors = PackedColorArray(1, 1, 1, 1, 0.873141, 0.692111, 0, 1)
+offsets = PackedFloat32Array(0, 0.993506)
+colors = PackedColorArray(1, 1, 1, 1, 0.87, 0.82824, 0.4524, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nhnt8"]
 gradient = SubResource("Gradient_w0no0")
-fill_from = Vector2(0.5, 0)
+fill_from = Vector2(0.573394, 0)
 fill_to = Vector2(0.5, 1)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_u1yty"]
+frames = 7
+speed_scale = 10.0
+frame_0/texture = ExtResource("2_15ee3")
+frame_1/texture = ExtResource("3_u1yty")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("6_v245v")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("5_ebtt0")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("6_v245v")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("4_msd2c")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("2_15ee3")
+frame_6/duration = 1.0
 
 [sub_resource type="Animation" id="Animation_7bnjr"]
 resource_name = "Idoknou"
@@ -20,7 +44,19 @@ tracks/0/path = NodePath("TextureRect:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 4),
+"times": PackedFloat32Array(0.1, 4.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0999999, 4.93333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -40,6 +76,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qr7ta"]
 _data = {
@@ -48,7 +96,6 @@ _data = {
 }
 
 [node name="Victory" type="Control"]
-self_modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,6 +103,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7bnjr")
+metadata/_edit_horizontal_guides_ = [-86.0]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -68,16 +116,31 @@ texture = SubResource("GradientTexture2D_nhnt8")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -55.5
-offset_right = 55.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_u1yty")
+theme_override_font_sizes/font_size = 25
+text = "Tune aie: 234
+Lorem ipsum: 2"
+
+[node name="Animated Sproit" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = SubResource("AnimatedTexture_u1yty")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -85,22 +148,44 @@ size_flags_vertical = 4
 
 [node name="Restart" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_u1yty")
+theme_override_font_sizes/font_size = 25
 text = "Restart"
+flat = true
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_u1yty")
+theme_override_font_sizes/font_size = 25
 text = "Quit to Menu
 "
+flat = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_qr7ta")
 }
+autoplay = "Idoknou"
 
 [node name="SPEED" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -222.0
+offset_bottom = -199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_u1yty")
+theme_override_font_sizes/font_size = 25
+text = "Time Taken: "
+horizontal_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
