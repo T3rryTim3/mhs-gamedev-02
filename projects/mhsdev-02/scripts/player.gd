@@ -467,7 +467,7 @@ func _input(event) -> void:
 				KEY_K:
 					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 32)
 					#EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.EARTHQUAKE, get_parent(), 1)
 				KEY_N:

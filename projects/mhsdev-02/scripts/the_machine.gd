@@ -173,8 +173,10 @@ func _on_collector_item_given(item) -> void:
 	scale_val = 1.2
 	
 	if _check_completion():
-		_get_level().machine_powered.emit()
-		_get_level().player.give_upgrade.emit()
+		var level:Level = _get_level()
+		level.player.health = level.player.max_health
+		level.machine_powered.emit()
+		level.player.give_upgrade.emit()
 		_next_cost()
 		_display_cost()
 		_update_cost()

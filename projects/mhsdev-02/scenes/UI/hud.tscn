@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dl7r51dy6jv3n"]
+[gd_scene load_steps=38 format=3 uid="uid://dl7r51dy6jv3n"]
 
 [ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_y5tme"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://btcwci6xrmgxj" path="res://images/UI/hand.png" id="21_72mkl"]
 [ext_resource type="Texture2D" uid="uid://5wk5qj75dypj" path="res://images/UI/Screen-Overlay.png" id="22_riety"]
 [ext_resource type="PackedScene" uid="uid://c75ghiugnraey" path="res://victory.tscn" id="25_dm2wl"]
+[ext_resource type="Script" uid="uid://dqx3rc3rimb8a" path="res://scripts/controls_display.gd" id="26_vatau"]
 
 [sub_resource type="Gradient" id="Gradient_18exe"]
 colors = PackedColorArray(0.827451, 0, 0.137255, 0.419608, 0.827, 0, 0.137, 0)
@@ -164,6 +165,7 @@ theme_override_colors/font_color = Color(0.961654, 0, 0.217181, 1)
 text = "Removing.."
 
 [node name="BuildingDisplay" type="Panel" parent="."]
+process_mode = 3
 visible = false
 layout_mode = 1
 anchors_preset = 10
@@ -505,3 +507,25 @@ mouse_filter = 2
 [node name="Victory" parent="." instance=ExtResource("25_dm2wl")]
 visible = false
 layout_mode = 1
+
+[node name="ControlsDisplay" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("26_vatau")
+
+[node name="ControlsDisplay" type="Label" parent="ControlsDisplay"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Space - Use
+Shift - Sprint"
+horizontal_alignment = 2

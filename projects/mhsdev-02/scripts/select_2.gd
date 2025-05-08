@@ -50,6 +50,7 @@ var all_levels = [
 				"leveldata": Config.GameDifficulties.FIELD_STANDARD,
 				#"color" : Color(0.4, 1, 0.4),
 				"bg_color":Color(0.799,0.948,0.716),
+				"image": "res://images/UI/Thumbnail/field_standard.png",
 				"desc": [
 					["55s Event delay", Color(1,0,0)],
 					["-0.4 Temperature", Color(1,0,0)]
@@ -62,6 +63,7 @@ var all_levels = [
 				"leveldata": Config.GameDifficulties.FIELD_ROWDY,
 				#"color" : Color(1, 1, 0.4),
 				"bg_color": Color("f1ea6d"),
+				"image": "res://images/UI/Thumbnail/field_rowdy.png",
 				"desc": [
 					["-10s between events", Color(1,0,0)],
 					["Hunger decreases faster", Color(1,0,0)],
@@ -74,6 +76,7 @@ var all_levels = [
 				"achievement": Achievements.Achievements.FIELD_ROWDY,
 				#"color" : Color(1, 0.4, 0.4),
 				"bg_color": Color("ec4e00"),
+				"image": "res://images/UI/Thumbnail/field_mayhem.png",
 				"leveldata": Config.GameDifficulties.FIELD_MAYHEM,
 				"desc": [
 					["All events are doubled", Color(1,0,0)],
@@ -309,4 +312,6 @@ func _update_color(mode:Dictionary, level:Dictionary) -> void:
 		title_label.text = level["name"]
 	if "description" in level:
 		desc_label.text = level["description"]
+	if "image" in mode:
+		$TextureRect.texture = load(mode["image"])
 	

@@ -18,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("1_l334d")
 
 [node name="Label2" type="Label" parent="."]
@@ -53,6 +54,7 @@ offset_bottom = 3.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(2, 2)
+mouse_filter = 2
 texture = ExtResource("2_ag407")
 stretch_mode = 5
 
@@ -69,6 +71,7 @@ offset_right = 48.0
 offset_bottom = 97.5
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 theme = SubResource("Theme_gn2mt")
 
 [node name="Label" type="Label" parent="TextureRect"]
@@ -99,17 +102,20 @@ offset_left = -64.0
 offset_right = -16.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Top" type="TextureRect" parent="VBoxContainer2"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_ag407")
 expand_mode = 4
 stretch_mode = 5
 
 [node name="Bottom" type="TextureRect" parent="VBoxContainer2"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_ag407")
 expand_mode = 4
 stretch_mode = 5

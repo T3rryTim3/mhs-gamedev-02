@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b0px88u7gy3cc"]
+[gd_scene load_steps=25 format=3 uid="uid://b0px88u7gy3cc"]
 
 [ext_resource type="Script" uid="uid://bcr0hwf2t3slu" path="res://scripts/Events/lightning_strike.gd" id="1_12la8"]
 [ext_resource type="Texture2D" uid="uid://cpenq2rk5deu2" path="res://images/event/Storm/Strike/Lightning Strike 1.png" id="2_12la8"]
@@ -74,16 +74,6 @@ scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_uanoa")
 alpha_curve = SubResource("CurveTexture_ky3nx")
 
-[sub_resource type="Gradient" id="Gradient_v31ax"]
-offsets = PackedFloat32Array(0.928571, 1)
-colors = PackedColorArray(0.816667, 1, 0, 0.0745098, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1clcv"]
-gradient = SubResource("Gradient_v31ax")
-fill = 1
-fill_from = Vector2(0.509174, 0.481651)
-fill_to = Vector2(0.513761, 0)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_245bs"]
 radius = 32.0
 
@@ -100,6 +90,26 @@ height = 96
 fill = 1
 fill_from = Vector2(0.527523, 0.522936)
 fill_to = Vector2(0.53211, 0.0412844)
+
+[sub_resource type="Gradient" id="Gradient_v31ax"]
+offsets = PackedFloat32Array(0.928571, 1)
+colors = PackedColorArray(0.816667, 1, 0, 0.0745098, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1clcv"]
+gradient = SubResource("Gradient_v31ax")
+fill = 1
+fill_from = Vector2(0.509174, 0.481651)
+fill_to = Vector2(0.513761, 0)
+
+[sub_resource type="Gradient" id="Gradient_or0o4"]
+offsets = PackedFloat32Array(0.928571, 1)
+colors = PackedColorArray(0.816667, 1, 0, 0.2, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ky3nx"]
+gradient = SubResource("Gradient_or0o4")
+fill = 1
+fill_from = Vector2(0.509174, 0.481651)
+fill_to = Vector2(0.513761, 0)
 
 [node name="LightningStrike" type="StaticBody2D"]
 scale = Vector2(2, 2)
@@ -120,14 +130,8 @@ explosiveness = 0.2
 randomness = 0.3
 process_material = SubResource("ParticleProcessMaterial_1clcv")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-texture = SubResource("GradientTexture2D_1clcv")
-
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
@@ -151,3 +155,10 @@ scale = Vector2(0.333333, 0.333333)
 stream = ExtResource("9_ky3nx")
 volume_db = -8.0
 bus = &"SFX"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_1clcv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = SubResource("GradientTexture2D_ky3nx")

@@ -90,7 +90,8 @@ class LevelData:
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
 		EventMan.Events.VOLCANO,
-		EventMan.Events.STORM
+		EventMan.Events.STORM,
+		EventMan.Events.EARTHQUAKE
 	]
 	var items : Dictionary[ItemData.ItemTypes, int] = {
 		ItemData.ItemTypes.WOOD:6,
@@ -226,12 +227,22 @@ func _process(delta) -> void:
 			player.camera.trauma = 0.08
 
 	# Update stress and weather events
-	strength += strength_increase / 60 * delta
+	strength += strength_increase / 60 * delta * 0.75
 	current_event_cooldown += delta
 	
 	if current_event_cooldown > event_spawn_cooldown:
 		current_event_cooldown = 0
-		EventMan.spawn_event(events.pick_random(), self, max(1, strength))
+		for x in range(level_data.event_multiplier):
+			if ((randi() % 2) == 0) or (strength < 2):
+				EventMan.spawn_event(events.pick_random(), self, max(1, strength))
+			elif (randi() % 2) == 0 or (strength < 3):
+				EventMan.spawn_event(events.pick_random(), self, max(1, strength/2))
+				EventMan.spawn_event(events.pick_random(), self, max(1, strength/2))
+			else:
+				EventMan.spawn_event(events.pick_random(), self, max(1, strength/3))
+				EventMan.spawn_event(events.pick_random(), self, max(1, strength/3))
+				EventMan.spawn_event(events.pick_random(), self, max(1, strength/3))
+		
 
 ## Gets a random value from a weighted dictionary (value: weight pairs)
 func weighted_random_choice(weighted_dict: Dictionary) -> Variant:

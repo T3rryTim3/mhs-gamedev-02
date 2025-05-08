@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://05yvts8fokno"]
+[gd_scene load_steps=20 format=4 uid="uid://05yvts8fokno"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_mkj7t"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="3_qqx7g"]
@@ -56,6 +56,16 @@ height = 256
 fill = 1
 fill_from = Vector2(0.490826, 0.458716)
 fill_to = Vector2(0.917431, 0.0917431)
+
+[sub_resource type="Gradient" id="Gradient_tx5fc"]
+colors = PackedColorArray(1, 0.916667, 0, 0.14902, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2ntn0"]
+gradient = SubResource("Gradient_tx5fc")
+width = 1500
+height = 1500
+fill_from = Vector2(0.706422, 0)
+fill_to = Vector2(0, 1)
 
 [node name="field" type="Node2D" node_paths=PackedStringArray("map_limit")]
 script = ExtResource("1_mkj7t")
@@ -630,3 +640,7 @@ position = Vector2(141, 51)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_2ntn0")
 autoplay = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-159, 37)
+texture = SubResource("GradientTexture2D_2ntn0")
