@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://4o2d5dp71n2g"]
 
-[ext_resource type="Shader" path="res://Shaders/blueprint.gdshader" id="1_ylexb"]
+[ext_resource type="Shader" uid="uid://clmfgdcsh1tp" path="res://Shaders/blueprint.gdshader" id="1_ylexb"]
 
 [resource]
 resource_local_to_scene = true

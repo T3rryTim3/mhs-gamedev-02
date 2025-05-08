@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dvg2fbt0s1cro"]
+[gd_scene load_steps=17 format=4 uid="uid://dvg2fbt0s1cro"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_chcrk"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="2_l6hh4"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="7_tf250"]
 [ext_resource type="PackedScene" path="res://scenes/Stations/barricadebig.tscn" id="8_c6ile"]
 [ext_resource type="Texture2D" uid="uid://cc1r0uv6mcheu" path="res://images/stations/snow_tree.png" id="9_l6hh4"]
+[ext_resource type="AudioStream" uid="uid://cte56mv0wq2xs" path="res://Audio/Music/frost-final.mp3" id="10_iqbnq"]
 
 [sub_resource type="Curve" id="Curve_4i31u"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.771277, 1), 0.0, 0.0, 0, 0, Vector2(0.984043, 0), 0.0, 0.0, 0, 0]
@@ -586,3 +587,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_iqbnq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_iqbnq")
+autoplay = true

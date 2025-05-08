@@ -338,6 +338,7 @@ offset_right = 20.0
 offset_bottom = 28.0
 grow_horizontal = 2
 text = "1:100swd"
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="HBoxContainer" parent="."]
 visible = false

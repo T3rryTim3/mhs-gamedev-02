@@ -365,21 +365,23 @@ func item_entered(item:Item): ## Called by other collectors when an item is drop
 	
 	# Fire signal for custom pickup functionality
 	item_given.emit(item)
-	print("E")
 	
 	# Auto collect
 	if auto_collect and item.id == limit_type:
 		if item.get_parent() is Collector:
 			item.get_parent().reset_item_stats(item)
 		add_item(item, true)
+		return true
+	return false
 
 func drop_item(pos = null) -> bool: ## Drop the topmost item.
 	# Validate request
 	if len(current_resources) == 0:
 		return false
 
+	var item:Item = current_resources[-1] # Get topmost item
 
-	var near_collector
+	var near_collector:Area2D
 	if not search_range:
 		var old_pos = $PickupRange.global_position
 		$PickupRange.global_position = pos
@@ -388,18 +390,23 @@ func drop_item(pos = null) -> bool: ## Drop the topmost item.
 				continue
 			if not (area.get_parent() is Collector):
 				continue
+			if (area.get_parent().get_parent() is Player):
+				continue
 			near_collector = area
 		$PickupRange.global_position = old_pos
 	else:
-		search_range.global_position = pos
+		var lowest:float = 100000000
 		for area in search_range.get_overlapping_areas():
 			if not (area is Area2D):
 				continue
 			if not (area.get_parent() is Collector):
 				continue
-			near_collector = area
-
-	var item:Item = current_resources[-1] # Get topmost item
+			if area.get_parent().get_parent() is Player:
+				continue
+			var new = pos.distance_to(area.get_parent().pickup_pos_node.global_position)
+			if new < lowest:
+				lowest = new
+				near_collector = area
 
 	if pos and pos is Vector2:
 		item.global_position = pos
@@ -407,9 +414,9 @@ func drop_item(pos = null) -> bool: ## Drop the topmost item.
 	# Drop item or give it to an overlapping collector
 	if near_collector:
 		item.global_position = near_collector.get_parent().pickup_pos_node.global_position
-		near_collector.get_parent().item_entered(item)
-		if item.get_parent() == self: # If the collector did not accept the item
-			_reparent_item(item, pos)
+		if not near_collector.get_parent().item_entered(item):
+			if item.get_parent() == self: # If the collector did not accept the item
+				_reparent_item(item, pos)
 	else:
 		_reparent_item(item, pos)
 	

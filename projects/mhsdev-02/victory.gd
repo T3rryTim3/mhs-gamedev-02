@@ -20,7 +20,8 @@ func _get_main() -> Main:
 	return get_tree().current_scene
 
 func _ready() -> void:
-	visible = true
+	#visible = true
+	pass
 
 func _on_quit_pressed() -> void:
 	get_tree().paused = false

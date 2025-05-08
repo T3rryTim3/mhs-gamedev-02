@@ -1,13 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://b0px88u7gy3cc"]
+[gd_scene load_steps=23 format=3 uid="uid://b0px88u7gy3cc"]
 
 [ext_resource type="Script" uid="uid://bcr0hwf2t3slu" path="res://scripts/Events/lightning_strike.gd" id="1_12la8"]
-[ext_resource type="AudioStream" uid="uid://uauxowy0nyjv" path="res://Audio/SFX/Event/volcanoSpawnTest.wav" id="1_wjsu0"]
 [ext_resource type="Texture2D" uid="uid://cpenq2rk5deu2" path="res://images/event/Storm/Strike/Lightning Strike 1.png" id="2_12la8"]
 [ext_resource type="Texture2D" uid="uid://dervf621fkxm2" path="res://images/event/Storm/Strike/Lightning Strike 2.png" id="3_or0o4"]
 [ext_resource type="Texture2D" uid="uid://blgpxr7ci62pr" path="res://images/event/Storm/Strike/Lightning Strike 3.png" id="4_ky3nx"]
 [ext_resource type="Texture2D" uid="uid://0aejgnft4fbt" path="res://images/event/Storm/Strike/Lightning Strike 4.png" id="5_dgnoc"]
 [ext_resource type="Texture2D" uid="uid://bt1qeg0guha5f" path="res://images/event/Storm/Strike/Lightning Strike 5.png" id="6_uanoa"]
 [ext_resource type="Texture2D" uid="uid://d1pc3ct3auau1" path="res://images/event/Storm/Strike/Lightning Strike 6.png" id="7_245bs"]
+[ext_resource type="AudioStream" uid="uid://b6v053qige44d" path="res://Audio/SFX/Event/Lightning Spark Edit 1 Export 1.mp3" id="8_or0o4"]
+[ext_resource type="AudioStream" uid="uid://curk663of4kwl" path="res://Audio/SFX/Event/Lightning Strike Edit 1 Export 1.mp3" id="9_ky3nx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v31ax"]
 animations = [{
@@ -106,11 +107,6 @@ collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_12la8")
 
-[node name="Strike" type="AudioStreamPlayer2D" parent="."]
-scale = Vector2(0.333333, 0.333333)
-stream = ExtResource("1_wjsu0")
-bus = &"SFX"
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v31ax")
 animation = &"strike"
@@ -144,3 +140,14 @@ shape = SubResource("CircleShape2D_12la8")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.9, 0.84, 0, 1)
 texture = SubResource("GradientTexture2D_or0o4")
+
+[node name="Spark" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_or0o4")
+autoplay = true
+bus = &"SFX"
+
+[node name="Strike" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(0.333333, 0.333333)
+stream = ExtResource("9_ky3nx")
+volume_db = -8.0
+bus = &"SFX"
