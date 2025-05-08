@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://b0px88u7gy3cc"]
+
+[node name="LightningStrike" type="StaticBody2D"]

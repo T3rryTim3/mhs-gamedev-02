@@ -73,8 +73,6 @@ func _ready():
 	$VBoxContainer.position.y -= 48 - size.y/2
 	$VBoxContainer.hide()
 
-	sprite.material.set_shader_parameter("blue", 1)
-
 	collector.stack_limit = 0
 
 	# Ready resource display
@@ -103,6 +101,9 @@ func _complete():
 	
 	station.global_position = global_position
 	get_parent().add_child(station)
+
+	Gamestats.stations_placed += 1
+
 	queue_free()
 
 func _check_completion():
@@ -134,6 +135,30 @@ func _process(delta: float) -> void:
 			z_index = -1
 		2: 
 			z_index = 5
+
+	var player:Player = _get_level().player
+	var sizex = sprite.texture.get_size().x
+	var sizey = sprite.texture.get_size().y
+	var success = false
+
+	var item_id = -1
+	if len(player.collector.current_resources) > 0:
+		item_id = player.collector.get_topmost_item().id
+
+	# Check if the hovered item can be spent and is overlapping the blueprint
+	if item_id != -1 and cost.has(item_id) and spent_resources[item_id] < cost[item_id]:
+		var pos = player.current_item_display.global_position
+		if (pos.x > global_position.x - sizex/2) and (pos.x < global_position.x + sizex/2):
+			if (pos.y > global_position.y - sizey/2) and (pos.y < global_position.y + sizey/2):
+				scale = Vector2(1.1,1.1)
+				success = true
+				if not (self in player.hovered_blueprints):
+					player.hovered_blueprints.append(self)
+	if not success: # Reset the size if not applicable
+		if (self in player.hovered_blueprints):
+			print("Erase.")
+			player.hovered_blueprints.erase(self)
+		scale = Vector2(1,1)
 
 	_check_delete()
 
@@ -196,7 +221,7 @@ func _check_delete():
 
 func _update_remove_color(on:bool):
 	if on:
-		sprite.self_modulate = Color(40,1,1)
+		sprite.self_modulate.r = 40
 	else:
-		sprite.self_modulate = Color(1,1,1)
+		sprite.self_modulate.r = 1
 #endregion

@@ -4,6 +4,7 @@ class_name Level
 signal station_built
 signal station_deleted
 signal machine_powered
+signal victory
 
 ## Scene for creating new items
 @onready var item_scn = preload("res://scenes/Base/item.tscn")
@@ -76,11 +77,11 @@ class LevelData:
 	var thirst_multi : float = 1 
 	var hunger_multi : float = 1 
 	var station_health_multi : float = 1
-	var item_spawn_cooldown : float = 2.75
+	var item_spawn_cooldown : float = 2.45
 	var station_speed_multi : float = 1
 	var grace_period : float = 60 # Extra time until the first event
 	var temp_drain : float = 0.3
-	var item_limit : int = 10 # Max amount of items in the level+6
+	var item_limit : int = 20 # Max amount of items in the level+6
 	var event_multiplier : int = 1
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
@@ -90,7 +91,8 @@ class LevelData:
 		ItemData.ItemTypes.WOOD:6,
 		ItemData.ItemTypes.WHEAT:2,
 		ItemData.ItemTypes.ROCK:8,
-		ItemData.ItemTypes.WHEAT_SEEDS:12
+		ItemData.ItemTypes.WHEAT_SEEDS:12,
+		ItemData.ItemTypes.ACORN:10
 	}
 
 	func _init() -> void:
@@ -140,6 +142,9 @@ func _ready():
 	strength_increase = level_data.strength_per_minute
 	events = level_data.events
 	spawn_items = level_data.items
+
+func _win(): ## Ends the game in a victory
+	victory.emit()
 
 func _spawn_item():
 

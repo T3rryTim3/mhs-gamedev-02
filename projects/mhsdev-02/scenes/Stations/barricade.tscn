@@ -11,6 +11,7 @@ collision_layer = 40
 collision_mask = 32
 motion_mode = 1
 script = ExtResource("1_g4bia")
+station_data = 9
 produce_time = 1.0
 produce_stretch = 0.0
 show_progress = false

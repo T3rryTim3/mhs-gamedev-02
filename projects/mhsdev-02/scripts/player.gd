@@ -66,6 +66,9 @@ var stamina_show_delta:float = 0
 ## Current blueprint hover object
 var current_blueprint:BlueprintHover
 
+## Current item drop display
+var current_item_display:Sprite2D
+
 ## Currently sprinting
 var sprinting:bool = false
 
@@ -76,13 +79,16 @@ var current_sprint_cooldown:float = 0.0
 var delete_mode:bool = false
 
 ## Time until next hunger damage tick
-var hunger_tick:float = 1.5
+var hunger_tick:float = 2.5
 
 ## Damage per hunger tick
 var hunger_damage:float = 1
 
 ## Whether or not the player is still alive
 var alive = true
+
+## An array of the currently selected blueprints. This is used to determine the item hover visibility
+var hovered_blueprints:Array[Blueprint]
 
 var hunger_tick_max:float
 #endregion
@@ -201,7 +207,6 @@ func _use(delta): # Use the topmost held item
 	if not item:
 		return
 	ItemData.use_item(item, self, delta)
-	emit_signal("item_used", item)
 
 func _used_item() -> Item: # Gets the currently being used item, if any
 	var item = collector.get_topmost_item()
@@ -214,23 +219,6 @@ func update_collector_stack_lim(limit:int):
 
 func highlight_nearest(): ## Highlight the nearest item
 	var nearest:Item = null
-	var nearest_distance:float = INF
-
-	# Loop through items
-	#for x in collector.pickup_area.get_overlapping_bodies():
-		#var distance = global_position.distance_to(x.global_position)
-#
-		#if x is Item and distance < nearest_distance:
-#
-			## Update if its the closest
-			#if not (x.get_parent() is Collector):
-				#if nearest:
-					#nearest.disable_outline()
-				#nearest = x
-				#nearest_distance = distance
-#
-		#elif x is Item:
-			#x.disable_outline()
 	nearest = collector._get_nearest_item(false, -1, get_global_mouse_position())
 	if nearest:
 		if len(collector.current_resources) < collector.stack_limit:
@@ -307,7 +295,7 @@ func _ready():
 	state["temp"] = StateItem.new(50, 0, 100, 0, # Manually drained through level
 		[
 			DrainFactor.new("sprint", -0.5, DrainFactorTypes.ADD, false),
-			DrainFactor.new("campfire", -2, DrainFactorTypes.ADD, false)
+			DrainFactor.new("campfire", -6, DrainFactorTypes.ADD, false)
 		]
 	)
 	state["stamina"] = StateItem.new(100, 0, 100, 0, 
@@ -386,6 +374,32 @@ func _process(delta) -> void:
 	var distance = min(100, Vector2.ZERO.distance_to(get_local_mouse_position())) / 2
 	var offset = Vector2.ZERO.direction_to(get_local_mouse_position())
 	$Camera2D.offset = $Camera2D.offset.lerp(offset * distance, 10 * delta)
+
+	# Show item overlay
+	if len(collector.current_resources) > 0 and not current_blueprint:
+		if current_item_display and current_item_display.get_meta("item") != collector.get_topmost_item().id:
+			current_item_display.queue_free()
+		elif current_item_display and len(hovered_blueprints) > 0:
+			current_item_display.hide()
+		elif current_item_display:
+			current_item_display.show()
+
+		if not current_item_display:
+			var img = ItemData.get_item_data(collector.get_topmost_item().id)["img_path"]
+
+			current_item_display = Sprite2D.new()
+			current_item_display.texture = load(img)
+			current_item_display.modulate.a = 0.5
+			current_item_display.set_meta("item", collector.get_topmost_item().id)
+
+			add_child(current_item_display)
+
+		var item_dir = global_position.direction_to(get_global_mouse_position())
+		var item_distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+		current_item_display.global_position = item_dir * item_distance + global_position
+	else:
+		if current_item_display:
+			current_item_display.queue_free()
 
 	_update_stats(delta)
 

@@ -120,6 +120,8 @@ func _death():
 	new_station.target_station = station_data
 	get_parent().call_deferred("add_child", new_station)
 	new_station.global_position = global_position + sprite.offset
+	
+	Gamestats.stations_destroyed += 1
 
 	# Delete self
 	queue_free()
@@ -192,6 +194,7 @@ func _ready():
 
 	# Used for checking if the station is colliding with other stations during placement
 	var collider = blueprint_collider.instantiate()
+	collider.position += sprite.offset
 	add_child(collider)
 	collider.get_child(0).shape.size = get_sprite_texture().get_size()
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5kjpxua8ib07"
-path="res://.godot/imported/pixil-frame-2.png-9ca3c7296c57c8b03ff1544de3e86ddf.ctex"
+uid="uid://tr41fmo250lv"
+path="res://.godot/imported/Thermometer.png-387147391c889f5369d231ddc9185bfe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/event/pixil-frame-2.png"
-dest_files=["res://.godot/imported/pixil-frame-2.png-9ca3c7296c57c8b03ff1544de3e86ddf.ctex"]
+source_file="res://images/UI/Stats/Temp/Thermometer.png"
+dest_files=["res://.godot/imported/Thermometer.png-387147391c889f5369d231ddc9185bfe.ctex"]
 
 [params]
 

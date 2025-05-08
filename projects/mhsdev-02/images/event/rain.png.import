@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2brelvh11mbq"
-path="res://.godot/imported/pixil-frame-0.png-e8dc2d7d56ad3dd60cd75c69c0d876a5.ctex"
+uid="uid://ciaqtjf88ddrm"
+path="res://.godot/imported/rain.png-55ca71c4715961449ac495875485de64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/event/pixil-frame-0.png"
-dest_files=["res://.godot/imported/pixil-frame-0.png-e8dc2d7d56ad3dd60cd75c69c0d876a5.ctex"]
+source_file="res://images/event/rain.png"
+dest_files=["res://.godot/imported/rain.png-55ca71c4715961449ac495875485de64.ctex"]
 
 [params]
 
