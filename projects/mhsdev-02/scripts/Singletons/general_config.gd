@@ -56,9 +56,9 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			data.strength_per_minute = 0.1
 			data.thirst_multi = 0.5
 			data.hunger_multi = 0.5
-		
+
 		#Field Settings
-		
+
 		GameDifficulties.FIELD_STANDARD:
 			data = Level.LevelData.new()
 			data.event_cooldown = 55

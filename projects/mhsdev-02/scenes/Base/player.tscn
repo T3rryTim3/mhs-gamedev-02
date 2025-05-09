@@ -567,6 +567,7 @@ collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_1ohs8")
 sprite = NodePath("AnimatedSprite2D")
+health = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 13.5)

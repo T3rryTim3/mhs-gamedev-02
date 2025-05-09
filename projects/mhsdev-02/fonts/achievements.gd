@@ -122,6 +122,8 @@ func _ready():
 func raise_progress(achievement:Achievements.Achievements, increase:int=1): ## Increases the progress for a given achievement.
 	if not achievement in current:
 		current[achievement] = 0
+	if has_achievement(achievement):
+		return
 	current[achievement] = min(data[achievement]["max"], current[achievement] + increase)
 	if current[achievement] >= data[achievement]["max"]:
 		achievement_gained.emit(achievement)

@@ -50,13 +50,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -252.0
-offset_bottom = 252.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_2y505")
-expand_mode = 4
+expand_mode = 5
 stretch_mode = 4
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
@@ -126,6 +124,8 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0.27, 0.0855, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
 text = "Level Name"
 horizontal_alignment = 1
 script = ExtResource("6_4ihci")
@@ -133,6 +133,8 @@ script = ExtResource("6_4ihci")
 [node name="LevelDesk" type="Label" parent="HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.93, 0.8587, 0.5022, 1)
+theme_override_constants/outline_size = 6
 text = "Descriptione A awim f iwfmf womgw ovomw ogwokfo kfokefef"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -146,6 +148,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="MarginContainer3" type="MarginContainer" parent="HSplitContainer/PanelContainer2"]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -183,6 +186,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_xceru")
 
 [node name="Background Gradient" type="TextureRect" parent="."]
+visible = false
 modulate = Color(1, 0.219334, 0.301238, 1)
 layout_mode = 1
 anchors_preset = 15
