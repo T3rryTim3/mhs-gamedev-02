@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpvuemyt56v57"]
+[gd_scene load_steps=6 format=3 uid="uid://cpvuemyt56v57"]
 
 [ext_resource type="Script" uid="uid://dyjasvahse4q7" path="res://scenes/UI/pause_menu.gd" id="1_xqpxi"]
+[ext_resource type="Texture2D" uid="uid://n1wv8cahjghf" path="res://images/UI/Paused Icon_.png" id="2_6q0ex"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="3_4r2wj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fsae6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avwb0"]
+bg_color = Color(0.2, 0.2, 0.2, 0.945098)
+
 [node name="Control2" type="Control"]
+top_level = true
 z_index = 2
 layout_mode = 3
 anchors_preset = 15
@@ -33,15 +39,9 @@ color = Color(0.172833, 0.172833, 0.172833, 1)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -125.0
-offset_right = 150.0
-offset_bottom = 125.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -61,11 +61,10 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 6
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 1
-text = "Paused"
+texture = ExtResource("2_6q0ex")
+stretch_mode = 5
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -82,12 +81,91 @@ layout_mode = 2
 text = "Settings"
 flat = true
 
+[node name="Achievements" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Achievements"
+flat = true
+
+[node name="Help" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Help"
+flat = true
+
 [node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Menu
 "
 flat = true
 
+[node name="Help" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_avwb0")
+
+[node name="MarginContainer" type="MarginContainer" parent="Help"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Help/MarginContainer"]
+layout_mode = 2
+
+[node name="HelpClose" type="Button" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_4r2wj")
+text = "Close"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Help/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/line_separation = 10
+theme_override_fonts/normal_font = ExtResource("3_4r2wj")
+theme_override_font_sizes/normal_font_size = 20
+text = "-- Introduction --
+This guide will summarize the main compoents of Book of Samael, in case anything isn't clear.
+
+-- The Machine --
+The main task of the game is power \"The Machine\". An old device the government used to control the weather. With enough fuel, it can put an end to the chaos unfolding upon samuel.
+
+To power it, give it the required items that it shows below by dropping them in. Once provided, you will get an upgrade. You must power the machine a number of times to beat the level.
+
+-- Stations --
+To both survive and produce resources, you must build stations. Do this by opening the blueprint menu (Default B), selecting one (Scroll or arrow keys), and placing it down (Left mouse).
+
+After a station is placed down, give it the required items to fully build it.
+
+You can also speed stations up by hitting them with your pitchfork (Default space), but you can only do this when you aren't holding items.
+
+-- Items --
+You can hold a number of items at time, starting with 2, and use them from top to bottom (Default holding space). Items are used to build stations and keep your hunger and thirst.
+
+Water in particular can be used right from the well, but purifying it first using a water purifier makes it provide much more thirst.
+You can also use unpurified water to heal your wheat crops. 
+
+Items spawn randomly around the map, but not very quickly.
+
+-- Events --
+Events spawn periodically and threaten your stations, your items, and you. Some events may target you specifically, so staying away from your stations may be a good idea. The frequency of events does not normally change, but the strength of each one does as time goes on. 
+
+Barricades can also be built to block some of them."
+
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Achievements" to="." method="_on_achievements_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Help/MarginContainer/VBoxContainer/HelpClose" to="." method="_on_help_close_pressed"]

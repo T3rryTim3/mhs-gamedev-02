@@ -69,6 +69,8 @@ var damage_mod_coef:float = 0
 const GRAVITY:int = 30
 const MAX_VEL:Vector3 = Vector3(100,100,100)
 
+var out_of_map_vel:float = 1
+
 ## Hide the healthbar - Used when items are collected
 var show_health:bool = true
 #endregion
@@ -211,6 +213,20 @@ func _physics_process(delta: float) -> void:
 
 	_movement(delta)
 	_update_force(delta)
+
+	# Slow when exiting map
+	if self is Player and _get_level().map_limit:
+			if _get_level().map_limit.shape.get_rect().has_point(global_position + delta * velocity):
+				out_of_map_vel = 1
+			else:
+				if (global_position + delta * velocity).length() > global_position.length():
+					out_of_map_vel = max(0, out_of_map_vel - delta)
+					velocity *= out_of_map_vel
+				else:
+					out_of_map_vel = 1
+	if self is Item and _get_level().map_limit and not (get_parent() is Collector):
+		if not _get_level().map_limit.shape.get_rect().has_point(global_position):
+			queue_free()
 	move_and_slide()
 
 func apply_force(applied:Vector2): ## Apply force to the entity

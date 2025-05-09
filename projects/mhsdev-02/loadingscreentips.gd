@@ -13,14 +13,14 @@ var tips = [
 	"Sprinting increases your thirst drain, so use it wisely.",
 	"Hit stations with your pitchfork to speed them up.",
 	"You can deflect fireballs by hitting them.",
-	"Balance is important; stay alive while also fueling the machine."
+	"Balance is important; stay alive while also fueling the machine.",
+	"Power the machine enough to win the game."
 ]
 
 func select_tip():
 	
 	var _index = randi() % tips.size() 
 	var value = tips[_index] 
-	print (value)
 	$PanelContainer/Label.text = str(value)
 
 func _process(delta: float) -> void:

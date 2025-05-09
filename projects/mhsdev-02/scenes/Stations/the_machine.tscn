@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://widdd1xl7ari"]
+[gd_scene load_steps=10 format=3 uid="uid://widdd1xl7ari"]
 
 [ext_resource type="Script" uid="uid://bx0rn6bwkphi8" path="res://scripts/the_machine.gd" id="1_etu33"]
 [ext_resource type="Texture2D" uid="uid://cmpf0ehrbflbo" path="res://images/stations/machine.png" id="1_ojkw5"]
 [ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="3_gfevg"]
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="4_yy08b"]
 
 [sub_resource type="Theme" id="Theme_etu33"]
 Label/font_sizes/font_size = 12
@@ -43,10 +44,12 @@ energy = 0.24
 texture = SubResource("GradientTexture2D_yy08b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 34)
 shape = SubResource("RectangleShape2D_etu33")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+visible = false
 z_index = 1
 position = Vector2(48, 7)
 script = ExtResource("3_gfevg")
@@ -71,5 +74,21 @@ position = Vector2(-49, 9)
 
 [node name="DropPos" type="Node2D" parent="Collector"]
 position = Vector2(-50, 49)
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -15.0
+offset_top = -28.0
+offset_right = 25.0
+offset_bottom = -5.0
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.489786, 0.601657, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0758922, 1.08535e-05, 0.341076, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_yy08b")
+theme_override_font_sizes/font_size = 20
+text = "0/5"
+horizontal_alignment = 1
 
 [connection signal="item_given" from="Collector" to="." method="_on_collector_item_given"]

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var yipee = $MarginContainer/AnimatedSprite2D
+#@onready var yipee = $MarginContainer/AnimatedSprite2D
 var player:Player
 
 func display() -> void: 

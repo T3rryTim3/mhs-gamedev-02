@@ -31,12 +31,21 @@ var collection_id:int = 0
 ## Pickup sound stream player
 var pickup_stream:AudioStreamPlayer2D
 
+## Pickup sound stream player
+var use_stream:AudioStreamPlayer2D
+
 # Variables for item usage progress
 var item_usage_progress:float = 0
 var item_usage_max:float
 var using:bool = false
 
-func _ready() -> void:
+func player_hit():
+	match id:
+		ItemData.ItemTypes.WHEAT:
+			id = ItemData.ItemTypes.WHEAT_SEEDS
+			_load_item()
+
+func _load_item():
 	# Assign base stats based on resource
 	var data = ItemData.get_item_data(id)
 	health = data["health"]
@@ -55,6 +64,15 @@ func _ready() -> void:
 	add_child(audio_stream)
 	pickup_stream = audio_stream
 
+	var audio_stream_2 = AudioStreamPlayer2D.new()
+	if data["use_sound"] != "":
+		audio_stream_2.stream = load(data["use_sound"])
+	audio_stream_2.volume_db = 5
+	add_child(audio_stream_2)
+	use_stream = audio_stream_2
+
+func _ready() -> void:
+	_load_item()
 	super()
 
 func enable_outline() -> void:

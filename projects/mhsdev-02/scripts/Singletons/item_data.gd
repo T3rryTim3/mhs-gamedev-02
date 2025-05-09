@@ -20,6 +20,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 	var health = 1
 	var use_time = 0
 	var pickup_sound = "res://Audio/SFX/Items/Wheat.wav"
+	var use_sound = ""
 	var effect_immunities:Array[EffectData.EffectTypes]
 	
 	match id:
@@ -39,11 +40,13 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			use_time = 0.5
 			img_path = "res://images/items/bread.png"
 			pickup_sound = "res://Audio/SFX/rock.wav"
+			use_sound = "res://Audio/SFX/Items/Bread Edit 1 Export 1.mp3"
 		ItemTypes.WATER:
 			health = 1
 			decay_rate = 0.0
 			use_time = 0.5
 			img_path = "res://images/items/dirty_water.png"
+			use_sound = "res://Audio/SFX/Items/Dinking Water Edit 1 Export 1.mp3"
 			effect_immunities = [
 				EffectData.EffectTypes.BURNING
 			]
@@ -52,6 +55,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			decay_rate = 0.0
 			use_time = 0.5
 			img_path = "res://images/items/water.png"
+			use_sound = "res://Audio/SFX/Items/Dinking Water Edit 1 Export 1.mp3"
 			effect_immunities = [
 				EffectData.EffectTypes.BURNING
 			]
@@ -82,6 +86,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 		"use_time": use_time,
 		"id": id,
 		"pickup_sound": pickup_sound,
+		"use_sound": use_sound,
 		"effect_immunities": effect_immunities
 	}
 

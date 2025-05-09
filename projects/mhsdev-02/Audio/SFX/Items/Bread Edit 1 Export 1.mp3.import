@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dtvj5w7um3dl3"
+path="res://.godot/imported/Bread Edit 1 Export 1.mp3-25356c93625e910caf6e33a12114789c.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Items/Bread Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Bread Edit 1 Export 1.mp3-25356c93625e910caf6e33a12114789c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

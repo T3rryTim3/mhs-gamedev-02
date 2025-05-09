@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=17 format=3 uid="uid://cec63m3q1fajg"]
 
 [ext_resource type="Script" uid="uid://bptko54whwnfa" path="res://scenes/Structure/main.gd" id="1_8w15x"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_21ivj"]
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
+[ext_resource type="Script" uid="uid://b72qc5yooiwq5" path="res://scripts/music_man.gd" id="2_mk335"]
 [ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
 [ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="3_f5ioo"]
 [ext_resource type="PackedScene" uid="uid://jca8p77y4d7o" path="res://scenes/UI/unlock_screen.tscn" id="7_32u4x"]
@@ -137,6 +138,14 @@ _data = {
 [node name="Main" type="Node2D"]
 script = ExtResource("1_8w15x")
 
+[node name="MusicMan" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_mk335")
+
+[node name="Music" type="AudioStreamPlayer" parent="MusicMan"]
+stream = ExtResource("7_8538w")
+bus = &"Music"
+
 [node name="LevelViewport" type="SubViewportContainer" parent="."]
 visible = false
 material = ExtResource("2_t81tu")
@@ -157,10 +166,6 @@ render_target_update_mode = 0
 [node name="DevConsole" parent="." instance=ExtResource("1_vl0ib")]
 visible = false
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_8538w")
-bus = &"Music"
-
 [node name="LoadedScene" type="Node" parent="."]
 unique_name_in_owner = true
 
@@ -175,9 +180,11 @@ z_as_relative = false
 theme = ExtResource("1_21ivj")
 
 [node name="Achievements" parent="CanvasLayer" instance=ExtResource("7_32u4x")]
+process_mode = 3
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
 visible = false
 z_index = 40
 anchors_preset = 15
@@ -187,6 +194,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
@@ -205,6 +213,7 @@ libraries = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_8w15x")
 }

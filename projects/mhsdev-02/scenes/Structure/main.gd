@@ -3,6 +3,7 @@ class_name Main
 
 @onready var settings = $CanvasLayer/Settings
 @onready var achievements = $CanvasLayer/Achievements
+@onready var music_man:MusicMan = $MusicMan
 
 var ui_hover_sound:AudioStreamPlayer
 var ui_click_sound:AudioStreamPlayer
@@ -13,6 +14,7 @@ enum Scenes {
 	LEVEL_FIELD,
 	LEVEL_TUTORIAL,
 	LEVEL_TUNDRA,
+	LEVEL_DESERT,
 	PAUSE,
 	ACHIEVEMENTS
 }
@@ -80,6 +82,7 @@ func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 	get_tree().paused = false
 	match scene:
 		Scenes.MENU:
+			Globals.main.music_man.target_song = ""
 			new_scene = load("res://scenes/UI/MainMenu2.tscn").instantiate()
 		Scenes.LEVEL_SELECT:
 			new_scene = load("res://scenes/UI/select2.tscn").instantiate()
@@ -89,6 +92,8 @@ func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 			new_scene = load("res://scenes/Levels/tutorial_2.tscn").instantiate()
 		Scenes.LEVEL_TUNDRA:
 			new_scene = load("res://scenes/Levels/snow_map.tscn").instantiate()
+		Scenes.LEVEL_DESERT:
+			new_scene = load("res://scenes/Levels/desert_map.tscn").instantiate()
 		Scenes.PAUSE:
 			new_scene = load("res://scenes/UI/PauseMenu.tscn").instantiate()
 		Scenes.ACHIEVEMENTS:

@@ -94,6 +94,9 @@ var alive = true
 ## An array of the currently selected blueprints. This is used to determine the item hover visibility
 var hovered_blueprints:Array
 
+## An array of currently hovered items. This should only be at one time at a time.
+var hovered_items:Array
+
 var hunger_tick_max:float
 #endregion
 
@@ -210,6 +213,8 @@ func _use(delta) -> bool: # Use the topmost held item. Returns true if done succ
 	var item = collector.get_topmost_item()
 	if not item:
 		return false
+	if not item.use_stream.playing:
+		item.use_stream.play()
 	ItemData.use_item(item, self, delta)
 	return true
 
@@ -222,18 +227,21 @@ func _used_item() -> Item: # Gets the currently being used item, if any
 func update_collector_stack_lim():
 	collector.stack_limit = _get_level().get_station_count(StationData.Stations.STRENGTH_TOTEM)+Config.PLAYER_BASE_ITEM_LIMIT+_get_upgrade(Upgrades.Upgrades.STRENGTH)
 
-
 func highlight_nearest(): ## Highlight the nearest item
 	var nearest:Item = null
 	nearest = collector._get_nearest_item(false, -1, get_global_mouse_position())
 	if nearest:
 		if len(collector.current_resources) < collector.stack_limit:
 			nearest.enable_outline()
+			if not (nearest in hovered_items):
+				hovered_items.append(nearest)
 		else:
 			nearest.disable_outline()
+			hovered_items.erase(nearest)
 	for x in collector.pickup_area.get_overlapping_bodies():
 		if x is Item and not (x == nearest):
 			x.disable_outline()
+			hovered_items.erase(x)
 
 func _on_pickup_range_body_exited(body: Node2D) -> void:
 	if body is Item:
@@ -325,9 +333,26 @@ func _ready():
 func _attack():
 	if not super(): # Return if attack is in progress already
 		return
-	for body:CollisionObject2D in $HitCollider.get_overlapping_bodies():
+	$Swing.play(0.39)
+	for body in $HitCollider.get_overlapping_bodies():
 		if body.has_method("player_hit"):
 			body.player_hit()
+	#for area in $HitCollider.get_overlapping_areas():
+		#print(area)
+
+	# Rock breaking
+	var level:Level = _get_level()
+	if level.break_layer:
+		var pos = level.break_layer.local_to_map(level.break_layer.to_local($HitCollider.global_position))
+		var data = level.break_layer.get_cell_tile_data(pos)
+		if data:
+			level.break_layer.set_cell(pos, -1)
+		else:
+			for pos_1 in level.break_layer.get_surrounding_cells(pos):
+				var data_1 = level.break_layer.get_cell_tile_data(pos_1)
+				if data_1:
+					level.break_layer.set_cell(pos_1, -1)
+					break
 
 func _process(delta) -> void:
 	super(delta)
@@ -402,7 +427,7 @@ func _process(delta) -> void:
 	# Update item progress
 	var item = _used_item()
 	if Input.is_action_pressed("use_item"):
-		if not _use(delta) and Input.is_action_just_pressed("use_item"): # Prevent holding attack
+		if not _use(delta) and Input.is_action_just_pressed("attack"): # Prevent holding attack
 			_attack()
 	elif item:
 		item.using = false
@@ -467,7 +492,7 @@ func _input(event) -> void:
 				KEY_K:
 					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 32)
+					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.EARTHQUAKE, get_parent(), 1)
 				KEY_N:
@@ -504,6 +529,7 @@ func _death():
 	if not alive:
 		return
 	Achievements.raise_progress(Achievements.Achievements.ILL_BE_BACK, 1)
+	Achievements.raise_progress(Achievements.Achievements.HUNDRED_DEATHS, 1)
 	death.emit()
 	alive = false
 	$DeathSound.play()
