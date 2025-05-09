@@ -59,7 +59,7 @@ func _input(event: InputEvent) -> void:
 		elif event.is_action("cycle_blueprint_down"):
 			current_index += 1	
 
-func _ready() -> void:
+func reload_stations():
 	# Remove previous stations
 	station_sprites = []
 	for child in $VBoxContainer2.get_children():
@@ -74,5 +74,7 @@ func _ready() -> void:
 		station_sprite.self_modulate.a = 0.5
 		$VBoxContainer2.add_child(station_sprite)
 		station_sprites.append(station_sprite)
-	
+
+func _ready() -> void:
+	reload_stations()
 	_set_station(0)

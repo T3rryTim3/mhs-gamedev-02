@@ -154,6 +154,8 @@ func _next_tutorial_step(data=null):
 		7: # Cook bread
 			_get_level().station_deleted.disconnect(_next_tutorial_step)
 			_get_level().load_bread_step()
+			player.blueprint_overlay.stations.append(StationData.Stations.CROP)
+			player.blueprint_overlay.reload_stations()
 			$Timer.text = "Task: Use the oven to cook and eat bread. Put wheat on the left, and wood on the right.\nYou will need to make a wheat crop to get the wheat."
 			player.item_used.connect(_next_tutorial_step)
 		8:

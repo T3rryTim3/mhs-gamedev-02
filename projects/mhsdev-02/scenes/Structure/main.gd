@@ -82,7 +82,7 @@ func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 		Scenes.MENU:
 			new_scene = load("res://scenes/UI/MainMenu2.tscn").instantiate()
 		Scenes.LEVEL_SELECT:
-			new_scene = load("res://scenes/UI/select.tscn").instantiate()
+			new_scene = load("res://scenes/UI/select2.tscn").instantiate()
 		Scenes.LEVEL_FIELD:
 			new_scene = load("res://scenes/Levels/field.tscn").instantiate()
 		Scenes.LEVEL_TUTORIAL:

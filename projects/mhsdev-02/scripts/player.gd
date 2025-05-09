@@ -380,19 +380,17 @@ func _process(delta) -> void:
 	highlight_nearest()
 	
 	# Input
+	var dir = global_position.direction_to(get_global_mouse_position())
+	var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
+	collector.search_range.global_position = (dir*distance + global_position)
 	if Input.is_action_just_pressed("pickup"):
 		update_collector_stack_lim()
 		if not collector.add_nearest_item(-1, get_global_mouse_position()):
-			var dir = global_position.direction_to(get_global_mouse_position())
-			var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
-			collector.search_range.global_position = (dir*distance + global_position)
 			collector.drop_item(dir*distance + global_position)
 		if len(collector.current_resources) >= 3:
 			Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
 	
 	elif Input.is_action_just_pressed("drop"):
-		var dir = global_position.direction_to(get_global_mouse_position())
-		var distance = min(global_position.distance_to(get_global_mouse_position()), max_drop_distance)
 		collector.search_range.global_position = (dir*distance + global_position)
 		collector.drop_item(dir*distance + global_position)
 
@@ -469,8 +467,9 @@ func _input(event) -> void:
 				KEY_K:
 					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
-					#EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
+					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 32)
+					#EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.EARTHQUAKE, get_parent(), 1)
 				KEY_N:
 					print("--- Player Stats ---")
 					print("Thirst:")

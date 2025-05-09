@@ -19,6 +19,9 @@ var cooldown_delay:float = 1
 var target_dir:Vector2 = Vector2.ZERO
 var start_pos:Vector2 = Vector2.ZERO
 
+# Used for the x offset
+var x_progress:float = 0
+
 func fling(body):
 	if body is not Entity:
 		return
@@ -34,8 +37,8 @@ func _select_target():
 	start_pos = tornado_body.global_position
 	target_dir = _get_random_direction()
 
-func _process(delta):
-	super(delta)
+func _physics_process(delta: float) -> void:
+	x_progress += delta * 6
 	_get_player().velocity
 	current_cooldown += delta
 	if tornado_body.global_position.distance_to(_get_player().global_position) > 400:
@@ -43,12 +46,16 @@ func _process(delta):
 	if current_cooldown >= move_cooldown + cooldown_delay:
 		_select_target()
 		current_cooldown = 0
-	
-	if current_cooldown < move_cooldown: # Don't move during cooldown period
-		tornado_body.velocity = target_dir * 100 * EventMan.scale_val(data.strength)
-		tornado_body.move_and_slide()
 
+	tornado_body.velocity.x = cos(x_progress) * 90
+	tornado_body.velocity.y = 0
+	if current_cooldown < move_cooldown: # Don't move during cooldown period
+		tornado_body.velocity += target_dir * 100 * EventMan.scale_val(data.strength)
+	tornado_body.move_and_slide()
+
+func _process(delta):
 	# Fade out when ending
+	super(delta)
 	if data.duration - alive_dur < 1:
 		$Tornado.modulate.a = (data.duration - alive_dur)
 
@@ -58,7 +65,7 @@ func _ready() -> void:
 	push_strength = EventMan.scale_val(data.strength/2) * 300 # Use scale_val for logarithmic growth
 	tornado.scale = _double_vec2(EventMan.scale_val(data.strength) * 2)
 	move_cooldown = 2.0
-	cooldown_delay = 1.0 / data.strength
+	cooldown_delay = 0 / data.strength
 	push_damage = 2.5 * EventMan.scale_val(data.strength)
 	_select_target()
 	sprite.play() # Tornado animation

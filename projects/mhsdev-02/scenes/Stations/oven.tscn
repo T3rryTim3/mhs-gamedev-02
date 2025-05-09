@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://7cscdyea1sfk" path="res://Audio/SFX/Stations/Oven 1.wav" id="5_ntrh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(134, 7)
+size = Vector2(134, 13.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
 radius = 17.58
@@ -38,16 +38,17 @@ move_influence = 0.01
 effect_immunities = Array[int]([5])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("3_oom4y")
-offset = Vector2(0, -34)
+offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 1)
+position = Vector2(1, 12)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = 1
-position = Vector2(-5, -25)
+position = Vector2(-5, -12)
 script = ExtResource("4_fcgx6")
 stack_limit = 5
 can_steal = true
@@ -76,7 +77,7 @@ position = Vector2(-50, 49)
 
 [node name="Collector2" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = 1
-position = Vector2(3, -24)
+position = Vector2(3, -11)
 script = ExtResource("4_fcgx6")
 stack_limit = 5
 can_steal = true
@@ -103,7 +104,7 @@ position = Vector2(53, 9)
 position = Vector2(52, 48)
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(0, 13)
+position = Vector2(0, 28)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 enabled = false
