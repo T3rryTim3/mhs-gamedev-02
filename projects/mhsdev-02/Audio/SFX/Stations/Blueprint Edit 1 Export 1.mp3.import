@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bumi3qh4oe6uc"
+path="res://.godot/imported/Blueprint Edit 1 Export 1.mp3-9c2c8f4ff9d620cf2a1f169419932035.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Stations/Blueprint Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Blueprint Edit 1 Export 1.mp3-9c2c8f4ff9d620cf2a1f169419932035.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

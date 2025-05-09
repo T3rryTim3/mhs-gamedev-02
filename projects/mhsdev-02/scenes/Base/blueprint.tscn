@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0j0sjf62c3tn"]
+[gd_scene load_steps=10 format=3 uid="uid://d0j0sjf62c3tn"]
 
 [ext_resource type="Script" uid="uid://ct14l0ki484nt" path="res://scripts/blueprint.gd" id="1_kkihv"]
 [ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_gqyux"]
 [ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_3wxl6"]
 [ext_resource type="PackedScene" uid="uid://b2vmtpdbykxl1" path="res://scenes/Structure/blueprint_collider.tscn" id="5_tdijv"]
 [ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="6_2einr"]
+[ext_resource type="AudioStream" uid="uid://dtnu7vo8x7svf" path="res://Audio/SFX/Stations/Add Item Blueprint Edit 1 Export 1.mp3" id="6_n3l6d"]
 
 [sub_resource type="Theme" id="Theme_42iqc"]
 Label/font_sizes/font_size = 12
@@ -84,6 +85,10 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShowRange"]
 shape = SubResource("CircleShape2D_t3x2f")
 debug_color = Color(1.92523e-07, 0.695419, 0.809987, 0.42)
+
+[node name="Add" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_n3l6d")
+bus = &"SFX"
 
 [connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]
 [connection signal="item_given" from="Collector" to="." method="_on_collector_item_given"]

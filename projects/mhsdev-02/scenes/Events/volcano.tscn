@@ -22,7 +22,9 @@ position = Vector2(0, 86)
 shape = SubResource("RectangleShape2D_a1jax")
 
 [node name="pos" type="Sprite2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(3, -72)
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_6rcty")
 
 [node name="Erupt" type="AudioStreamPlayer2D" parent="StaticBody2D"]

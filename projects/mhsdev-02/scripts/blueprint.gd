@@ -93,11 +93,20 @@ func _complete():
 	# Add station scene
 	var station_scene = load(StationData.get_station_scene(target_station))
 	var station = station_scene.instantiate()
-	
+
 	station.global_position = global_position
 	get_parent().add_child(station)
 
+	var complete_sound:AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+	complete_sound.stream = load("res://Audio/SFX/Stations/Ship RepairUpgrade Edit 1 Export 1.mp3")
+	complete_sound.bus = "SFX"
+	complete_sound.volume_db = 5
+	station.add_child(complete_sound)
+	complete_sound.playing = true
+
 	Gamestats.stations_placed += 1
+	Achievements.raise_progress(Achievements.Achievements.BUILDER)
+	Achievements.raise_progress(Achievements.Achievements.BUILDER_2)
 
 	queue_free()
 
@@ -179,6 +188,7 @@ func _on_collector_item_reset() -> void:
 func _on_collector_item_given(item) -> void:
 	for k in cost.keys():
 		if item.id == k and cost[k] - spent_resources[k] > 0:
+			$Add.play()
 			collector.add_item(item)
 			collector.delete_item()
 			spent_resources[k] += 1

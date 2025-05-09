@@ -20,6 +20,7 @@ var input_actions = {
 	"pickup" : "Pick up",
 	"drop" : "Drop",
 	"use_item" : "Use item",
+	"attack": "Attack",
 	"spawn_event" : "[DEBUG] Spawn event",
 }
 

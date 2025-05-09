@@ -14,6 +14,7 @@ enum Scenes {
 	LEVEL_FIELD,
 	LEVEL_TUTORIAL,
 	LEVEL_TUNDRA,
+	LEVEL_DESERT,
 	PAUSE,
 	ACHIEVEMENTS
 }
@@ -91,6 +92,8 @@ func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 			new_scene = load("res://scenes/Levels/tutorial_2.tscn").instantiate()
 		Scenes.LEVEL_TUNDRA:
 			new_scene = load("res://scenes/Levels/snow_map.tscn").instantiate()
+		Scenes.LEVEL_DESERT:
+			new_scene = load("res://scenes/Levels/desert_map.tscn").instantiate()
 		Scenes.PAUSE:
 			new_scene = load("res://scenes/UI/PauseMenu.tscn").instantiate()
 		Scenes.ACHIEVEMENTS:

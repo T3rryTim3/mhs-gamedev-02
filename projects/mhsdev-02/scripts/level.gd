@@ -18,6 +18,9 @@ signal victory
 ## Limit for the map (just a collisionshape2d)
 @export var map_limit:CollisionShape2D
 
+## Breakable TileMapLayer
+@export var break_layer:TileMapLayer
+
 ## Spawn cooldown for items
 var spawn_cooldown:float = 3
 

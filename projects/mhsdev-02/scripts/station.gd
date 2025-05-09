@@ -146,7 +146,7 @@ func _process(delta):
 		0:
 			# Check if the player is above the station based on camera pos
 			pass
-			if get_viewport().get_camera_2d().global_position.y + 24 <global_position.y + get_sprite_texture().get_height()/2.0:
+			if get_viewport().get_camera_2d().global_position.y + 24 < global_position.y + get_sprite_texture().get_height()/2.0:
 				z_index = 5
 			else:
 				z_index = -1

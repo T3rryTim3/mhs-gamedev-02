@@ -5,6 +5,8 @@ var player:Player
 
 func display() -> void: ## Display the death screen
 	get_tree().paused = true
+	Globals.main.music_man.fade_progress = 0 # Don't fade
+	Globals.main.music_man.target_song = "res://Audio/Music/death.mp3"
 	$AnimationPlayer.play("Open")
 	$MarginContainer/Label.text = Gamestats.get_string()
 	if player:

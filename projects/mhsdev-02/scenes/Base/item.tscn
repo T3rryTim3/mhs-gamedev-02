@@ -31,3 +31,5 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCollider"]
 shape = SubResource("RectangleShape2D_1te3q")
+
+[node name="Use" type="AudioStreamPlayer2D" parent="."]

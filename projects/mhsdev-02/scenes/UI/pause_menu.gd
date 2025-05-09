@@ -32,6 +32,11 @@ func _on_settings_pressed() -> void:
 func _on_quit_pressed() -> void:
 	_get_main()._load_scene(Main.Scenes.MENU)
 
-
 func _on_achievements_pressed() -> void:
 	Globals.main.show_achievements()
+
+func _on_help_pressed() -> void:
+	$Help.show()
+
+func _on_help_close_pressed() -> void:
+	$Help.hide()

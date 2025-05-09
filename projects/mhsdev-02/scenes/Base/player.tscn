@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=97 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cygwur3w30pv8" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack01.png" id="2_3ua4m"]
@@ -63,6 +63,7 @@
 [ext_resource type="AudioStream" uid="uid://b5h5pgpof5ype" path="res://Audio/SFX/Death 1.wav" id="45_1plcu"]
 [ext_resource type="Texture2D" uid="uid://digipvhfyt660" path="res://images/Particles/Leaf.png" id="46_nxqlp"]
 [ext_resource type="Script" uid="uid://kc4yu1s1w6fn" path="res://scenes/Base/playercamera.gd" id="59_eekm3"]
+[ext_resource type="AudioStream" uid="uid://72sdsb0a34wr" path="res://Audio/SFX/Other/Pitch Fork Edit 1 Export 1.mp3" id="62_ans4x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
 size = Vector2(13, 19)
@@ -639,6 +640,9 @@ process_material = SubResource("ParticleProcessMaterial_i2bki")
 
 [node name="DropSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("44_ec81o")
+
+[node name="Swing" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("62_ans4x")
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("45_1plcu")

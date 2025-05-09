@@ -140,8 +140,8 @@ var all_levels = [
 		"color": Color(1,0.9,0),
 		"bg_color": Color("fcfa6f"),
 		"text_color": Color("483000"),
-		"scene_enum": Main.Scenes.LEVEL_TUNDRA,
-		"achievement": Achievements.Achievements.FIELD_STANDARD,
+		"scene_enum": Main.Scenes.LEVEL_DESERT,
+		"achievement": Achievements.Achievements.TUNDRA_STANDARD,
 		"image_path": "res://images/placeholder/Screenshot from 2025-05-01 20-43-53.png",
 		"modes": [
 			{
@@ -277,7 +277,7 @@ func _item_activated():
 	else:
 		level_data = Config.get_difficulty_level_data(current_mode["leveldata"])
 	Globals.current_level = current_level["scene_enum"]
-	if current_level["music_path"]:
+	if "music_path" in current_level:
 		Globals.main.music_man.target_song = current_level["music_path"]
 	Globals.main._load_scene(current_level["scene_enum"], level_data)
 

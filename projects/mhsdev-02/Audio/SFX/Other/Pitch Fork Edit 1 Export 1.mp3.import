@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://72sdsb0a34wr"
+path="res://.godot/imported/Pitch Fork Edit 1 Export 1.mp3-a4d9cd7eb8c33ebf6d3b1a12f3ca70cb.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Other/Pitch Fork Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Pitch Fork Edit 1 Export 1.mp3-a4d9cd7eb8c33ebf6d3b1a12f3ca70cb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

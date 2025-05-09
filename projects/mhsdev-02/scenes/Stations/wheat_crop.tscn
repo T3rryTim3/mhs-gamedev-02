@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://csace8iqaxmcx"]
+[gd_scene load_steps=7 format=3 uid="uid://csace8iqaxmcx"]
 
 [ext_resource type="Script" uid="uid://bx0u5borueoa2" path="res://scripts/wheat_crop.gd" id="1_n77je"]
 [ext_resource type="Texture2D" uid="uid://bliae3yxm0qkf" path="res://images/stations/crop.png" id="3_06phv"]
 [ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_hwtpo"]
+[ext_resource type="AudioStream" uid="uid://7sd5ir1btl8v" path="res://Audio/SFX/Stations/Crop Harvest Edit 1 Export 1.mp3" id="4_pvyn0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
 size = Vector2(86, 13.5)
@@ -61,3 +62,6 @@ position = Vector2(-114, -16)
 
 [node name="DropPos" type="Node2D" parent="Collector"]
 position = Vector2(-50, 49)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pvyn0")
