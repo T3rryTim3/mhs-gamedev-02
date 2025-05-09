@@ -1,8 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2rc1pex43fmx"]
+[gd_scene load_steps=19 format=3 uid="uid://c2rc1pex43fmx"]
 
+[ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_i4dvr"]
 [ext_resource type="Script" uid="uid://daamu17b53w43" path="res://scripts/Singletons/UI/settings.gd" id="1_nld73"]
 [ext_resource type="PackedScene" uid="uid://btfdso5wfimvn" path="res://scenes/UI/graphics.tscn" id="2_15h7n"]
 [ext_resource type="PackedScene" uid="uid://c40i5hc8ws7b6" path="res://keybinds.tscn" id="2_usoba"]
+
+[sub_resource type="Theme" id="Theme_i4dvr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2soj1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hnnl"]
+bg_color = Color(0.219608, 0.0862745, 0.27451, 0.745098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyo1n"]
+bg_color = Color(0.219608, 0.0862745, 0.27451, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibeei"]
+bg_color = Color(0.256215, 0.319589, 0.339746, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25bb8"]
+content_margin_left = 15.0
+content_margin_top = 6.0
+content_margin_right = 15.0
+content_margin_bottom = 6.0
+bg_color = Color(0.110759, 0.28613, 0.301627, 1)
+border_width_left = 7
+border_width_right = 7
+border_color = Color(0.109804, 0.286275, 0.301961, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxa2i"]
+bg_color = Color(0.16751, 0.140158, 0.356301, 1)
+border_width_left = 7
+border_width_right = 7
+border_color = Color(0.8, 0.8, 0.8, 0)
+expand_margin_left = 6.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4dvr"]
+bg_color = Color(0.102051, 0.119898, 0.283948, 1)
+border_width_left = 7
+border_width_right = 7
+border_color = Color(0.8, 0.8, 0.8, 0)
+expand_margin_left = 6.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i25m7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hxa2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyo1n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_npqem"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6hnnl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ibeei"]
 
 [node name="Settings" type="MarginContainer"]
 top_level = true
@@ -12,6 +64,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_i4dvr")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -21,6 +74,16 @@ script = ExtResource("1_nld73")
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
+theme = SubResource("Theme_i4dvr")
+theme_override_constants/side_margin = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_2soj1")
+theme_override_styles/tab_disabled = SubResource("StyleBoxFlat_6hnnl")
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_jyo1n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ibeei")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_25bb8")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_hxa2i")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_i4dvr")
 current_tab = 2
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
@@ -78,6 +141,9 @@ value = 1000.0
 [node name="Graphics" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
+theme_override_styles/button_highlight = SubResource("StyleBoxEmpty_i25m7")
+theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_hxa2i")
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_jyo1n")
 metadata/_tab_index = 1
 
 [node name="MarginContainer" parent="TabContainer/Graphics" instance=ExtResource("2_15h7n")]
@@ -86,10 +152,17 @@ offset_left = 13.0
 
 [node name="Keybinds" type="TabBar" parent="TabContainer"]
 layout_mode = 2
+theme_override_styles/button_highlight = SubResource("StyleBoxEmpty_npqem")
+theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_6hnnl")
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_ibeei")
 metadata/_tab_index = 2
 
 [node name="Keybinds" parent="TabContainer/Keybinds" instance=ExtResource("2_usoba")]
 layout_mode = 1
+offset_left = 9.0
+offset_top = 14.0
+offset_right = 9.0
+offset_bottom = 14.0
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 2

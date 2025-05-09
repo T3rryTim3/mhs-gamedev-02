@@ -1,4 +1,5 @@
 extends Control
+class_name SelectMenu
 
 @onready var bgc = $"Background Colour"
 @onready var bgg = $"Background Gradient"
