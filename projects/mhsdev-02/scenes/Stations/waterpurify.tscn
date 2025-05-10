@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct5hf74xo2iym"]
+
+[ext_resource type="Script" path="res://scripts/waterpurify.gd" id="1_d6yw6"]
+[ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_q0kcp"]
+[ext_resource type="Material" uid="uid://cq1pxo27s74bu" path="res://Resources/station_select_shader.tres" id="3_fw2r1"]
+[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="4_kknpf"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_p83ug"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
+size = Vector2(66.5, 13.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b36vl"]
+radius = 17.58
+
+[node name="Water Purifier" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 8
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_d6yw6")
+progress_bar_texture = ExtResource("2_q0kcp")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("3_fw2r1")
+texture = ExtResource("4_kknpf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.75, 37.75)
+shape = SubResource("RectangleShape2D_astqw")
+
+[node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
+z_index = 1
+position = Vector2(-5, 13)
+script = ExtResource("4_p83ug")
+stack_limit = 5
+can_steal = true
+decay_coef = 0.0
+pickup_area = NodePath("PickupRange")
+pickup_pos_node = NodePath("PickupPos")
+drop_pos_node = NodePath("DropPos")
+limit_type_enable = true
+limit_type = 3
+auto_collect = true
+
+[node name="PickupRange" type="Area2D" parent="Collector"]
+collision_layer = 6
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/PickupRange"]
+position = Vector2(-49, 10)
+shape = SubResource("CircleShape2D_b36vl")
+
+[node name="PickupPos" type="Node2D" parent="Collector"]
+position = Vector2(-49, 9)
+
+[node name="DropPos" type="Node2D" parent="Collector"]
+position = Vector2(-50, 49)
+
+[node name="DropPos" type="Node2D" parent="."]
+position = Vector2(0, 38)

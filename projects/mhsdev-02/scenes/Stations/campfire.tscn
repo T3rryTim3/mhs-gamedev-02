@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cipvdry64d3m"]
+[gd_scene load_steps=8 format=3 uid="uid://cipvdry64d3m"]
 
-[ext_resource type="Script" path="res://scripts/campfire.gd" id="1_ywkvs"]
-[ext_resource type="Texture2D" uid="uid://u7xq2b86pnte" path="res://images/stations/well.png" id="2_kgui2"]
+[ext_resource type="Script" uid="uid://dilhy6iymw8wr" path="res://scripts/campfire.gd" id="1_ywkvs"]
+[ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_7woxb"]
+[ext_resource type="Texture2D" uid="uid://cqnwb40lganm6" path="res://images/stations/campfire(on).png" id="2_b1r6p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 5)
+size = Vector2(66.5, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1t10"]
-radius = 92.5419
+radius = 70.0
 
 [sub_resource type="Gradient" id="Gradient_uima5"]
 colors = PackedColorArray(1, 0.383333, 0, 1, 0, 0, 0, 1)
@@ -18,18 +19,23 @@ fill = 1
 fill_from = Vector2(0.495413, 0.527523)
 fill_to = Vector2(0.825688, 0.155963)
 
-[node name="StrengthTotem" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[node name="Campfire" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 8
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_ywkvs")
+station_data = 7
+produce_stretch = 0.0
+progress_bar_texture = ExtResource("2_7woxb")
+show_progress = false
 sprite = NodePath("Sprite2D")
+move_influence = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_kgui2")
+texture = ExtResource("2_b1r6p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 33.5)
+position = Vector2(0.75, 29)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="DropPos" type="Node2D" parent="."]

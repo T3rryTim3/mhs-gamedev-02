@@ -1,23 +1,219 @@
-[gd_scene load_steps=4 format=3 uid="uid://cec63m3q1fajg"]
+[gd_scene load_steps=17 format=3 uid="uid://cec63m3q1fajg"]
 
+[ext_resource type="Script" uid="uid://bptko54whwnfa" path="res://scenes/Structure/main.gd" id="1_8w15x"]
+[ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_21ivj"]
 [ext_resource type="PackedScene" uid="uid://ccpoqb2roaltc" path="res://scenes/Testing/dev_console.tscn" id="1_vl0ib"]
-[ext_resource type="PackedScene" uid="uid://c1g832odaaalg" path="res://scenes/Testing/phystest.tscn" id="1_yr86s"]
+[ext_resource type="Script" uid="uid://b72qc5yooiwq5" path="res://scripts/music_man.gd" id="2_mk335"]
 [ext_resource type="Material" uid="uid://dmsb6rpprfsss" path="res://Shaders/health_vignette.tres" id="2_t81tu"]
+[ext_resource type="PackedScene" uid="uid://c2rc1pex43fmx" path="res://scenes/UI/settings.tscn" id="3_f5ioo"]
+[ext_resource type="PackedScene" uid="uid://jca8p77y4d7o" path="res://scenes/UI/unlock_screen.tscn" id="7_32u4x"]
+[ext_resource type="AudioStream" uid="uid://bq84efkqhemuh" path="res://Audio/Music/beehive-final.wav" id="7_8538w"]
+[ext_resource type="PackedScene" uid="uid://cbtd3r7p6qouo" path="res://achievementitem.tscn" id="8_hpu3k"]
+
+[sub_resource type="Animation" id="Animation_ig0yj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -158)]
+}
+
+[sub_resource type="Animation" id="Animation_8w15x"]
+resource_name = "popup"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.72, 2, 3),
+"transitions": PackedFloat32Array(0.297302, 1, 4.59479, 5.27803),
+"update": 0,
+"values": [Vector2(0, -158), Vector2(0, 0), Vector2(0, 0), Vector2(0, -158)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6rprc"]
+_data = {
+&"RESET": SubResource("Animation_ig0yj"),
+&"popup": SubResource("Animation_8w15x")
+}
+
+[sub_resource type="Animation" id="Animation_hpu3k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0475577, 0.0475576, 0.0475576, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_32u4x"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.05, 0.05, 0.05, 0), Color(0.05, 0.05, 0.05, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_mk335"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.05, 0.05, 0.05, 1), Color(0.05, 0.05, 0.05, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8w15x"]
+_data = {
+&"RESET": SubResource("Animation_hpu3k"),
+&"fade_in": SubResource("Animation_32u4x"),
+&"fade_out": SubResource("Animation_mk335")
+}
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_8w15x")
+
+[node name="MusicMan" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_mk335")
+
+[node name="Music" type="AudioStreamPlayer" parent="MusicMan"]
+stream = ExtResource("7_8538w")
+bus = &"Music"
+
+[node name="LevelViewport" type="SubViewportContainer" parent="."]
+visible = false
+material = ExtResource("2_t81tu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="LevelViewport"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+render_target_update_mode = 0
 
 [node name="DevConsole" parent="." instance=ExtResource("1_vl0ib")]
 visible = false
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = ExtResource("2_t81tu")
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="LoadedScene" type="Node" parent="."]
+unique_name_in_owner = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-size = Vector2i(1152, 648)
-render_target_update_mode = 4
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
 
-[node name="phystest" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_yr86s")]
+[node name="Settings" parent="CanvasLayer" instance=ExtResource("3_f5ioo")]
+process_mode = 3
+visible = false
+z_index = 20
+z_as_relative = false
+theme = ExtResource("1_21ivj")
+
+[node name="Achievements" parent="CanvasLayer" instance=ExtResource("7_32u4x")]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+z_index = 40
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+color = Color(0.0475577, 0.0475576, 0.0475576, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
+offset_top = -158.0
+offset_right = 529.0
+offset_bottom = -4.0
+scale = Vector2(0.7, 0.7)
+theme = ExtResource("1_21ivj")
+
+[node name="PanelContainer2" parent="CanvasLayer/AspectRatioContainer" instance=ExtResource("8_hpu3k")]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/AspectRatioContainer"]
+libraries = {
+&"": SubResource("AnimationLibrary_6rprc")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_8w15x")
+}

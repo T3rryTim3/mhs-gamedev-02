@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://ueghexow7ev4"]
+
+[ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="1_8pwxk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2ntc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np8g7"]
+bg_color = Color(0.6, 0.6, 0.6, 0.254)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_or0cn"]
+bg_color = Color(0, 0, 0, 0.193)
+
+[node name="InputButton" type="Button"]
+custom_minimum_size = Vector2(0, 18)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j2ntc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_np8g7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_np8g7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_or0cn")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="LabelAction" type="Label" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_8pwxk")
+theme_override_font_sizes/font_size = 25
+text = "Testing"
+
+[node name="Spacer" type="Control" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="LabelInput" type="Label" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_8pwxk")
+theme_override_font_sizes/font_size = 25
+text = "Testing"
+horizontal_alignment = 2

@@ -1,0 +1,100 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2rc1pex43fmx"]
+
+[ext_resource type="Script" path="res://settings.gd" id="1_nld73"]
+
+[node name="Settings" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_nld73")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+current_tab = 1
+
+[node name="SoundMenu" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/SoundMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -465.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/SoundMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="MasterLabel" type="Label" parent="TabContainer/SoundMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="Master" type="HSlider" parent="TabContainer/SoundMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1000.0
+
+[node name="MusicLabel" type="Label" parent="TabContainer/SoundMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Music"
+
+[node name="Music" type="HSlider" parent="TabContainer/SoundMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="TabContainer/SoundMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "SFX"
+
+[node name="SFX" type="HSlider" parent="TabContainer/SoundMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Graphics" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -465.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Bloom Effects"
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Exit"
+
+[connection signal="value_changed" from="TabContainer/SoundMenu/MarginContainer/VBoxContainer/Master" to="." method="_on_master_value_changed"]
+[connection signal="value_changed" from="TabContainer/SoundMenu/MarginContainer/VBoxContainer/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="TabContainer/SoundMenu/MarginContainer/VBoxContainer/SFX" to="." method="_on_sfx_value_changed"]

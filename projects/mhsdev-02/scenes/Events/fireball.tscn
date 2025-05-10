@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://t5it0okahlc3"]
+
+[ext_resource type="Texture2D" uid="uid://b0dycytmlf187" path="res://images/event/Volcano/fireball.png" id="1_5y2pe"]
+[ext_resource type="Script" uid="uid://dp1gno7l3v7f4" path="res://scripts/fireball.gd" id="1_op5oi"]
+[ext_resource type="PackedScene" uid="uid://brj2vmu5150lt" path="res://scenes/Effects/burning.tscn" id="3_mjp5e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_op5oi"]
+
+[sub_resource type="Gradient" id="Gradient_62jfc"]
+offsets = PackedFloat32Array(0, 0.909836, 1)
+colors = PackedColorArray(0.93, 0.0465, 0.0465, 1, 0.98, 0.60809, 0.00979999, 0.356863, 1, 0.366667, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mdhke"]
+gradient = SubResource("Gradient_62jfc")
+
+[sub_resource type="Curve" id="Curve_t5lo4"]
+_data = [Vector2(0, 0), 0.0, 2.24359, 0, 0, Vector2(0.16, 0.857143), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_l23mf"]
+curve = SubResource("Curve_t5lo4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fpa3q"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 10)
+angle_min = 1.07288e-05
+angle_max = 304.2
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, -4, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 0.999998
+scale_min = 2.8
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_l23mf")
+color_ramp = SubResource("GradientTexture1D_mdhke")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[sub_resource type="Gradient" id="Gradient_a2m5h"]
+offsets = PackedFloat32Array(0, 0.87013)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mjp5e"]
+gradient = SubResource("Gradient_a2m5h")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.490826, 0.458716)
+fill_to = Vector2(0.917431, 0.0917431)
+
+[node name="Fireball" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_op5oi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5y2pe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_op5oi")
+
+[node name="Collider" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider"]
+shape = SubResource("RectangleShape2D_op5oi")
+
+[node name="burning" parent="." instance=ExtResource("3_mjp5e")]
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_fpa3q")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.566667, 0, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_mjp5e")
+
+[connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]

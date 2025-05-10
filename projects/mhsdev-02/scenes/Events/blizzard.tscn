@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhymm4yyy2f4"]
+
+[ext_resource type="Script" uid="uid://d3g7y8tfmo3ep" path="res://scripts/Events/blizzard.gd" id="1_elum8"]
+
+[node name="Blizzard" type="Node"]
+script = ExtResource("1_elum8")

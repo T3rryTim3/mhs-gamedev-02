@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7sd5ir1btl8v"
+path="res://.godot/imported/Crop Harvest Edit 1 Export 1.mp3-e29ca15d8569507b21b8df72cada0a4b.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Stations/Crop Harvest Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Crop Harvest Edit 1 Export 1.mp3-e29ca15d8569507b21b8df72cada0a4b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

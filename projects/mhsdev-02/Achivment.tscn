@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkg4g5il2ow7j"]
+
+[ext_resource type="Script" uid="uid://c8vv7wjpfsgqj" path="res://achivment.gd" id="1_v0h7l"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v0h7l")
+
+[node name="Achibement" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Achibement"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Achibement"]
+layout_mode = 2

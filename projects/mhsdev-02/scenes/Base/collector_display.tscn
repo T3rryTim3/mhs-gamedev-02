@@ -1,12 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dny7k3wl6lmol"]
+[gd_scene load_steps=4 format=3 uid="uid://dny7k3wl6lmol"]
 
 [ext_resource type="Texture2D" uid="uid://c2vvmexmaag42" path="res://images/stations/crate.png" id="1_ryt1c"]
-[ext_resource type="Script" path="res://scripts/collector_display.gd" id="2_gf0o0"]
+[ext_resource type="Script" uid="uid://bht213fq0ng8d" path="res://scripts/collector_display.gd" id="2_gf0o0"]
 [ext_resource type="Texture2D" uid="uid://0jfgs4ujpo58" path="res://images/items/water.png" id="2_lnqda"]
-[ext_resource type="Shader" path="res://Shaders/collector_display.gdshader" id="3_bdrtd"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rijhc"]
-shader = ExtResource("3_bdrtd")
 
 [node name="CollectorDisplay" type="Sprite2D"]
 z_index = -1
@@ -14,6 +10,6 @@ texture = ExtResource("1_ryt1c")
 script = ExtResource("2_gf0o0")
 
 [node name="Inner" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_rijhc")
+modulate = Color(0.901591, 0.461584, 0.333129, 1)
 position = Vector2(0, 2)
 texture = ExtResource("2_lnqda")

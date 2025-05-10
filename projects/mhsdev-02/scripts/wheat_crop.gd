@@ -5,7 +5,11 @@ class_name WheatCrop
 
 var pickup_timer:Timer
 
-var decay_rate:float = 0.2
+var decay_rate:float = 0.08
+
+func player_hit():
+	super()
+	$AudioStreamPlayer2D.play(0.55)
 
 func produce():
 	super()

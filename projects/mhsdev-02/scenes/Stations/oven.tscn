@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://i0xmlk7yt0wk"]
+[gd_scene load_steps=10 format=3 uid="uid://i0xmlk7yt0wk"]
 
-[ext_resource type="Script" path="res://scripts/oven.gd" id="1_onh8p"]
+[ext_resource type="Script" uid="uid://c57s8webjmx3j" path="res://scripts/oven.gd" id="1_onh8p"]
 [ext_resource type="Texture2D" uid="uid://c42whfon7v317" path="res://Resources/station_default_progress.tres" id="2_tqr35"]
 [ext_resource type="Texture2D" uid="uid://xvtxeuvbp12u" path="res://images/stations/oven(off).png" id="3_oom4y"]
-[ext_resource type="Script" path="res://scripts/collector.gd" id="4_fcgx6"]
+[ext_resource type="Script" uid="uid://cph0ffb4st3u" path="res://scripts/collector.gd" id="4_fcgx6"]
+[ext_resource type="AudioStream" uid="uid://7cscdyea1sfk" path="res://Audio/SFX/Stations/Oven 1.wav" id="5_ntrh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_astqw"]
-size = Vector2(66.5, 13.5)
+size = Vector2(134, 13.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j4lag"]
 radius = 17.58
@@ -30,21 +31,24 @@ collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_onh8p")
 station_data = 4
-produce_time = 15.0
+produce_time = 12.0
 progress_bar_texture = ExtResource("2_tqr35")
 sprite = NodePath("Sprite2D")
 move_influence = 0.01
+effect_immunities = Array[int]([5])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("3_oom4y")
+offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.75, 37.75)
+position = Vector2(1, 12)
 shape = SubResource("RectangleShape2D_astqw")
 
 [node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = 1
-position = Vector2(-5, 13)
+position = Vector2(-5, -12)
 script = ExtResource("4_fcgx6")
 stack_limit = 5
 can_steal = true
@@ -55,6 +59,7 @@ drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 limit_type = 1
 auto_collect = true
+crate_type = 3
 
 [node name="PickupRange" type="Area2D" parent="Collector"]
 collision_layer = 6
@@ -72,7 +77,7 @@ position = Vector2(-50, 49)
 
 [node name="Collector2" type="Node2D" parent="." node_paths=PackedStringArray("pickup_area", "pickup_pos_node", "drop_pos_node")]
 z_index = 1
-position = Vector2(3, 14)
+position = Vector2(3, -11)
 script = ExtResource("4_fcgx6")
 stack_limit = 5
 can_steal = true
@@ -82,6 +87,7 @@ pickup_pos_node = NodePath("PickupPos")
 drop_pos_node = NodePath("DropPos")
 limit_type_enable = true
 auto_collect = true
+crate_type = 3
 
 [node name="PickupRange" type="Area2D" parent="Collector2"]
 collision_layer = 6
@@ -98,8 +104,12 @@ position = Vector2(53, 9)
 position = Vector2(52, 48)
 
 [node name="DropPos" type="Node2D" parent="."]
-position = Vector2(0, 38)
+position = Vector2(0, 28)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 enabled = false
 texture = SubResource("GradientTexture2D_xklao")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ntrh4")
+bus = &"SFX"

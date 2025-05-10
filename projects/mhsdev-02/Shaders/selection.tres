@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bxdvnaowndol3"]
+
+[ext_resource type="Shader" uid="uid://bipeae6h1vr2i" path="res://Shaders/white.gdshader" id="1_03uge"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_03uge")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 16
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = true
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = false

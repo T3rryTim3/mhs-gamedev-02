@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://0svqcrwsjw1l"]
+
+[ext_resource type="Script" uid="uid://dcjcqi5vmqnbd" path="res://scripts/volcano.gd" id="1_a1jax"]
+[ext_resource type="Texture2D" uid="uid://dsvdfn3b2fgac" path="res://images/event/Volcano/Volcano.png" id="2_5j2o5"]
+[ext_resource type="Texture2D" uid="uid://b0dycytmlf187" path="res://images/event/Volcano/fireball.png" id="3_6rcty"]
+[ext_resource type="AudioStream" uid="uid://dqnr6s35ulncp" path="res://Audio/SFX/Event/eruptTest.wav" id="4_5j2o5"]
+[ext_resource type="AudioStream" uid="uid://uauxowy0nyjv" path="res://Audio/SFX/Event/volcanoSpawnTest.wav" id="5_6rcty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1jax"]
+size = Vector2(178, 20)
+
+[node name="Volcano" type="Node"]
+script = ExtResource("1_a1jax")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("2_5j2o5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 86)
+shape = SubResource("RectangleShape2D_a1jax")
+
+[node name="pos" type="Sprite2D" parent="StaticBody2D"]
+visible = false
+position = Vector2(3, -72)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_6rcty")
+
+[node name="Erupt" type="AudioStreamPlayer2D" parent="StaticBody2D"]
+stream = ExtResource("4_5j2o5")
+volume_db = -6.732
+bus = &"SFX"
+
+[node name="Spawn" type="AudioStreamPlayer2D" parent="StaticBody2D"]
+stream = ExtResource("5_6rcty")
+bus = &"SFX"

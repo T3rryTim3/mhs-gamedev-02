@@ -37,7 +37,7 @@ class Effect:
 					self.target.state.temp.val -= self.strength * delta
 
 			EffectTypes.BURNING:
-				self.target.damage(self.strength * delta)
+				self.target._update_health(self.target.health - self.strength * delta)
 
 	func visual_init(): ## TODO Apply visual effect on entity
 		if not self.particle_obj:

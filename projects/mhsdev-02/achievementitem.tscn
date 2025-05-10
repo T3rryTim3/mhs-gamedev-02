@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbtd3r7p6qouo"]
+
+[ext_resource type="Script" uid="uid://dk4tvonilhthh" path="res://ach.gd" id="1_srtw7"]
+[ext_resource type="Texture2D" uid="uid://d3mb6jisop4vf" path="res://images/upgrades/Dumb bell.png" id="2_ms2qq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7wu1"]
+bg_color = Color(0.778904, 0.641025, 0.464466, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 117.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o7wu1")
+script = ExtResource("1_srtw7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ms2qq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="LabelBox" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/HSplitContainer/LabelBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.29, 0.23722, 0.1682, 1)
+theme_override_font_sizes/font_size = 40
+text = "Strongman"
+
+[node name="Label2" type="Label" parent="MarginContainer/HSplitContainer/LabelBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Carry three items at once"
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/HSplitContainer/LabelBox"]
+layout_mode = 2
