@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d3mb6jisop4vf" path="res://images/upgrades/Dumb bell.png" id="2_ms2qq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7wu1"]
-bg_color = Color(0.778904, 0.641025, 0.464466, 1)
+bg_color = Color(0.0143108, 0.290915, 0.382832, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -48,7 +48,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MarginContainer/HSplitContainer/LabelBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.29, 0.23722, 0.1682, 1)
+theme_override_colors/font_color = Color(3.7542e-06, 0.88563, 0.704043, 1)
 theme_override_font_sizes/font_size = 40
 text = "Strongman"
 
