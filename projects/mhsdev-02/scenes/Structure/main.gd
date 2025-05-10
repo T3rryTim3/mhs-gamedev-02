@@ -44,11 +44,11 @@ func _input(event):
 		if event.pressed:
 			match event.keycode:
 				KEY_Y:
-					print("Granting Achievement")
-					Achievements.current = {}
-					Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
+					#print("Granting Achievement")
+					#Achievements.current = {}
+					#Achievements.raise_progress(Achievements.Achievements.STRONGMAN)
 					save()
-					load_game()
+					#load_game()
 
 func get_all(node: Node):
 	var all_children := []

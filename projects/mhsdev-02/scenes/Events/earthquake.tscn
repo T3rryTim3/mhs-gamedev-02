@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://q0hr8i345mv8"]
+[gd_scene load_steps=4 format=3 uid="uid://q0hr8i345mv8"]
 
 [ext_resource type="Script" uid="uid://bwypec7quu4no" path="res://scripts/Events/earthquake.gd" id="1_0sppg"]
+[ext_resource type="AudioStream" uid="uid://bo10brv5fjni8" path="res://Audio/SFX/Event/Earthquake Edit 1 Export 1.mp3" id="2_wk2dx"]
+[ext_resource type="AudioStream" uid="uid://he8mstl8qw2e" path="res://Audio/SFX/Event/Earthquake Shake.wav" id="3_b0ee5"]
 
 [node name="Earthquake" type="Node"]
 script = ExtResource("1_0sppg")
+
+[node name="Passive" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wk2dx")
+autoplay = true
+
+[node name="Shake" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_b0ee5")

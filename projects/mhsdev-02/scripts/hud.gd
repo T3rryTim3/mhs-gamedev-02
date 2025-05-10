@@ -50,6 +50,7 @@ func _update_mode_display(): # Updates the 'Bulding' and 'Removing' displays as 
 		RemoveDisplay.hide()
 
 func _player_death():
+	$HealthVignette.hide()
 	$Death2.display()
 
 func _ready():
@@ -60,6 +61,7 @@ func _ready():
 	player.collector.resources_updated.connect(_update_held_items)
 	EventMan.event_spawned.connect($DisasterDisplay/AnimationPlayer.play.bind("show"))
 	player.death.connect(_player_death)
+	_get_level().victory.connect($Victory2.display)
 	$Death2.player = player
 
 	_update_mode_display()
@@ -197,6 +199,8 @@ func _process(delta: float) -> void:
 		$FreezeOverlay.modulate.a = (10 - player.state.temp.val) / 10
 	else:
 		$FreezeOverlay.modulate.a = 0
+
+	$HealthVignette.modulate.a = max(0, 1 - (player.health / (player.max_health*0.5)))
 
 	#$VBoxContainer/temp.value = player.state.temp.val * 100 / player.state.temp.val_max
 	

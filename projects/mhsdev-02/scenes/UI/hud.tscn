@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dl7r51dy6jv3n"]
+[gd_scene load_steps=40 format=3 uid="uid://dl7r51dy6jv3n"]
 
 [ext_resource type="Script" uid="uid://ca3o4b2ngxqgg" path="res://scripts/hud.gd" id="1_6sjk5"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_y5tme"]
@@ -107,6 +107,15 @@ _data = {
 &"show": SubResource("Animation_dm2wl")
 }
 
+[sub_resource type="Gradient" id="Gradient_vatau"]
+colors = PackedColorArray(0.9, 0.189, 0.189, 0, 0.96, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2twfv"]
+gradient = SubResource("Gradient_vatau")
+fill = 1
+fill_from = Vector2(0.481651, 0.477064)
+fill_to = Vector2(0, 0)
+
 [node name="HUD" type="Control"]
 process_mode = 3
 layout_mode = 3
@@ -194,6 +203,7 @@ text = "Building..."
 
 [node name="Death" type="Control" parent="."]
 visible = false
+z_index = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -238,6 +248,11 @@ layout_mode = 2
 text = "Time alive: 1:00
 Upgrades Collected: 10
 Damage Taken: 0"
+
+[node name="Victory2" parent="." instance=ExtResource("25_dm2wl")]
+visible = false
+z_index = 2
+layout_mode = 1
 
 [node name="Health" type="TextureProgressBar" parent="."]
 layout_mode = 0
@@ -343,6 +358,7 @@ text = "1:100swd"
 horizontal_alignment = 1
 
 [node name="Timer2" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -547,3 +563,14 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 2
+
+[node name="HealthVignette" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_2twfv")

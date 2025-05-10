@@ -2,6 +2,7 @@ extends StaticBody2D
 class_name Machine
 
 signal fully_powered
+signal game_end
 
 enum CostGroups {
 	FIELD,
@@ -204,6 +205,7 @@ func _ending() -> void: ## Ends the game
 	var player:Player = Globals.level.player
 	player.max_health *= 2
 	player.health = player.max_health
+	Globals.main.music_man.target_song = ""
 
 func _passed(target:float,a:float,b:float) -> bool: ## Returns true if a passed target, using b as its previous value
 	return (a >= target) and b < target
@@ -238,13 +240,14 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 	var prev = end_prog
 	var level:Level = Globals.level
 	var player:Player = Globals.level.player
-	#var stren = level.strength
-	var stren = 30
+	var stren = level.strength
+	#var stren = 30
 
 	if not player:
 		return
 
 	end_prog += delta
+	#end_prog = 100
 
 	#TODO: Remove when done
 	Globals.current_level = Globals.main.Scenes.LEVEL_FIELD
@@ -257,6 +260,10 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 
 	match Globals.current_level:
 		Globals.main.Scenes.LEVEL_FIELD:
+
+			if end_prog > 65:
+				game_end.emit()
+				return
 
 			if end_prog < 10:
 				var shake:float = min(0.3,sin((end_prog/10)*(PI/10)))
@@ -275,6 +282,7 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 
 			if _passed(10,end_prog,prev):
 				hide()
+				$CollisionShape2D.disabled = true
 				EventMan.spawn_event(EventMan.Events.VOLCANO, level, stren)
 				EventMan.spawn_event(EventMan.Events.VOLCANO, level, stren)
 			if _passed(15, end_prog,prev):
@@ -305,8 +313,6 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 					_lightning_circle(1, global_position, 20, 200 + offset, 5)
 					_lightning_circle(1, global_position, 30, 400 + offset, 7)
 					_lightning_circle(1, global_position, 40, 800 + offset, 9)
-			if end_prog > 65:
-				pass
 			#if end_prog > 100 and end_prog < 105:
 				#if fmod(end_prog, 0.1) < fmod(prev, 0.1):
 					#var ang = randf_range(0,2*PI)
@@ -316,6 +322,7 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 	
 func _complete() -> void:
 	var level:Level = _get_level()
+	$Complete.play()
 	level.player.health = level.player.max_health
 	level.machine_powered.emit()
 	level.player.give_upgrade.emit()
@@ -333,7 +340,9 @@ func _on_collector_item_given(item) -> void:
 			collector.delete_item()
 			spent_resources[k] += 1
 	scale_val = 1.2
-	
+
+	$Collect.play()
+
 	if _check_completion():
 		_complete()
 	else:

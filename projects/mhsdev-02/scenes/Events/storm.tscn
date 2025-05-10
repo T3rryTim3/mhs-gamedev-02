@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bed8o03h3fjre"]
+[gd_scene load_steps=3 format=3 uid="uid://bed8o03h3fjre"]
 
 [ext_resource type="Script" uid="uid://dtrel3tdenhpb" path="res://scenes/Events/storm.gd" id="1_hbpd6"]
+[ext_resource type="AudioStream" uid="uid://cmr8ya0568flo" path="res://Audio/SFX/Event/Storm Edit 1 Export 1.mp3" id="2_6s6as"]
 
 [node name="Storm" type="Node"]
 script = ExtResource("1_hbpd6")
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6s6as")
+autoplay = true

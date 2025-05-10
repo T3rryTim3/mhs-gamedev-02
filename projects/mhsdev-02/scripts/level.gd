@@ -12,9 +12,6 @@ signal victory
 ## Scene for creating UI
 @onready var ui_layer_scn = preload("res://scenes/UI/game_ui.tscn")
 
-## Curve for health vignette
-@export var health_vignette_curve:Curve
-
 ## Limit for the map (just a collisionshape2d)
 @export var map_limit:CollisionShape2D
 
@@ -23,6 +20,8 @@ signal victory
 
 ## Breakable TileMapLayer
 @export var break_layer:TileMapLayer
+
+@export var world_env:WorldEnvironment
 
 ## Spawn cooldown for items
 var spawn_cooldown:float = 3
@@ -91,7 +90,7 @@ class LevelData:
 	var station_speed_multi : float = 1
 	var grace_period : float = 60 # Extra time until the first event
 	var temp_drain : float = 0.3
-	var item_limit : int = 20 # Max amount of items in the level+6
+	var item_limit : int = 30 # Max amount of items in the level+6
 	var event_multiplier : int = 1
 	var events : Array[EventMan.Events] = [
 		EventMan.Events.TORNADO,
@@ -100,9 +99,8 @@ class LevelData:
 		EventMan.Events.EARTHQUAKE
 	]
 	var items : Dictionary[ItemData.ItemTypes, int] = {
-		ItemData.ItemTypes.WOOD:6,
 		ItemData.ItemTypes.WHEAT:2,
-		ItemData.ItemTypes.ROCK:8,
+		ItemData.ItemTypes.ROCK:6,
 		ItemData.ItemTypes.WHEAT_SEEDS:12,
 		ItemData.ItemTypes.ACORN:10
 	}
@@ -110,7 +108,15 @@ class LevelData:
 	func _init() -> void:
 		pass
 
+func reload_environment():
+	if not world_env:
+		return
+	world_env.environment.glow_enabled = GameSettings.glow
+	print(GameSettings.glow)
+
+
 func _ready():
+	reload_environment()
 	Globals.level = self
 	Gamestats.initialize()
 	ready.connect(func (): loaded=true) # Set loaded to true when fully ready
@@ -151,6 +157,10 @@ func _ready():
 
 	# Connect updates for station effects
 	stations.child_order_changed.connect(update_station_stats)
+	if machine:
+		machine.game_end.connect(_win)
+	else:
+		print("No machine found.")
 
 	# Load level data
 	spawn_cooldown = level_data.item_spawn_cooldown
@@ -161,7 +171,8 @@ func _ready():
 	spawn_items = level_data.items
 
 func _win(): ## Ends the game in a victory
-	Achievements.raise_progress(Achievements.Achievements.ADDICT)
+	if (level_data.mode != Config.GameDifficulties.TUTORIAL):
+		Achievements.raise_progress(Achievements.Achievements.ADDICT)
 	match level_data.mode:
 		Config.GameDifficulties.FIELD_STANDARD:
 			Achievements.raise_progress(Achievements.Achievements.FIELD_STANDARD)
@@ -169,6 +180,21 @@ func _win(): ## Ends the game in a victory
 			Achievements.raise_progress(Achievements.Achievements.FIELD_ROWDY)
 		Config.GameDifficulties.FIELD_MAYHEM:
 			Achievements.raise_progress(Achievements.Achievements.FIELD_MAYHEM)
+
+		Config.GameDifficulties.TUNDRA_STANDARD:
+			Achievements.raise_progress(Achievements.Achievements.TUNDRA_STANDARD)
+		Config.GameDifficulties.TUNDRA_ROWDY:
+			Achievements.raise_progress(Achievements.Achievements.TUNDRA_ROWDY)
+		Config.GameDifficulties.TUNDRA_MAYHEM:
+			Achievements.raise_progress(Achievements.Achievements.TUNDRA_MAYHEM)
+
+		Config.GameDifficulties.DESERT_STANDARD:
+			Achievements.raise_progress(Achievements.Achievements.DESERT_STANDARD)
+		Config.GameDifficulties.DESERT_ROWDY:
+			Achievements.raise_progress(Achievements.Achievements.DESERT_ROWDY)
+		Config.GameDifficulties.DESERT_MAYHEM:
+			Achievements.raise_progress(Achievements.Achievements.DESERT_MAYHEM)
+
 	victory.emit()
 
 func _spawn_item():

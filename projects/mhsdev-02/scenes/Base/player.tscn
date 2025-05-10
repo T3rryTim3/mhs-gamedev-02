@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://mjb3tm0mtc3r"]
+[gd_scene load_steps=99 format=3 uid="uid://mjb3tm0mtc3r"]
 
 [ext_resource type="Script" uid="uid://nb0u0ar8t5wn" path="res://scripts/player.gd" id="1_1ohs8"]
 [ext_resource type="Texture2D" uid="uid://cygwur3w30pv8" path="res://images/Humanoid/Pitchfork sprites-animations/front attack/frontattack01.png" id="2_3ua4m"]
@@ -65,6 +65,7 @@
 [ext_resource type="Script" uid="uid://kc4yu1s1w6fn" path="res://scenes/Base/playercamera.gd" id="59_eekm3"]
 [ext_resource type="AudioStream" uid="uid://72sdsb0a34wr" path="res://Audio/SFX/Other/Pitch Fork Edit 1 Export 1.mp3" id="62_ans4x"]
 [ext_resource type="AudioStream" uid="uid://bumi3qh4oe6uc" path="res://Audio/SFX/Stations/Blueprint Edit 1 Export 1.mp3" id="64_hkcpf"]
+[ext_resource type="AudioStream" uid="uid://dtbtwk7qp5ok" path="res://Audio/SFX/Event/Rock Break Edit 1 Export 1.mp3" id="65_ffcsl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xebjq"]
 size = Vector2(13, 19)
@@ -653,6 +654,10 @@ volume_db = 2.811
 [node name="Blueprint" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("64_hkcpf")
 volume_db = -5.0
+
+[node name="RockBreak" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("65_ffcsl")
+volume_db = -10.622
 
 [node name="MapParticles" type="Node2D" parent="."]
 

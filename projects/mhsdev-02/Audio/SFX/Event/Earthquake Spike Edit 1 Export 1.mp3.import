@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cf2481g6yx2jd"
+path="res://.godot/imported/Earthquake Spike Edit 1 Export 1.mp3-f02b7b59d390f8b99da7e36d7b68d48b.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Event/Earthquake Spike Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Earthquake Spike Edit 1 Export 1.mp3-f02b7b59d390f8b99da7e36d7b68d48b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

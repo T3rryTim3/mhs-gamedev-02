@@ -7,6 +7,7 @@ var shake_offset:float = 1
 var current_cooldown:float = 0
 
 func _shake() -> void:
+	$Shake.play()
 	Globals.level.player.camera.add_trauma(0.4)
 	for entity in get_tree().get_nodes_in_group("entity"):
 		var ang = randf_range(0, 2*PI)
@@ -14,6 +15,8 @@ func _shake() -> void:
 		entity.apply_force(dir * shake_power)
 		if entity is Station:
 			entity._update_health(entity.health - 3)
+		if entity is Item:
+			entity._update_health(entity.max_health * randf_range(0.05,0.2))
 
 func _process(delta:float):
 	super(delta)

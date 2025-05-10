@@ -37,7 +37,11 @@ func _strike():
 func _process(delta:float):
 	super(delta)
 	if dying:
-		if len(get_children()) == 0:
+		var lightning_children:Array
+		for child in get_children():
+			if child is Area2D:
+				lightning_children.append(child)
+		if len(lightning_children) == 0:
 			queue_free()
 		return
 

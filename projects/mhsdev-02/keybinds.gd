@@ -21,7 +21,8 @@ var input_actions = {
 	"drop" : "Drop",
 	"use_item" : "Use item",
 	"attack": "Attack",
-	"spawn_event" : "[DEBUG] Spawn event",
+	"cycle_items": "Cycle items"
+	#"spawn_event" : "[DEBUG] Spawn event",
 }
 
 func _ready():

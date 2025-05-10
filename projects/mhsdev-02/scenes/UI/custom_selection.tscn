@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cg2r3fko6g83i"]
+[gd_scene load_steps=4 format=3 uid="uid://t0l2ywopkm3u"]
 
 [ext_resource type="Script" uid="uid://b0edkb5vnc8br" path="res://scripts/custom_selection.gd" id="1_mp0t1"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="2_4bfu5"]
@@ -24,3 +24,4 @@ theme = ExtResource("2_6yf7f")
 theme_override_constants/scrollbar_v_separation = 80
 theme_override_fonts/font = ExtResource("2_4bfu5")
 columns = 2
+hide_root = true

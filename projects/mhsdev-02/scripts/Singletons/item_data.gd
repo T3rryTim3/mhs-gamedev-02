@@ -114,9 +114,11 @@ func use_item(item:Item, player:Player, delta:float):
 				item.queue_free()
 			ItemTypes.WATER:
 				player.state.thirst.val += 10
+				player.state.temp.val -= 10
 				item.queue_free()
 			ItemTypes.WATER_CLEAN:
 				player.state.thirst.val += 20
+				player.state.temp.val -= 10
 				item.queue_free()
 			ItemTypes.APPLE:
 				player.state.thirst.val += 8

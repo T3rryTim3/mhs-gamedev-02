@@ -26,7 +26,6 @@ func _ready() -> void:
 	strike_sprite.animation_finished.connect(strike_sprite.hide)
 
 func _on_start_pressed() -> void:
-	Globals.main.music_man.target_song = "res://Audio/Music/Mystic Garden.wav"
 	Globals.main._load_scene(Main.Scenes.LEVEL_SELECT)
 
 func _on_button_pressed() -> void:

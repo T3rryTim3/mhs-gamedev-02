@@ -159,10 +159,6 @@ metadata/_tab_index = 2
 
 [node name="Keybinds" parent="TabContainer/Keybinds" instance=ExtResource("2_usoba")]
 layout_mode = 1
-offset_left = 9.0
-offset_top = 14.0
-offset_right = 9.0
-offset_bottom = 14.0
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 2

@@ -66,19 +66,19 @@ var data = {
 	Achievements.DESERT_STANDARD: {
 		"name": "The Good",
 		"desc": "Beat desert on standard mode. Unlocks rowdy mode.",
-		"icon": "res://images/Achievements/hat.png",
+		"icon": "res://images/Achievements/pokey plant.png",
 		"max": 1 # The amount of progress needed for the achievement to complete
 	},
 	Achievements.DESERT_ROWDY: {
 		"name": "The bad",
 		"desc": "Beat desert on rowdy mode. Unlocks mayhem mode.",
-		"icon": "res://images/Achievements/damaged hat.png",
+		"icon": "res://images/Achievements/well done pokey plant.png",
 		"max": 1 # The amount of progress needed for the achievement to complete
 	},
 	Achievements.DESERT_MAYHEM: {
 		"name": "The ugly",
 		"desc": "Beat desert on mayhem mode.",
-		"icon": "res://images/Achievements/Oh goodness.png",
+		"icon": "res://images/Achievements/Congratulations pokey plant.png",
 		"max": 1 # The amount of progress needed for the achievement to complete
 	},
 	Achievements.ADDICT: {
@@ -96,19 +96,19 @@ var data = {
 	Achievements.HUNDRED_DEATHS: {
 		"name": "'Tis but a scratch",
 		"desc": "Die 100 times.",
-		"icon": "res://images/Achievements/Death.png",
+		"icon": "res://images/Achievements/Frost Burn.png",
 		"max": 100 # The amount of progress needed for the achievement to complete
 	},
 	Achievements.BUILDER: {
 		"name": "Builder",
 		"desc": "Build 10 stations.",
-		"icon": "res://images/Achievements/Death.png",
+		"icon": "res://images/Achievements/Stop.png",
 		"max": 10 # The amount of progress needed for the achievement to complete
 	},
 	Achievements.BUILDER_2: {
 		"name": "Urban Planning",
 		"desc": "Build 100 stations.",
-		"icon": "res://images/Achievements/Death.png",
+		"icon": "res://images/Achievements/Hammer time.png",
 		"max": 100 # The amount of progress needed for the achievement to complete
 	}
 }

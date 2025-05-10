@@ -5,7 +5,9 @@ var player:Player
 
 func display() -> void: 
 	get_tree().paused = true
-	$AnimationPlayer.play("Open")
+	print("Displaying")
+	show()
+	$AnimationPlayer.play("Idoknou")
 	$MarginContainer/Label.text = Gamestats.get_string()
 	if player:
 		var minutes = Gamestats.level_time / 60
@@ -30,4 +32,4 @@ func _on_quit_pressed() -> void:
 
 func _on_restart_pressed() -> void:
 	get_tree().paused = false
-	Globals.main._load_scene(Globals.current_level, Globals.current_leveldata)
+	Globals.main._load_scene(Globals.main.Scenes.LEVEL_SELECT)

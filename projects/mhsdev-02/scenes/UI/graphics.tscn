@@ -21,14 +21,17 @@ alignment = 1
 
 [node name="Glow" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Glow"
 
 [node name="Bloom" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Bloom Effects"
 
 [node name="HBV" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Healthbar Vignette"
 
 [node name="Label" type="Label" parent="VBoxContainer"]

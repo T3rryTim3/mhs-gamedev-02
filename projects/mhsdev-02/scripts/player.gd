@@ -14,6 +14,7 @@ signal death
 signal item_used
 
 var blueprint_hover = preload("res://scenes/Base/blueprint_hover.tscn")
+var item_scn = preload("res://scenes/Base/item.tscn")
 
 enum ThirstLevel {
 	NONE,
@@ -344,14 +345,26 @@ func _attack():
 	var level:Level = _get_level()
 	if level.break_layer:
 		var pos = level.break_layer.local_to_map(level.break_layer.to_local($HitCollider.global_position))
-		var data = level.break_layer.get_cell_tile_data(pos)
+		var data:TileData = level.break_layer.get_cell_tile_data(pos)
 		if data:
+			$RockBreak.play()
+			if randf_range(0,0.15) < 1:
+				var rock = item_scn.instantiate()
+				rock.id = ItemData.ItemTypes.ROCK
+				get_parent().add_child(rock)
+				rock.global_position = level.break_layer.to_global(level.break_layer.map_to_local(pos))
 			level.break_layer.set_cell(pos, -1)
 		else:
 			for pos_1 in level.break_layer.get_surrounding_cells(pos):
 				var data_1 = level.break_layer.get_cell_tile_data(pos_1)
 				if data_1:
 					level.break_layer.set_cell(pos_1, -1)
+					$RockBreak.play()
+					if randf_range(0,1) < 0.15:
+						var rock = item_scn.instantiate()
+						rock.id = ItemData.ItemTypes.ROCK
+						get_parent().add_child(rock)
+						rock.global_position = level.break_layer.to_global(level.break_layer.map_to_local(pos))
 					break
 
 func _process(delta) -> void:
@@ -401,7 +414,7 @@ func _process(delta) -> void:
 			hunger_tick = hunger_tick_max
 		hunger_tick -= delta
 
-	# Item hover
+	# Item hoverw
 	highlight_nearest()
 	
 	# Input
@@ -488,14 +501,18 @@ func _input(event) -> void:
 				delete_mode = false
 			begin_blueprint(StationData.Stations.WELL)
 		mode_changed.emit()
+	
+	if event.is_action_pressed("cycle_items"):
+		collector.cycle_items()
 
 	if event is InputEventKey:
 		if event.pressed:
 			match event.keycode:
 				KEY_K:
+					pass
 					#EventMan.spawn_event(EventMan.Events.TORNADO, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.VOLCANO, get_parent(), 1)
-					EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
+					#EventMan.spawn_event(EventMan.Events.STORM, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.BLIZZARD, get_parent(), 1)
 					#EventMan.spawn_event(EventMan.Events.EARTHQUAKE, get_parent(), 1)
 				KEY_N:
@@ -506,12 +523,12 @@ func _input(event) -> void:
 					print(state["hunger"].val)
 					print("Temp:")
 					print(state["temp"].val)
-				KEY_R:
-					collector.cycle_items()
-				KEY_P:
-					give_upgrade.emit()
-				KEY_7:
-					_update_health(0)
+				#KEY_R:
+					#collector.cycle_items()
+				#KEY_P:
+					#give_upgrade.emit()
+				#KEY_7:
+					#_update_health(0)
 
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and current_blueprint:
