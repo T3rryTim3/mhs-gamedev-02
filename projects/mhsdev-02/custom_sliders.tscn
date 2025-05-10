@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnp4x4n2jwes6"]
+[gd_scene load_steps=4 format=3 uid="uid://bnp4x4n2jwes6"]
+
+[ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_rfhcm"]
+[ext_resource type="Script" uid="uid://bxlr2uf2xt4qn" path="res://custom_sliders.gd" id="2_yv1ga"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oimh"]
-bg_color = Color(0.413237, 0.100428, 0, 1)
+bg_color = Color(0.218, 0.043, 0.335, 0.79)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -11,175 +14,306 @@ corner_radius_bottom_left = 20
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -2.0
-offset_top = 39.0
+offset_top = -1.0
 offset_right = -2.0
-offset_bottom = 102.0
+offset_bottom = 559.0
 grow_horizontal = 2
+theme = ExtResource("1_rfhcm")
 theme_override_styles/panel = SubResource("StyleBoxFlat_1oimh")
+script = ExtResource("2_yv1ga")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/MarginContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 200
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer/HSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Event Cooldown"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Cooldown" type="HSlider" parent="VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer2"]
+[node name="Cooldown" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
-min_value = 1.0
-max_value = 10000.0
-value = 1.0
+min_value = 25.0
+max_value = 60.0
+step = 5.0
+value = 25.0
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer2/Cooldown"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 25.0
+offset_right = 61.0
+offset_bottom = 53.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/MarginContainer2"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 151
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2/HSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Item Spawn Cooldown"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="ItemSpawn" type="HSlider" parent="VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer2"]
+[node name="ItemSpawn" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
 min_value = 1.0
-max_value = 100000.0
+max_value = 3.0
+step = 0.5
 value = 1.0
 
-[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer2/ItemSpawn"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 26.0
+offset_right = 44.0
+offset_bottom = 54.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/MarginContainer3"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 theme_override_constants/separation = 175
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer3/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3/HSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Temperature Drain"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer3/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Temperature" type="HSlider" parent="VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer2"]
+[node name="Temperature" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
-max_value = 2.0
-step = 0.25
+min_value = 0.4
+max_value = 1.8
+step = 0.2
+value = 0.4
 
-[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer2/Temperature"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 23.0
+offset_right = 46.0
+offset_bottom = 51.0
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/MarginContainer4"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4"]
 layout_mode = 2
 theme_override_constants/separation = 208
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4/HSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Event Strength"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Events" type="HSlider" parent="VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer2"]
+[node name="Events" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
-min_value = 1.0
-max_value = 2.0
-step = 0.25
-value = 1.0
+min_value = 0.4
+max_value = 1.8
+step = 0.05
+value = 0.4
 
-[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer2/Events"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 26.0
+offset_right = 47.0
+offset_bottom = 54.0
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/MarginContainer5"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5"]
 layout_mode = 2
 theme_override_constants/separation = 208
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer5/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5/HSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Thirst Modifier"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer5/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Thirst" type="HSlider" parent="VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer2"]
+[node name="Thirst" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
 min_value = 1.0
-max_value = 5.0
-step = 0.05
+max_value = 4.0
+step = 0.2
 value = 1.0
 
-[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer2/Thirst"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 28.0
+offset_right = 63.0
+offset_bottom = 56.0
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/MarginContainer6"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6"]
 layout_mode = 2
 theme_override_constants/separation = 198
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer6/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Hunger Modifier"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer6/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Hunger" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer2"]
+layout_mode = 2
+min_value = 0.25
+max_value = 3.0
+step = 0.05
+value = 0.25
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer2/Hunger"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 22.0
+offset_right = 42.0
+offset_bottom = 50.0
+
+[node name="MarginContainer8" type="MarginContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8"]
+layout_mode = 2
+theme_override_constants/separation = 198
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer"]
 layout_mode = 2
 
-[node name="Hunger" type="HSlider" parent="VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Event Multiplier"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EMultiplier" type="HSlider" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer/VBoxContainer2"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
-step = 0.05
 value = 1.0
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer/VBoxContainer2/EMultiplier"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -648.0
+offset_top = 26.0
+offset_right = -608.0
+offset_bottom = 54.0
+grow_horizontal = 0
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+text = "Back"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 1
+text = "Start"
+
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer/HSplitContainer/VBoxContainer2/Cooldown" to="." method="_on_cooldown_changed"]
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer2/HSplitContainer/VBoxContainer2/ItemSpawn" to="." method="_on_item_spawn_changed"]
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer3/HSplitContainer/VBoxContainer2/Temperature" to="." method="_on_temperature_changed"]
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer4/HSplitContainer/VBoxContainer2/Events" to="." method="_on_events_changed"]
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer5/HSplitContainer/VBoxContainer2/Thirst" to="." method="_on_thirst_changed"]
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer2/Hunger" to="." method="_on_hunger_changed"]
+[connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer/VBoxContainer2/EMultiplier" to="." method="_on_e_multiplier_changed"]
+[connection signal="pressed" from="Exit" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]

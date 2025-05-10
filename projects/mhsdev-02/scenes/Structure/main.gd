@@ -16,7 +16,8 @@ enum Scenes {
 	LEVEL_TUNDRA,
 	LEVEL_DESERT,
 	PAUSE,
-	ACHIEVEMENTS
+	ACHIEVEMENTS,
+	CUSTOM_SLIDERS
 }
 
 func save():
@@ -98,6 +99,8 @@ func _load_scene(scene:Scenes, level_data:Level.LevelData=null):
 			new_scene = load("res://scenes/UI/PauseMenu.tscn").instantiate()
 		Scenes.ACHIEVEMENTS:
 			new_scene = load("res://scenes/UI/unlock_screen.tscn").instantiate()
+		Scenes.CUSTOM_SLIDERS:
+			new_scene = load("res://custom_sliders.tscn").instantiate()
 		_:
 			print("ERROR: SCENE NOT FOUND")
 			return

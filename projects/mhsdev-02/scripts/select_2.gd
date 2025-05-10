@@ -312,7 +312,7 @@ func _item_activated():
 		return
 	var level_data
 	if current_level["name"] == "Custom":
-		return #TODO: Load slider values into a leveldata object
+		$CustomSliders.visible = true
 	else:
 		level_data = Config.get_difficulty_level_data(current_mode["leveldata"])
 	Globals.current_level = current_level["scene_enum"]

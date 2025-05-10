@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmvd1we8icqh8"]
+[gd_scene load_steps=15 format=3 uid="uid://bmvd1we8icqh8"]
 
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="1_43cdq"]
 [ext_resource type="Script" uid="uid://cwuro2r7m6v6h" path="res://scripts/select_2.gd" id="2_uauud"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c4kt2p7my0yub" path="res://loadingscreentips.tscn" id="4_l2oi8"]
 [ext_resource type="Texture2D" uid="uid://by1l1iaicwk77" path="res://images/placeholder/Screenshot from 2025-05-01 20-43-53.png" id="5_xckeu"]
 [ext_resource type="Script" uid="uid://ww8n3k7kxdid" path="res://scripts/text_color.gd" id="6_4ihci"]
+[ext_resource type="PackedScene" uid="uid://bnp4x4n2jwes6" path="res://custom_sliders.tscn" id="8_iyd4d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2oi8"]
 bg_color = Color(0.1, 0.1, 0.1, 0.443137)
@@ -161,6 +162,16 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+
+[node name="CustomSliders" parent="." instance=ExtResource("8_iyd4d")]
+layout_mode = 1
+anchors_preset = 15
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false

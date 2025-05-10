@@ -128,7 +128,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			
 		GameDifficulties.DESERT_STANDARD:
 			data.event_cooldown = 40
-			data.temp_drain = -2
+			data.temp_drain = 0.4
 			data.thirst_multi = 1.6
 			data.strength_per_minute = 1
 			data.hunger_multi = 0.25
@@ -137,7 +137,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			
 		GameDifficulties.DESERT_ROWDY:
 			data.event_cooldown = 30
-			data.temp_drain = -3
+			data.temp_drain = 0.6
 			data.thirst_multi = 1.8
 			data.strength_per_minute = 1.25
 			data.hunger_multi = 0.25
@@ -146,7 +146,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			
 		GameDifficulties.DESERT_MAYHEM:
 			data.event_cooldown = 25
-			data.temp_drain = -4
+			data.temp_drain = 0.6
 			data.thirst_multi = 2
 			data.strength_per_minute = 1.5
 			data.hunger_multi = 0.314159265
@@ -155,7 +155,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			
 		GameDifficulties.DESERT_ENDLESS:
 			data.event_cooldown = 30
-			data.temp_drain = -3
+			data.temp_drain = 0.4
 			data.thirst_multi = 1.8
 			data.strength_per_minute = 1.25
 			data.hunger_multi = 0.25
