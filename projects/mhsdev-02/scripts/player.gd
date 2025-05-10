@@ -426,9 +426,11 @@ func _process(delta) -> void:
 
 	# Update item progress
 	var item = _used_item()
-	if Input.is_action_pressed("use_item"):
-		if not _use(delta) and Input.is_action_just_pressed("attack"): # Prevent holding attack
+	if Input.is_action_just_pressed("attack"): # Prevent holding attack
+		if len(collector.current_resources) == 0:
 			_attack()
+	if Input.is_action_pressed("use_item"):
+		_use(delta)
 	elif item:
 		item.using = false
 
@@ -478,6 +480,7 @@ func _input(event) -> void:
 		mode_changed.emit()
 	
 	if event.is_action_pressed("blueprint"):
+		$Blueprint.play()
 		if current_blueprint:
 			stop_blueprint()
 		else:

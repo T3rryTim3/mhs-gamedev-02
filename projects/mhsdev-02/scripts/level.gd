@@ -18,6 +18,9 @@ signal victory
 ## Limit for the map (just a collisionshape2d)
 @export var map_limit:CollisionShape2D
 
+## The Machine
+@export var machine:Machine
+
 ## Breakable TileMapLayer
 @export var break_layer:TileMapLayer
 

@@ -46,6 +46,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			decay_rate = 0.0
 			use_time = 0.5
 			img_path = "res://images/items/dirty_water.png"
+			pickup_sound = "res://Audio/SFX/Items/Water Bucket Edit 1 Export 1.mp3"
 			use_sound = "res://Audio/SFX/Items/Dinking Water Edit 1 Export 1.mp3"
 			effect_immunities = [
 				EffectData.EffectTypes.BURNING
@@ -55,6 +56,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			decay_rate = 0.0
 			use_time = 0.5
 			img_path = "res://images/items/water.png"
+			pickup_sound = "res://Audio/SFX/Items/Water Bucket Edit 1 Export 1.mp3"
 			use_sound = "res://Audio/SFX/Items/Dinking Water Edit 1 Export 1.mp3"
 			effect_immunities = [
 				EffectData.EffectTypes.BURNING
@@ -71,6 +73,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 3
 			decay_rate = 0
 			img_path = "res://images/items/Wheat Seeds Bag.png"
+			pickup_sound = "res://Audio/SFX/Items/Wheat Seeds Edit 1 Export 1.mp3"
 		ItemTypes.APPLE:
 			health = 8
 			decay_rate = 0.1
@@ -79,6 +82,7 @@ func get_item_data(id:ItemTypes) -> Dictionary:
 			health = 6
 			decay_rate = 0
 			img_path = "res://images/items/Acorn.png"
+			pickup_sound = "res://Audio/SFX/Items/Acorn Edit 1 Export 1.mp3"
 	return {
 		"health": health,
 		"decay_rate": decay_rate,

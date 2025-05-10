@@ -15,12 +15,18 @@ var ending:bool = false
 var end_time:float = 0.3
 var current_end_time:float = 0
 
+@onready var strike_sound = $Strike
+@onready var spark_sound = $Spark
+
 func _end():
 	ending = true
 
 func _process(delta: float) -> void:
 	var old = current_progress
 	current_progress += delta
+
+	if not Globals.level.player:
+		return
 
 	if ending:
 		current_end_time += delta

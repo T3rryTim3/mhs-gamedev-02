@@ -61,11 +61,11 @@ func _process(delta):
 func _ready() -> void:
 	# Set default stats and connections
 	collider.connect("body_entered", fling)
-	push_strength = EventMan.scale_val(data.strength/2) * 300 # Use scale_val for logarithmic growth
-	tornado.scale = _double_vec2(EventMan.scale_val(data.strength) * 2)
+	push_strength = max(EventMan.scale_val(data.strength/2) * 300, 800) # Use scale_val for logarithmic growth
+	tornado.scale = _double_vec2(max(4,EventMan.scale_val(data.strength) * 2))
 	move_cooldown = 2.0
 	cooldown_delay = 0 / data.strength
-	push_damage = 2.5 * EventMan.scale_val(data.strength)
+	push_damage = max(6,2.5 * (EventMan.scale_val(data.strength)/3))
 	_select_target()
 	sprite.play() # Tornado animation
 	$Tornado/Body/Sound.play()

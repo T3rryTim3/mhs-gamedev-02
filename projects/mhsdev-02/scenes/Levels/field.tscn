@@ -66,10 +66,11 @@ height = 1500
 fill_from = Vector2(0.706422, 0)
 fill_to = Vector2(0, 1)
 
-[node name="field" type="Node2D" node_paths=PackedStringArray("map_limit", "break_layer")]
+[node name="field" type="Node2D" node_paths=PackedStringArray("map_limit", "machine", "break_layer")]
 script = ExtResource("1_mkj7t")
 health_vignette_curve = SubResource("Curve_d0i73")
 map_limit = NodePath("CameraLimit")
+machine = NodePath("Map/The Machine")
 break_layer = NodePath("Map/Over1")
 
 [node name="CameraLimit" type="CollisionShape2D" parent="."]

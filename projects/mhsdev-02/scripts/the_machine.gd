@@ -208,16 +208,21 @@ func _ending() -> void: ## Ends the game
 func _passed(target:float,a:float,b:float) -> bool: ## Returns true if a passed target, using b as its previous value
 	return (a >= target) and b < target
 
-func _strike_lightning(str:float,pos:Vector2,time:float=1.0):
+func _strike_lightning(str:float,pos:Vector2,time:float=1.0, vol:float=1.0):
 	var strike = strike_scn.instantiate()
 	strike.data = EventMan.EventData.new("","",0,str)
 	_get_level().add_child(strike)
 	strike.warning_time = time
 	strike.global_position = pos
+	strike.strike_sound.volume_linear = vol
+	strike.spark_sound.volume_linear = vol
 
 func _lightning_circle(str:float,pos:Vector2,count:int,dist:float=200, time:float=1.0):
 	for x in range(count):
-		_strike_lightning(2,global_position + Vector2(dist*cos((2*PI)*x/count),dist*sin((2*PI)*x/count)), time)
+		if x == 0:
+			_strike_lightning(2,global_position + Vector2(dist*cos((2*PI)*x/count),dist*sin((2*PI)*x/count)), time, 1)
+		else:
+			_strike_lightning(2,global_position + Vector2(dist*cos((2*PI)*x/count),dist*sin((2*PI)*x/count)), time, 0.01)
 
 func _fireball(dir:Vector2, damage:float, stren:float, pos:Vector2):
 	var ball:CharacterBody2D = fireball_scn.instantiate()
@@ -234,7 +239,10 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 	var level:Level = Globals.level
 	var player:Player = Globals.level.player
 	#var stren = level.strength
-	var stren = 7
+	var stren = 30
+
+	if not player:
+		return
 
 	end_prog += delta
 
@@ -261,8 +269,12 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 					_lightning_circle(1, global_position, 15, 150)
 				if _passed(5,end_prog,prev):
 					_lightning_circle(1, global_position, 10, 100)
+				if _passed(7,end_prog,prev):
+					_strike_lightning(100, global_position, 3, 0)
+					_lightning_circle(0.5, global_position, 20, 150, 3)
 
 			if _passed(10,end_prog,prev):
+				hide()
 				EventMan.spawn_event(EventMan.Events.VOLCANO, level, stren)
 				EventMan.spawn_event(EventMan.Events.VOLCANO, level, stren)
 			if _passed(15, end_prog,prev):
@@ -280,13 +292,22 @@ func _end_process(delta) -> void: ## Called during the end of the game each fram
 			if _passed(50, end_prog,prev):
 				_lightning_circle(1, global_position, 10, 100, 2)
 				_lightning_circle(1, global_position, 10, 200)
-			if end_prog > 1:
-				if fmod(end_prog, 0.5) < fmod(prev, 0.5):
+			print(end_prog)
+			if end_prog > 55 and end_prog < 65:
+				if fmod(end_prog, 2) < fmod(prev, 2):
 					var ang = randf_range(0,2*PI)
-					for x in range(10):
-						var dir = Vector2(cos(2*PI*x/10 + ang), sin(2*PI*x/10 + ang))
+					for x in range(20):
+						var dir = Vector2(cos((2*PI*x)/20 + ang), sin(2*PI*x/20 + ang))
 						_fireball(dir, 2, stren, global_position)
-			#if end_prog > 1:
+				if fmod(end_prog, 5) < fmod(prev, 5):
+					var offset = randi_range(-100,100)
+					_lightning_circle(1, global_position, 10, 100 + offset, 3)
+					_lightning_circle(1, global_position, 20, 200 + offset, 5)
+					_lightning_circle(1, global_position, 30, 400 + offset, 7)
+					_lightning_circle(1, global_position, 40, 800 + offset, 9)
+			if end_prog > 65:
+				pass
+			#if end_prog > 100 and end_prog < 105:
 				#if fmod(end_prog, 0.1) < fmod(prev, 0.1):
 					#var ang = randf_range(0,2*PI)
 					#var dir = Vector2(cos(ang), sin(ang))

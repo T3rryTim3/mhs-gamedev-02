@@ -3,7 +3,7 @@ extends Camera2D
 var camera_mouse_offset:Vector2
 var camera_shake_offset:Vector2
 
-@export var decay = 0.8  # How quickly the shaking stops [0, 1].
+@export var decay = 0.95  # How quickly the shaking stops [0, 1].
 @export var max_offset = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
 @export var max_roll = 0.1  # Maximum rotation in radians (use sparingly).
 

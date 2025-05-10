@@ -88,6 +88,7 @@ debug_color = Color(1.92523e-07, 0.695419, 0.809987, 0.42)
 
 [node name="Add" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_n3l6d")
+autoplay = true
 bus = &"SFX"
 
 [connection signal="item_collected" from="Collector" to="." method="_on_collector_item_collected"]

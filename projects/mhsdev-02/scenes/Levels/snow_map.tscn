@@ -50,11 +50,12 @@ height = 256
 fill = 1
 fill_from = Vector2(0.536697, 0.555046)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("map_limit", "break_layer")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("map_limit", "machine", "break_layer")]
 y_sort_enabled = true
 script = ExtResource("1_chcrk")
 health_vignette_curve = SubResource("Curve_4i31u")
 map_limit = NodePath("CameraLimit")
+machine = NodePath("Map/The Machine")
 break_layer = NodePath("Map/rocks")
 
 [node name="Map" type="Node2D" parent="."]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d00rxcqehkck6"
+path="res://.godot/imported/Acorn Edit 1 Export 1.mp3-fb7d4cace28e980fa90ba6fbc87ed1d5.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Items/Acorn Edit 1 Export 1.mp3"
+dest_files=["res://.godot/imported/Acorn Edit 1 Export 1.mp3-fb7d4cace28e980fa90ba6fbc87ed1d5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

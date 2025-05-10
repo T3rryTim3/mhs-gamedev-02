@@ -76,6 +76,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		
 		GameDifficulties.FIELD_MAYHEM:
 			data.event_cooldown = 45
+			data.grace_period = 0
 			data.temp_drain = 0.8
 			data.event_multiplier = 2
 			data.strength_per_minute = 1.2
@@ -111,6 +112,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.TUNDRA_MAYHEM:
 			data.event_cooldown = 40
 			data.temp_drain = 2
+			data.grace_period = 0
 			data.thirst_multi = 1.5
 			data.strength_per_minute = 1
 			data.hunger_multi = 1.25
@@ -147,6 +149,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 		GameDifficulties.DESERT_MAYHEM:
 			data.event_cooldown = 25
 			data.temp_drain = -4
+			data.grace_period = 0
 			data.thirst_multi = 2
 			data.strength_per_minute = 1.5
 			data.hunger_multi = 0.314159265
