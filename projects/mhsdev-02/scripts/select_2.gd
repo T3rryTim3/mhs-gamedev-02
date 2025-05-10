@@ -312,14 +312,14 @@ func _item_activated():
 		return
 	var level_data
 	if current_level["name"] == "Custom":
-		$CustomSliders.visible = true
+		get_tree().change_scene_to_file("res://custom_sliders.tscn")
 	else:
 		level_data = Config.get_difficulty_level_data(current_mode["leveldata"])
+		if "music_path" in current_level:
+			Globals.main.music_man.target_song = current_level["music_path"]
+		Globals.main._load_scene(current_level["scene_enum"], level_data)
 	Globals.current_level = current_level["scene_enum"]
-	if "music_path" in current_level:
-		Globals.main.music_man.target_song = current_level["music_path"]
-	Globals.main._load_scene(current_level["scene_enum"], level_data)
-
+	
 func _update_color(mode:Dictionary, level:Dictionary) -> void:
 	var level_color
 	var mode_color

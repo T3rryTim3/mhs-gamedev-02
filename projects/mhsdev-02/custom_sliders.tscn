@@ -315,5 +315,5 @@ text = "Start"
 [connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer6/HSplitContainer/VBoxContainer2/Hunger" to="." method="_on_hunger_changed"]
 [connection signal="changed" from="VBoxContainer/MarginContainer7/VBoxContainer/MarginContainer8/HSplitContainer/VBoxContainer2/EMultiplier" to="." method="_on_e_multiplier_changed"]
 [connection signal="pressed" from="Exit" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_button_pressed"]

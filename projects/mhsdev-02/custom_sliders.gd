@@ -19,7 +19,7 @@ var maps = [
 
 
 func _ready():
-	visible = false
+	visible = true
 	_update_values()
 	mapselection.clear()
 	for map_data in maps:
@@ -62,7 +62,7 @@ func _sliders():
 
 
 func _on_button_pressed():
-	visible = false
+	get_tree().change_scene_to_file("res://scenes/UI/select2.tscn")
 	
 
 
@@ -79,3 +79,5 @@ func _on_start_pressed() -> void:
 		get_tree().change_scene(scene_path)
 	else:
 		print("No scene path found for the selected item.")
+		
+	
