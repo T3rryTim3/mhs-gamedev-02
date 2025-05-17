@@ -5,7 +5,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7g6h"]
 
 [sub_resource type="Gradient" id="Gradient_abix8"]
-colors = PackedColorArray(0.994353, 0.895384, 0.485571, 1, 0.999424, 0.885879, 0.494501, 1)
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_abix8"]
 gradient = SubResource("Gradient_abix8")
@@ -13,7 +14,8 @@ width = 12
 height = 12
 
 [sub_resource type="Gradient" id="Gradient_2450e"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.759967, 0.9701, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_j4w4u"]
 gradient = SubResource("Gradient_2450e")
@@ -21,24 +23,23 @@ width = 12
 height = 12
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_j4w4u"]
-color = Color(0.73, 0.5256, 0.3212, 1)
+color = Color(0, 0.378059, 0.453226, 1)
 thickness = 6
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_c5buk"]
-color = Color(1, 0.762616, 0.490618, 1)
+color = Color(1.44392e-06, 0.561987, 0.52207, 1)
 thickness = 6
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_t5cwq"]
-color = Color(0.10937, 0.0394138, 0.00765468, 1)
 grow_begin = 0.0
 grow_end = 0.0
 thickness = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqhca"]
-bg_color = Color(0.477147, 0.309491, 9.62615e-08, 1)
+bg_color = Color(0, 0.41919, 0.694532, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_no5tn"]
-bg_color = Color(0.684645, 0.603054, 0, 1)
+bg_color = Color(0.0587356, 0.329852, 0.474696, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mch0r"]
 bg_color = Color(0.55, 0.393983, 0.143, 1)

@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 [gd_scene load_steps=4 format=3 uid="uid://t0l2ywopkm3u"]
+=======
+[gd_scene load_steps=5 format=3 uid="uid://cg2r3fko6g83i"]
+>>>>>>> 9aec7b34aac4a055ac60385010289bf63a34df49
 
 [ext_resource type="Script" uid="uid://b0edkb5vnc8br" path="res://scripts/custom_selection.gd" id="1_mp0t1"]
 [ext_resource type="FontFile" uid="uid://s43klpq8wwmy" path="res://fonts/PixelFont7-G02A.ttf" id="2_4bfu5"]
 [ext_resource type="Theme" uid="uid://csflkx7jsvvxb" path="res://Resources/UI.tres" id="2_6yf7f"]
+[ext_resource type="PackedScene" uid="uid://bnp4x4n2jwes6" path="res://custom_sliders.tscn" id="4_xogt0"]
 
 [node name="Custom Selection" type="Control"]
 layout_mode = 3
@@ -23,5 +28,24 @@ grow_vertical = 2
 theme = ExtResource("2_6yf7f")
 theme_override_constants/scrollbar_v_separation = 80
 theme_override_fonts/font = ExtResource("2_4bfu5")
+<<<<<<< HEAD
 columns = 2
 hide_root = true
+=======
+
+[node name="CustomSliders" parent="Tree" instance=ExtResource("4_xogt0")]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 0.0
+offset_top = -224.0
+offset_right = 0.0
+offset_bottom = 224.0
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+>>>>>>> 9aec7b34aac4a055ac60385010289bf63a34df49

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dvg2fbt0s1cro"]
+[gd_scene load_steps=15 format=4 uid="uid://dvg2fbt0s1cro"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_chcrk"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="2_l6hh4"]
@@ -9,10 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="7_tf250"]
 [ext_resource type="PackedScene" path="res://scenes/Stations/barricadebig.tscn" id="8_c6ile"]
 [ext_resource type="Texture2D" uid="uid://cc1r0uv6mcheu" path="res://images/stations/snow_tree.png" id="9_l6hh4"]
-
-[sub_resource type="Curve" id="Curve_4i31u"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.771277, 1), 0.0, 0.0, 0, 0, Vector2(0.984043, 0), 0.0, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="Environment" id="Environment_x8h06"]
 background_mode = 3
@@ -53,7 +49,6 @@ fill_from = Vector2(0.536697, 0.555046)
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("map_limit", "machine", "break_layer")]
 y_sort_enabled = true
 script = ExtResource("1_chcrk")
-health_vignette_curve = SubResource("Curve_4i31u")
 map_limit = NodePath("CameraLimit")
 machine = NodePath("Map/The Machine")
 break_layer = NodePath("Map/rocks")
@@ -103,7 +98,7 @@ tile_set = ExtResource("2_l6hh4")
 position = Vector2(589, -271)
 
 [node name="Forest" parent="Map" instance=ExtResource("4_gnce1")]
-position = Vector2(-401, 500)
+position = Vector2(-276, 516)
 
 [node name="The Machine" parent="Map" instance=ExtResource("5_qqntb")]
 y_sort_enabled = true

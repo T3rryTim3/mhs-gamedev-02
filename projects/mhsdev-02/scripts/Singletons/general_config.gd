@@ -159,7 +159,7 @@ var levels = [
 		"modes": [
 			{
 				"name": "Standard",
-				"leveldata": Config.GameDifficulties.TUNDRA_STANDARD,
+				"leveldata": Config.GameDifficulties.DESERT_STANDARD,
 				"bg_color": Color("fa8900"),
 				"image": "res://images/UI/Thumbnail/desert_standard.png",
 				"text_color": Color("ede4b9"),
@@ -173,7 +173,7 @@ var levels = [
 			},
 			{
 				"name": "Rowdy",
-				"leveldata": Config.GameDifficulties.TUNDRA_ROWDY,
+				"leveldata": Config.GameDifficulties.DESERT_ROWDY,
 				"bg_color": Color("a66cf6"),
 				"image": "res://images/UI/Thumbnail/desert_rowdy.png",
 				"text_color": Color("ede1a8"),
@@ -186,7 +186,7 @@ var levels = [
 			},
 			{
 				"name": "Mayhem",
-				"leveldata": Config.GameDifficulties.TUNDRA_MAYHEM,
+				"leveldata": Config.GameDifficulties.DESERT_MAYHEM,
 				"bg_color": Color("ff384d"),
 				"image": "res://images/UI/Thumbnail/desert_mayhem.png",
 				"text_color": Color("eddb80"),
@@ -364,7 +364,7 @@ func get_difficulty_level_data(difficulty: GameDifficulties) -> Level.LevelData:
 			
 		GameDifficulties.DESERT_ENDLESS:
 			data.event_cooldown = 30
-			data.temp_drain = -3
+			data.temp_drain = 0.4
 			data.thirst_multi = 1.8
 			data.strength_per_minute = 1.25
 			data.hunger_multi = 0.25

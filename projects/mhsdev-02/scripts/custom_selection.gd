@@ -1,15 +1,27 @@
 extends Control
 
 @onready var tree:Tree = $Tree
+@onready var sliders = $Tree/CustomSliders
 
 var maps:TreeItem
 var root:TreeItem
 var sets:TreeItem
 
+
 var options = {
+<<<<<<< HEAD
 	"settings": [
 		["Name", [1,10], 0.5]
 	]
+=======
+	"maps": {
+		"Field": Main.Scenes.LEVEL_FIELD,
+		"Tundra": Main.Scenes.LEVEL_TUNDRA,
+		"Desert": Main.Scenes.LEVEL_DESERT
+	},
+	"settings": {
+	}
+>>>>>>> 9aec7b34aac4a055ac60385010289bf63a34df49
 }
 
 func _ready() -> void:
@@ -29,6 +41,7 @@ func _ready() -> void:
 		if k["name"] == "Custom":
 			continue
 		var option = tree.create_item(maps)
+<<<<<<< HEAD
 		option.set_text(0, k["name"])
 		option.set_metadata(0, k)
 
@@ -39,3 +52,19 @@ func _ready() -> void:
 		option.set_editable(1, true)
 		option.set_range_config(0, i[1][0], i[1][1], i[2])
 		#option.
+=======
+		option.set_text(0, k)
+		option.set_metadata(0, options["maps"][k])
+		
+	
+	tree.item_activated.connect(_item_activated)
+	
+
+
+func _item_activated():
+	var selected_item = tree.get_selected()
+	if selected_item == sets:
+		sliders.visible = true
+	else:
+		sliders.visible = false 
+>>>>>>> 9aec7b34aac4a055ac60385010289bf63a34df49

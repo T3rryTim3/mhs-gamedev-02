@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://crrnsl3dlr2gj"]
+[gd_scene load_steps=9 format=4 uid="uid://crrnsl3dlr2gj"]
 
 [ext_resource type="Script" uid="uid://cc3ssph3n2nt7" path="res://scripts/level.gd" id="1_qxd63"]
 [ext_resource type="TileSet" uid="uid://g6y057uryhne" path="res://Resources/field_tileset.tres" id="2_c1ks7"]
@@ -6,10 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://widdd1xl7ari" path="res://scenes/Stations/the_machine.tscn" id="5_wqmt8"]
 [ext_resource type="PackedScene" uid="uid://dgmho5h0opm76" path="res://scenes/Stations/well.tscn" id="6_m37lp"]
 [ext_resource type="PackedScene" uid="uid://mjb3tm0mtc3r" path="res://scenes/Base/player.tscn" id="7_bg071"]
-
-[sub_resource type="Curve" id="Curve_m37lp"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.787234, 1), 0.0, 0.0, 0, 0, Vector2(0.994681, 0), 0.0, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="Environment" id="Environment_ae3t6"]
 background_mode = 3
@@ -35,7 +31,6 @@ size = Vector2(1486.75, 1130)
 
 [node name="DesertMap" type="Node2D" node_paths=PackedStringArray("map_limit", "break_layer")]
 script = ExtResource("1_qxd63")
-health_vignette_curve = SubResource("Curve_m37lp")
 map_limit = NodePath("CameraLimit")
 break_layer = NodePath("Map/Decorations2")
 metadata/_custom_type_script = "uid://cc3ssph3n2nt7"

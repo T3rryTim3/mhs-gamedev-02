@@ -14,9 +14,9 @@ func _shake() -> void:
 		var dir = Vector2(cos(ang), sin(ang))
 		entity.apply_force(dir * shake_power)
 		if entity is Station:
-			entity._update_health(entity.health - 3)
+			entity._update_health(entity.health - 1.5)
 		if entity is Item:
-			entity._update_health(entity.max_health * randf_range(0.05,0.2))
+			entity._update_health(entity.max_health * randf_range(0.05,0.15))
 
 func _process(delta:float):
 	super(delta)
